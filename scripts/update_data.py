@@ -53,7 +53,7 @@ YAHOO = {
     "dji": ("^DJI", "Dow Jones", "puntos", 2, 1.0),
     "merval": ("^MERV", "S&P Merval", "puntos", 0, 1.0),
     "bovespa": ("^BVSP", "Ibovespa", "puntos", 0, 1.0),
-    "ipsa": ("^IPSA", "S&P IPSA (Chile)", "puntos", 2, 1.0),
+    "ipsa": ("ECH", "Chile (ETF ECH)", "US$", 2, 1.0),
     "vix": ("^VIX", "VIX", "puntos", 2, 1.0),
     "dxy": ("DX-Y.NYB", "Índice dólar (DXY)", "puntos", 2, 1.0),
     "ust10": ("^TNX", "Bono EE.UU. 10 años", "% anual", 2, 1.0),
@@ -299,7 +299,7 @@ def merval_usd(items: dict, raw_yahoo: dict, dolares: dict, errors: list):
             raise ValueError("faltan datos de Merval o CCL")
         st = series_stats(pts, 0)
         # El último valor usa el CCL del momento
-        if items.get("merval", {}).get("valor") and items.get("ccl", {}).get("valor"):
+        if items.get("merval", {}).get("valor") and items.get("merval", {}).get("fecha") == items.get("ccl", {}).get("fecha"):
             st["valor"] = round(items["merval"]["valor"] / items["ccl"]["valor"], 0)
         items["merval_usd"] = item("S&P Merval en dólares", "puntos US$ (CCL)", "Cálculo propio: Merval / CCL", **st)
     except Exception as e:
