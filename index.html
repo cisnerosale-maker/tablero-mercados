@@ -11,8 +11,8 @@
 <style>
 /* Layout: terminal de mercado — encabezado con estado de los datos, secciones temáticas, grilla de tarjetas */
 :root {
-  --bg: #EEF0EC; --surface: #FFFFFF; --sunken: #E4E8E4; --ink: #15201B; --muted: #5B6762; --line: #D4DAD5;
-  --accent: #1F5E8C; --up: #1E7A4C; --down: #B42318; --warn: #A15C07;
+  --bg: #DDEBF7; --surface: #FFFFFF; --sunken: #EAF2FA; --ink: #14202C; --muted: #4F6378; --line: #C3D6E8;
+  --accent: #1F5E8C; --brand: #1F4E79; --up: #1E7A4C; --down: #B42318; --warn: #A15C07;
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
   --f-data: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -20,8 +20,8 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0F1412; --surface: #171E1B; --sunken: #131916; --ink: #E4EBE7; --muted: #97A39D; --line: #29332F;
-    --accent: #6FB2E6; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A;
+    --bg: #0D1724; --surface: #142131; --sunken: #111C2A; --ink: #E3ECF5; --muted: #93A6BA; --line: #26374B;
+    --accent: #6FB2E6; --brand: #8DBDEB; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A;
     color-scheme: dark;
   }
 }
@@ -33,7 +33,7 @@ body {
 }
 .wrap { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
 h1, h2 { font-family: var(--f-display); margin: 0; line-height: 1.1; text-wrap: balance; }
-h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; letter-spacing: -0.01em; color: var(--brand); }
 h2 { font-size: 20px; font-weight: 700; }
 .num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
 .muted { color: var(--muted); }
@@ -86,8 +86,9 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
 <div class="wrap">
   <header class="top">
     <div>
-      <div class="muted" style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600">Marcos Juárez · mercados</div>
+      <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span style="color:var(--brand)">Estudio Cisneros</span><span class="muted" style="font-weight:600"> · Marcos Juárez</span></div>
       <h1>Tablero de Mercados</h1>
+      <div class="muted" style="font-size:13.5px;margin-top:6px"><a href="mailto:alejandro.estcisneros@gmail.com" style="color:inherit">alejandro.estcisneros@gmail.com</a> · <a href="tel:+543472589009" style="color:inherit">+54 3472 589009</a></div>
     </div>
     <div class="status">
       <span><i class="dot" id="dotData"></i><span id="txtData">Cargando datos…</span></span>
@@ -180,7 +181,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     const ref = it.mm200 != null ? ["MM200", it.mm200] : it.mm50 != null ? ["MM50", it.mm50] : null;
     if (ref && it.valor != null) {
       const d = (it.valor / ref[1] - 1) * 100;
-      tagMM = `<span class="tag ${d >= 0 ? "above" : "below"}">${d >= 0 ? "▲" : "▼"} ${fmt(Math.abs(d), 1)}% vs ${ref[0]}</span>`;
+      tagMM = `<span class="tag ${(INVERT[id] ? d < 0 : d >= 0) ? "above" : "below"}">${d >= 0 ? "▲" : "▼"} ${fmt(Math.abs(d), 1)}% vs ${ref[0]}</span>`;
     }
     const live = it._live ? `<span class="tag live">en vivo</span>` : it.desactualizado ? `<span class="tag stale">último dato</span>` : "";
     const statCells = [];
