@@ -1,0 +1,18 @@
+{
+ "_instrucciones": "Estos valores no tienen fuente gratuita y se cargan a mano. Editá 'valor' y 'fecha' (AAAA-MM-DD) desde GitHub y guardá. Dejá valor en null si no lo querés mostrar.",
+ "riesgo_br": {
+  "valor": null,
+  "fecha": null,
+  "nota": "EMBI Brasil (JP Morgan). Lo publican a diario Ámbito, Bloomberg Línea o Investing."
+ },
+ "riesgo_cl": {
+  "valor": null,
+  "fecha": null,
+  "nota": "EMBI Chile (JP Morgan). Lo publican a diario Ámbito, Bloomberg Línea o Investing."
+ },
+ "selic": {
+  "valor": null,
+  "fecha": null,
+  "nota": "Tasa Selic. Actualizar después de cada reunión del Copom (cada 45 días)."
+ }
+}
