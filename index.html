@@ -107,13 +107,13 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
 (function () {
   "use strict";
   const SECCIONES = [
-    { t: "Tipo de cambio", ids: ["oficial", "mep", "ccl", "brecha", "mayorista", "usdbrl", "usdclp"] },
+    { t: "Tipo de cambio", ids: ["oficial", "mep", "ccl", "brecha", "mayorista", "eurusd", "usdbrl", "usdclp"] },
     { t: "Riesgo país y tasas", ids: ["riesgo_ar", "pf_bna", "inflacion", "ust10"] },
     { t: "Bolsas", ids: ["merval", "merval_usd", "spx", "nasdaq", "dji", "bovespa", "ipsa", "vix", "dxy"] },
     { t: "Metales y energía", ids: ["cobre", "oro", "plata", "brent", "wti"] },
     { t: "Granos", ids: ["soja", "maiz", "trigo"] }
   ];
-  const DEC = { oficial: 2, mep: 2, ccl: 2, mayorista: 2, brecha: 1, usdbrl: 4, usdclp: 2, riesgo_ar: 0, riesgo_br: 0, riesgo_cl: 0,
+  const DEC = { oficial: 2, mep: 2, ccl: 2, mayorista: 2, brecha: 1, usdbrl: 4, usdclp: 2, eurusd: 4, riesgo_ar: 0, riesgo_br: 0, riesgo_cl: 0,
     pf_bna: 2, inflacion: 1, selic: 2, ust10: 2, merval: 0, merval_usd: 0, spx: 2, nasdaq: 2, dji: 2, bovespa: 0, ipsa: 2,
     vix: 2, dxy: 2, cobre: 3, oro: 1, plata: 2, brent: 2, wti: 2, soja: 1, maiz: 1, trigo: 1 };
   const PREFIX = { oficial: "$ ", mep: "$ ", ccl: "$ ", mayorista: "$ ", cobre: "US$ ", oro: "US$ ", plata: "US$ ", brent: "US$ ", wti: "US$ ", soja: "US$ ", maiz: "US$ ", trigo: "US$ " };
@@ -155,7 +155,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     const rows = [];
     const row = (k, v) => rows.push(`<div class="row"><span class="muted">${k}</span><b>${v}</b></div>`);
     if (["oficial", "mep", "ccl", "mayorista"].includes(id) && it.compra != null) row("Compra", "$ " + fmt(it.compra, 2));
-    if ((id === "usdbrl" || id === "usdclp") && it.en_pesos != null) row(id === "usdbrl" ? "1 real en pesos (BNA)" : "1 peso chileno en pesos (BNA)", "$ " + fmt(it.en_pesos, id === "usdbrl" ? 2 : 4));
+    if (["usdbrl", "usdclp", "eurusd"].includes(id) && it.en_pesos != null) row({ usdbrl: "1 real en pesos (BNA)", usdclp: "1 peso chileno en pesos (BNA)", eurusd: "1 euro en pesos (BNA)" }[id], "$ " + fmt(it.en_pesos, id === "usdclp" ? 4 : 2));
     if (id === "pf_bna") { if (it.tem != null) row("Tasa mensual (TEM)", fmt(it.tem, 2) + "%"); if (it.tea != null) row("Tasa efectiva anual (TEA)", fmt(it.tea, 2) + "%"); }
     if (id === "inflacion" && it.interanual != null) row("Últimos 12 meses", fmt(it.interanual, 1) + "%");
     if (it.chicago_cents_bu != null) row("Chicago (¢/bushel)", fmt(it.chicago_cents_bu, 2));
