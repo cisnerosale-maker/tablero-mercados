@@ -59,6 +59,7 @@ YAHOO = {
     "ust10": ("^TNX", "Bono EE.UU. 10 años", "% anual", 2, 1.0),
     "usdbrl": ("BRL=X", "Real brasileño", "R$ por US$", 4, 1.0),
     "usdclp": ("CLP=X", "Peso chileno", "CLP por US$", 2, 1.0),
+    "eurusd": ("EURUSD=X", "Euro", "US$ por €", 4, 1.0),
 }
 
 
@@ -222,8 +223,8 @@ def fetch_dolares(items: dict, errors: list) -> dict:
 
 
 def fetch_brl_clp_en_pesos(items: dict, errors: list):
-    """Real y peso chileno en pesos argentinos (cotización BNA vía dolarapi)."""
-    for key, cod in (("usdbrl", "brl"), ("usdclp", "clp")):
+    """Real, peso chileno y euro en pesos argentinos (cotización BNA vía dolarapi)."""
+    for key, cod in (("usdbrl", "brl"), ("usdclp", "clp"), ("eurusd", "eur")):
         try:
             d = get_json(f"https://dolarapi.com/v1/cotizaciones/{cod}")
             if key in items:
@@ -298,9 +299,10 @@ def merval_usd(items: dict, raw_yahoo: dict, dolares: dict, errors: list):
         if not pts:
             raise ValueError("faltan datos de Merval o CCL")
         st = series_stats(pts, 0)
-        # El último valor usa el CCL del momento
-        if items.get("merval", {}).get("valor") and items.get("merval", {}).get("fecha") == items.get("ccl", {}).get("fecha"):
-            st["valor"] = round(items["merval"]["valor"] / items["ccl"]["valor"], 0)
+        # Si el Merval es de hoy, se usa el CCL del momento; si no, el CCL de ese mismo día.
+        m = items.get("merval", {})
+        if m.get("valor") and m.get("fecha") == items.get("ccl", {}).get("fecha") and items["ccl"].get("valor"):
+            st["valor"] = round(m["valor"] / items["ccl"]["valor"], 0)
         items["merval_usd"] = item("S&P Merval en dólares", "puntos US$ (CCL)", "Cálculo propio: Merval / CCL", **st)
     except Exception as e:
         errors.append(f"Merval USD: {e}")
