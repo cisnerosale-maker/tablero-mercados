@@ -1,13 +1,13 @@
 {
- "actualizado": "2026-10-23T17:46-03:00",
+ "actualizado": "2026-10-23T20:39-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
    "unidad": "US$/lb",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 6.505,
+   "valor": 6.497,
    "anterior": 6.363,
-   "var_pct": 2.24,
+   "var_pct": 2.12,
    "mm50": 6.57,
    "mm200": 6.19,
    "prom_anio": 6.184,
@@ -134,16 +134,16 @@
     6.567,
     6.543,
     6.363,
-    6.505
+    6.497
    ]
   },
   "oro": {
    "nombre": "Oro",
    "unidad": "US$/oz",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 4007.9,
+   "valor": 4010.0,
    "anterior": 4060.4,
-   "var_pct": -1.29,
+   "var_pct": -1.24,
    "mm50": 4341.9,
    "mm200": 4532.9,
    "prom_anio": 4531.0,
@@ -270,16 +270,16 @@
     4142.6,
     4150.0,
     4060.4,
-    4007.9
+    4010.0
    ]
   },
   "plata": {
    "nombre": "Plata",
    "unidad": "US$/oz",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 53.95,
+   "valor": 53.96,
    "anterior": 54.76,
-   "var_pct": -1.49,
+   "var_pct": -1.47,
    "mm50": 63.05,
    "mm200": 71.64,
    "prom_anio": 71.73,
@@ -406,16 +406,16 @@
     57.71,
     57.42,
     54.76,
-    53.95
+    53.96
    ]
   },
   "brent": {
    "nombre": "Petróleo Brent",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 111.64,
+   "valor": 111.66,
    "anterior": 113.17,
-   "var_pct": -1.35,
+   "var_pct": -1.33,
    "mm50": 100.73,
    "mm200": 91.15,
    "prom_anio": 90.55,
@@ -542,16 +542,16 @@
     108.79,
     108.82,
     113.17,
-    111.64
+    111.66
    ]
   },
   "wti": {
    "nombre": "Petróleo WTI",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 103.36,
+   "valor": 103.44,
    "anterior": 99.47,
-   "var_pct": 3.91,
+   "var_pct": 3.99,
    "mm50": 92.93,
    "mm200": 85.29,
    "prom_anio": 84.74,
@@ -678,7 +678,7 @@
     101.79,
     97.15,
     99.47,
-    103.36
+    103.44
    ]
   },
   "soja": {
@@ -2069,9 +2069,9 @@
    "nombre": "Índice dólar (DXY)",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 101.83,
+   "valor": 101.75,
    "anterior": 101.61,
-   "var_pct": 0.21,
+   "var_pct": 0.14,
    "mm50": 100.54,
    "mm200": 99.56,
    "prom_anio": 99.53,
@@ -2198,7 +2198,7 @@
     101.73,
     101.78,
     101.61,
-    101.83
+    101.75
    ]
   },
   "ust10": {
@@ -2341,10 +2341,10 @@
    "nombre": "Real brasileño",
    "unidad": "R$ por US$",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 4.9757,
+   "valor": 4.9652,
    "anterior": 5.0204,
-   "var_pct": -0.89,
-   "mm50": 5.1179,
+   "var_pct": -1.1,
+   "mm50": 5.1177,
    "mm200": 5.1306,
    "prom_anio": 5.1445,
    "max52": 5.59,
@@ -2470,7 +2470,7 @@
     5.037,
     5.0227,
     5.0204,
-    4.9757
+    4.9652
    ],
    "en_pesos": 306.4267
   },
@@ -2615,10 +2615,10 @@
    "nombre": "Euro",
    "unidad": "US$ por €",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 1.1196,
+   "valor": 1.1204,
    "anterior": 1.1235,
-   "var_pct": -0.35,
-   "mm50": 1.1444,
+   "var_pct": -0.27,
+   "mm50": 1.1445,
    "mm200": 1.1576,
    "prom_anio": 1.1581,
    "max52": 1.2018,
@@ -2744,7 +2744,7 @@
     1.1216,
     1.1227,
     1.1235,
-    1.1196
+    1.1204
    ],
    "en_pesos": 1713.9577
   },
@@ -2884,7 +2884,7 @@
     1550.0
    ],
    "compra": 1500.0,
-   "actualizado": "2026-10-23T17:05:00.000Z"
+   "actualizado": "2026-10-23T18:00:00.000Z"
   },
   "mep": {
    "nombre": "Dólar MEP",
@@ -3022,7 +3022,7 @@
     1563.9
    ],
    "compra": 1557.4,
-   "actualizado": "2026-10-23T20:02:00.000Z"
+   "actualizado": "2026-10-23T20:57:00.000Z"
   },
   "ccl": {
    "nombre": "Dólar CCL",
@@ -3160,7 +3160,7 @@
     1654.0
    ],
    "compra": 1649.2,
-   "actualizado": "2026-10-23T20:02:00.000Z"
+   "actualizado": "2026-10-23T20:57:00.000Z"
   },
   "mayorista": {
    "nombre": "Dólar mayorista",
