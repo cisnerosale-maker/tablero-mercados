@@ -140,8 +140,12 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   };
   const ROSARIO_URL = "https://www.cac.bcr.com.ar/es/precios-de-pizarra";
   // Si Yahoo falla y la moneda queda con la cotización de Yahoo, el enlace apunta a Yahoo.
-  const fuenteDe = (id, it) => (["usdbrl", "usdclp", "eurusd"].includes(id) && /Yahoo/.test(it.fuente || ""))
-    ? Y({ usdbrl: "BRL=X", usdclp: "CLP=X", eurusd: "EURUSD=X" }[id]) : FUENTE[id];
+  const fuenteDe = (id, it) => {
+    const m = (it.fuente || "").match(/Yahoo Finance \((\^[^)]+|[A-Z^]+\.SN)\)/);
+    if (m) return Y(m[1]);
+    if (["usdbrl", "usdclp", "eurusd"].includes(id) && /Yahoo/.test(it.fuente || "")) return Y({ usdbrl: "BRL=X", usdclp: "CLP=X", eurusd: "EURUSD=X" }[id]);
+    return FUENTE[id];
+  };
   let data = null;
   const $ = id => document.getElementById(id);
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
