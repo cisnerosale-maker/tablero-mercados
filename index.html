@@ -68,6 +68,8 @@ section.sec { display: flex; flex-direction: column; gap: 12px; }
 .extra { font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 8px; display: flex; flex-direction: column; gap: 3px; }
 .extra .row { display: flex; justify-content: space-between; gap: 8px; }
 .extra .row b { font-weight: 500; font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+.src { font-size: 11.5px; color: var(--accent); text-decoration: none; align-self: flex-start; }
+.src:hover, .src:focus-visible { text-decoration: underline; }
 .foot-c { display: flex; justify-content: space-between; gap: 8px; font-size: 11.5px; color: var(--muted); }
 .tag { font-size: 11px; font-weight: 600; padding: 0 6px; border-radius: 3px; border: 1px solid var(--line); color: var(--muted); }
 .tag.above { color: var(--up); border-color: currentColor; } .tag.below { color: var(--down); border-color: currentColor; }
@@ -114,13 +116,32 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     { t: "Granos", ids: ["soja", "maiz", "trigo"] }
   ];
   const DEC = { oficial: 2, mep: 2, ccl: 2, mayorista: 2, brecha: 1, usdbrl: 4, usdclp: 2, eurusd: 4, riesgo_ar: 0, riesgo_br: 0, riesgo_cl: 0,
-    pf_bna: 2, inflacion: 1, selic: 2, ust10: 2, merval: 0, merval_usd: 0, spx: 2, nasdaq: 2, dji: 2, bovespa: 0, ipsa: 2,
+    pf_bna: 2, inflacion: 1, selic: 2, ust10: 2, merval: 0, merval_usd: 2, spx: 2, nasdaq: 2, dji: 2, bovespa: 0, ipsa: 2,
     vix: 2, dxy: 2, cobre: 3, oro: 1, plata: 2, brent: 2, wti: 2, soja: 1, maiz: 1, trigo: 1 };
   const PREFIX = { oficial: "$ ", mep: "$ ", ccl: "$ ", mayorista: "$ ", cobre: "US$ ", oro: "US$ ", plata: "US$ ", brent: "US$ ", wti: "US$ ", soja: "US$ ", maiz: "US$ ", trigo: "US$ " };
   const SUFFIX = { brecha: "%", pf_bna: "%", inflacion: "%", selic: "%", ust10: "%" };
   // Para tasas e índices de riesgo, subir no es "bueno": la variación se pinta al revés.
   const INVERT = { riesgo_ar: 1, riesgo_br: 1, riesgo_cl: 1, vix: 1, brecha: 1, inflacion: 1 };
 
+  const Y = t => "https://finance.yahoo.com/quote/" + encodeURIComponent(t) + "/";
+  const FUENTE = {
+    oficial: "https://www.bna.com.ar/Personas", mep: "https://www.ambito.com/contenidos/dolar-mep.html",
+    ccl: "https://www.ambito.com/contenidos/dolar-cl.html", mayorista: "https://www.ambito.com/contenidos/dolar-mayorista.html",
+    brecha: "https://www.ambito.com/contenidos/dolar.html",
+    usdbrl: "https://www.bcb.gov.br/estabilidadefinanceira/historicocotacoes", usdclp: "https://mindicador.cl/",
+    eurusd: "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/eurofxref-graph-usd.en.html",
+    riesgo_ar: "https://www.rava.com/cotizaciones/historico/riesgo-pais/hoy/",
+    pf_bna: "https://www.bcra.gob.ar/BCRAyVos/Plazos_fijos_online.asp",
+    inflacion: "https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31",
+    merval: "https://www.rava.com/perfil/MERVAL", merval_usd: "https://www.rava.com/perfil/MERVAL%20USD",
+    spx: Y("^GSPC"), nasdaq: Y("^IXIC"), dji: Y("^DJI"), bovespa: Y("^BVSP"), ipsa: Y("ECH"), vix: Y("^VIX"),
+    dxy: Y("DX-Y.NYB"), ust10: Y("^TNX"), cobre: Y("HG=F"), oro: Y("GC=F"), plata: Y("SI=F"), brent: Y("BZ=F"),
+    wti: Y("CL=F"), soja: Y("ZS=F"), maiz: Y("ZC=F"), trigo: Y("ZW=F")
+  };
+  const ROSARIO_URL = "https://www.cac.bcr.com.ar/es/precios-de-pizarra";
+  // Si Yahoo falla y la moneda queda con la cotización de Yahoo, el enlace apunta a Yahoo.
+  const fuenteDe = (id, it) => (["usdbrl", "usdclp", "eurusd"].includes(id) && /Yahoo/.test(it.fuente || ""))
+    ? Y({ usdbrl: "BRL=X", usdclp: "CLP=X", eurusd: "EURUSD=X" }[id]) : FUENTE[id];
   let data = null;
   const $ = id => document.getElementById(id);
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -155,7 +176,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     const rows = [];
     const row = (k, v) => rows.push(`<div class="row"><span class="muted">${k}</span><b>${v}</b></div>`);
     if (["oficial", "mep", "ccl", "mayorista"].includes(id) && it.compra != null) row("Compra", "$ " + fmt(it.compra, 2));
-    if (["usdbrl", "usdclp", "eurusd"].includes(id) && it.en_pesos != null) row({ usdbrl: "1 real en pesos (BNA)", usdclp: "1 peso chileno en pesos (BNA)", eurusd: "1 euro en pesos (BNA)" }[id], "$ " + fmt(it.en_pesos, id === "usdclp" ? 4 : 2));
+    if (["usdbrl", "usdclp", "eurusd"].includes(id) && it.en_pesos != null) row({ usdbrl: "1 real en pesos (a dólar mayorista)", usdclp: "1 peso chileno en pesos (a dólar mayorista)", eurusd: "1 euro en pesos (a dólar mayorista)" }[id], "$ " + fmt(it.en_pesos, id === "usdclp" ? 4 : 2));
     if (id === "pf_bna") { if (it.tem != null) row("Tasa mensual (TEM)", fmt(it.tem, 2) + "%"); if (it.tea != null) row("Tasa efectiva anual (TEA)", fmt(it.tea, 2) + "%"); }
     if (id === "inflacion" && it.interanual != null) row("Últimos 12 meses", fmt(it.interanual, 1) + "%");
     if (it.chicago_cents_bu != null) row("Chicago (¢/bushel)", fmt(it.chicago_cents_bu, 2));
@@ -165,13 +186,14 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       if (r.usd_tn != null) row("Rosario US$/tn", "US$ " + fmt(r.usd_tn, 1));
       if (r.prom_anio != null) row("Rosario prom. registrado", "$ " + fmt(r.prom_anio, 0));
       if (r.fecha) row("Pizarra del", dmy(r.fecha));
+      rows.push(`<div class="row"><a class="src" href="${ROSARIO_URL}" target="_blank" rel="noopener">Ver pizarra en la Bolsa de Comercio de Rosario ↗</a></div>`);
     } else if (["soja", "maiz", "trigo"].includes(id)) row("Rosario", "sin pizarra disponible");
-    if (it.manual && it.nota) rows.push(`<div class="muted">${esc(it.nota)}</div>`);
+    if (it.nota) rows.push(`<div class="muted">${esc(it.nota)}</div>`);
     return rows.length ? `<div class="extra">${rows.join("")}</div>` : "";
   }
 
   function card(id) {
-    const it = data && data.items && data.items[id];
+    let it = data && data.items && data.items[id];
     if (!it) return `<article class="card"><div class="c-head"><span class="c-name">${esc(id)}</span></div><div class="empty">Sin datos todavía.</div></article>`;
     if (it.manual && it.valor == null) {
       return `<article class="card"><div class="c-head"><span class="c-name">${esc(it.nombre)}</span><span class="c-unit">${esc(it.unidad)}</span></div>
@@ -183,7 +205,14 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       const d = (it.valor / ref[1] - 1) * 100;
       tagMM = `<span class="tag ${(INVERT[id] ? d < 0 : d >= 0) ? "above" : "below"}">${d >= 0 ? "▲" : "▼"} ${fmt(Math.abs(d), 1)}% vs ${ref[0]}</span>`;
     }
-    const live = it._live ? `<span class="tag live">en vivo</span>` : it.desactualizado ? `<span class="tag stale">último dato</span>` : "";
+    // Un dato diario con más de 5 días de antigüedad (o la inflación con más de 45) se marca como viejo.
+    let viejo = !!it.desactualizado;
+    if (it.fecha && !it.manual && id !== "pf_bna") {
+      const dias = (Date.now() - new Date(it.fecha + "T12:00:00-03:00").getTime()) / 86400000;
+      if (dias > (id === "inflacion" ? 45 : 5)) viejo = true;
+    }
+    if (viejo) it = Object.assign({}, it, { desactualizado: true });
+    const live = it._live ? `<span class="tag live">en vivo</span>` : viejo ? `<span class="tag stale">dato viejo</span>` : "";
     const statCells = [];
     if (it.prom_anio != null) statCells.push(["Prom. año", it.prom_anio]);
     if (it.mm50 != null) statCells.push(["MM50", it.mm50]);
@@ -198,6 +227,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       ${stats}
       ${extras(id, it)}
       <div class="foot-c"><span>${it.fecha ? dmy(it.fecha) : ""} ${live}</span>${tagMM}</div>
+      ${fuenteDe(id, it) ? `<a class="src" href="${fuenteDe(id, it)}" target="_blank" rel="noopener" title="${esc(it.fuente || "")}">Ver fuente: ${esc((it.fuente || "").replace(/ \(demora.*\)/, ""))} ↗</a>` : ""}
     </article>`;
   }
 
@@ -243,12 +273,17 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       if (!r.ok) throw new Error();
       const list = await r.json();
       if (!data) data = { items: {} };
+      // Con el mercado cerrado (antes de las 10:30, o fin de semana) se deja el último cierre tal cual.
+      const ar = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Buenos_Aires" }));
+      const hoy = ar.toLocaleDateString("sv-SE");
+      const abierto = ar.getDay() >= 1 && ar.getDay() <= 5 && (ar.getHours() * 60 + ar.getMinutes()) >= 630;
+      if (!abierto) throw new Error("cerrado");
       for (const [id, casa] of Object.entries(CASA)) {
         const d = list.find(x => x.casa === casa); if (!d || !d.venta) continue;
         const base = data.items[id] || { nombre: id, unidad: "$ por US$" };
-        const prev = base.anterior;
+        const prev = base.fecha === hoy ? base.anterior : base.valor;
         data.items[id] = Object.assign({}, base, {
-          valor: d.venta, compra: d.compra, fecha: (d.fechaActualizacion || "").slice(0, 10), _live: true, desactualizado: false,
+          valor: d.venta, compra: d.compra, fecha: hoy, _live: true, desactualizado: false,
           var_pct: prev ? Math.round((d.venta / prev - 1) * 10000) / 100 : base.var_pct
         });
       }
@@ -258,8 +293,8 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       $("txtLive").textContent = "Dólares en vivo · " + new Date().toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Buenos_Aires" });
       render();
     } catch (e) {
-      $("dotLive").className = "dot warn";
-      $("txtLive").textContent = "Dólares en vivo no disponibles (se muestran los del último corte)";
+      $("dotLive").className = "dot " + (e && e.message === "cerrado" ? "" : "warn");
+      $("txtLive").textContent = e && e.message === "cerrado" ? "Mercado cambiario cerrado: se muestra el último cierre" : "Dólares en vivo no disponibles (se muestran los del último corte)";
     }
   }
 
