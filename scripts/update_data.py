@@ -38,6 +38,9 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Tablero de Mercados; actualizacion automa
 # Factores para pasar granos de Chicago (centavos de dólar por bushel) a US$ por tonelada.
 BUSHEL_TO_TN = {"soja": 36.7437, "trigo": 36.7437, "maiz": 39.3680}
 
+# Posibles códigos del índice IPSA en Yahoo (cambió de administrador a MSCI en octubre de 2026).
+IPSA_CODIGOS = ["^IPSA", "^SPIPSA", "^SPIPSA.SN", "^MSCIIPSA", "IPSA.SN"]
+
 # id: (ticker de Yahoo, nombre, unidad, decimales, factor de conversión)
 YAHOO = {
     "cobre": ("HG=F", "Cobre", "US$/lb", 3, 1.0),
@@ -53,7 +56,7 @@ YAHOO = {
     "dji": ("^DJI", "Dow Jones", "puntos", 2, 1.0),
     "merval": ("^MERV", "Merval (histórico S&P)", "puntos", 0, 1.0),
     "bovespa": ("^BVSP", "Ibovespa", "puntos", 0, 1.0),
-    "ipsa": ("ECH", "Chile (ETF ECH)", "US$", 2, 1.0),
+    "ipsa": ("ECH", "Chile: ETF ECH (en US$)", "US$", 2, 1.0),
     "vix": ("^VIX", "VIX", "puntos", 2, 1.0),
     "dxy": ("DX-Y.NYB", "Índice dólar (DXY)", "puntos", 2, 1.0),
     "ust10": ("^TNX", "Bono EE.UU. 10 años", "% anual", 2, 1.0),
@@ -132,7 +135,7 @@ def item(nombre: str, unidad: str, fuente: str, **extra) -> dict:
 def fetch_yahoo(items: dict, errors: list):
     import yfinance as yf
 
-    tickers = [t for t, *_ in YAHOO.values()]
+    tickers = [t for t, *_ in YAHOO.values()] + IPSA_CODIGOS
     df = None
     for attempt in range(3):
         try:
@@ -166,10 +169,34 @@ def fetch_yahoo(items: dict, errors: list):
             items[key] = it
         except Exception as e:
             errors.append(f"{nombre} ({ticker}): {e}")
+    # IPSA: si algún código trae datos recientes y en rango, reemplaza al ETF
+    hoy = now_ar().date()
+    for t in IPSA_CODIGOS:
+        try:
+            close = df[t]["Close"].dropna()
+            pts = [(i.strftime("%Y-%m-%d"), float(v)) for i, v in close.items() if i.weekday() < 5]
+            if not pts or not (3000 <= pts[-1][1] <= 30000):
+                continue
+            if (hoy - dt.date.fromisoformat(pts[-1][0])).days > 6:
+                continue
+            raw["ipsa"] = pts
+            items["ipsa"] = item("IPSA (Chile)", "puntos", f"Yahoo Finance ({t})", **series_stats(pts, 2))
+            break
+        except Exception:
+            continue
+    else:
+        errors.append("IPSA: Yahoo no tiene el índice actualizado con ningún código conocido; se muestra el ETF ECH (en US$)")
     return raw
 
 
 # ----------------------------------------------------------------- Dólares (Argentina)
+def dia_habil_anterior(fecha: str) -> str:
+    d = dt.date.fromisoformat(fecha) - dt.timedelta(days=1)
+    while d.weekday() >= 5:
+        d -= dt.timedelta(days=1)
+    return d.isoformat()
+
+
 CASAS = {
     "oficial": ("oficial", "Dólar oficial (BNA)"),
     "mep": ("bolsa", "Dólar MEP"),
@@ -195,7 +222,9 @@ def fetch_dolares(items: dict, errors: list) -> dict:
             for h in hist[-420:]:
                 v = clean(h.get("venta"))
                 if v:
-                    by_date[h["fecha"][:10]] = v
+                    # argentinadatos guarda en cada fecha el valor que había a la mañana de ese día,
+                    # o sea el cierre del día hábil anterior. Se lo corre a la fecha que corresponde.
+                    by_date[dia_habil_anterior(h["fecha"][:10])] = v
             cur = actual.get(casa)
             # El valor del momento se agrega como dato de hoy solo con el mercado abierto (día hábil,
             # desde las 10:30). Antes de eso dolarapi repite el cierre de ayer y la variación daría 0%.
@@ -208,7 +237,7 @@ def fetch_dolares(items: dict, errors: list) -> dict:
                     d = ahora.date() - dt.timedelta(days=1)
                     while d.weekday() >= 5:
                         d -= dt.timedelta(days=1)
-                    by_date.setdefault(d.strftime("%Y-%m-%d"), float(cur["venta"]))
+                    by_date[d.strftime("%Y-%m-%d")] = float(cur["venta"])
             hist_by_casa[key] = by_date
             pts = sorted(by_date.items())
             st = series_stats(pts, 2)
