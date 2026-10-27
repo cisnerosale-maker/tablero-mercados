@@ -51,7 +51,7 @@ YAHOO = {
     "spx": ("^GSPC", "S&P 500", "puntos", 2, 1.0),
     "nasdaq": ("^IXIC", "Nasdaq Composite", "puntos", 2, 1.0),
     "dji": ("^DJI", "Dow Jones", "puntos", 2, 1.0),
-    "merval": ("^MERV", "S&P Merval", "puntos", 0, 1.0),
+    "merval": ("^MERV", "Merval (histórico S&P)", "puntos", 0, 1.0),
     "bovespa": ("^BVSP", "Ibovespa", "puntos", 0, 1.0),
     "ipsa": ("ECH", "Chile (ETF ECH)", "US$", 2, 1.0),
     "vix": ("^VIX", "VIX", "puntos", 2, 1.0),
@@ -153,7 +153,9 @@ def fetch_yahoo(items: dict, errors: list):
     for key, (ticker, nombre, unidad, dec, factor) in YAHOO.items():
         try:
             close = df[ticker]["Close"].dropna()
-            pts = [(idx.strftime("%Y-%m-%d"), float(v) * factor) for idx, v in close.items()]
+            # Se descartan las velas de sábado y domingo: futuros y monedas abren el domingo a la
+            # noche y esa "vela" falsea la variación del lunes.
+            pts = [(idx.strftime("%Y-%m-%d"), float(v) * factor) for idx, v in close.items() if idx.weekday() < 5]
             if not pts:
                 raise ValueError("sin datos")
             raw[key] = pts
@@ -223,30 +225,113 @@ def fetch_dolares(items: dict, errors: list) -> dict:
 
 
 def fetch_brl_clp_en_pesos(items: dict, errors: list):
-    """Real, peso chileno y euro en pesos argentinos (cotización BNA vía dolarapi)."""
-    for key, cod in (("usdbrl", "brl"), ("usdclp", "clp"), ("eurusd", "eur")):
-        try:
-            d = get_json(f"https://dolarapi.com/v1/cotizaciones/{cod}")
-            if key in items:
-                items[key]["en_pesos"] = clean(d.get("venta"))
-        except Exception as e:
-            errors.append(f"{cod.upper()} en pesos: {e}")
+    """Real, peso chileno y euro en pesos argentinos, calculados con el dólar mayorista."""
+    may = (items.get("mayorista") or {}).get("valor")
+    if not may:
+        errors.append("Monedas en pesos: falta el dólar mayorista")
+        return
+    for key in ("usdbrl", "usdclp", "eurusd"):
+        v = (items.get(key) or {}).get("valor")
+        if v:
+            items[key]["en_pesos"] = round(may * v if key == "eurusd" else may / v, 4)
+
+
+# ----------------------------------------------------------------- Rava Bursátil
+def _fecha_iso(s: str):
+    s = s.strip()
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", s)
+    if m:
+        return f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+    m = re.match(r"(\d{2})/(\d{2})/(\d{4})", s)
+    if m:
+        return f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
+    return None
+
+
+def rava_cierres(url: str, lo: float, hi: float) -> dict:
+    """
+    Lee los cierres diarios que Rava publica en una página de perfil o de histórico.
+    Devuelve {fecha ISO: valor}. Solo acepta valores dentro de [lo, hi] para descartar basura.
+    """
+    import html as htmlmod
+
+    r = requests.get(url, headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    page = htmlmod.unescape(r.text)
+    out: dict[str, float] = {}
+    # a) Objetos JSON embebidos en la página: {"fecha":"2026-10-26", ..., "cierre": 99227.3, ...}
+    for obj in re.findall(r"\{[^{}]{0,800}\}", page):
+        fm = re.search(r'"fecha"\s*:\s*"([^"]+)"', obj)
+        if not fm:
+            continue
+        f = _fecha_iso(fm.group(1))
+        vm = re.search(r'"(?:cierre|ultimo|valor)"\s*:\s*"?(-?[\d.,]+)"?', obj)
+        if not f or not vm:
+            continue
+        txt = vm.group(1)
+        v = clean(txt) if txt.count(",") == 0 else parse_numero_ar(txt)
+        if v is not None and lo <= v <= hi:
+            out[f] = v
+    # b) Si no hubo JSON, tabla visible: "26/10/2026 ... 99.227,30"
+    if not out:
+        from bs4 import BeautifulSoup
+        text = BeautifulSoup(r.text, "html.parser").get_text(" ", strip=True)
+        for f, num in re.findall(r"(\d{2}/\d{2}/\d{4})\s+([\d.]+,\d+|\d[\d.]*)", text):
+            v = parse_numero_ar(num)
+            fi = _fecha_iso(f)
+            if fi and v is not None and lo <= v <= hi:
+                out.setdefault(fi, v)
+    if not out:
+        raise ValueError(f"no se encontraron cierres en {url} (HTTP {r.status_code}, {len(r.text)} bytes)")
+    return out
 
 
 # ----------------------------------------------------------------- Riesgo, tasas, inflación
-def fetch_riesgo_pais(items: dict, errors: list):
+def fetch_riesgo_pais(items: dict, errors: list, history: dict):
+    """
+    argentinadatos.com da la historia, pero publica el dato con un día de atraso.
+    El cierre del día se toma de Rava y, si falla, de Ámbito. Se usa siempre la fecha más nueva.
+    """
+    serie: dict[str, float] = dict(history.get("riesgo_ar", {}))
+    fuentes = []
     try:
         hist = get_json("https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais")
-        pts = sorted({h["fecha"][:10]: h["valor"] for h in hist[-600:]}.items())
-        try:
-            u = get_json("https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo")
-            pts = sorted(dict(pts, **{u["fecha"][:10]: u["valor"]}).items())
-        except Exception:
-            pass
-        items["riesgo_ar"] = item("Riesgo país Argentina", "puntos básicos",
-                                  "argentinadatos.com (EMBI JP Morgan)", **series_stats(pts, 0))
+        for h in hist[-600:]:
+            serie[h["fecha"][:10]] = float(h["valor"])
+        fuentes.append("argentinadatos")
     except Exception as e:
-        errors.append(f"Riesgo país: {e}")
+        errors.append(f"Riesgo país (argentinadatos): {e}")
+    nuevos = {}
+    try:
+        nuevos = rava_cierres("https://www.rava.com/cotizaciones/historico/riesgo-pais/hoy/", 100, 5000)
+        fuentes.append("Rava")
+    except Exception as e:
+        errors.append(f"Riesgo país (Rava): {e}")
+    if not nuevos:
+        try:
+            a = get_json("https://mercados.ambito.com//riesgopais/variacion")
+            v = parse_numero_ar(str(a.get("ultimo") or a.get("valor") or ""))
+            f = _fecha_iso(str(a.get("fecha") or "").replace("-", "/")) or now_ar().strftime("%Y-%m-%d")
+            if v and 100 <= v <= 5000:
+                nuevos = {f: v}
+                fuentes.append("Ámbito")
+        except Exception as e:
+            errors.append(f"Riesgo país (Ámbito): {e}")
+    # Control de cordura: el dato nuevo no puede alejarse más de 35% del último conocido.
+    if serie and nuevos:
+        ref_f, ref_v = sorted(serie.items())[-1]
+        malos = {f: v for f, v in nuevos.items() if not (0.65 * ref_v <= v <= 1.35 * ref_v)}
+        if malos:
+            errors.append(f"Riesgo país: descartados valores fuera de rango {malos} (último conocido {ref_v} del {ref_f})")
+        nuevos = {f: v for f, v in nuevos.items() if f not in malos}
+    serie.update(nuevos)
+    for f, v in nuevos.items():
+        history.setdefault("riesgo_ar", {})[f] = v
+    if not serie:
+        raise ValueError("ninguna fuente respondió")
+    pts = sorted(serie.items())
+    items["riesgo_ar"] = item("Riesgo país Argentina", "puntos básicos",
+                              "EMBI JP Morgan vía " + " + ".join(fuentes), **series_stats(pts, 0))
 
 
 def fetch_plazo_fijo(items: dict, errors: list, history: dict):
@@ -287,6 +372,40 @@ def fetch_inflacion(items: dict, errors: list):
         errors.append(f"Inflación: {e}")
 
 
+# ----------------------------------------------------------------- Merval (MSCI desde el 19/10/2026)
+MERVAL_EMPALME = ("2026-10-16", 100000.0)  # el MSCI Merval arrancó en 100.000 puntos al cierre del 16/10/2026
+
+
+def fetch_merval(items: dict, raw_yahoo: dict, errors: list, history: dict):
+    """
+    Yahoo dejó de actualizar el ^MERV cuando S&P dejó el índice (16/10/2026).
+    Se arma una sola serie: la histórica de Yahoo reescalada a la base nueva, más los cierres
+    del MSCI Merval que publica Rava. Así los promedios y el gráfico siguen siendo comparables.
+    """
+    fecha_emp, base = MERVAL_EMPALME
+    viejos = dict(raw_yahoo.get("merval", []))
+    ancla = viejos.get(fecha_emp)
+    serie: dict[str, float] = {}
+    if ancla:
+        k = base / ancla
+        serie = {d: v * k for d, v in viejos.items() if d <= fecha_emp}
+    serie.update({d: v for d, v in history.get("merval_msci", {}).items()})
+    try:
+        nuevos = rava_cierres("https://www.rava.com/perfil/MERVAL", 50000, 250000)
+        nuevos = {d: v for d, v in nuevos.items() if d > fecha_emp}
+        serie.update(nuevos)
+        history.setdefault("merval_msci", {}).update(nuevos)
+    except Exception as e:
+        errors.append(f"Merval (Rava): {e}")
+    if not serie:
+        items.pop("merval", None)
+        raise ValueError("sin datos del Merval")
+    pts = sorted(serie.items())
+    raw_yahoo["merval"] = pts
+    items["merval"] = item("Merval", "puntos (MSCI, base 100.000)", "Rava (MSCI Merval) + historia S&P reescalada",
+                           **series_stats(pts, 0))
+
+
 # ----------------------------------------------------------------- Merval en dólares
 def merval_usd(items: dict, raw_yahoo: dict, dolares: dict, errors: list):
     try:
@@ -303,7 +422,7 @@ def merval_usd(items: dict, raw_yahoo: dict, dolares: dict, errors: list):
         m = items.get("merval", {})
         if m.get("valor") and m.get("fecha") == items.get("ccl", {}).get("fecha") and items["ccl"].get("valor"):
             st["valor"] = round(m["valor"] / items["ccl"]["valor"], 0)
-        items["merval_usd"] = item("S&P Merval en dólares", "puntos US$ (CCL)", "Cálculo propio: Merval / CCL", **st)
+        items["merval_usd"] = item("Merval en dólares", "puntos US$ (CCL)", "Cálculo propio: Merval / CCL", **st)
     except Exception as e:
         errors.append(f"Merval USD: {e}")
 
@@ -382,16 +501,20 @@ def main():
         dolares = fetch_dolares(items, errors) or {}
     except Exception:
         errors.append("Dólares: " + traceback.format_exc(limit=1))
-    for fn in (fetch_brl_clp_en_pesos, fetch_riesgo_pais, fetch_inflacion):
+    for fn in (fetch_brl_clp_en_pesos, fetch_inflacion):
         try:
             fn(items, errors)
         except Exception:
             errors.append(f"{fn.__name__}: " + traceback.format_exc(limit=1))
-    for fn in (fetch_plazo_fijo, fetch_rosario):
+    for fn in (fetch_plazo_fijo, fetch_rosario, fetch_riesgo_pais):
         try:
             fn(items, errors, history)
         except Exception:
             errors.append(f"{fn.__name__}: " + traceback.format_exc(limit=1))
+    try:
+        fetch_merval(items, raw_yahoo, errors, history)
+    except Exception as e:
+        errors.append(f"Merval: {e}")
     merval_usd(items, raw_yahoo, dolares, errors)
     apply_manual(items, errors)
 
