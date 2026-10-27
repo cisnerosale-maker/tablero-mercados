@@ -216,7 +216,10 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       if (dias > (id === "inflacion" ? 45 : 5)) viejo = true;
     }
     if (viejo) it = Object.assign({}, it, { desactualizado: true });
-    const live = it._live ? `<span class="tag live">en vivo</span>` : viejo ? `<span class="tag stale">dato viejo</span>` : "";
+    const arAhora = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Buenos_Aires" }));
+    const enCurso = ["riesgo_ar", "merval", "merval_usd"].includes(id) && it.fecha === arAhora.toLocaleDateString("sv-SE")
+      && (arAhora.getHours() * 60 + arAhora.getMinutes()) < 17 * 60 + 30;
+    const live = it._live ? `<span class="tag live">en vivo</span>` : enCurso ? `<span class="tag live">en curso</span>` : viejo ? `<span class="tag stale">dato viejo</span>` : "";
     const statCells = [];
     if (it.prom_anio != null) statCells.push(["Prom. año", it.prom_anio]);
     if (it.mm50 != null) statCells.push(["MM50", it.mm50]);
