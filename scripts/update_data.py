@@ -197,9 +197,18 @@ def fetch_dolares(items: dict, errors: list) -> dict:
                 if v:
                     by_date[h["fecha"][:10]] = v
             cur = actual.get(casa)
+            # El valor del momento se agrega como dato de hoy solo con el mercado abierto (día hábil,
+            # desde las 10:30). Antes de eso dolarapi repite el cierre de ayer y la variación daría 0%.
+            # Con el mercado cerrado, ese valor es el cierre del último día hábil y se guarda con esa fecha.
+            ahora = now_ar()
             if cur and clean(cur.get("venta")):
-                fecha = (cur.get("fechaActualizacion") or now_ar().isoformat())[:10]
-                by_date[fecha] = float(cur["venta"])
+                if ahora.weekday() < 5 and ahora.strftime("%H:%M") >= "10:30":
+                    by_date[ahora.strftime("%Y-%m-%d")] = float(cur["venta"])
+                else:
+                    d = ahora.date() - dt.timedelta(days=1)
+                    while d.weekday() >= 5:
+                        d -= dt.timedelta(days=1)
+                    by_date.setdefault(d.strftime("%Y-%m-%d"), float(cur["venta"]))
             hist_by_casa[key] = by_date
             pts = sorted(by_date.items())
             st = series_stats(pts, 2)
@@ -222,6 +231,72 @@ def fetch_dolares(items: dict, errors: list) -> dict:
     except Exception as e:
         errors.append(f"Brecha: {e}")
     return hist_by_casa
+
+
+def marcar_cambio_contrato(items: dict, raw: dict):
+    """
+    Cuando Yahoo pasa al contrato siguiente de un futuro, la variación del día compara dos contratos
+    distintos. Se detecta por un salto brusco en la diferencia Brent - WTI y se oculta esa variación.
+    """
+    b, w = dict(raw.get("brent", [])), dict(raw.get("wti", []))
+    fechas = sorted(set(b) & set(w))
+    if len(fechas) < 2:
+        return
+    f1, f0 = fechas[-1], fechas[-2]
+    salto = (b[f1] - w[f1]) - (b[f0] - w[f0])
+    if abs(salto) > 3:
+        sosp = "brent" if abs(b[f1] / b[f0] - 1) > abs(w[f1] / w[f0] - 1) else "wti"
+        if sosp in items:
+            items[sosp]["var_pct"] = None
+            items[sosp]["nota"] = "Hoy cambió el contrato de futuros de referencia: la variación del día no es comparable."
+
+
+def fetch_monedas_oficiales(items: dict, errors: list):
+    """
+    Reemplaza las monedas de Yahoo por cotizaciones oficiales, una por día:
+      - Real: dólar PTAX del Banco Central de Brasil.
+      - Peso chileno: dólar observado del Banco Central de Chile (vía mindicador.cl).
+      - Euro: tipo de referencia del Banco Central Europeo (vía frankfurter).
+    Si alguna falla, queda la de Yahoo.
+    """
+    hoy = now_ar().date()
+    desde = hoy - dt.timedelta(days=430)
+
+    # Real (PTAX)
+    try:
+        url = ("https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/"
+               "CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)"
+               f"?@dataInicial='{desde:%m-%d-%Y}'&@dataFinalCotacao='{hoy:%m-%d-%Y}'"
+               "&$format=json&$select=cotacaoVenda,dataHoraCotacao")
+        rows = get_json(url, timeout=40)["value"]
+        pts = sorted({r["dataHoraCotacao"][:10]: float(r["cotacaoVenda"]) for r in rows}.items())
+        items["usdbrl"] = item("Real brasileño", "R$ por US$", "Banco Central de Brasil (dólar PTAX)", **series_stats(pts, 4))
+    except Exception as e:
+        errors.append(f"Real (PTAX): {e}; se usa Yahoo")
+
+    # Peso chileno (dólar observado)
+    try:
+        serie = {}
+        for anio in sorted({desde.year, hoy.year}):
+            for x in get_json(f"https://mindicador.cl/api/dolar/{anio}", timeout=40).get("serie", []):
+                f = (dt.datetime.fromisoformat(x["fecha"].replace("Z", "+00:00")).astimezone(TZ_AR)).strftime("%Y-%m-%d")
+                serie[f] = float(x["valor"])
+        pts = sorted(serie.items())
+        if not pts:
+            raise ValueError("sin datos")
+        items["usdclp"] = item("Peso chileno", "CLP por US$", "Banco Central de Chile (dólar observado)", **series_stats(pts, 2))
+    except Exception as e:
+        errors.append(f"Peso chileno (mindicador): {e}; se usa Yahoo")
+
+    # Euro (BCE)
+    for base_url in ("https://api.frankfurter.dev/v1", "https://api.frankfurter.app"):
+        try:
+            j = get_json(f"{base_url}/{desde:%Y-%m-%d}..?base=EUR&symbols=USD", timeout=40)
+            pts = sorted((f, float(v["USD"])) for f, v in j["rates"].items())
+            items["eurusd"] = item("Euro", "US$ por €", "Banco Central Europeo (referencia diaria)", **series_stats(pts, 4))
+            break
+        except Exception as e:
+            errors.append(f"Euro ({base_url}): {e}")
 
 
 def fetch_brl_clp_en_pesos(items: dict, errors: list):
@@ -250,39 +325,46 @@ def _fecha_iso(s: str):
 
 def rava_cierres(url: str, lo: float, hi: float) -> dict:
     """
-    Lee los cierres diarios que Rava publica en una página de perfil o de histórico.
-    Devuelve {fecha ISO: valor}. Solo acepta valores dentro de [lo, hi] para descartar basura.
+    Lee la tabla de cotizaciones históricas de Rava y devuelve {fecha ISO: cierre}.
+    Usa la columna cuyo encabezado dice "Cierre" (en la fila también están apertura, máximo y mínimo).
+    La fila de hoy se ignora hasta las 17:30, porque antes del cierre Rava la completa con datos parciales.
     """
-    import html as htmlmod
+    from bs4 import BeautifulSoup
 
     r = requests.get(url, headers=HEADERS, timeout=30)
     r.raise_for_status()
-    page = htmlmod.unescape(r.text)
+    soup = BeautifulSoup(r.text, "html.parser")
+    hoy = now_ar().strftime("%Y-%m-%d")
+    antes_del_cierre = now_ar().strftime("%H:%M") < "17:30"
     out: dict[str, float] = {}
-    # a) Objetos JSON embebidos en la página: {"fecha":"2026-10-26", ..., "cierre": 99227.3, ...}
-    for obj in re.findall(r"\{[^{}]{0,800}\}", page):
-        fm = re.search(r'"fecha"\s*:\s*"([^"]+)"', obj)
-        if not fm:
+    for table in soup.find_all("table"):
+        filas = table.find_all("tr")
+        if not filas:
             continue
-        f = _fecha_iso(fm.group(1))
-        vm = re.search(r'"(?:cierre|ultimo|valor)"\s*:\s*"?(-?[\d.,]+)"?', obj)
-        if not f or not vm:
+        enc = [c.get_text(" ", strip=True).lower() for c in filas[0].find_all(["th", "td"])]
+        if not any("fecha" in e for e in enc):
             continue
-        txt = vm.group(1)
-        v = clean(txt) if txt.count(",") == 0 else parse_numero_ar(txt)
-        if v is not None and lo <= v <= hi:
+        i_f = next(i for i, e in enumerate(enc) if "fecha" in e)
+        i_c = next((i for i, e in enumerate(enc) if "cierre" in e), None)
+        if i_c is None:
+            # tabla de dos columnas (fecha y valor)
+            if len(enc) == 2:
+                i_c = 1 - i_f
+            else:
+                continue
+        for fila in filas[1:]:
+            celdas = [c.get_text(" ", strip=True) for c in fila.find_all(["th", "td"])]
+            if len(celdas) <= max(i_f, i_c):
+                continue
+            f = _fecha_iso(celdas[i_f])
+            v = parse_numero_ar(celdas[i_c])
+            if not f or v is None or not (lo <= v <= hi):
+                continue
+            if f == hoy and antes_del_cierre:
+                continue
             out[f] = v
-    # b) Si no hubo JSON, tabla visible: "26/10/2026 ... 99.227,30"
     if not out:
-        from bs4 import BeautifulSoup
-        text = BeautifulSoup(r.text, "html.parser").get_text(" ", strip=True)
-        for f, num in re.findall(r"(\d{2}/\d{2}/\d{4})\s+([\d.]+,\d+|\d[\d.]*)", text):
-            v = parse_numero_ar(num)
-            fi = _fecha_iso(f)
-            if fi and v is not None and lo <= v <= hi:
-                out.setdefault(fi, v)
-    if not out:
-        raise ValueError(f"no se encontraron cierres en {url} (HTTP {r.status_code}, {len(r.text)} bytes)")
+        raise ValueError(f"no se encontró la tabla de cierres en {url} (HTTP {r.status_code}, {len(r.text)} bytes)")
     return out
 
 
@@ -292,6 +374,9 @@ def fetch_riesgo_pais(items: dict, errors: list, history: dict):
     argentinadatos.com da la historia, pero publica el dato con un día de atraso.
     El cierre del día se toma de Rava y, si falla, de Ámbito. Se usa siempre la fecha más nueva.
     """
+    hoy = now_ar().strftime("%Y-%m-%d")
+    if now_ar().strftime("%H:%M") < "17:30":
+        history.get("riesgo_ar", {}).pop(hoy, None)
     serie: dict[str, float] = dict(history.get("riesgo_ar", {}))
     fuentes = []
     try:
@@ -312,7 +397,7 @@ def fetch_riesgo_pais(items: dict, errors: list, history: dict):
             a = get_json("https://mercados.ambito.com//riesgopais/variacion")
             v = parse_numero_ar(str(a.get("ultimo") or a.get("valor") or ""))
             f = _fecha_iso(str(a.get("fecha") or "").replace("-", "/")) or now_ar().strftime("%Y-%m-%d")
-            if v and 100 <= v <= 5000:
+            if v and 100 <= v <= 5000 and not (f == hoy and now_ar().strftime("%H:%M") < "17:30"):
                 nuevos = {f: v}
                 fuentes.append("Ámbito")
         except Exception as e:
@@ -383,6 +468,10 @@ def fetch_merval(items: dict, raw_yahoo: dict, errors: list, history: dict):
     del MSCI Merval que publica Rava. Así los promedios y el gráfico siguen siendo comparables.
     """
     fecha_emp, base = MERVAL_EMPALME
+    # Limpieza única: la versión anterior guardó aperturas en lugar de cierres.
+    if history.get("_merval_v") != 2:
+        history["merval_msci"] = {}
+        history["_merval_v"] = 2
     viejos = dict(raw_yahoo.get("merval", []))
     ancla = viejos.get(fecha_emp)
     serie: dict[str, float] = {}
@@ -417,11 +506,11 @@ def merval_usd(items: dict, raw_yahoo: dict, dolares: dict, errors: list):
                 pts.append((d, v / c))
         if not pts:
             raise ValueError("faltan datos de Merval o CCL")
-        st = series_stats(pts, 0)
+        st = series_stats(pts, 2)
         # Si el Merval es de hoy, se usa el CCL del momento; si no, el CCL de ese mismo día.
         m = items.get("merval", {})
         if m.get("valor") and m.get("fecha") == items.get("ccl", {}).get("fecha") and items["ccl"].get("valor"):
-            st["valor"] = round(m["valor"] / items["ccl"]["valor"], 0)
+            st["valor"] = round(m["valor"] / items["ccl"]["valor"], 2)
         items["merval_usd"] = item("Merval en dólares", "puntos US$ (CCL)", "Cálculo propio: Merval / CCL", **st)
     except Exception as e:
         errors.append(f"Merval USD: {e}")
@@ -501,6 +590,14 @@ def main():
         dolares = fetch_dolares(items, errors) or {}
     except Exception:
         errors.append("Dólares: " + traceback.format_exc(limit=1))
+    try:
+        marcar_cambio_contrato(items, raw_yahoo)
+    except Exception as e:
+        errors.append(f"Control de contratos: {e}")
+    try:
+        fetch_monedas_oficiales(items, errors)
+    except Exception as e:
+        errors.append(f"Monedas oficiales: {e}")
     for fn in (fetch_brl_clp_en_pesos, fetch_inflacion):
         try:
             fn(items, errors)
