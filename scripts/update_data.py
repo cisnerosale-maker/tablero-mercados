@@ -307,7 +307,16 @@ def fetch_monedas_oficiales(items: dict, errors: list):
     try:
         serie = {}
         for anio in sorted({desde.year, hoy.year}):
-            for x in get_json(f"https://mindicador.cl/api/dolar/{anio}", timeout=40).get("serie", []):
+            j = None
+            for intento in range(3):  # mindicador a veces tarda en responder
+                try:
+                    j = get_json(f"https://mindicador.cl/api/dolar/{anio}", timeout=60)
+                    break
+                except Exception:
+                    if intento == 2:
+                        raise
+                    time.sleep(5)
+            for x in j.get("serie", []):
                 f = (dt.datetime.fromisoformat(x["fecha"].replace("Z", "+00:00")).astimezone(TZ_AR)).strftime("%Y-%m-%d")
                 serie[f] = float(x["valor"])
         pts = sorted(serie.items())
@@ -356,7 +365,8 @@ def rava_cierres(url: str, lo: float, hi: float) -> dict:
     """
     Lee la tabla de cotizaciones históricas de Rava y devuelve {fecha ISO: cierre}.
     Usa la columna cuyo encabezado dice "Cierre" (en la fila también están apertura, máximo y mínimo).
-    La fila de hoy se ignora hasta las 17:30, porque antes del cierre Rava la completa con datos parciales.
+    La fila de hoy se toma desde las 11:00 (apertura del mercado) como dato en curso. Antes de esa hora
+    Rava la completa repitiendo el cierre de ayer, y se ignora.
     """
     from bs4 import BeautifulSoup
 
@@ -364,7 +374,7 @@ def rava_cierres(url: str, lo: float, hi: float) -> dict:
     r.raise_for_status()
     soup = BeautifulSoup(r.text, "html.parser")
     hoy = now_ar().strftime("%Y-%m-%d")
-    antes_del_cierre = now_ar().strftime("%H:%M") < "17:30"
+    antes_de_abrir = now_ar().weekday() >= 5 or now_ar().strftime("%H:%M") < "11:00"
     out: dict[str, float] = {}
     for table in soup.find_all("table"):
         filas = table.find_all("tr")
@@ -389,7 +399,7 @@ def rava_cierres(url: str, lo: float, hi: float) -> dict:
             v = parse_numero_ar(celdas[i_c])
             if not f or v is None or not (lo <= v <= hi):
                 continue
-            if f == hoy and antes_del_cierre:
+            if f == hoy and antes_de_abrir:
                 continue
             out[f] = v
     if not out:
@@ -404,8 +414,8 @@ def fetch_riesgo_pais(items: dict, errors: list, history: dict):
     El cierre del día se toma de Rava y, si falla, de Ámbito. Se usa siempre la fecha más nueva.
     """
     hoy = now_ar().strftime("%Y-%m-%d")
-    if now_ar().strftime("%H:%M") < "17:30":
-        history.get("riesgo_ar", {}).pop(hoy, None)
+    # El dato de hoy se vuelve a leer en cada corrida (es el valor en curso hasta el cierre).
+    history.get("riesgo_ar", {}).pop(hoy, None)
     serie: dict[str, float] = dict(history.get("riesgo_ar", {}))
     fuentes = []
     try:
@@ -426,7 +436,7 @@ def fetch_riesgo_pais(items: dict, errors: list, history: dict):
             a = get_json("https://mercados.ambito.com//riesgopais/variacion")
             v = parse_numero_ar(str(a.get("ultimo") or a.get("valor") or ""))
             f = _fecha_iso(str(a.get("fecha") or "").replace("-", "/")) or now_ar().strftime("%Y-%m-%d")
-            if v and 100 <= v <= 5000 and not (f == hoy and now_ar().strftime("%H:%M") < "17:30"):
+            if v and 100 <= v <= 5000 and not (f == hoy and now_ar().strftime("%H:%M") < "11:00"):
                 nuevos = {f: v}
                 fuentes.append("Ámbito")
         except Exception as e:
@@ -444,6 +454,8 @@ def fetch_riesgo_pais(items: dict, errors: list, history: dict):
     if not serie:
         raise ValueError("ninguna fuente respondió")
     pts = sorted(serie.items())
+    if pts[-1][0] == hoy and now_ar().strftime("%H:%M") < "17:30":
+        fuentes.append("dato en curso")
     items["riesgo_ar"] = item("Riesgo país Argentina", "puntos básicos",
                               "EMBI JP Morgan vía " + " + ".join(fuentes), **series_stats(pts, 0))
 
