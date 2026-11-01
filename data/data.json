@@ -1,14 +1,14 @@
 {
- "actualizado": "2026-10-31T12:57-03:00",
+ "actualizado": "2026-11-01T14:01-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
    "unidad": "US$/lb",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 6.458,
+   "valor": 6.482,
    "anterior": 6.581,
-   "var_pct": -1.86,
-   "mm50": 6.573,
+   "var_pct": -1.5,
+   "mm50": 6.574,
    "mm200": 6.207,
    "prom_anio": 6.193,
    "max52": 6.804,
@@ -134,7 +134,7 @@
     6.622,
     6.641,
     6.581,
-    6.458
+    6.482
    ]
   },
   "oro": {
@@ -277,9 +277,9 @@
    "nombre": "Plata",
    "unidad": "US$/oz",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 49.1,
+   "valor": 49.28,
    "anterior": 52.19,
-   "var_pct": -5.93,
+   "var_pct": -5.59,
    "mm50": 61.73,
    "mm200": 70.88,
    "prom_anio": 71.27,
@@ -406,19 +406,19 @@
     54.29,
     53.46,
     52.19,
-    49.1
+    49.28
    ]
   },
   "brent": {
    "nombre": "Petróleo Brent",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 117.64,
+   "valor": 113.43,
    "anterior": 114.88,
-   "var_pct": 2.4,
-   "mm50": 103.27,
-   "mm200": 92.46,
-   "prom_anio": 91.17,
+   "var_pct": -1.26,
+   "mm50": 103.18,
+   "mm200": 92.43,
+   "prom_anio": 91.15,
    "max52": 118.35,
    "min52": 58.92,
    "fecha": "2026-10-30",
@@ -542,7 +542,7 @@
     113.88,
     115.32,
     114.88,
-    117.64
+    113.43
    ]
   },
   "wti": {
@@ -551,7 +551,7 @@
    "fuente": "Yahoo Finance (demora ~15 min)",
    "valor": 104.12,
    "anterior": 102.0,
-   "var_pct": 2.08,
+   "var_pct": null,
    "mm50": 94.63,
    "mm200": 86.34,
    "prom_anio": 85.15,
@@ -679,16 +679,17 @@
     102.78,
     102.0,
     104.12
-   ]
+   ],
+   "nota": "Hoy cambió el contrato de futuros de referencia: la variación del día no es comparable."
   },
   "soja": {
    "nombre": "Soja (Chicago)",
    "unidad": "US$/tn",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 449.1,
+   "valor": 453.5,
    "anterior": 448.2,
-   "var_pct": 0.2,
-   "mm50": 470.0,
+   "var_pct": 1.19,
+   "mm50": 470.1,
    "mm200": 436.5,
    "prom_anio": 434.2,
    "max52": 488.0,
@@ -814,9 +815,9 @@
     451.7,
     449.9,
     448.2,
-    449.1
+    453.5
    ],
-   "chicago_cents_bu": 1222.25,
+   "chicago_cents_bu": 1234.25,
    "rosario": {
     "ars_tn": 550000.0,
     "var_pct": 0.0,
@@ -3023,7 +3024,7 @@
     1575.0
    ],
    "compra": 1565.4,
-   "actualizado": "2026-10-31T14:57:00.000Z"
+   "actualizado": "2026-11-01T14:57:00.000Z"
   },
   "ccl": {
    "nombre": "Dólar CCL",
@@ -3161,7 +3162,7 @@
     1658.5
    ],
    "compra": 1655.3,
-   "actualizado": "2026-10-31T14:57:00.000Z"
+   "actualizado": "2026-11-01T14:57:00.000Z"
   },
   "mayorista": {
    "nombre": "Dólar mayorista",
@@ -3584,8 +3585,9 @@
    "prom_anio": 19.25,
    "max52": 19.25,
    "min52": 19.25,
-   "fecha": "2026-10-31",
+   "fecha": "2026-11-01",
    "serie": [
+    19.25,
     19.25,
     19.25,
     19.25,
