@@ -1,13 +1,13 @@
 {
- "actualizado": "2026-11-14T13:51-03:00",
+ "actualizado": "2026-11-15T14:35-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
    "unidad": "US$/lb",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 6.08,
+   "valor": 6.09,
    "anterior": 6.182,
-   "var_pct": -1.67,
+   "var_pct": -1.49,
    "mm50": 6.515,
    "mm200": 6.227,
    "prom_anio": 6.197,
@@ -134,7 +134,7 @@
     6.22,
     6.274,
     6.182,
-    6.08
+    6.09
    ]
   },
   "oro": {
@@ -277,14 +277,14 @@
    "nombre": "Plata",
    "unidad": "US$/oz",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 49.03,
+   "valor": 49.12,
    "anterior": 49.97,
-   "var_pct": -1.88,
+   "var_pct": -1.7,
    "mm50": 58.48,
    "mm200": 68.38,
    "prom_anio": 70.35,
    "max52": 115.08,
-   "min52": 49.03,
+   "min52": 49.1,
    "fecha": "2026-11-13",
    "serie": [
     74.6,
@@ -406,7 +406,7 @@
     51.1,
     51.88,
     49.97,
-    49.03
+    49.12
    ]
   },
   "brent": {
@@ -685,11 +685,11 @@
    "nombre": "Soja (Chicago)",
    "unidad": "US$/tn",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 456.7,
+   "valor": 452.5,
    "anterior": 450.8,
-   "var_pct": 1.3,
-   "mm50": 465.8,
-   "mm200": 439.2,
+   "var_pct": 0.37,
+   "mm50": 465.7,
+   "mm200": 439.1,
    "prom_anio": 434.6,
    "max52": 488.0,
    "min52": 376.0,
@@ -814,9 +814,9 @@
     449.9,
     451.6,
     450.8,
-    456.7
+    452.5
    ],
-   "chicago_cents_bu": 1243.0,
+   "chicago_cents_bu": 1231.5,
    "rosario": {
     "ars_tn": 540000.0,
     "var_pct": -0.92,
@@ -2984,7 +2984,7 @@
     1580.9
    ],
    "compra": 1575.5,
-   "actualizado": "2026-11-14T14:58:00.000Z"
+   "actualizado": "2026-11-15T14:57:00.000Z"
   },
   "ccl": {
    "nombre": "Dólar CCL",
@@ -3122,7 +3122,7 @@
     1671.9
    ],
    "compra": 1668.2,
-   "actualizado": "2026-11-14T14:58:00.000Z"
+   "actualizado": "2026-11-15T14:57:00.000Z"
   },
   "mayorista": {
    "nombre": "Dólar mayorista",
@@ -3545,8 +3545,9 @@
    "prom_anio": 19.25,
    "max52": 19.25,
    "min52": 19.25,
-   "fecha": "2026-11-14",
+   "fecha": "2026-11-15",
    "serie": [
+    19.25,
     19.25,
     19.25,
     19.25,
