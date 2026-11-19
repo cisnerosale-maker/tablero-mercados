@@ -1,15 +1,15 @@
 {
- "actualizado": "2026-11-18T18:02-03:00",
+ "actualizado": "2026-11-18T23:19-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
    "unidad": "US$/lb",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 5.669,
+   "valor": 5.686,
    "anterior": 5.976,
-   "var_pct": -5.14,
+   "var_pct": -4.85,
    "mm50": 6.465,
-   "mm200": 6.226,
+   "mm200": 6.227,
    "prom_anio": 6.193,
    "max52": 6.804,
    "min52": 4.959,
@@ -134,21 +134,21 @@
     6.08,
     5.997,
     5.976,
-    5.669
+    5.686
    ]
   },
   "oro": {
    "nombre": "Oro",
    "unidad": "US$/oz",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 3733.9,
+   "valor": 3748.1,
    "anterior": 3864.2,
-   "var_pct": -3.37,
-   "mm50": 4143.0,
-   "mm200": 4457.8,
+   "var_pct": -3.0,
+   "mm50": 4143.3,
+   "mm200": 4457.9,
    "prom_anio": 4486.3,
    "max52": 5318.4,
-   "min52": 3733.9,
+   "min52": 3748.1,
    "fecha": "2026-11-18",
    "serie": [
     4506.3,
@@ -270,21 +270,21 @@
     3886.3,
     3853.0,
     3864.2,
-    3733.9
+    3748.1
    ]
   },
   "plata": {
    "nombre": "Plata",
    "unidad": "US$/oz",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 45.02,
+   "valor": 45.28,
    "anterior": 47.29,
-   "var_pct": -4.8,
-   "mm50": 57.25,
+   "var_pct": -4.25,
+   "mm50": 57.26,
    "mm200": 67.89,
    "prom_anio": 70.03,
    "max52": 115.08,
-   "min52": 45.02,
+   "min52": 45.28,
    "fecha": "2026-11-18",
    "serie": [
     75.01,
@@ -406,19 +406,19 @@
     49.03,
     46.78,
     47.29,
-    45.02
+    45.28
    ]
   },
   "brent": {
    "nombre": "Petróleo Brent",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 88.91,
+   "valor": 89.7,
    "anterior": 93.14,
-   "var_pct": -4.54,
-   "mm50": 103.84,
+   "var_pct": -3.69,
+   "mm50": 103.86,
    "mm200": 94.35,
-   "prom_anio": 91.43,
+   "prom_anio": 91.44,
    "max52": 118.35,
    "min52": 58.92,
    "fecha": "2026-11-18",
@@ -542,18 +542,18 @@
     95.84,
     92.44,
     93.14,
-    88.91
+    89.7
    ]
   },
   "wti": {
    "nombre": "Petróleo WTI",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 82.07,
+   "valor": 82.6,
    "anterior": 86.01,
-   "var_pct": -4.58,
-   "mm50": 94.83,
-   "mm200": 88.09,
+   "var_pct": -3.96,
+   "mm50": 94.84,
+   "mm200": 88.1,
    "prom_anio": 85.36,
    "max52": 112.95,
    "min52": 55.27,
@@ -678,16 +678,16 @@
     88.56,
     85.72,
     86.01,
-    82.07
+    82.6
    ]
   },
   "soja": {
    "nombre": "Soja (Chicago)",
    "unidad": "US$/tn",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 446.8,
+   "valor": 446.6,
    "anterior": 450.3,
-   "var_pct": -0.78,
+   "var_pct": -0.82,
    "mm50": 464.2,
    "mm200": 440.1,
    "prom_anio": 434.8,
@@ -814,9 +814,9 @@
     456.7,
     451.6,
     450.3,
-    446.8
+    446.6
    ],
-   "chicago_cents_bu": 1216.0,
+   "chicago_cents_bu": 1215.5,
    "rosario": {
     "ars_tn": 550000.0,
     "var_pct": 0.92,
@@ -829,9 +829,9 @@
    "nombre": "Maíz (Chicago)",
    "unidad": "US$/tn",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 176.5,
+   "valor": 176.3,
    "anterior": 175.9,
-   "var_pct": 0.34,
+   "var_pct": 0.22,
    "mm50": 189.8,
    "mm200": 180.3,
    "prom_anio": 179.2,
@@ -958,9 +958,9 @@
     175.4,
     176.7,
     175.9,
-    176.5
+    176.3
    ],
-   "chicago_cents_bu": 448.25,
+   "chicago_cents_bu": 447.75,
    "rosario": {
     "ars_tn": 268500.0,
     "var_pct": -1.07,
@@ -973,9 +973,9 @@
    "nombre": "Trigo (Chicago)",
    "unidad": "US$/tn",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 215.6,
+   "valor": 215.1,
    "anterior": 218.7,
-   "var_pct": -1.43,
+   "var_pct": -1.64,
    "mm50": 240.6,
    "mm200": 231.1,
    "prom_anio": 227.1,
@@ -1102,9 +1102,9 @@
     218.0,
     215.7,
     218.7,
-    215.6
+    215.1
    ],
-   "chicago_cents_bu": 586.75,
+   "chicago_cents_bu": 585.5,
    "rosario": {
     "ars_tn": 285455.0,
     "var_pct": 0.06,
@@ -1117,12 +1117,12 @@
    "nombre": "S&P 500",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 7321.8,
+   "valor": 7323.63,
    "anterior": 7340.53,
-   "var_pct": -0.26,
-   "mm50": 7648.47,
+   "var_pct": -0.23,
+   "mm50": 7648.51,
    "mm200": 7346.55,
-   "prom_anio": 7305.34,
+   "prom_anio": 7305.35,
    "max52": 7818.93,
    "min52": 6343.72,
    "fecha": "2026-11-18",
@@ -1246,19 +1246,19 @@
     7561.67,
     7416.59,
     7340.53,
-    7321.8
+    7323.63
    ]
   },
   "nasdaq": {
    "nombre": "Nasdaq Composite",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 24416.56,
+   "valor": 24429.88,
    "anterior": 24328.38,
-   "var_pct": 0.36,
-   "mm50": 26231.53,
-   "mm200": 25152.14,
-   "prom_anio": 24989.59,
+   "var_pct": 0.42,
+   "mm50": 26231.8,
+   "mm200": 25152.21,
+   "prom_anio": 24989.65,
    "max52": 27599.79,
    "min52": 20794.64,
    "fecha": "2026-11-18",
@@ -1382,19 +1382,19 @@
     25136.27,
     24509.76,
     24328.38,
-    24416.56
+    24429.88
    ]
   },
   "dji": {
    "nombre": "Dow Jones",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 50181.96,
+   "valor": 50198.17,
    "anterior": 50759.42,
-   "var_pct": -1.14,
-   "mm50": 51853.24,
-   "mm200": 50782.16,
-   "prom_anio": 50620.92,
+   "var_pct": -1.11,
+   "mm50": 51853.57,
+   "mm200": 50782.24,
+   "prom_anio": 50621.0,
    "max52": 54349.12,
    "min52": 45166.64,
    "fecha": "2026-11-18",
@@ -1518,7 +1518,7 @@
     52347.55,
     51608.17,
     50759.42,
-    50181.96
+    50198.17
    ]
   },
   "merval": {
@@ -1563,12 +1563,12 @@
    "nombre": "Ibovespa",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 167738.0,
+   "valor": 167538.0,
    "anterior": 169817.0,
-   "var_pct": -1.22,
-   "mm50": 186321.0,
-   "mm200": 181225.0,
-   "prom_anio": 180118.0,
+   "var_pct": -1.34,
+   "mm50": 186317.0,
+   "mm200": 181224.0,
+   "prom_anio": 180117.0,
    "max52": 209067.0,
    "min52": 154770.0,
    "fecha": "2026-11-18",
@@ -1692,23 +1692,24 @@
     172458.0,
     169295.0,
     169817.0,
-    167738.0
+    167538.0
    ]
   },
   "ipsa": {
    "nombre": "Chile: ETF ECH (en US$)",
    "unidad": "US$",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 34.27,
-   "anterior": 35.2,
-   "var_pct": -2.64,
-   "mm50": 37.22,
-   "mm200": 40.0,
-   "prom_anio": 40.46,
+   "valor": 35.2,
+   "anterior": 35.06,
+   "var_pct": 0.4,
+   "mm50": 37.35,
+   "mm200": 40.07,
+   "prom_anio": 40.49,
    "max52": 47.37,
-   "min52": 34.27,
-   "fecha": "2026-11-18",
+   "min52": 34.73,
+   "fecha": "2026-11-17",
    "serie": [
+    41.98,
     41.05,
     40.59,
     39.92,
@@ -1827,17 +1828,16 @@
     35.48,
     35.55,
     35.06,
-    35.2,
-    34.27
+    35.2
    ]
   },
   "vix": {
    "nombre": "VIX",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 24.52,
+   "valor": 24.56,
    "anterior": 25.46,
-   "var_pct": -3.69,
+   "var_pct": -3.53,
    "mm50": 17.82,
    "mm200": 18.53,
    "prom_anio": 18.31,
@@ -1964,20 +1964,20 @@
     19.3,
     22.91,
     25.46,
-    24.52
+    24.56
    ]
   },
   "dxy": {
    "nombre": "Índice dólar (DXY)",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 103.79,
+   "valor": 103.86,
    "anterior": 103.49,
-   "var_pct": 0.29,
-   "mm50": 101.69,
+   "var_pct": 0.35,
+   "mm50": 101.7,
    "mm200": 99.95,
    "prom_anio": 99.77,
-   "max52": 103.79,
+   "max52": 103.86,
    "min52": 96.22,
    "fecha": "2026-11-18",
    "serie": [
@@ -2100,7 +2100,7 @@
     103.41,
     103.55,
     103.49,
-    103.79
+    103.86
    ]
   },
   "ust10": {
@@ -2380,13 +2380,13 @@
    "nombre": "Peso chileno",
    "unidad": "CLP por US$",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 1007.53,
+   "valor": 993.82,
    "anterior": 997.54,
-   "var_pct": 1.0,
-   "mm50": 972.12,
-   "mm200": 923.4,
-   "prom_anio": 917.49,
-   "max52": 1007.53,
+   "var_pct": -0.37,
+   "mm50": 971.84,
+   "mm200": 923.33,
+   "prom_anio": 917.43,
+   "max52": 997.54,
    "min52": 852.37,
    "fecha": "2026-11-18",
    "serie": [
@@ -2509,9 +2509,9 @@
     994.21,
     975.07,
     997.54,
-    1007.53
+    993.82
    ],
-   "en_pesos": 1.5478
+   "en_pesos": 1.5692
   },
   "eurusd": {
    "nombre": "Euro",
@@ -2786,7 +2786,7 @@
     1580.0
    ],
    "compra": 1530.0,
-   "actualizado": "2026-11-18T17:00:00.000Z"
+   "actualizado": "2026-11-18T18:00:00.000Z"
   },
   "mep": {
    "nombre": "Dólar MEP",
@@ -2924,7 +2924,7 @@
     1628.8
    ],
    "compra": 1620.9,
-   "actualizado": "2026-11-18T19:58:00.000Z"
+   "actualizado": "2026-11-18T20:56:00.000Z"
   },
   "ccl": {
    "nombre": "Dólar CCL",
@@ -3062,7 +3062,7 @@
     1724.1
    ],
    "compra": 1721.1,
-   "actualizado": "2026-11-18T19:58:00.000Z"
+   "actualizado": "2026-11-18T20:56:00.000Z"
   },
   "mayorista": {
    "nombre": "Dólar mayorista",
