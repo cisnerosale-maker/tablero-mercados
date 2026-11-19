@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Precio vs EPS · Tablero de Mercados</title>
+<meta name="description" content="Relación entre la cotización y el EPS diluido: P/E histórico, bandas, descomposición de la suba y correlación.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Misma estética que el tablero: fondo celeste, tarjetas blancas, números en monoespaciada */
+:root {
+  --bg: #DDEBF7; --surface: #FFFFFF; --sunken: #EAF2FA; --ink: #14202C; --muted: #4F6378; --line: #C3D6E8;
+  --accent: #1F5E8C; --brand: #1F4E79; --up: #1E7A4C; --down: #B42318; --warn: #A15C07;
+  --s-precio: #2a78d6; --s-eps: #eb6834; --band: #7C8DA0; --grid: #E3ECF5;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-data: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0D1724; --surface: #142131; --sunken: #111C2A; --ink: #E3ECF5; --muted: #93A6BA; --line: #26374B;
+    --accent: #6FB2E6; --brand: #8DBDEB; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A;
+    --s-precio: #3987e5; --s-eps: #d95926; --band: #8496AA; --grid: #1E2D3F;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.45;
+  padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left));
+}
+.wrap { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; letter-spacing: -0.01em; color: var(--brand); }
+h2 { font-size: 20px; font-weight: 700; }
+h3 { font-size: 16px; font-weight: 700; }
+.num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+[hidden] { display: none !important; }
+a { color: var(--accent); }
+
+header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+nav.tabs { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+nav.tabs a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 5px; }
+nav.tabs a[aria-current="page"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+.seg button { font: inherit; font-size: 14px; font-weight: 600; border: 0; background: transparent; color: var(--muted); padding: 6px 12px; border-radius: 5px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--sunken); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.seg button small { font-weight: 500; color: var(--muted); }
+
+.empresa { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.empresa .precio { font-family: var(--f-data); font-size: 22px; }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.kpi .k { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.kpi .v { font-family: var(--f-data); font-size: 22px; font-variant-numeric: tabular-nums; }
+.kpi .s { font-size: 12px; color: var(--muted); }
+.kpi.hero { border-left: 4px solid var(--accent); }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card p { margin: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 5px; }
+.legend i.dash { border-top-style: dashed; }
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart svg text { font-family: var(--f-data); font-size: 10.5px; fill: var(--muted); }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; font-size: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.12); white-space: nowrap; z-index: 2; }
+.tip b { font-family: var(--f-data); font-weight: 500; }
+.tip .r { display: flex; justify-content: space-between; gap: 14px; }
+.note { font-size: 12.5px; color: var(--muted); }
+
+table.t { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.t th, table.t td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { color: var(--muted); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; }
+table.t td { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+table.t tr.hoy td { font-weight: 600; background: var(--sunken); }
+.scroll { overflow-x: auto; }
+.up { color: var(--up); } .down { color: var(--down); }
+.tag { font-family: var(--f-body); font-size: 11px; font-weight: 600; padding: 0 6px; border-radius: 3px; border: 1px solid var(--line); color: var(--muted); }
+.tag.warn { color: var(--warn); border-color: currentColor; }
+
+.rel { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.verdict { font-weight: 600; }
+.banner { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warn); padding: 12px 14px; border-radius: 6px; }
+details.avisos { font-size: 13px; color: var(--muted); }
+details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span style="color:var(--brand)">Estudio Cisneros</span><span class="muted" style="font-weight:600"> · Marcos Juárez</span></div>
+      <h1>Precio vs EPS</h1>
+      <div class="muted" style="font-size:13.5px;margin-top:6px">Cotización contra EPS diluido: P/E histórico, bandas, cuánto de la suba vino por ganancias y cuánto por múltiplo.</div>
+    </div>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="index.html">Mercados</a>
+      <a href="eps.html" aria-current="page">Precio vs EPS</a>
+    </nav>
+  </header>
+
+  <div class="controls">
+    <div class="seg" id="selEmpresa" role="group" aria-label="Empresa"></div>
+    <div class="seg" id="selModo" role="group" aria-label="Período">
+      <button type="button" data-modo="anual" aria-pressed="true">Anual</button>
+      <button type="button" data-modo="trim" aria-pressed="false">Trimestral <small>(LTM)</small></button>
+    </div>
+  </div>
+
+  <div class="banner" id="banner" hidden></div>
+  <main id="main" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <details class="avisos" id="avisos" hidden><summary>Avisos de la última actualización</summary><ul id="avisosList"></ul></details>
+  <p class="note">
+    <b>Cómo se calcula.</b> EPS diluido según TIKR para la carga inicial y Yahoo Finance para los períodos siguientes.
+    Precio de cierre del último día hábil del ejercicio o trimestre de cada empresa (ajustado por splits, no por dividendos).
+    En la vista anual, cada punto es un ejercicio fiscal; en la trimestral, el EPS de los últimos 12 meses (LTM) al cierre de cada trimestre.
+    "Hoy" usa el último EPS LTM y la última cotización. Los años con EPS negativo no tienen P/E.
+    La correlación se calcula entre las <i>variaciones</i> de EPS y de precio, no entre sus valores, y con pocos datos es orientativa.
+    No es asesoramiento financiero.
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const fmt = (n, d = 2) => n == null || !isFinite(n) ? "—" : Number(Math.abs(n) < 0.5 * 10 ** -d ? 0 : n).toLocaleString("es-AR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const pct = (x, d = 1, signo = true) => x == null || !isFinite(x) ? "—" : (signo && x > 0 ? "+" : "") + fmt(x * 100, d) + "%";
+  const cls = x => x == null || !isFinite(x) || Math.abs(x) < 1e-9 ? "" : x > 0 ? "up" : "down";
+  const MES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+  const dmy = s => { const m = String(s).match(/(\d{4})-(\d{2})-(\d{2})/); return m ? `${m[3]}/${m[2]}/${m[1].slice(2)}` : s; };
+  // Etiqueta mes-año del cierre; los ejercicios de 52/53 semanas que cierran en los primeros días del mes se rotulan con el mes anterior
+  const my = s => { const m = String(s).match(/(\d{4})-(\d{2})-(\d{2})/); if (!m) return s; let y = +m[1], mo = +m[2] - 1; if (+m[3] <= 7) { mo -= 1; if (mo < 0) { mo = 11; y -= 1; } } return MES[mo] + "-" + String(y).slice(2); };
+  const anios = (a, b) => (new Date(b) - new Date(a)) / (365.25 * 864e5);
+  const median = a => { const s = [...a].sort((x, y) => x - y), n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
+  const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+
+  let H = null, ACT = null, LISTA = [], tk = null, modo = "anual";
+
+  // ---------- Datos ----------
+  // Factor de split: los datos cargados antes de un split se dividen por el factor (no se modifican en el archivo).
+  function factor(h, cargado) {
+    return (h.splits || []).reduce((f, s) => s.fecha > cargado ? f * s.factor : f, 1);
+  }
+  function puntos(t, m) {
+    const h = H.acciones[t]; if (!h) return { hist: [], hoy: null };
+    const precio = fin => { const p = h.precios && h.precios[fin]; return p ? p.cierre / factor(h, p.cargado) : null; };
+    let hist;
+    if (m === "anual") {
+      hist = h.anual.map(e => ({ fin: e.fin, lab: my(e.fin), eps: e.eps / factor(h, e.cargado), precio: precio(e.fin), fuente: e.fuente }));
+    } else {
+      hist = h.trimestral.filter(e => e.eps_ltm != null).map(e => ({
+        fin: e.fin, lab: my(e.fin), eps: e.eps_ltm / factor(h, e.cargado), epsQ: e.eps / factor(h, e.cargado), precio: precio(e.fin), fuente: e.fuente
+      }));
+    }
+    hist.sort((a, b) => a.fin < b.fin ? -1 : 1);
+    hist.forEach(p => p.pe = p.precio != null && p.eps > 0 ? p.precio / p.eps : null);
+    const ultT = [...h.trimestral].reverse().find(e => e.eps_ltm != null);
+    const a = ACT && ACT.acciones && ACT.acciones[t];
+    let hoy = null;
+    if (ultT) {
+      const eps = ultT.eps_ltm / factor(h, ultT.cargado);
+      const pr = a && a.precio != null ? a.precio : null;
+      hoy = { fin: a ? a.fecha : ultT.fin, lab: "Hoy", eps, epsFin: ultT.fin, precio: pr, pe: pr != null && eps > 0 ? pr / eps : null, hoy: true };
+    }
+    return { hist, hoy };
+  }
+
+  function estadisticas(hist, hoy) {
+    const pes = hist.filter(p => p.pe != null);
+    const v = pes.map(p => p.pe);
+    if (!v.length) return null;
+    const mn = pes.reduce((a, b) => b.pe < a.pe ? b : a), mx = pes.reduce((a, b) => b.pe > a.pe ? b : a);
+    const med = median(v), prom = mean(v);
+    const pctl = hoy && hoy.pe != null ? v.filter(x => x < hoy.pe).length / v.length : null;
+    return { n: v.length, med, prom, min: mn, max: mx, pctl,
+      vsMed: hoy && hoy.pe != null ? hoy.pe / med - 1 : null,
+      justo: hoy && hoy.eps > 0 ? hoy.eps * med : null };
+  }
+
+  // Descomposición: (1 + precio) = (1 + EPS) × (1 + múltiplo), en tasa anual compuesta
+  function descomposicion(hist, hoy, horizontes) {
+    if (!hoy || hoy.pe == null) return [];
+    const out = [];
+    for (const [nombre, años] of horizontes) {
+      const objetivo = new Date(hoy.fin); objetivo.setDate(objetivo.getDate() - Math.round(años * 365.25));
+      let ini = null, best = Infinity;
+      for (const p of hist) {
+        const dif = Math.abs(new Date(p.fin) - objetivo) / 864e5;
+        if (dif < best) { best = dif; ini = p; }
+      }
+      if (!ini || años !== null && best > 200 || ini.pe == null || ini.eps <= 0) continue;
+      const y = anios(ini.fin, hoy.fin); if (y < 0.5) continue;
+      const cagr = (a, b) => Math.pow(b / a, 1 / y) - 1;
+      out.push({ nombre, desde: ini, y, precio: cagr(ini.precio, hoy.precio), eps: cagr(ini.eps, hoy.eps), mult: cagr(ini.pe, hoy.pe),
+        totP: hoy.precio / ini.precio - 1, totE: hoy.eps / ini.eps - 1 });
+    }
+    return out;
+  }
+
+  function relacion(hist) {
+    const pares = [];
+    for (let i = 1; i < hist.length; i++) {
+      const a = hist[i - 1], b = hist[i];
+      if (a.eps > 0 && b.eps > 0 && a.precio > 0 && b.precio > 0) pares.push([Math.log(b.eps / a.eps), Math.log(b.precio / a.precio), a, b]);
+    }
+    const n = pares.length; if (n < 4) return { n };
+    const mx = mean(pares.map(p => p[0])), my_ = mean(pares.map(p => p[1]));
+    let sxy = 0, sxx = 0, syy = 0;
+    for (const [x, y] of pares) { sxy += (x - mx) * (y - my_); sxx += (x - mx) ** 2; syy += (y - my_) ** 2; }
+    const r = sxx && syy ? sxy / Math.sqrt(sxx * syy) : null;
+    const beta = sxx ? sxy / sxx : null;
+    const mismoSentido = pares.filter(p => Math.sign(p[0]) === Math.sign(p[1])).length;
+    return { n, r, beta, mismoSentido, pares };
+  }
+
+  // ---------- Gráficos (SVG propio, un solo eje) ----------
+  const Hh = 250, M = { l: 52, r: 14, t: 12, b: 28 };
+  // Ancho del dibujo = ancho real en pantalla (así los textos no se achican en el celular)
+  const ancho = el => Math.round(Math.max(340, Math.min(760, el.clientWidth || 620)));
+  function niceLogTicks(lo, hi) {
+    const out = [], steps = [1, 2, 5];
+    for (let e = Math.floor(Math.log10(lo)) - 1; e <= Math.ceil(Math.log10(hi)) + 1; e++)
+      for (const s of steps) { const v = s * 10 ** e; if (v >= lo * 0.999 && v <= hi * 1.001) out.push(v); }
+    if (out.length > 7) return out.filter(v => /^1/.test(v.toExponential()));
+    return out.length >= 2 ? out : [lo, hi];
+  }
+  function niceTicks(lo, hi, n = 5) {
+    const span = hi - lo || 1, step0 = span / n, mag = 10 ** Math.floor(Math.log10(step0));
+    const step = [1, 2, 2.5, 5, 10].map(s => s * mag).find(s => span / s <= n) || mag * 10;
+    const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10));
+    return out;
+  }
+  function tickLabel(v) {
+    if (v === 0) return "0";
+    if (v >= 1000) return fmt(v, 0);
+    if (v >= 10) return fmt(v, 0);
+    if (v >= 1) return fmt(v, v % 1 ? 1 : 0);
+    return fmt(v, 2);
+  }
+
+  /* series: [{nombre, color, dash, valores:[n|null], ancho}] ; etiquetas: [string] ; log: bool */
+  function lineChart(el, etiquetas, series, opt) {
+    const W = ancho(el), n = etiquetas.length;
+    const todos = series.flatMap(s => s.valores).filter(v => v != null && isFinite(v) && (!opt.log || v > 0));
+    if (n < 2 || !todos.length) { el.innerHTML = `<p class="note">Sin datos suficientes para el gráfico.</p>`; return; }
+    let lo = Math.min(...todos), hi = Math.max(...todos);
+    if (opt.log) { lo /= 1.12; hi *= 1.12; } else { const pad = (hi - lo) * 0.08 || 1; lo = Math.max(opt.cero ? 0 : -Infinity, lo - pad); hi += pad; }
+    const iw = W - M.l - M.r, ih = Hh - M.t - M.b;
+    const x = i => M.l + (n === 1 ? iw / 2 : i / (n - 1) * iw);
+    const y = opt.log ? v => M.t + (Math.log(hi) - Math.log(v)) / (Math.log(hi) - Math.log(lo)) * ih
+                      : v => M.t + (hi - v) / (hi - lo) * ih;
+    const ticks = opt.log ? niceLogTicks(lo, hi) : niceTicks(lo, hi);
+    let g = ticks.map(v => `<line x1="${M.l}" x2="${W - M.r}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="var(--grid)"/>
+      <text x="${M.l - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${(opt.pre || "") + tickLabel(v)}</text>`).join("");
+    if (opt.ref != null) g += `<line x1="${M.l}" x2="${W - M.r}" y1="${y(opt.ref).toFixed(1)}" y2="${y(opt.ref).toFixed(1)}" stroke="var(--muted)" stroke-width="1"/>`;
+    const cada = Math.max(1, Math.ceil(n / Math.max(3, Math.floor(W / 75))));
+    g += etiquetas.map((l, i) => (i % cada === 0 || i === n - 1) && !(i !== n - 1 && n - 1 - i < cada) ? `<text x="${x(i).toFixed(1)}" y="${Hh - 8}" text-anchor="middle">${esc(l)}</text>` : "").join("");
+    const paths = series.map(s => {
+      let d = "", pen = false;
+      s.valores.forEach((v, i) => {
+        if (v == null || !isFinite(v) || (opt.log && v <= 0)) { pen = false; return; }
+        d += (pen ? "L" : "M") + x(i).toFixed(1) + "," + y(v).toFixed(1); pen = true;
+      });
+      const dots = s.puntos === false ? "" : s.valores.map((v, i) => v == null || !isFinite(v) || (opt.log && v <= 0) ? "" :
+        `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${i === n - 1 && opt.ultimoHoy ? 4.5 : 3}" fill="${s.color}" stroke="var(--surface)" stroke-width="2"/>`).join("");
+      return `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.ancho || 2}" ${s.dash ? `stroke-dasharray="${s.dash}"` : ""} stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
+    }).join("");
+    el.innerHTML = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="${esc(opt.aria || "")}">${g}${paths}
+      <line class="xh" x1="0" x2="0" y1="${M.t}" y2="${Hh - M.b}" stroke="var(--muted)" stroke-dasharray="2 3" opacity="0"/>
+      <rect x="${M.l}" y="${M.t}" width="${iw}" height="${ih}" fill="transparent"/></svg><div class="tip" hidden></div>`;
+    hover(el, n, x, W, i => opt.tip(i));
+  }
+
+  function barChart(el, etiquetas, valores, opt) {
+    const W = ancho(el), n = etiquetas.length, vals = valores.filter(v => v != null);
+    if (!vals.length) { el.innerHTML = `<p class="note">Sin P/E calculable (faltan precios o el EPS es negativo).</p>`; return; }
+    const hi = Math.max(...vals, opt.ref || 0) * 1.1, lo = 0;
+    const iw = W - M.l - M.r, ih = Hh - M.t - M.b, bw = Math.min(34, iw / n * 0.62);
+    const x = i => M.l + (i + 0.5) / n * iw, y = v => M.t + (hi - v) / (hi - lo) * ih;
+    let g = niceTicks(lo, hi).map(v => `<line x1="${M.l}" x2="${W - M.r}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="var(--grid)"/>
+      <text x="${M.l - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${tickLabel(v)}x</text>`).join("");
+    const cada = Math.max(1, Math.ceil(n / Math.max(3, Math.floor(W / 75))));
+    g += etiquetas.map((l, i) => (i % cada === 0 || i === n - 1) && !(i !== n - 1 && n - 1 - i < cada) ? `<text x="${x(i).toFixed(1)}" y="${Hh - 8}" text-anchor="middle">${esc(l)}</text>` : "").join("");
+    const bars = valores.map((v, i) => {
+      if (v == null) return `<text x="${x(i).toFixed(1)}" y="${(y(0) - 4).toFixed(1)}" text-anchor="middle">s/d</text>`;
+      const h = y(0) - y(v), r = Math.min(4, bw / 2, h);
+      const x0 = x(i) - bw / 2, y0 = y(v);
+      const col = i === n - 1 && opt.ultimoHoy ? "var(--brand)" : "var(--s-precio)";
+      return `<path d="M${x0},${y(0)}V${y0 + r}Q${x0},${y0} ${x0 + r},${y0}H${x0 + bw - r}Q${x0 + bw},${y0} ${x0 + bw},${y0 + r}V${y(0)}Z" fill="${col}" opacity="${i === n - 1 && opt.ultimoHoy ? 1 : .8}"/>`;
+    }).join("");
+    const ref = opt.ref != null ? `<line x1="${M.l}" x2="${W - M.r}" y1="${y(opt.ref).toFixed(1)}" y2="${y(opt.ref).toFixed(1)}" stroke="var(--ink)" stroke-dasharray="5 4" stroke-width="1.4"/>
+      <text x="${W - M.r}" y="${(y(opt.ref) - 5).toFixed(1)}" text-anchor="end" style="fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:4px">mediana ${fmt(opt.ref, 1)}x</text>` : "";
+    el.innerHTML = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="${esc(opt.aria || "")}">${g}${bars}${ref}
+      <line class="xh" x1="0" x2="0" y1="${M.t}" y2="${Hh - M.b}" stroke="var(--muted)" stroke-dasharray="2 3" opacity="0"/>
+      <rect x="${M.l}" y="${M.t}" width="${iw}" height="${ih}" fill="transparent"/></svg><div class="tip" hidden></div>`;
+    hover(el, n, x, W, i => opt.tip(i));
+  }
+
+  function hover(el, n, x, W, tipHtml) {
+    const svg = el.querySelector("svg"), tip = el.querySelector(".tip"), xh = el.querySelector(".xh");
+    const mover = ev => {
+      const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width * W;
+      let i = 0, best = Infinity; for (let k = 0; k < n; k++) { const d = Math.abs(x(k) - px); if (d < best) { best = d; i = k; } }
+      xh.setAttribute("x1", x(i)); xh.setAttribute("x2", x(i)); xh.setAttribute("opacity", "1");
+      tip.innerHTML = tipHtml(i); tip.hidden = false;
+      const left = x(i) / W * r.width, tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(0, left + 12 + tw > r.width ? left - tw - 12 : left + 12), r.width - tw) + "px";
+      tip.style.top = "8px";
+    };
+    svg.addEventListener("pointermove", mover);
+    svg.addEventListener("pointerleave", () => { tip.hidden = true; xh.setAttribute("opacity", "0"); });
+  }
+
+  // ---------- Render ----------
+  function render() {
+    const acc = LISTA.find(a => a.ticker === tk) || { ticker: tk, nombre: tk };
+    const { hist, hoy } = puntos(tk, modo);
+    const serie = hoy ? [...hist, hoy] : hist;
+    const st = estadisticas(hist, hoy);
+    const sinPrecios = !hist.some(p => p.precio != null);
+    const h = H.acciones[tk];
+    const etiquetaModo = modo === "anual" ? "ejercicios" : "trimestres (EPS LTM)";
+
+    let html = `<div class="empresa"><h2>${esc(acc.nombre)} <span class="muted" style="font-weight:600">(${esc(tk)})</span></h2>
+      ${hoy && hoy.precio != null ? `<span class="precio">US$ ${fmt(hoy.precio)}</span><span class="muted" style="font-size:13px">cierre ${dmy(hoy.fin)} · EPS LTM US$ ${fmt(hoy.eps)} al ${dmy(hoy.epsFin)}</span>` : ""}</div>`;
+
+    if (sinPrecios) {
+      html += `<div class="banner">Todavía no están los precios de cierre. Se completan solos en la próxima actualización automática, o al correrla a mano en GitHub: <b>Actions → Actualizar EPS → Run workflow</b>. Mientras tanto se ven los EPS.</div>`;
+    }
+
+    // Indicadores
+    if (st) {
+      const k = (t, v, s, hero) => `<div class="kpi${hero ? " hero" : ""}"><span class="k">${t}</span><span class="v">${v}</span>${s ? `<span class="s">${s}</span>` : ""}</div>`;
+      html += `<section class="kpis" aria-label="Indicadores del P/E">
+        ${k("P/E hoy", hoy && hoy.pe != null ? fmt(hoy.pe, 1) + "x" : "—", "precio / EPS LTM", true)}
+        ${k("Mediana", fmt(st.med, 1) + "x", st.n + " " + etiquetaModo)}
+        ${k("Promedio", fmt(st.prom, 1) + "x", "")}
+        ${k("Mínimo", fmt(st.min.pe, 1) + "x", st.min.lab)}
+        ${k("Máximo", fmt(st.max.pe, 1) + "x", st.max.lab)}
+        ${k("Percentil de hoy", st.pctl != null ? fmt(st.pctl * 100, 0) + "%" : "—", st.pctl != null ? `más caro que el ${fmt(st.pctl * 100, 0)}% de la historia` : "")}
+        ${k("Hoy vs. mediana", `<span class="${cls(-st.vsMed)}">${pct(st.vsMed)}</span>`, st.vsMed == null ? "" : st.vsMed > 0 ? "más caro que su mediana" : "más barato que su mediana")}
+        ${k("Precio a P/E mediano", st.justo != null ? "US$ " + fmt(st.justo) : "—", st.justo != null && hoy.precio ? `${pct(st.justo / hoy.precio - 1)} vs. hoy` : "")}
+      </section>`;
+    }
+
+    html += `<div class="grid2">
+      <section class="card"><h3>Precio y EPS en base 100</h3>
+        <div class="legend"><span><i style="border-color:var(--s-precio)"></i>Precio</span><span><i style="border-color:var(--s-eps)"></i>EPS ${modo === "anual" ? "del ejercicio" : "LTM"}</span><span>Escala logarítmica</span></div>
+        <div class="chart" id="chIdx"></div>
+        <p class="note">Las dos líneas arrancan en 100. Si el precio queda por encima del EPS, el mercado le pagó más múltiplo; si queda por debajo, el múltiplo se achicó.</p></section>
+      <section class="card"><h3>Precio vs. precio según su P/E histórico</h3>
+        <div class="legend"><span><i style="border-color:var(--s-precio)"></i>Precio</span><span><i style="border-color:var(--band)"></i>EPS × P/E mediano</span><span><i class="dash" style="border-color:var(--band)"></i>EPS × P/E mín. y máx.</span><span>Escala logarítmica</span></div>
+        <div class="chart" id="chBand"></div>
+        <p class="note">La franja muestra dónde habría estado el precio si el mercado le pagara su P/E mínimo, mediano o máximo de este período.</p></section>
+      <section class="card"><h3>P/E por período</h3>
+        <div class="legend"><span><i style="border-color:var(--s-precio)"></i>P/E</span><span><i class="dash" style="border-color:var(--ink)"></i>Mediana</span><span><i style="border-color:var(--brand);border-top-width:6px"></i>Hoy</span></div>
+        <div class="chart" id="chPE"></div></section>
+      <section class="card" id="cardDesc"></section>
+    </div>
+    <section class="card" id="cardRel"></section>
+    <section class="card"><h3>Tabla</h3><div class="scroll" id="tabla"></div></section>`;
+    $("main").innerHTML = html;
+
+    // Gráfico 1: base 100
+    const base = serie.find(p => p.eps > 0 && p.precio > 0);
+    const et = serie.map(p => p.lab);
+    if (base) {
+      lineChart($("chIdx"), et, [
+        { nombre: "Precio", color: "var(--s-precio)", valores: serie.map(p => p.precio > 0 && new Date(p.fin) >= new Date(base.fin) ? p.precio / base.precio * 100 : null) },
+        { nombre: "EPS", color: "var(--s-eps)", valores: serie.map(p => p.eps > 0 && new Date(p.fin) >= new Date(base.fin) ? p.eps / base.eps * 100 : null) }
+      ], { log: true, ref: 100, ultimoHoy: !!hoy, aria: "Precio y EPS en base 100",
+        tip: i => { const p = serie[i]; return `<div><b>${esc(p.lab === "Hoy" ? "Hoy " + dmy(p.fin) : p.lab)}</b></div>
+          <div class="r"><span>Precio</span><b>${p.precio > 0 ? fmt(p.precio / base.precio * 100, 0) : "—"}</b></div>
+          <div class="r"><span>EPS</span><b>${p.eps > 0 ? fmt(p.eps / base.eps * 100, 0) : "—"}</b></div>`; } });
+    } else $("chIdx").innerHTML = `<p class="note">Faltan precios para armar el gráfico.</p>`;
+
+    // Gráfico 2: bandas
+    if (st) {
+      const band = f => serie.map(p => p.eps > 0 ? p.eps * f : null);
+      lineChart($("chBand"), et, [
+        { color: "var(--band)", dash: "4 4", ancho: 1.4, puntos: false, valores: band(st.max.pe) },
+        { color: "var(--band)", ancho: 1.6, puntos: false, valores: band(st.med) },
+        { color: "var(--band)", dash: "4 4", ancho: 1.4, puntos: false, valores: band(st.min.pe) },
+        { color: "var(--s-precio)", valores: serie.map(p => p.precio) }
+      ], { log: true, pre: "", ultimoHoy: !!hoy, aria: "Precio contra bandas de P/E",
+        tip: i => { const p = serie[i]; return `<div><b>${esc(p.lab === "Hoy" ? "Hoy " + dmy(p.fin) : p.lab)}</b></div>
+          <div class="r"><span>Precio</span><b>US$ ${fmt(p.precio)}</b></div>
+          <div class="r"><span>A P/E máx. ${fmt(st.max.pe, 1)}x</span><b>${p.eps > 0 ? "US$ " + fmt(p.eps * st.max.pe) : "—"}</b></div>
+          <div class="r"><span>A P/E mediano ${fmt(st.med, 1)}x</span><b>${p.eps > 0 ? "US$ " + fmt(p.eps * st.med) : "—"}</b></div>
+          <div class="r"><span>A P/E mín. ${fmt(st.min.pe, 1)}x</span><b>${p.eps > 0 ? "US$ " + fmt(p.eps * st.min.pe) : "—"}</b></div>`; } });
+    } else $("chBand").innerHTML = `<p class="note">Faltan precios para armar el gráfico.</p>`;
+
+    // Gráfico 3: P/E
+    barChart($("chPE"), et, serie.map(p => p.pe), { ref: st ? st.med : null, ultimoHoy: !!hoy, aria: "P/E por período",
+      tip: i => { const p = serie[i]; return `<div><b>${esc(p.lab === "Hoy" ? "Hoy " + dmy(p.fin) : p.lab)}</b></div>
+        <div class="r"><span>P/E</span><b>${p.pe != null ? fmt(p.pe, 1) + "x" : "s/d"}</b></div>
+        <div class="r"><span>Precio</span><b>US$ ${fmt(p.precio)}</b></div><div class="r"><span>EPS</span><b>US$ ${fmt(p.eps)}</b></div>`; } });
+
+    // Descomposición
+    const hz = modo === "anual" ? [["10 años", 10], ["5 años", 5], ["3 años", 3], ["1 año", 1]] : [["1 año", 1], ["2 años", 2]];
+    let desc = descomposicion(hist, hoy, hz);
+    if (hist.length && hoy) {
+      const ini = hist.find(p => p.pe != null);
+      if (ini && !desc.some(d => d.desde.fin === ini.fin)) {
+        const y = anios(ini.fin, hoy.fin);
+        desc.push({ nombre: "Todo el período", desde: ini, y, precio: Math.pow(hoy.precio / ini.precio, 1 / y) - 1, eps: Math.pow(hoy.eps / ini.eps, 1 / y) - 1, mult: Math.pow(hoy.pe / ini.pe, 1 / y) - 1, totP: hoy.precio / ini.precio - 1, totE: hoy.eps / ini.eps - 1 });
+      }
+    }
+    const lectura = d => {
+      const m = d.mult, txt = Math.abs(m) < 0.01 ? "el múltiplo casi no cambió: la suba acompañó a las ganancias"
+        : m > 0 ? `el múltiplo sumó ${pct(m, 1, false)} por año (pasó de ${fmt(d.desde.pe, 1)}x a ${fmt(hoy.pe, 1)}x)`
+        : `el múltiplo restó ${pct(-m, 1, false)} por año (pasó de ${fmt(d.desde.pe, 1)}x a ${fmt(hoy.pe, 1)}x)`;
+      return txt;
+    };
+    $("cardDesc").innerHTML = `<h3>¿Cuánto de la suba fue por ganancias y cuánto por múltiplo?</h3>
+      ${desc.length ? `<div class="scroll"><table class="t"><thead><tr><th>Desde</th><th>Precio / año</th><th>EPS / año</th><th>Múltiplo / año</th></tr></thead><tbody>
+        ${desc.map(d => `<tr><td>${d.nombre} <span class="muted">(${esc(d.desde.lab)})</span></td><td class="${cls(d.precio)}">${pct(d.precio)}</td><td class="${cls(d.eps)}">${pct(d.eps)}</td><td class="${cls(d.mult)}">${pct(d.mult)}</td></tr>`).join("")}
+        </tbody></table></div>
+        <p>${(() => { const d = desc[0]; return `<b>En ${d.nombre === "Todo el período" ? fmt(d.y, 1) + " años" : d.nombre}</b> el precio creció ${pct(d.precio, 1, false)} anual y el EPS ${pct(d.eps, 1, false)} anual: ${lectura(d)}.`; })()}</p>
+        <p class="note">Tasas anuales compuestas hasta hoy. Se cumple que (1 + precio) = (1 + EPS) × (1 + múltiplo). No incluye dividendos.</p>`
+      : `<p class="note">Hace falta tener precio y EPS positivo al inicio de cada período.</p>`}`;
+
+    // Relación EPS - precio
+    const rel = relacion(hist);
+    const fuerza = r => r == null ? "—" : Math.abs(r) >= 0.7 ? "fuerte" : Math.abs(r) >= 0.4 ? "moderada" : "débil";
+    const unidad = modo === "anual" ? "año contra año" : "trimestre contra trimestre (EPS LTM)";
+    $("cardRel").innerHTML = `<h3>Relación entre EPS y precio</h3>
+      ${rel.n >= 4 ? `<div class="rel">
+        <div class="kpi"><span class="k">Correlación de variaciones</span><span class="v">${fmt(rel.r, 2)}</span><span class="s">relación ${fuerza(rel.r)}${rel.r < 0 ? " e inversa" : ""}</span></div>
+        <div class="kpi"><span class="k">Elasticidad</span><span class="v">${fmt(rel.beta, 2)}</span><span class="s">por cada 1% de EPS, el precio se movió ${fmt(rel.beta, 2)}%</span></div>
+        <div class="kpi"><span class="k">Mismo sentido</span><span class="v">${rel.mismoSentido} de ${rel.n}</span><span class="s">períodos en que EPS y precio se movieron igual</span></div>
+        <div class="kpi"><span class="k">Datos usados</span><span class="v">${rel.n}</span><span class="s">variaciones ${unidad}</span></div>
+      </div>
+      <p><span class="verdict">${rel.r >= 0.7 ? "El precio acompañó bien a las ganancias." : rel.r >= 0.4 ? "El precio acompañó a las ganancias, pero con desvíos importantes." : rel.r >= 0 ? "El precio se movió bastante independiente de las ganancias en este período." : "El precio se movió en contra de las ganancias en este período."}</span>
+      ${rel.beta != null && rel.r >= 0.4 ? (rel.beta > 1.2 ? " Además reaccionó más que proporcionalmente: amplifica las sorpresas de resultados, para arriba y para abajo." : rel.beta < 0.8 ? " Reaccionó menos que proporcionalmente a los cambios del EPS." : " Y en una proporción parecida a la del EPS.") : ""}</p>
+      <p class="note">Se compara cuánto cambió el EPS con cuánto cambió el precio en cada período, en vez de comparar los valores (que, al crecer los dos con el tiempo, casi siempre dan una correlación alta engañosa). Con ${rel.n} datos el resultado es orientativo${rel.n < 8 ? ", y con tan pocos puede cambiar mucho con un solo período" : ""}.</p>`
+      : `<p class="note">Hacen falta al menos 4 variaciones con EPS positivo y precio para calcularla.</p>`}`;
+
+    // Tabla
+    const filas = serie.map((p, i) => {
+      const a = i > 0 ? serie[i - 1] : null;
+      const v = (b, c) => a && b > 0 && c > 0 ? b / c - 1 : null;
+      const vE = a ? v(p.eps, a.eps) : null, vP = a ? v(p.precio, a.precio) : null, vPE = a && p.pe != null && a.pe != null ? p.pe / a.pe - 1 : null;
+      return `<tr class="${p.hoy ? "hoy" : ""}"><td>${p.hoy ? "Hoy" : esc(p.lab)}</td><td>${dmy(p.fin)}</td>
+        ${modo === "trim" ? `<td>${p.hoy ? "" : fmt(p.epsQ)}</td>` : ""}
+        <td>${fmt(p.eps)}</td><td>${p.precio != null ? fmt(p.precio) : "—"}</td><td>${p.pe != null ? fmt(p.pe, 1) + "x" : "—"}</td>
+        <td class="${cls(vE)}">${pct(vE)}</td><td class="${cls(vP)}">${pct(vP)}</td><td class="${cls(vPE)}">${pct(vPE)}</td>
+        <td style="font-family:var(--f-body);color:var(--muted)">${p.hoy ? "EPS LTM al " + dmy(p.epsFin) : esc(p.fuente || "")}</td></tr>`;
+    }).join("");
+    $("tabla").innerHTML = `<table class="t"><thead><tr><th>Período</th><th>Cierre</th>${modo === "trim" ? "<th>EPS trimestre</th>" : ""}
+      <th>${modo === "anual" ? "EPS diluido" : "EPS LTM"}</th><th>Precio</th><th>P/E</th><th>Var. EPS</th><th>Var. precio</th><th>Var. P/E</th><th>Fuente</th></tr></thead><tbody>${filas}</tbody></table>
+      ${h.splits && h.splits.length ? `<p class="note">Splits registrados después de la carga: ${h.splits.map(s => `${s.factor}:1 el ${dmy(s.fecha)}`).join(", ")}. Los datos anteriores se muestran ajustados.</p>` : ""}`;
+  }
+
+  function renderSelector() {
+    $("selEmpresa").innerHTML = LISTA.map(a => `<button type="button" data-t="${esc(a.ticker)}" aria-pressed="${a.ticker === tk}" title="${esc(a.nombre)}">${esc(a.ticker)}</button>`).join("");
+  }
+  $("selEmpresa").addEventListener("click", e => {
+    const b = e.target.closest("button[data-t]"); if (!b) return;
+    tk = b.dataset.t; renderSelector(); render(); try { localStorage.setItem("eps_tk", tk); } catch (_) {}
+  });
+  $("selModo").addEventListener("click", e => {
+    const b = e.target.closest("button[data-modo]"); if (!b) return;
+    modo = b.dataset.modo; [...$("selModo").children].forEach(x => x.setAttribute("aria-pressed", x === b)); render();
+    try { localStorage.setItem("eps_modo", modo); } catch (_) {}
+  });
+
+  async function cargar() {
+    const get = async f => { const r = await fetch(f + "?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) throw new Error(f + ": HTTP " + r.status); return r.json(); };
+    try {
+      const [lista, hist] = await Promise.all([get("data/eps/acciones.json"), get("data/eps/historia.json")]);
+      H = hist; LISTA = lista.acciones.filter(a => H.acciones[a.ticker]);
+      try { ACT = await get("data/eps/actual.json"); } catch (_) { ACT = null; }
+      let guardado = null, gm = null; try { guardado = localStorage.getItem("eps_tk"); gm = localStorage.getItem("eps_modo"); } catch (_) {}
+      tk = LISTA.some(a => a.ticker === guardado) ? guardado : LISTA[0].ticker;
+      if (gm === "trim" || gm === "anual") { modo = gm; [...$("selModo").children].forEach(x => x.setAttribute("aria-pressed", x.dataset.modo === modo)); }
+      renderSelector(); render();
+      const av = (ACT && ACT.avisos) || [];
+      $("avisos").hidden = !av.length; $("avisosList").innerHTML = av.map(a => `<li>${esc(a)}</li>`).join("");
+      if (ACT && ACT.actualizado) $("avisos").querySelector("summary").textContent = "Avisos de la última actualización (" + new Date(ACT.actualizado).toLocaleString("es-AR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "America/Buenos_Aires" }) + ")";
+    } catch (e) {
+      const b = $("banner"); b.hidden = false;
+      b.textContent = location.protocol === "file:" ? "Abriste el archivo directo desde la computadora. La página tiene que verse publicada (GitHub Pages) para poder leer los datos." : "No se pudieron leer los datos (" + e.message + ").";
+    }
+  }
+  let rz = null, ultimoAncho = window.innerWidth;
+  window.addEventListener("resize", () => { if (Math.abs(window.innerWidth - ultimoAncho) < 40) return; ultimoAncho = window.innerWidth; clearTimeout(rz); rz = setTimeout(() => { if (H) render(); }, 200); });
+  cargar();
+})();
+</script>
+</body>
+</html>

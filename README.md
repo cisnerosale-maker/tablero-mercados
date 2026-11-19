@@ -75,6 +75,26 @@ Las actualizaciones automáticas corren cada 30 minutos de lunes a viernes, de 1
 - **GitHub pausa las tareas programadas** de repositorios sin actividad durante 60 días. Como el tablero guarda datos todos los días, no debería pasar; si pasa, en *Actions* aparece un botón para reactivarlas.
 - **Rava o la Bolsa de Comercio de Rosario cambian el diseño de su página:** el dato puede dejar de leerse hasta ajustar el programa.
 
+## Sección Precio vs EPS (`eps.html`)
+
+Relación entre la cotización y el EPS diluido de cada acción: P/E histórico (mediana, mínimo, máximo, percentil de hoy), precio y EPS en base 100, bandas de P/E, cuánto de la suba vino por ganancias y cuánto por múltiplo, y correlación entre las variaciones de EPS y de precio. Vista anual (ejercicios fiscales + hoy) y trimestral (EPS de los últimos 12 meses al cierre de cada trimestre).
+
+| Archivo | Para qué sirve | ¿Se edita? |
+|---|---|---|
+| `eps.html` | La página | Solo para cambiar diseño |
+| `data/eps/acciones.json` | Lista de acciones | Sí, para sumar una acción |
+| `data/eps/historia.json` | EPS anuales y trimestrales y precios de cierre. **Acumulativo: nunca se borra ni se pisa nada** | No a mano |
+| `data/eps/actual.json` | Precio de hoy y avisos | No: lo escribe el programa |
+| `data/eps/carga.xlsx` | Planilla opcional para cargar historia (columnas: Ticker, Nombre, Tipo, Fecha de cierre, EPS diluido, EPS LTM) | Opcional |
+| `scripts/update_eps.py` | Busca precios y EPS nuevos | No hace falta |
+| `.github/workflows/eps.yml` | Horario: 4 veces por día hábil y una después del cierre de EE.UU. | No hace falta |
+
+- **Carga inicial:** desde TIKR (19/11/2026). Los ejercicios y trimestres siguientes se suman solos desde Yahoo Finance.
+- **Si Yahoo trae otro valor** para un período ya cargado, se deja el cargado y aparece un aviso.
+- **Splits:** se registran y la página ajusta en pantalla los datos anteriores; el archivo no se modifica.
+- **Sumar una acción:** agregarla en `acciones.json` (arranca con unos 4 años de Yahoo) o cargar su historia con `carga.xlsx`.
+- **Forzar una actualización:** *Actions → Actualizar EPS → Run workflow*.
+
 ## Agregar o quitar indicadores
 
 - **Quitar una tarjeta o cambiar el orden:** en `index.html`, lista `SECCIONES`.

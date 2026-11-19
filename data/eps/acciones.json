@@ -1,0 +1,30 @@
+{
+ "_nota": "Lista de acciones de la sección Precio vs EPS. Para sumar una, agregar una línea con ticker, nombre y símbolo de Yahoo.",
+ "acciones": [
+  {
+   "ticker": "META",
+   "nombre": "Meta Platforms",
+   "yahoo": "META"
+  },
+  {
+   "ticker": "MSFT",
+   "nombre": "Microsoft",
+   "yahoo": "MSFT"
+  },
+  {
+   "ticker": "NVDA",
+   "nombre": "NVIDIA",
+   "yahoo": "NVDA"
+  },
+  {
+   "ticker": "ADBE",
+   "nombre": "Adobe",
+   "yahoo": "ADBE"
+  },
+  {
+   "ticker": "SFM",
+   "nombre": "Sprouts Farmers Market",
+   "yahoo": "SFM"
+  }
+ ]
+}
