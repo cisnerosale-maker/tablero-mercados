@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-20T01:20:54+00:00",
+ "actualizado": "2026-11-20T01:23:37+00:00",
  "acciones": {
   "META": {
    "precio": 616.38,
@@ -275,7 +275,6 @@
   "PAM: ejercicio 2023-12-31 cargado 2.14 (stockmcp), Yahoo da 5.5. Se deja el cargado.",
   "PAM: ejercicio 2025-12-31 cargado 7.25 (stockmcp), Yahoo da 7. Se deja el cargado.",
   "PAM: Yahoo informa el EPS en otra base que lo cargado. Los períodos nuevos hay que cargarlos con la planilla.",
-  "PEP: se sumó el trimestre cerrado el 2026-09-30 (EPS 2.23, fuente Yahoo).",
   "RIO: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
   "SNY: Yahoo informa el EPS en EUR y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
   "TSM: Yahoo informa el EPS en TWD y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
