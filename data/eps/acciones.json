@@ -4,27 +4,444 @@
   {
    "ticker": "META",
    "nombre": "Meta Platforms",
-   "yahoo": "META"
+   "yahoo": "META",
+   "sector": "Communication Services",
+   "moneda_reporte": "USD"
   },
   {
    "ticker": "MSFT",
    "nombre": "Microsoft",
-   "yahoo": "MSFT"
+   "yahoo": "MSFT",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
   },
   {
    "ticker": "NVDA",
    "nombre": "NVIDIA",
-   "yahoo": "NVDA"
+   "yahoo": "NVDA",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
   },
   {
    "ticker": "ADBE",
    "nombre": "Adobe",
-   "yahoo": "ADBE"
+   "yahoo": "ADBE",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
   },
   {
    "ticker": "SFM",
    "nombre": "Sprouts Farmers Market",
-   "yahoo": "SFM"
+   "yahoo": "SFM",
+   "sector": "Consumer Defensive",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "AAPL",
+   "nombre": "Apple Inc.",
+   "yahoo": "AAPL",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "ADP",
+   "nombre": "Automatic Data Processing, Inc.",
+   "yahoo": "ADP",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "AMAT",
+   "nombre": "Applied Materials, Inc.",
+   "yahoo": "AMAT",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "AMD",
+   "nombre": "Advanced Micro Devices, Inc.",
+   "yahoo": "AMD",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "AMZN",
+   "nombre": "Amazon.com, Inc.",
+   "yahoo": "AMZN",
+   "sector": "Consumer Cyclical",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "ASML",
+   "nombre": "ASML Holding N.V.",
+   "yahoo": "ASML",
+   "sector": "Technology",
+   "moneda_reporte": "EUR"
+  },
+  {
+   "ticker": "AXP",
+   "nombre": "American Express Company",
+   "yahoo": "AXP",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "BABA",
+   "nombre": "Alibaba Group Holding Limited",
+   "yahoo": "BABA",
+   "sector": "Consumer Cyclical",
+   "moneda_reporte": "CNY"
+  },
+  {
+   "ticker": "BAC",
+   "nombre": "Bank of America Corporation",
+   "yahoo": "BAC",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "BBD",
+   "nombre": "Banco Bradesco S.A.",
+   "yahoo": "BBD",
+   "sector": "Financial Services",
+   "moneda_reporte": "BRL"
+  },
+  {
+   "ticker": "BMA",
+   "nombre": "Banco Macro S.A.",
+   "yahoo": "BMA",
+   "sector": "Financial Services",
+   "moneda_reporte": "ARS",
+   "revisar": "EPS en pesos reexpresados por inflación: P/E y correlación poco confiables."
+  },
+  {
+   "ticker": "BN",
+   "nombre": "Brookfield Corporation",
+   "yahoo": "BN",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "BRK.B",
+   "nombre": "Berkshire Hathaway Inc.",
+   "yahoo": "BRK-B",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "C",
+   "nombre": "Citigroup Inc.",
+   "yahoo": "C",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "CAT",
+   "nombre": "Caterpillar Inc.",
+   "yahoo": "CAT",
+   "sector": "Industrials",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "CB",
+   "nombre": "Chubb Limited",
+   "yahoo": "CB",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "COST",
+   "nombre": "Costco Wholesale Corporation",
+   "yahoo": "COST",
+   "sector": "Consumer Defensive",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "CRM",
+   "nombre": "Salesforce, Inc.",
+   "yahoo": "CRM",
+   "sector": "Technology",
+   "moneda_reporte": "USD",
+   "revisar": "Ejercicios 2017 y 2018 con EPS que no cierra con el resultado por acción."
+  },
+  {
+   "ticker": "DECK",
+   "nombre": "Deckers Outdoor Corporation",
+   "yahoo": "DECK",
+   "sector": "Consumer Cyclical",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "DIS",
+   "nombre": "The Walt Disney Company",
+   "yahoo": "DIS",
+   "sector": "Communication Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "GGAL",
+   "nombre": "Grupo Financiero Galicia S.A.",
+   "yahoo": "GGAL",
+   "sector": "Financial Services",
+   "moneda_reporte": "ARS",
+   "revisar": "EPS en pesos reexpresados por inflación y posible error en el ratio del ADR: P/E y correlación poco confiables."
+  },
+  {
+   "ticker": "GLOB",
+   "nombre": "Globant S.A.",
+   "yahoo": "GLOB",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "GOOGL",
+   "nombre": "Alphabet Inc.",
+   "yahoo": "GOOGL",
+   "sector": "Communication Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "INTU",
+   "nombre": "Intuit Inc.",
+   "yahoo": "INTU",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "ITUB",
+   "nombre": "Itaú Unibanco Holding S.A.",
+   "yahoo": "ITUB",
+   "sector": "Financial Services",
+   "moneda_reporte": "BRL",
+   "revisar": "Salto de precio por dividendo en acciones (mar-2025)."
+  },
+  {
+   "ticker": "JNJ",
+   "nombre": "Johnson & Johnson",
+   "yahoo": "JNJ",
+   "sector": "Healthcare",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "JPM",
+   "nombre": "JPMorgan Chase & Co.",
+   "yahoo": "JPM",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "KO",
+   "nombre": "The Coca-Cola Company",
+   "yahoo": "KO",
+   "sector": "Consumer Defensive",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "MA",
+   "nombre": "Mastercard Incorporated",
+   "yahoo": "MA",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "MCD",
+   "nombre": "McDonald's Corporation",
+   "yahoo": "MCD",
+   "sector": "Consumer Cyclical",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "MCO",
+   "nombre": "Moody's Corporation",
+   "yahoo": "MCO",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "MELI",
+   "nombre": "MercadoLibre, Inc.",
+   "yahoo": "MELI",
+   "sector": "Consumer Cyclical",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "MU",
+   "nombre": "Micron Technology, Inc.",
+   "yahoo": "MU",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "NFLX",
+   "nombre": "Netflix, Inc.",
+   "yahoo": "NFLX",
+   "sector": "Communication Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "NKE",
+   "nombre": "NIKE, Inc.",
+   "yahoo": "NKE",
+   "sector": "Consumer Cyclical",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "NU",
+   "nombre": "Nu Holdings Ltd.",
+   "yahoo": "NU",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "NVO",
+   "nombre": "Novo Nordisk A/S",
+   "yahoo": "NVO",
+   "sector": "Healthcare",
+   "moneda_reporte": "DKK"
+  },
+  {
+   "ticker": "ONON",
+   "nombre": "On Holding AG",
+   "yahoo": "ONON",
+   "sector": "Consumer Cyclical",
+   "moneda_reporte": "CHF"
+  },
+  {
+   "ticker": "PAM",
+   "nombre": "Pampa Energía S.A.",
+   "yahoo": "PAM",
+   "sector": "Utilities",
+   "moneda_reporte": "USD",
+   "revisar": "Algunos años viejos con EPS que no cierra con el resultado por acción."
+  },
+  {
+   "ticker": "PEP",
+   "nombre": "PepsiCo, Inc.",
+   "yahoo": "PEP",
+   "sector": "Consumer Defensive",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "PFE",
+   "nombre": "Pfizer Inc.",
+   "yahoo": "PFE",
+   "sector": "Healthcare",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "PG",
+   "nombre": "The Procter & Gamble Company",
+   "yahoo": "PG",
+   "sector": "Consumer Defensive",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "PM",
+   "nombre": "Philip Morris International Inc.",
+   "yahoo": "PM",
+   "sector": "Consumer Defensive",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "PYPL",
+   "nombre": "PayPal Holdings, Inc.",
+   "yahoo": "PYPL",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "RIO",
+   "nombre": "Rio Tinto Group",
+   "yahoo": "RIO",
+   "sector": "Basic Materials",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "SNY",
+   "nombre": "Sanofi",
+   "yahoo": "SNY",
+   "sector": "Healthcare",
+   "moneda_reporte": "EUR",
+   "revisar": "Posible ratio de ADR mal tomado (EPS desfasado ~2,8 veces): revisar antes de usar."
+  },
+  {
+   "ticker": "SPGI",
+   "nombre": "S&P Global Inc.",
+   "yahoo": "SPGI",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD",
+   "revisar": "Salto de precio por dividendo en acciones (jul-2026)."
+  },
+  {
+   "ticker": "TSLA",
+   "nombre": "Tesla, Inc.",
+   "yahoo": "TSLA",
+   "sector": "Consumer Cyclical",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "TSM",
+   "nombre": "Taiwan Semiconductor Manufacturing Company Limited",
+   "yahoo": "TSM",
+   "sector": "Technology",
+   "moneda_reporte": "TWD"
+  },
+  {
+   "ticker": "UBER",
+   "nombre": "Uber Technologies, Inc.",
+   "yahoo": "UBER",
+   "sector": "Technology",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "UNH",
+   "nombre": "UnitedHealth Group Incorporated",
+   "yahoo": "UNH",
+   "sector": "Healthcare",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "UNP",
+   "nombre": "Union Pacific Corporation",
+   "yahoo": "UNP",
+   "sector": "Industrials",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "V",
+   "nombre": "Visa Inc.",
+   "yahoo": "V",
+   "sector": "Financial Services",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "VIST",
+   "nombre": "Vista Energy, S.A.B. de C.V.",
+   "yahoo": "VIST",
+   "sector": "Energy",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "WMT",
+   "nombre": "Walmart Inc.",
+   "yahoo": "WMT",
+   "sector": "Consumer Defensive",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "XOM",
+   "nombre": "Exxonmobil Holdings Corporation",
+   "yahoo": "XOM",
+   "sector": "Energy",
+   "moneda_reporte": "USD"
+  },
+  {
+   "ticker": "YPF",
+   "nombre": "YPF Sociedad Anónima",
+   "yahoo": "YPF",
+   "sector": "Energy",
+   "moneda_reporte": "ARS",
+   "revisar": "EPS en pesos reexpresados por inflación: P/E y correlación poco confiables."
   }
  ]
 }

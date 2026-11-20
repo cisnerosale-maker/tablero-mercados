@@ -89,7 +89,8 @@ Relación entre la cotización y el EPS diluido de cada acción: P/E histórico 
 | `scripts/update_eps.py` | Busca precios y EPS nuevos | No hace falta |
 | `.github/workflows/eps.yml` | Horario: 4 veces por día hábil y una después del cierre de EE.UU. | No hace falta |
 
-- **Carga inicial:** desde TIKR (19/11/2026). Los ejercicios y trimestres siguientes se suman solos desde Yahoo Finance.
+- **Carga inicial (19/11/2026):** 62 empresas. META, MSFT, NVDA, ADBE y SFM con EPS de TIKR; el resto, y todos los precios de cierre, desde la planilla de stockmcp.net (`Panel_Largo`). Los ejercicios y trimestres siguientes se suman solos desde Yahoo Finance; si Yahoo mide el EPS en otra base (moneda, ratio de ADR, clase de acción), no se usa y aparece un aviso.
+- **Empresas marcadas con ⚠:** tienen datos a revisar (pesos reexpresados, ratio de ADR, dividendos en acciones); la página muestra el motivo.
 - **Si Yahoo trae otro valor** para un período ya cargado, se deja el cargado y aparece un aviso.
 - **Splits:** se registran y la página ajusta en pantalla los datos anteriores; el archivo no se modifica.
 - **Sumar una acción:** agregarla en `acciones.json` (arranca con unos 4 años de Yahoo) o cargar su historia con `carga.xlsx`.

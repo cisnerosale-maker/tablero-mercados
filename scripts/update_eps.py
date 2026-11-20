@@ -121,11 +121,18 @@ def procesar(acc: dict, hist: dict, actual: dict, avisos: list, hoy: dt.date):
             avisos.append(f"{t}: Yahoo no devolvió estados de resultados ({e}).")
 
         # control cruzado con lo ya cargado
+        muy_distinto = False
         for lista, fuente_y, nombre in ((h["trimestral"], q_y, "trimestre"), (h["anual"], a_y, "ejercicio")):
             for e in lista:
                 for f, v in fuente_y.items():
                     if cerca(f, e["fin"]) and distinto(v, e["eps"]):
                         avisos.append(f"{t}: {nombre} {e['fin']} cargado {e['eps']:g} ({e['fuente']}), Yahoo da {v:g}. Se deja el cargado.")
+                        if abs(v - e["eps"]) > 0.25 * max(abs(e["eps"]), 0.05):
+                            muy_distinto = True
+        if muy_distinto:
+            # Yahoo no mide el EPS igual que lo cargado (otra clase de acción, ratio de ADR, moneda): no se usa
+            avisos.append(f"{t}: Yahoo informa el EPS en otra base que lo cargado. Los períodos nuevos hay que cargarlos con la planilla.")
+            q_y, a_y = {}, {}
 
         # trimestres nuevos (incluye derivar el 4.º trimestre del anual si Yahoo no lo trae)
         trims = h["trimestral"]

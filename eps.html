@@ -56,6 +56,8 @@ nav.tabs a[aria-current="page"] { background: var(--brand); color: #fff; }
 .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .seg button small { font-weight: 500; color: var(--muted); }
 
+.sel { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px 4px 4px 12px; font-size: 14px; }
+.sel select { font: inherit; font-weight: 600; color: var(--ink); background: var(--sunken); border: 1px solid var(--line); border-radius: 5px; padding: 6px 8px; max-width: 70vw; }
 .empresa { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
 .empresa .precio { font-family: var(--f-data); font-size: 22px; }
 
@@ -113,7 +115,8 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   </header>
 
   <div class="controls">
-    <div class="seg" id="selEmpresa" role="group" aria-label="Empresa"></div>
+    <label class="sel"><span class="muted">Empresa</span>
+      <select id="selEmpresa" aria-label="Empresa"></select></label>
     <div class="seg" id="selModo" role="group" aria-label="Período">
       <button type="button" data-modo="anual" aria-pressed="true">Anual</button>
       <button type="button" data-modo="trim" aria-pressed="false">Trimestral <small>(LTM)</small></button>
@@ -125,7 +128,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
 
   <details class="avisos" id="avisos" hidden><summary>Avisos de la última actualización</summary><ul id="avisosList"></ul></details>
   <p class="note">
-    <b>Cómo se calcula.</b> EPS diluido según TIKR para la carga inicial y Yahoo Finance para los períodos siguientes.
+    <b>Cómo se calcula.</b> EPS diluido de la carga inicial: TIKR (META, MSFT, NVDA, ADBE, SFM) y la planilla de stockmcp.net (resto); los períodos siguientes, de Yahoo Finance. En empresas que reportan en otra moneda, el EPS está pasado a dólares por acción/ADR al tipo de cambio del cierre de cada período.
     Precio de cierre del último día hábil del ejercicio o trimestre de cada empresa (ajustado por splits, no por dividendos).
     En la vista anual, cada punto es un ejercicio fiscal; en la trimestral, el EPS de los últimos 12 meses (LTM) al cierre de cada trimestre.
     "Hoy" usa el último EPS LTM y la última cotización. Los años con EPS negativo no tienen P/E.
@@ -338,8 +341,10 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     const etiquetaModo = modo === "anual" ? "ejercicios" : "trimestres (EPS LTM)";
 
     let html = `<div class="empresa"><h2>${esc(acc.nombre)} <span class="muted" style="font-weight:600">(${esc(tk)})</span></h2>
+      ${acc.sector ? `<span class="tag">${esc(acc.sector)}</span>` : ""}${acc.moneda_reporte && acc.moneda_reporte !== "USD" ? `<span class="tag">reporta en ${esc(acc.moneda_reporte)} · EPS pasado a US$</span>` : ""}
       ${hoy && hoy.precio != null ? `<span class="precio">US$ ${fmt(hoy.precio)}</span><span class="muted" style="font-size:13px">cierre ${dmy(hoy.fin)} · EPS LTM US$ ${fmt(hoy.eps)} al ${dmy(hoy.epsFin)}</span>` : ""}</div>`;
 
+    if (acc.revisar) html += `<div class="banner"><b>Dato a revisar.</b> ${esc(acc.revisar)}</div>`;
     if (sinPrecios) {
       html += `<div class="banner">Todavía no están los precios de cierre. Se completan solos en la próxima actualización automática, o al correrla a mano en GitHub: <b>Actions → Actualizar EPS → Run workflow</b>. Mientras tanto se ven los EPS.</div>`;
     }
@@ -469,11 +474,11 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   }
 
   function renderSelector() {
-    $("selEmpresa").innerHTML = LISTA.map(a => `<button type="button" data-t="${esc(a.ticker)}" aria-pressed="${a.ticker === tk}" title="${esc(a.nombre)}">${esc(a.ticker)}</button>`).join("");
+    $("selEmpresa").innerHTML = [...LISTA].sort((a, b) => a.ticker < b.ticker ? -1 : 1)
+      .map(a => `<option value="${esc(a.ticker)}"${a.ticker === tk ? " selected" : ""}>${esc(a.ticker)} · ${esc(a.nombre)}${a.revisar ? " ⚠" : ""}</option>`).join("");
   }
-  $("selEmpresa").addEventListener("click", e => {
-    const b = e.target.closest("button[data-t]"); if (!b) return;
-    tk = b.dataset.t; renderSelector(); render(); try { localStorage.setItem("eps_tk", tk); } catch (_) {}
+  $("selEmpresa").addEventListener("change", e => {
+    tk = e.target.value; render(); try { localStorage.setItem("eps_tk", tk); } catch (_) {}
   });
   $("selModo").addEventListener("click", e => {
     const b = e.target.closest("button[data-modo]"); if (!b) return;
@@ -488,7 +493,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       H = hist; LISTA = lista.acciones.filter(a => H.acciones[a.ticker]);
       try { ACT = await get("data/eps/actual.json"); } catch (_) { ACT = null; }
       let guardado = null, gm = null; try { guardado = localStorage.getItem("eps_tk"); gm = localStorage.getItem("eps_modo"); } catch (_) {}
-      tk = LISTA.some(a => a.ticker === guardado) ? guardado : LISTA[0].ticker;
+      tk = LISTA.some(a => a.ticker === guardado) ? guardado : (LISTA.find(a => a.ticker === "META") || LISTA[0]).ticker;
       if (gm === "trim" || gm === "anual") { modo = gm; [...$("selModo").children].forEach(x => x.setAttribute("aria-pressed", x.dataset.modo === modo)); }
       renderSelector(); render();
       const av = (ACT && ACT.avisos) || [];

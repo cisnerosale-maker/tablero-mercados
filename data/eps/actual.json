@@ -1,0 +1,256 @@
+{
+ "actualizado": "2026-11-19T22:00:00+00:00",
+ "acciones": {
+  "AAPL": {
+   "precio": 353.77,
+   "fecha": "2026-11-19"
+  },
+  "ADBE": {
+   "precio": 227.96,
+   "fecha": "2026-11-19"
+  },
+  "ADP": {
+   "precio": 304.885,
+   "fecha": "2026-11-19"
+  },
+  "AMAT": {
+   "precio": 364.79,
+   "fecha": "2026-11-19"
+  },
+  "AMD": {
+   "precio": 542.37,
+   "fecha": "2026-11-19"
+  },
+  "AMZN": {
+   "precio": 272.8,
+   "fecha": "2026-11-19"
+  },
+  "ASML": {
+   "precio": 1428.17,
+   "fecha": "2026-11-19"
+  },
+  "AXP": {
+   "precio": 315.94,
+   "fecha": "2026-11-19"
+  },
+  "BABA": {
+   "precio": 83.49,
+   "fecha": "2026-11-19"
+  },
+  "BAC": {
+   "precio": 49.29,
+   "fecha": "2026-11-19"
+  },
+  "BBD": {
+   "precio": 2.38,
+   "fecha": "2026-11-19"
+  },
+  "BMA": {
+   "precio": 54.46,
+   "fecha": "2026-11-19"
+  },
+  "BN": {
+   "precio": 39.66,
+   "fecha": "2026-11-19"
+  },
+  "BRK.B": {
+   "precio": 573.0,
+   "fecha": "2026-11-19"
+  },
+  "C": {
+   "precio": 119.04,
+   "fecha": "2026-11-19"
+  },
+  "CAT": {
+   "precio": 567.01,
+   "fecha": "2026-11-19"
+  },
+  "CB": {
+   "precio": 369.985,
+   "fecha": "2026-11-19"
+  },
+  "COST": {
+   "precio": 1091.01,
+   "fecha": "2026-11-19"
+  },
+  "CRM": {
+   "precio": 191.5,
+   "fecha": "2026-11-19"
+  },
+  "DECK": {
+   "precio": 83.13,
+   "fecha": "2026-11-19"
+  },
+  "DIS": {
+   "precio": 122.13,
+   "fecha": "2026-11-19"
+  },
+  "GGAL": {
+   "precio": 28.01,
+   "fecha": "2026-11-19"
+  },
+  "GLOB": {
+   "precio": 42.43,
+   "fecha": "2026-11-19"
+  },
+  "GOOGL": {
+   "precio": 294.36,
+   "fecha": "2026-11-19"
+  },
+  "INTU": {
+   "precio": 313.55,
+   "fecha": "2026-11-19"
+  },
+  "ITUB": {
+   "precio": 6.82,
+   "fecha": "2026-11-19"
+  },
+  "JNJ": {
+   "precio": 270.34,
+   "fecha": "2026-11-19"
+  },
+  "JPM": {
+   "precio": 327.17,
+   "fecha": "2026-11-19"
+  },
+  "KO": {
+   "precio": 96.34,
+   "fecha": "2026-11-19"
+  },
+  "MA": {
+   "precio": 638.335,
+   "fecha": "2026-11-19"
+  },
+  "MCD": {
+   "precio": 268.9,
+   "fecha": "2026-11-19"
+  },
+  "MCO": {
+   "precio": 480.03,
+   "fecha": "2026-11-19"
+  },
+  "MELI": {
+   "precio": 1424.4,
+   "fecha": "2026-11-19"
+  },
+  "META": {
+   "precio": 623.94,
+   "fecha": "2026-11-19"
+  },
+  "MSFT": {
+   "precio": 519.06,
+   "fecha": "2026-11-19"
+  },
+  "MU": {
+   "precio": 738.47,
+   "fecha": "2026-11-19"
+  },
+  "NFLX": {
+   "precio": 60.205,
+   "fecha": "2026-11-19"
+  },
+  "NKE": {
+   "precio": 35.8,
+   "fecha": "2026-11-19"
+  },
+  "NU": {
+   "precio": 12.24,
+   "fecha": "2026-11-19"
+  },
+  "NVDA": {
+   "precio": 153.34,
+   "fecha": "2026-11-19"
+  },
+  "NVO": {
+   "precio": 39.34,
+   "fecha": "2026-11-19"
+  },
+  "ONON": {
+   "precio": 32.34,
+   "fecha": "2026-11-19"
+  },
+  "PAM": {
+   "precio": 62.42,
+   "fecha": "2026-11-19"
+  },
+  "PEP": {
+   "precio": 139.54,
+   "fecha": "2026-11-19"
+  },
+  "PFE": {
+   "precio": 27.95,
+   "fecha": "2026-11-19"
+  },
+  "PG": {
+   "precio": 167.58,
+   "fecha": "2026-11-19"
+  },
+  "PM": {
+   "precio": 189.89,
+   "fecha": "2026-11-19"
+  },
+  "PYPL": {
+   "precio": 57.77,
+   "fecha": "2026-11-19"
+  },
+  "RIO": {
+   "precio": 76.54,
+   "fecha": "2026-11-19"
+  },
+  "SFM": {
+   "precio": 48.22,
+   "fecha": "2026-11-19"
+  },
+  "SNY": {
+   "precio": 46.43,
+   "fecha": "2026-11-19"
+  },
+  "SPGI": {
+   "precio": 445.03,
+   "fecha": "2026-11-19"
+  },
+  "TSLA": {
+   "precio": 389.21,
+   "fecha": "2026-11-19"
+  },
+  "TSM": {
+   "precio": 369.73,
+   "fecha": "2026-11-19"
+  },
+  "UBER": {
+   "precio": 69.14,
+   "fecha": "2026-11-19"
+  },
+  "UNH": {
+   "precio": 351.13,
+   "fecha": "2026-11-19"
+  },
+  "UNP": {
+   "precio": 300.56,
+   "fecha": "2026-11-19"
+  },
+  "V": {
+   "precio": 411.56,
+   "fecha": "2026-11-19"
+  },
+  "VIST": {
+   "precio": 52.89,
+   "fecha": "2026-11-19"
+  },
+  "WMT": {
+   "precio": 123.43,
+   "fecha": "2026-11-19"
+  },
+  "XOM": {
+   "precio": 161.46,
+   "fecha": "2026-11-19"
+  },
+  "YPF": {
+   "precio": 35.1,
+   "fecha": "2026-11-19"
+  }
+ },
+ "avisos": [
+  "Carga inicial del 19/11/2026: precios y EPS desde la planilla (stockmcp.net); META, MSFT, NVDA, ADBE y SFM con EPS de TIKR. Los precios se actualizan en la próxima corrida automática."
+ ]
+}
