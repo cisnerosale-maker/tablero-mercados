@@ -12395,13 +12395,6 @@
      "eps_ltm": 7.96,
      "fuente": "stockmcp",
      "cargado": "2026-11-19"
-    },
-    {
-     "fin": "2026-09-30",
-     "eps": 2.23,
-     "eps_ltm": 8.34,
-     "fuente": "Yahoo",
-     "cargado": "2026-11-19"
     }
    ],
    "splits": [],
@@ -12525,11 +12518,6 @@
      "fecha": "2026-09-05",
      "cargado": "2026-11-19",
      "fuente": "stockmcp"
-    },
-    "2026-09-30": {
-     "cierre": 126.72,
-     "fecha": "2026-09-30",
-     "cargado": "2026-11-19"
     }
    }
   },

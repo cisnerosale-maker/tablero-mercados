@@ -137,9 +137,9 @@ def procesar(acc: dict, hist: dict, actual: dict, avisos: list, hoy: dt.date):
         # trimestres nuevos (incluye derivar el 4.º trimestre del anual si Yahoo no lo trae)
         trims = h["trimestral"]
         ult = trims[-1]["fin"] if trims else "1900-01-01"
-        candidatos = {f: (v, "Yahoo") for f, v in q_y.items() if d(f) > d(ult) + dt.timedelta(days=20)}
+        candidatos = {f: (v, "Yahoo") for f, v in q_y.items() if d(f) > d(ult) + dt.timedelta(days=45)}
         for fa, va in a_y.items():
-            if d(fa) > d(ult) + dt.timedelta(days=20) and not any(cerca(fa, f) for f in candidatos):
+            if d(fa) > d(ult) + dt.timedelta(days=45) and not any(cerca(fa, f, 45) for f in candidatos):
                 previos = [e for e in trims if d(fa) - dt.timedelta(days=300) < d(e["fin"]) < d(fa)]
                 previos += [{"fin": f, "eps": v} for f, (v, _) in candidatos.items() if d(fa) - dt.timedelta(days=300) < d(f) < d(fa)]
                 if len(previos) == 3:
@@ -195,7 +195,10 @@ def procesar(acc: dict, hist: dict, actual: dict, avisos: list, hoy: dt.date):
         if (hoy - ultimo).days > 91 + DIAS_PRESENTACION:
             avisos.append(f"{t}: EPS pendiente. El último trimestre cargado cerró el {ultimo.isoformat()} y ya debería estar el siguiente.")
 
-    actual["acciones"][t] = precio_hoy or (actual.get("anterior", {}).get(t))
+    previo = actual.get("anterior", {}).get(t)
+    if not precio_hoy or (previo and previo.get("fecha", "") > precio_hoy["fecha"]):
+        precio_hoy = previo  # no volver a un precio más viejo que el que ya se mostraba
+    actual["acciones"][t] = precio_hoy
 
 
 def importar_planilla(acciones: list, hist: dict, avisos: list, hoy: dt.date) -> bool:
