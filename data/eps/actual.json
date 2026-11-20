@@ -1,256 +1,286 @@
 {
- "actualizado": "2026-11-19T22:00:00+00:00",
+ "actualizado": "2026-11-20T01:20:54+00:00",
  "acciones": {
-  "AAPL": {
-   "precio": 353.77,
-   "fecha": "2026-11-19"
-  },
-  "ADBE": {
-   "precio": 227.96,
-   "fecha": "2026-11-19"
-  },
-  "ADP": {
-   "precio": 304.885,
-   "fecha": "2026-11-19"
-  },
-  "AMAT": {
-   "precio": 364.79,
-   "fecha": "2026-11-19"
-  },
-  "AMD": {
-   "precio": 542.37,
-   "fecha": "2026-11-19"
-  },
-  "AMZN": {
-   "precio": 272.8,
-   "fecha": "2026-11-19"
-  },
-  "ASML": {
-   "precio": 1428.17,
-   "fecha": "2026-11-19"
-  },
-  "AXP": {
-   "precio": 315.94,
-   "fecha": "2026-11-19"
-  },
-  "BABA": {
-   "precio": 83.49,
-   "fecha": "2026-11-19"
-  },
-  "BAC": {
-   "precio": 49.29,
-   "fecha": "2026-11-19"
-  },
-  "BBD": {
-   "precio": 2.38,
-   "fecha": "2026-11-19"
-  },
-  "BMA": {
-   "precio": 54.46,
-   "fecha": "2026-11-19"
-  },
-  "BN": {
-   "precio": 39.66,
-   "fecha": "2026-11-19"
-  },
-  "BRK.B": {
-   "precio": 573.0,
-   "fecha": "2026-11-19"
-  },
-  "C": {
-   "precio": 119.04,
-   "fecha": "2026-11-19"
-  },
-  "CAT": {
-   "precio": 567.01,
-   "fecha": "2026-11-19"
-  },
-  "CB": {
-   "precio": 369.985,
-   "fecha": "2026-11-19"
-  },
-  "COST": {
-   "precio": 1091.01,
-   "fecha": "2026-11-19"
-  },
-  "CRM": {
-   "precio": 191.5,
-   "fecha": "2026-11-19"
-  },
-  "DECK": {
-   "precio": 83.13,
-   "fecha": "2026-11-19"
-  },
-  "DIS": {
-   "precio": 122.13,
-   "fecha": "2026-11-19"
-  },
-  "GGAL": {
-   "precio": 28.01,
-   "fecha": "2026-11-19"
-  },
-  "GLOB": {
-   "precio": 42.43,
-   "fecha": "2026-11-19"
-  },
-  "GOOGL": {
-   "precio": 294.36,
-   "fecha": "2026-11-19"
-  },
-  "INTU": {
-   "precio": 313.55,
-   "fecha": "2026-11-19"
-  },
-  "ITUB": {
-   "precio": 6.82,
-   "fecha": "2026-11-19"
-  },
-  "JNJ": {
-   "precio": 270.34,
-   "fecha": "2026-11-19"
-  },
-  "JPM": {
-   "precio": 327.17,
-   "fecha": "2026-11-19"
-  },
-  "KO": {
-   "precio": 96.34,
-   "fecha": "2026-11-19"
-  },
-  "MA": {
-   "precio": 638.335,
-   "fecha": "2026-11-19"
-  },
-  "MCD": {
-   "precio": 268.9,
-   "fecha": "2026-11-19"
-  },
-  "MCO": {
-   "precio": 480.03,
-   "fecha": "2026-11-19"
-  },
-  "MELI": {
-   "precio": 1424.4,
-   "fecha": "2026-11-19"
-  },
   "META": {
-   "precio": 623.94,
-   "fecha": "2026-11-19"
+   "precio": 616.38,
+   "fecha": "2026-11-18"
   },
   "MSFT": {
-   "precio": 519.06,
-   "fecha": "2026-11-19"
-  },
-  "MU": {
-   "precio": 738.47,
-   "fecha": "2026-11-19"
-  },
-  "NFLX": {
-   "precio": 60.205,
-   "fecha": "2026-11-19"
-  },
-  "NKE": {
-   "precio": 35.8,
-   "fecha": "2026-11-19"
-  },
-  "NU": {
-   "precio": 12.24,
-   "fecha": "2026-11-19"
+   "precio": 508.29,
+   "fecha": "2026-11-18"
   },
   "NVDA": {
-   "precio": 153.34,
-   "fecha": "2026-11-19"
+   "precio": 150.96,
+   "fecha": "2026-11-18"
+  },
+  "ADBE": {
+   "precio": 226.2,
+   "fecha": "2026-11-18"
+  },
+  "SFM": {
+   "precio": 48.53,
+   "fecha": "2026-11-18"
+  },
+  "AAPL": {
+   "precio": 352.45,
+   "fecha": "2026-11-18"
+  },
+  "ADP": {
+   "precio": 305.57,
+   "fecha": "2026-11-18"
+  },
+  "AMAT": {
+   "precio": 352.3,
+   "fecha": "2026-11-18"
+  },
+  "AMD": {
+   "precio": 530.14,
+   "fecha": "2026-11-18"
+  },
+  "AMZN": {
+   "precio": 267.74,
+   "fecha": "2026-11-18"
+  },
+  "ASML": {
+   "precio": 1395.27,
+   "fecha": "2026-11-18"
+  },
+  "AXP": {
+   "precio": 315.4,
+   "fecha": "2026-11-18"
+  },
+  "BABA": {
+   "precio": 84.37,
+   "fecha": "2026-11-18"
+  },
+  "BAC": {
+   "precio": 48.91,
+   "fecha": "2026-11-18"
+  },
+  "BBD": {
+   "precio": 2.39,
+   "fecha": "2026-11-18"
+  },
+  "BMA": {
+   "precio": 53.91,
+   "fecha": "2026-11-18"
+  },
+  "BN": {
+   "precio": 39.39,
+   "fecha": "2026-11-18"
+  },
+  "BRK.B": {
+   "precio": 574.62,
+   "fecha": "2026-11-18"
+  },
+  "C": {
+   "precio": 117.34,
+   "fecha": "2026-11-18"
+  },
+  "CAT": {
+   "precio": 558.77,
+   "fecha": "2026-11-18"
+  },
+  "CB": {
+   "precio": 371.02,
+   "fecha": "2026-11-18"
+  },
+  "COST": {
+   "precio": 1096.62,
+   "fecha": "2026-11-18"
+  },
+  "CRM": {
+   "precio": 190.4,
+   "fecha": "2026-11-18"
+  },
+  "DECK": {
+   "precio": 83.6,
+   "fecha": "2026-11-18"
+  },
+  "DIS": {
+   "precio": 122.36,
+   "fecha": "2026-11-18"
+  },
+  "GGAL": {
+   "precio": 27.78,
+   "fecha": "2026-11-18"
+  },
+  "GLOB": {
+   "precio": 42.65,
+   "fecha": "2026-11-18"
+  },
+  "GOOGL": {
+   "precio": 282.44,
+   "fecha": "2026-11-18"
+  },
+  "INTU": {
+   "precio": 313.24,
+   "fecha": "2026-11-18"
+  },
+  "ITUB": {
+   "precio": 6.83,
+   "fecha": "2026-11-18"
+  },
+  "JNJ": {
+   "precio": 272.7,
+   "fecha": "2026-11-18"
+  },
+  "JPM": {
+   "precio": 324.11,
+   "fecha": "2026-11-18"
+  },
+  "KO": {
+   "precio": 98.09,
+   "fecha": "2026-11-18"
+  },
+  "MA": {
+   "precio": 643.37,
+   "fecha": "2026-11-18"
+  },
+  "MCD": {
+   "precio": 274.03,
+   "fecha": "2026-11-18"
+  },
+  "MCO": {
+   "precio": 481.29,
+   "fecha": "2026-11-18"
+  },
+  "MELI": {
+   "precio": 1423.11,
+   "fecha": "2026-11-18"
+  },
+  "MU": {
+   "precio": 705.27,
+   "fecha": "2026-11-18"
+  },
+  "NFLX": {
+   "precio": 59.82,
+   "fecha": "2026-11-18"
+  },
+  "NKE": {
+   "precio": 36.31,
+   "fecha": "2026-11-18"
+  },
+  "NU": {
+   "precio": 12.08,
+   "fecha": "2026-11-18"
   },
   "NVO": {
-   "precio": 39.34,
-   "fecha": "2026-11-19"
+   "precio": 39.43,
+   "fecha": "2026-11-18"
   },
   "ONON": {
-   "precio": 32.34,
-   "fecha": "2026-11-19"
+   "precio": 32.43,
+   "fecha": "2026-11-18"
   },
   "PAM": {
    "precio": 62.42,
-   "fecha": "2026-11-19"
+   "fecha": "2026-11-18"
   },
   "PEP": {
-   "precio": 139.54,
-   "fecha": "2026-11-19"
+   "precio": 141.87,
+   "fecha": "2026-11-18"
   },
   "PFE": {
-   "precio": 27.95,
-   "fecha": "2026-11-19"
+   "precio": 28.06,
+   "fecha": "2026-11-18"
   },
   "PG": {
-   "precio": 167.58,
-   "fecha": "2026-11-19"
+   "precio": 170.29,
+   "fecha": "2026-11-18"
   },
   "PM": {
-   "precio": 189.89,
-   "fecha": "2026-11-19"
+   "precio": 192.73,
+   "fecha": "2026-11-18"
   },
   "PYPL": {
-   "precio": 57.77,
-   "fecha": "2026-11-19"
+   "precio": 57.89,
+   "fecha": "2026-11-18"
   },
   "RIO": {
-   "precio": 76.54,
-   "fecha": "2026-11-19"
-  },
-  "SFM": {
-   "precio": 48.22,
-   "fecha": "2026-11-19"
+   "precio": 75.9,
+   "fecha": "2026-11-18"
   },
   "SNY": {
-   "precio": 46.43,
-   "fecha": "2026-11-19"
+   "precio": 47.12,
+   "fecha": "2026-11-18"
   },
   "SPGI": {
-   "precio": 445.03,
-   "fecha": "2026-11-19"
+   "precio": 446.38,
+   "fecha": "2026-11-18"
   },
   "TSLA": {
-   "precio": 389.21,
-   "fecha": "2026-11-19"
+   "precio": 383.72,
+   "fecha": "2026-11-18"
   },
   "TSM": {
-   "precio": 369.73,
-   "fecha": "2026-11-19"
+   "precio": 362.62,
+   "fecha": "2026-11-18"
   },
   "UBER": {
-   "precio": 69.14,
-   "fecha": "2026-11-19"
+   "precio": 68.76,
+   "fecha": "2026-11-18"
   },
   "UNH": {
-   "precio": 351.13,
-   "fecha": "2026-11-19"
+   "precio": 349.91,
+   "fecha": "2026-11-18"
   },
   "UNP": {
-   "precio": 300.56,
-   "fecha": "2026-11-19"
+   "precio": 300.9,
+   "fecha": "2026-11-18"
   },
   "V": {
-   "precio": 411.56,
-   "fecha": "2026-11-19"
+   "precio": 415.22,
+   "fecha": "2026-11-18"
   },
   "VIST": {
-   "precio": 52.89,
-   "fecha": "2026-11-19"
+   "precio": 51.93,
+   "fecha": "2026-11-18"
   },
   "WMT": {
-   "precio": 123.43,
-   "fecha": "2026-11-19"
+   "precio": 127.36,
+   "fecha": "2026-11-18"
   },
   "XOM": {
-   "precio": 161.46,
-   "fecha": "2026-11-19"
+   "precio": 160.58,
+   "fecha": "2026-11-18"
   },
   "YPF": {
    "precio": 35.1,
-   "fecha": "2026-11-19"
+   "fecha": "2026-11-18"
   }
  },
  "avisos": [
-  "Carga inicial del 19/11/2026: precios y EPS desde la planilla (stockmcp.net); META, MSFT, NVDA, ADBE y SFM con EPS de TIKR. Los precios se actualizan en la próxima corrida automática."
+  "ASML: Yahoo informa el EPS en EUR y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "BABA: Yahoo informa el EPS en CNY y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "BABA: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
+  "BBD: Yahoo informa el EPS en BRL y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "BMA: Yahoo informa el EPS en ARS y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "BMA: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
+  "BN: ejercicio 2022-12-31 cargado 0.7933 (stockmcp), Yahoo da 1.19. Se deja el cargado.",
+  "BN: ejercicio 2023-12-31 cargado 0.4067 (stockmcp), Yahoo da 0.61. Se deja el cargado.",
+  "BN: Yahoo informa el EPS en otra base que lo cargado. Los períodos nuevos hay que cargarlos con la planilla.",
+  "GGAL: Yahoo informa el EPS en ARS y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "GGAL: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
+  "GLOB: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
+  "ITUB: Yahoo informa el EPS en BRL y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "NU: sin precio de cierre para 2018-12-31, 2019-12-31, 2020-12-31.",
+  "NVO: Yahoo informa el EPS en DKK y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "ONON: Yahoo informa el EPS en CHF y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "ONON: sin precio de cierre para 2019-12-31, 2020-12-31.",
+  "PAM: trimestre 2025-09-30 cargado 0.56 (stockmcp), Yahoo da 0.5. Se deja el cargado.",
+  "PAM: trimestre 2025-12-31 cargado 3 (stockmcp), Yahoo da 2.5. Se deja el cargado.",
+  "PAM: trimestre 2026-09-30 cargado 2.41 (stockmcp), Yahoo da 2.5. Se deja el cargado.",
+  "PAM: ejercicio 2022-12-31 cargado 8.98 (stockmcp), Yahoo da 8.25. Se deja el cargado.",
+  "PAM: ejercicio 2023-12-31 cargado 2.14 (stockmcp), Yahoo da 5.5. Se deja el cargado.",
+  "PAM: ejercicio 2025-12-31 cargado 7.25 (stockmcp), Yahoo da 7. Se deja el cargado.",
+  "PAM: Yahoo informa el EPS en otra base que lo cargado. Los períodos nuevos hay que cargarlos con la planilla.",
+  "PEP: se sumó el trimestre cerrado el 2026-09-30 (EPS 2.23, fuente Yahoo).",
+  "RIO: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
+  "SNY: Yahoo informa el EPS en EUR y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "TSM: Yahoo informa el EPS en TWD y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
+  "UBER: sin precio de cierre para 2016-12-31, 2017-12-31, 2018-12-31.",
+  "VIST: sin precio de cierre para 2017-12-31, 2018-12-31.",
+  "YPF: Yahoo informa el EPS en ARS y la cotización en USD. Los EPS nuevos hay que cargarlos a mano."
  ]
 }
