@@ -1,13 +1,13 @@
 {
- "actualizado": "2026-11-21T14:53-03:00",
+ "actualizado": "2026-11-22T15:15-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
    "unidad": "US$/lb",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 5.477,
+   "valor": 5.485,
    "anterior": 5.625,
-   "var_pct": -2.63,
+   "var_pct": -2.49,
    "mm50": 6.428,
    "mm200": 6.224,
    "prom_anio": 6.187,
@@ -134,7 +134,7 @@
     5.976,
     5.66,
     5.625,
-    5.477
+    5.485
    ]
   },
   "oro": {
@@ -277,14 +277,14 @@
    "nombre": "Plata",
    "unidad": "US$/oz",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 41.03,
+   "valor": 41.07,
    "anterior": 44.32,
-   "var_pct": -7.41,
+   "var_pct": -7.33,
    "mm50": 56.38,
    "mm200": 67.51,
    "prom_anio": 69.78,
    "max52": 115.08,
-   "min52": 41.03,
+   "min52": 41.07,
    "fecha": "2026-11-20",
    "serie": [
     73.48,
@@ -406,19 +406,19 @@
     47.29,
     45.0,
     44.32,
-    41.03
+    41.07
    ]
   },
   "brent": {
    "nombre": "Petróleo Brent",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 92.57,
+   "valor": 89.95,
    "anterior": 91.98,
-   "var_pct": 0.64,
-   "mm50": 103.35,
-   "mm200": 94.6,
-   "prom_anio": 91.45,
+   "var_pct": -2.21,
+   "mm50": 103.3,
+   "mm200": 94.59,
+   "prom_anio": 91.44,
    "max52": 118.35,
    "min52": 58.92,
    "fecha": "2026-11-20",
@@ -542,19 +542,19 @@
     93.14,
     91.95,
     91.98,
-    92.57
+    89.95
    ]
   },
   "wti": {
    "nombre": "Petróleo WTI",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 83.98,
+   "valor": 83.41,
    "anterior": 83.21,
-   "var_pct": 0.93,
-   "mm50": 94.15,
+   "var_pct": 0.24,
+   "mm50": 94.14,
    "mm200": 88.29,
-   "prom_anio": 85.35,
+   "prom_anio": 85.34,
    "max52": 112.95,
    "min52": 55.27,
    "fecha": "2026-11-20",
@@ -678,7 +678,7 @@
     86.01,
     83.26,
     83.21,
-    83.98
+    83.41
    ]
   },
   "soja": {
@@ -829,10 +829,10 @@
    "nombre": "Maíz (Chicago)",
    "unidad": "US$/tn",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 171.1,
+   "valor": 176.7,
    "anterior": 172.8,
-   "var_pct": -1.03,
-   "mm50": 188.5,
+   "var_pct": 2.22,
+   "mm50": 188.6,
    "mm200": 180.3,
    "prom_anio": 179.1,
    "max52": 213.8,
@@ -958,9 +958,9 @@
     175.9,
     171.4,
     172.8,
-    171.1
+    176.7
    ],
-   "chicago_cents_bu": 434.5,
+   "chicago_cents_bu": 448.75,
    "rosario": {
     "ars_tn": 272000.0,
     "var_pct": 0.37,
@@ -973,12 +973,12 @@
    "nombre": "Trigo (Chicago)",
    "unidad": "US$/tn",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 211.0,
+   "valor": 217.5,
    "anterior": 212.5,
-   "var_pct": -0.69,
-   "mm50": 238.4,
+   "var_pct": 2.38,
+   "mm50": 238.5,
    "mm200": 231.2,
-   "prom_anio": 226.9,
+   "prom_anio": 227.0,
    "max52": 281.8,
    "min52": 186.0,
    "fecha": "2026-11-20",
@@ -1102,9 +1102,9 @@
     218.7,
     209.4,
     212.5,
-    211.0
+    217.5
    ],
-   "chicago_cents_bu": 574.25,
+   "chicago_cents_bu": 592.0,
    "rosario": {
     "ars_tn": 294084.0,
     "var_pct": 2.52,
@@ -2926,7 +2926,7 @@
     1743.1
    ],
    "compra": 1682.6,
-   "actualizado": "2026-11-21T14:58:00.000Z"
+   "actualizado": "2026-11-22T17:59:00.000Z"
   },
   "ccl": {
    "nombre": "Dólar CCL",
@@ -3064,7 +3064,7 @@
     1806.2
    ],
    "compra": 1801.4,
-   "actualizado": "2026-11-21T14:58:00.000Z"
+   "actualizado": "2026-11-22T17:59:00.000Z"
   },
   "mayorista": {
    "nombre": "Dólar mayorista",
@@ -3487,8 +3487,9 @@
    "prom_anio": 19.25,
    "max52": 19.25,
    "min52": 19.25,
-   "fecha": "2026-11-21",
+   "fecha": "2026-11-22",
    "serie": [
+    19.25,
     19.25,
     19.25,
     19.25,
