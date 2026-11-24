@@ -3,42 +3,42 @@
  "dias": {
   "2026-11-24": {
    "eeuu": {
-    "fecha_datos": "2026-11-23",
-    "val": 62.5,
-    "sen": 47.5,
+    "fecha_datos": "2026-11-24",
+    "val": 61.0,
+    "sen": 52.2,
     "postura": "Prudente",
     "ind": {
      "pe_fwd": [
-      17.4,
-      43.3
+      17.21,
+      41.1
      ],
      "erp": [
-      2.956,
-      76.8
+      3.02,
+      75.6
      ],
      "cape": [
-      38.21,
-      89.1
+      37.79,
+      88.4
      ],
      "concentracion": [
-      -6.8,
-      43.1
+      -6.73,
+      41.6
      ],
      "amplitud": [
-      55.71,
-      42.7
+      53.51,
+      47.7
      ],
      "tendencia": [
-      -7.44,
+      -8.47,
       65.0
      ],
      "credito": [
-      -3.6,
-      57.3
+      -3.9,
+      61.3
      ],
      "volatilidad": [
-      26.62,
-      82.2
+      29.34,
+      100.0
      ],
      "revisiones": [
       2.277,
@@ -48,13 +48,13 @@
    },
    "argentina": {
     "fecha_datos": "2026-11-23",
-    "val": 64.3,
+    "val": 67.6,
     "sen": 79.4,
-    "postura": "Defensivo",
+    "postura": "Reducir exposición",
     "ind": {
      "merval_usd": [
       1945.89,
-      77.7
+      82.8
      ],
      "rp_nivel": [
       1035.0,
