@@ -1,253 +1,253 @@
 {
- "actualizado": "2026-11-24T02:13:09+00:00",
+ "actualizado": "2026-11-24T06:13:18+00:00",
  "acciones": {
   "META": {
-   "precio": 560.84,
-   "fecha": "2026-11-20"
+   "precio": 597.6,
+   "fecha": "2026-11-23"
   },
   "MSFT": {
-   "precio": 484.52,
-   "fecha": "2026-11-20"
+   "precio": 492.5,
+   "fecha": "2026-11-23"
   },
   "NVDA": {
-   "precio": 125.53,
-   "fecha": "2026-11-20"
+   "precio": 165.05,
+   "fecha": "2026-11-23"
   },
   "ADBE": {
-   "precio": 217.71,
-   "fecha": "2026-11-20"
+   "precio": 223.98,
+   "fecha": "2026-11-23"
   },
   "SFM": {
-   "precio": 48.81,
-   "fecha": "2026-11-20"
+   "precio": 50.64,
+   "fecha": "2026-11-23"
   },
   "AAPL": {
-   "precio": 342.56,
-   "fecha": "2026-11-20"
+   "precio": 349.08,
+   "fecha": "2026-11-23"
   },
   "ADP": {
-   "precio": 301.71,
-   "fecha": "2026-11-20"
+   "precio": 302.11,
+   "fecha": "2026-11-23"
   },
   "AMAT": {
-   "precio": 302.63,
-   "fecha": "2026-11-20"
+   "precio": 346.87,
+   "fecha": "2026-11-23"
   },
   "AMD": {
-   "precio": 424.39,
-   "fecha": "2026-11-20"
+   "precio": 453.46,
+   "fecha": "2026-11-23"
   },
   "AMZN": {
-   "precio": 246.82,
-   "fecha": "2026-11-20"
+   "precio": 255.39,
+   "fecha": "2026-11-23"
   },
   "ASML": {
-   "precio": 1266.22,
-   "fecha": "2026-11-20"
+   "precio": 1383.78,
+   "fecha": "2026-11-23"
   },
   "AXP": {
-   "precio": 301.7,
-   "fecha": "2026-11-20"
+   "precio": 306.9,
+   "fecha": "2026-11-23"
   },
   "BABA": {
-   "precio": 81.08,
-   "fecha": "2026-11-20"
+   "precio": 86.04,
+   "fecha": "2026-11-23"
   },
   "BAC": {
-   "precio": 47.04,
-   "fecha": "2026-11-20"
+   "precio": 48.14,
+   "fecha": "2026-11-23"
   },
   "BBD": {
-   "precio": 2.23,
-   "fecha": "2026-11-20"
+   "precio": 2.29,
+   "fecha": "2026-11-23"
   },
   "BMA": {
-   "precio": 49.86,
-   "fecha": "2026-11-20"
+   "precio": 51.7,
+   "fecha": "2026-11-23"
   },
   "BN": {
-   "precio": 37.75,
-   "fecha": "2026-11-20"
+   "precio": 39.12,
+   "fecha": "2026-11-23"
   },
   "BRK.B": {
-   "precio": 570.0,
-   "fecha": "2026-11-20"
+   "precio": 572.36,
+   "fecha": "2026-11-23"
   },
   "C": {
-   "precio": 110.62,
-   "fecha": "2026-11-20"
+   "precio": 114.35,
+   "fecha": "2026-11-23"
   },
   "CAT": {
-   "precio": 510.45,
-   "fecha": "2026-11-20"
+   "precio": 547.04,
+   "fecha": "2026-11-23"
   },
   "CB": {
-   "precio": 371.63,
-   "fecha": "2026-11-20"
+   "precio": 368.67,
+   "fecha": "2026-11-23"
   },
   "COST": {
-   "precio": 1102.15,
-   "fecha": "2026-11-20"
+   "precio": 1097.91,
+   "fecha": "2026-11-23"
   },
   "CRM": {
-   "precio": 180.62,
-   "fecha": "2026-11-20"
+   "precio": 185.46,
+   "fecha": "2026-11-23"
   },
   "DECK": {
-   "precio": 77.94,
-   "fecha": "2026-11-20"
+   "precio": 81.54,
+   "fecha": "2026-11-23"
   },
   "DIS": {
-   "precio": 117.98,
-   "fecha": "2026-11-20"
+   "precio": 120.27,
+   "fecha": "2026-11-23"
   },
   "GGAL": {
-   "precio": 25.29,
-   "fecha": "2026-11-20"
+   "precio": 26.62,
+   "fecha": "2026-11-23"
   },
   "GLOB": {
-   "precio": 41.63,
-   "fecha": "2026-11-20"
+   "precio": 45.57,
+   "fecha": "2026-11-23"
   },
   "GOOGL": {
-   "precio": 265.29,
-   "fecha": "2026-11-20"
+   "precio": 282.1,
+   "fecha": "2026-11-23"
   },
   "INTU": {
-   "precio": 270.44,
-   "fecha": "2026-11-20"
+   "precio": 275.46,
+   "fecha": "2026-11-23"
   },
   "ITUB": {
-   "precio": 6.52,
-   "fecha": "2026-11-20"
+   "precio": 6.69,
+   "fecha": "2026-11-23"
   },
   "JNJ": {
-   "precio": 270.47,
-   "fecha": "2026-11-20"
+   "precio": 270.05,
+   "fecha": "2026-11-23"
   },
   "JPM": {
-   "precio": 310.53,
-   "fecha": "2026-11-20"
+   "precio": 316.66,
+   "fecha": "2026-11-23"
   },
   "KO": {
-   "precio": 96.99,
-   "fecha": "2026-11-20"
+   "precio": 95.88,
+   "fecha": "2026-11-23"
   },
   "MA": {
-   "precio": 625.59,
-   "fecha": "2026-11-20"
+   "precio": 635.48,
+   "fecha": "2026-11-23"
   },
   "MCD": {
-   "precio": 273.24,
-   "fecha": "2026-11-20"
+   "precio": 276.38,
+   "fecha": "2026-11-23"
   },
   "MCO": {
-   "precio": 466.83,
-   "fecha": "2026-11-20"
+   "precio": 480.59,
+   "fecha": "2026-11-23"
   },
   "MELI": {
-   "precio": 1355.0,
-   "fecha": "2026-11-20"
+   "precio": 1425.08,
+   "fecha": "2026-11-23"
   },
   "MU": {
-   "precio": 594.51,
-   "fecha": "2026-11-20"
+   "precio": 707.7,
+   "fecha": "2026-11-23"
   },
   "NFLX": {
-   "precio": 56.73,
-   "fecha": "2026-11-20"
+   "precio": 58.1,
+   "fecha": "2026-11-23"
   },
   "NKE": {
-   "precio": 32.92,
-   "fecha": "2026-11-20"
+   "precio": 33.76,
+   "fecha": "2026-11-23"
   },
   "NU": {
-   "precio": 11.27,
-   "fecha": "2026-11-20"
+   "precio": 11.8,
+   "fecha": "2026-11-23"
   },
   "NVO": {
-   "precio": 37.82,
-   "fecha": "2026-11-20"
+   "precio": 39.14,
+   "fecha": "2026-11-23"
   },
   "ONON": {
-   "precio": 29.97,
-   "fecha": "2026-11-20"
+   "precio": 30.99,
+   "fecha": "2026-11-23"
   },
   "PAM": {
-   "precio": 60.63,
-   "fecha": "2026-11-20"
+   "precio": 62.16,
+   "fecha": "2026-11-23"
   },
   "PEP": {
-   "precio": 140.54,
-   "fecha": "2026-11-20"
+   "precio": 140.21,
+   "fecha": "2026-11-23"
   },
   "PFE": {
    "precio": 27.4,
-   "fecha": "2026-11-20"
+   "fecha": "2026-11-23"
   },
   "PG": {
-   "precio": 169.37,
-   "fecha": "2026-11-20"
+   "precio": 169.6,
+   "fecha": "2026-11-23"
   },
   "PM": {
-   "precio": 184.09,
-   "fecha": "2026-11-20"
+   "precio": 182.5,
+   "fecha": "2026-11-23"
   },
   "PYPL": {
-   "precio": 53.29,
-   "fecha": "2026-11-20"
+   "precio": 55.24,
+   "fecha": "2026-11-23"
   },
   "RIO": {
-   "precio": 72.73,
-   "fecha": "2026-11-20"
+   "precio": 75.11,
+   "fecha": "2026-11-23"
   },
   "SNY": {
-   "precio": 46.52,
-   "fecha": "2026-11-20"
+   "precio": 46.77,
+   "fecha": "2026-11-23"
   },
   "SPGI": {
-   "precio": 439.57,
-   "fecha": "2026-11-20"
+   "precio": 451.96,
+   "fecha": "2026-11-23"
   },
   "TSLA": {
-   "precio": 345.82,
-   "fecha": "2026-11-20"
+   "precio": 385.46,
+   "fecha": "2026-11-23"
   },
   "TSM": {
-   "precio": 318.71,
-   "fecha": "2026-11-20"
+   "precio": 363.6,
+   "fecha": "2026-11-23"
   },
   "UBER": {
-   "precio": 63.47,
-   "fecha": "2026-11-20"
+   "precio": 64.07,
+   "fecha": "2026-11-23"
   },
   "UNH": {
-   "precio": 339.85,
-   "fecha": "2026-11-20"
+   "precio": 336.08,
+   "fecha": "2026-11-23"
   },
   "UNP": {
-   "precio": 287.29,
-   "fecha": "2026-11-20"
+   "precio": 288.89,
+   "fecha": "2026-11-23"
   },
   "V": {
-   "precio": 401.87,
-   "fecha": "2026-11-20"
+   "precio": 409.4,
+   "fecha": "2026-11-23"
   },
   "VIST": {
-   "precio": 49.58,
-   "fecha": "2026-11-20"
+   "precio": 50.92,
+   "fecha": "2026-11-23"
   },
   "WMT": {
-   "precio": 127.95,
-   "fecha": "2026-11-20"
+   "precio": 129.58,
+   "fecha": "2026-11-23"
   },
   "XOM": {
-   "precio": 159.99,
-   "fecha": "2026-11-20"
+   "precio": 156.9,
+   "fecha": "2026-11-23"
   },
   "YPF": {
-   "precio": 32.32,
-   "fecha": "2026-11-20"
+   "precio": 33.18,
+   "fecha": "2026-11-23"
   }
  },
  "avisos": [
@@ -262,8 +262,6 @@
   "BN: Yahoo informa el EPS en otra base que lo cargado. Los períodos nuevos hay que cargarlos con la planilla.",
   "GGAL: Yahoo informa el EPS en ARS y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
   "GGAL: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
-  "GLOB: se sumó el trimestre cerrado el 2026-09-30 (EPS 0.32, fuente Yahoo).",
-  "INTU: se sumó el trimestre cerrado el 2026-10-31 (EPS 2.59, fuente Yahoo).",
   "ITUB: Yahoo informa el EPS en BRL y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
   "NU: sin precio de cierre para 2018-12-31, 2019-12-31, 2020-12-31.",
   "NVO: Yahoo informa el EPS en DKK y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
