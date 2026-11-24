@@ -69,11 +69,12 @@ def leer_tabla(contenido: bytes) -> pd.DataFrame:
     """Busca en el Excel la hoja con 'Industry Name' y devuelve la tabla con sus encabezados."""
     hojas = pd.read_excel(io.BytesIO(contenido), sheet_name=None, header=None)
     for _, df in hojas.items():
-        for i in range(min(len(df), 40)):
-            fila = [str(x).strip().lower() for x in df.iloc[i].tolist()]
-            if any(c.startswith("industry name") or c == "industry" for c in fila):
-                cab = [str(x).strip() for x in df.iloc[i].tolist()]
-                t = df.iloc[i + 1:].copy()
+        for i in range(min(len(df), 120)):
+            fila = [re.sub(r"\s+", " ", str(x)).strip().lower() for x in df.iloc[i].tolist()]
+            j = next((k for k, c in enumerate(fila) if re.match(r"^industry ?(name|group)?$", c)), None)
+            if j is not None:
+                cab = [str(x).strip() for x in df.iloc[i, j:].tolist()]
+                t = df.iloc[i + 1:, j:].copy()
                 t.columns = cab
                 t = t[t.iloc[:, 0].notna()]
                 t.iloc[:, 0] = t.iloc[:, 0].astype(str).str.strip()

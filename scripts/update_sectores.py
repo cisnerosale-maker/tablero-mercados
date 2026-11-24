@@ -145,14 +145,15 @@ def yahoo_etf(errores: list) -> dict:
                 k = str(idx).lower()
                 if v is None or v <= 0:
                     continue
+                # Yahoo (Morningstar) publica estos campos invertidos: ganancias/precio, libros/precio, etc.
                 if "earnings" in k and "growth" not in k:
-                    vals["pe"] = 1 / v if v < 1 else v      # Yahoo a veces devuelve E/P en lugar de P/E
+                    vals["pe"] = 1 / v
                 elif "book" in k:
-                    vals["pb"] = 1 / v if v < 0.25 else v
+                    vals["pb"] = 1 / v
                 elif "sales" in k:
-                    vals["ps"] = 1 / v if v < 0.15 else v
+                    vals["ps"] = 1 / v
                 elif "cash" in k:
-                    vals["pcf"] = 1 / v if v < 0.5 else v
+                    vals["pcf"] = 1 / v
             if vals:
                 out[s] = {k: round(v, 2) for k, v in vals.items()}
             time.sleep(0.5)
@@ -244,7 +245,9 @@ def main():
                     pub, fuente, fecha = sb[r], "Siblis (S&P 500 " + s + ")", sb.get("mes")
                 elif r in ("pb", "ps") and y.get(r):
                     pub, fuente, fecha = y[r], "Yahoo (ETF " + etf + ")", now_ar().strftime("%Y-%m-%d")
-                d = dm.get(r, {})
+                # El P/E forward de Damodaran es un promedio simple por industria y no es comparable con el del
+                # S&P 500 (da valores muy altos en salud o tecnología): se muestra el publicado, sin promedio.
+                d = dm.get(r, {}) if r != "pe_fwd" else {}
                 est = round(d["ultimo"] * (1 + var_ene), 2) if d.get("ultimo") and var_ene is not None and r != "ev_ebitda" else None
                 if r == "ev_ebitda" and d.get("ultimo") and var_ene is not None:
                     est = round(d["ultimo"] * (1 + 0.85 * var_ene), 2)  # el EV se mueve algo menos que el precio (deuda)
@@ -253,7 +256,8 @@ def main():
                     otros.append(["Yahoo", y["pb"], ""])
                 f.update({"actual": pub, "fuente": fuente, "fecha": fecha,
                           "p3": d.get("prom", {}).get("3"), "p5": d.get("prom", {}).get("5"), "p10": d.get("prom", {}).get("10"),
-                          "prom_fuente": f"Damodaran (eneros {dam.get('años', ['?'])[0]}–{d.get('ultimo_año', '?')})" if d else None,
+                          "prom_fuente": (f"Damodaran (eneros {dam.get('años', ['?'])[0]}–{d.get('ultimo_año', '?')})" if d else
+                                          ("Sin promedio comparable" if r == "pe_fwd" else None)),
                           "dam_ultimo": d.get("ultimo"), "dam_año": d.get("ultimo_año"), "dam_hoy": est,
                           "dam_serie": d.get("por_año"), "otros": otros})
                 # Comparación con la misma fuente que el promedio: el último enero de Damodaran llevado a hoy por precio.
