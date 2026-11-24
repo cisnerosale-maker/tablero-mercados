@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-24T11:40-03:00",
+ "actualizado": "2026-11-24T12:31-03:00",
  "errores": [
   "FRED DFII10 no respondió (HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): R); se usa la curva real del Tesoro",
   "FRED High Yield (BAMLH0A0HYM2): FRED no respondió en esta corrida",
@@ -18,9 +18,9 @@
    "2026-11-24"
   ],
   "vix3m": [
-   5122,
+   5123,
    "2006-07-17",
-   "2026-11-23"
+   "2026-11-24"
   ],
   "brent": [
    4811,
@@ -143,7 +143,7 @@
    "nivel": 1
   },
   "sen": {
-   "score": 52.2,
+   "score": 49.1,
    "cobertura": 100,
    "faltan": [],
    "zona": "Atención",
@@ -164,7 +164,7 @@
   "indicadores": [
    {
     "id": "pe_fwd",
-    "valor": 17.21,
+    "valor": 17.22,
     "score": 41.1,
     "fecha": "2026-11-24",
     "zona": "Justo",
@@ -443,15 +443,15 @@
      ],
      [
       "2026-11-24",
-      17.21
+      17.22
      ]
     ],
     "serie_titulo": "P/E forward del S&P 500"
    },
    {
     "id": "erp",
-    "valor": 3.02,
-    "score": 75.6,
+    "valor": 3.019,
+    "score": 75.7,
     "fecha": "2026-11-23",
     "zona": "Caro",
     "nivel": 2,
@@ -972,7 +972,7 @@
    },
    {
     "id": "concentracion",
-    "valor": -6.73,
+    "valor": -6.67,
     "score": 41.6,
     "fecha": "2026-11-24",
     "zona": "Justo",
@@ -1612,15 +1612,15 @@
    },
    {
     "id": "amplitud",
-    "valor": 53.51,
-    "score": 47.7,
+    "valor": 54.91,
+    "score": 44.5,
     "fecha": "2026-11-24",
     "zona": "Atención",
     "nivel": 1,
     "detalle": [
      [
       "Sobre la media de 50 días",
-      "53,1%"
+      "53,3%"
      ],
      [
       "Hace un mes (200 días)",
@@ -2195,14 +2195,14 @@
      ],
      [
       "2026-11-24",
-      53.51
+      54.91
      ]
     ],
     "serie_titulo": "Amplitud: acciones sobre su media de 200 días"
    },
    {
     "id": "tendencia",
-    "valor": -8.47,
+    "valor": -8.45,
     "score": 65.0,
     "fecha": "2026-11-24",
     "zona": "Deterioro",
@@ -2210,11 +2210,11 @@
     "detalle": [
      [
       "Último",
-      "7.157,03"
+      "7.158,45"
      ],
      [
       "Media 50 ruedas",
-      "7.609,03"
+      "7.609,05"
      ],
      [
       "Media 200 ruedas",
@@ -2841,7 +2841,7 @@
      ],
      [
       "2026-11-24",
-      7157.03
+      7158.45
      ]
     ],
     "serie_titulo": "S&P 500"
@@ -2862,7 +2862,7 @@
      ],
      [
       "Cambio en 3 meses",
-      "-2,35%"
+      "-2,34%"
      ]
     ],
     "nombre": "Spread de bonos High Yield",
@@ -3486,22 +3486,22 @@
    },
    {
     "id": "volatilidad",
-    "valor": 29.34,
-    "score": 100.0,
+    "valor": 27.48,
+    "score": 84.9,
     "fecha": "2026-11-24",
     "zona": "Deterioro fuerte",
     "nivel": 3,
     "detalle": [
      [
       "VIX / VIX3M",
-      "1,15 (invertida: pánico)"
+      "1,05 (invertida: pánico)"
      ],
      [
       "Percentil desde 1996",
-      "90"
+      "87"
      ]
     ],
-    "percentil": 90.0,
+    "percentil": 87.0,
     "percentil_desde": "1996",
     "nombre": "VIX y estructura de plazos",
     "unidad": "puntos",
@@ -4119,7 +4119,7 @@
      ],
      [
       "2026-11-24",
-      29.34
+      27.48
      ]
     ],
     "serie_titulo": "VIX y estructura de plazos"
@@ -4241,7 +4241,7 @@
    },
    {
     "f": "2024-07-12",
-    "val": 91.3,
+    "val": 91.2,
     "sen": 13.7,
     "cv": 40,
     "cs": 55
@@ -5110,7 +5110,7 @@
    {
     "f": "2026-11-24",
     "val": 61.0,
-    "sen": 52.2,
+    "sen": 49.1,
     "cv": 100,
     "cs": 100
    }
@@ -5385,7 +5385,7 @@
      "nivel": 1
     },
     "sen": {
-     "score": 52.2,
+     "score": 49.1,
      "cobertura": 100,
      "faltan": [],
      "zona": "Atención",
@@ -5405,14 +5405,14 @@
     },
     "inds": {
      "pe_fwd": {
-      "valor": 17.21,
+      "valor": 17.22,
       "score": 41.1,
       "zona": "Justo",
       "nivel": 1
      },
      "erp": {
-      "valor": 3.02,
-      "score": 75.6,
+      "valor": 3.019,
+      "score": 75.7,
       "zona": "Caro",
       "nivel": 2
      },
@@ -5423,19 +5423,19 @@
       "nivel": 3
      },
      "concentracion": {
-      "valor": -6.73,
+      "valor": -6.67,
       "score": 41.6,
       "zona": "Justo",
       "nivel": 1
      },
      "amplitud": {
-      "valor": 53.51,
-      "score": 47.7,
+      "valor": 54.91,
+      "score": 44.5,
       "zona": "Atención",
       "nivel": 1
      },
      "tendencia": {
-      "valor": -8.47,
+      "valor": -8.45,
       "score": 65.0,
       "zona": "Deterioro",
       "nivel": 2
@@ -5447,8 +5447,8 @@
       "nivel": 2
      },
      "volatilidad": {
-      "valor": 29.34,
-      "score": 100.0,
+      "valor": 27.48,
+      "score": 84.9,
       "zona": "Deterioro fuerte",
       "nivel": 3
      },
@@ -5479,8 +5479,8 @@
   "reingreso": {
    "maximo": 7818.93,
    "fecha_max": "2026-10-06",
-   "ultimo": 7157.03,
-   "dd_hoy": -8.47,
+   "ultimo": 7158.45,
+   "dd_hoy": -8.45,
    "minimo": 6910.39,
    "fecha_min": "2026-11-20",
    "dd_min": -11.62,
@@ -5531,7 +5531,7 @@
    },
    {
     "nombre": "Curva 10 años − 3 meses",
-    "valor": "+0,73 pp",
+    "valor": "+0,74 pp",
     "fecha": "2026-11-24",
     "nota": "Invertida (negativa) anticipó recesiones con 6 a 24 meses de demora. Solo de referencia: no suma al puntaje."
    }
@@ -6297,7 +6297,7 @@
      ],
      [
       "2026-11-24",
-      1938.52
+      1936.89
      ]
     ],
     "serie_titulo": "Canasta ADR (base 100 = 2003)"
@@ -8221,7 +8221,7 @@
      ],
      [
       "2026-11-24",
-      1938.52
+      1936.89
      ]
     ],
     "serie_titulo": "Canasta ADR (base 100 = 2003)"
