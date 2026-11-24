@@ -13,6 +13,9 @@ on:
       - "scripts/riesgo_comun.py"
       - "scripts/backtest_riesgo.py"
       - ".github/workflows/riesgo.yml"
+      - "scripts/update_sectores.py"
+      - "scripts/build_damodaran.py"
+      - "data/sectores/manual.json"
   workflow_dispatch: {}
 
 permissions:
@@ -25,7 +28,7 @@ concurrency:
 jobs:
   actualizar:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
 
@@ -45,11 +48,19 @@ jobs:
         continue-on-error: true
         run: python scripts/backtest_riesgo.py
 
+      - name: Promedios de Damodaran por sector (solo si falta el año)
+        continue-on-error: true
+        run: python scripts/build_damodaran.py
+
+      - name: Valuación por sector
+        continue-on-error: true
+        run: python scripts/update_sectores.py
+
       - name: Guardar datos
         run: |
           git config user.name "tablero-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/riesgo/
+          git add data/riesgo/ data/sectores/
           if git diff --cached --quiet; then
             echo "Sin cambios"
           else

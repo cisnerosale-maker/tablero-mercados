@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sectores · Tablero de Mercados</title>
+<meta name="description" content="Valuación de los 11 sectores del S&P 500 contra sus promedios de 3, 5 y 10 años.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Misma estética que el tablero. Semáforo: verde / amarillo / naranja / rojo, siempre con su texto. */
+:root {
+  --bg: #DDEBF7; --surface: #FFFFFF; --sunken: #EAF2FA; --ink: #14202C; --muted: #4F6378; --line: #C3D6E8;
+  --accent: #1F5E8C; --brand: #1F4E79; --up: #1E7A4C; --down: #B42318; --warn: #A15C07; --grid: #E3ECF5;
+  --z0: #1E7A4C; --z1: #8C6D00; --z2: #C2570C; --z3: #B42318;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-data: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0D1724; --surface: #142131; --sunken: #111C2A; --ink: #E3ECF5; --muted: #93A6BA; --line: #26374B;
+    --accent: #6FB2E6; --brand: #8DBDEB; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A; --grid: #1E2D3F;
+    --z0: #5CC795; --z1: #E0C24A; --z2: #F59A4A; --z3: #F27B6F;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.45;
+  padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left));
+}
+.wrap { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; letter-spacing: -0.01em; color: var(--brand); }
+h2 { font-size: 20px; font-weight: 700; }
+h3 { font-size: 15.5px; font-weight: 700; }
+p { margin: 0; }
+.num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+[hidden] { display: none !important; }
+a { color: var(--accent); }
+
+header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+nav.tabs a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 5px; }
+nav.tabs a[aria-current="page"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.seg { display: inline-flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+.seg button { font: inherit; font-size: 14px; font-weight: 600; border: 0; background: transparent; color: var(--muted); padding: 6px 14px; border-radius: 5px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--sunken); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+section.sec { display: flex; flex-direction: column; gap: 12px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.sec-head small { color: var(--muted); font-size: 12.5px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.note { font-size: 12.5px; color: var(--muted); }
+.banner { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warn); padding: 12px 14px; border-radius: 6px; font-size: 14px; }
+
+/* Encabezado: dos puntajes + matriz */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.35fr); gap: 12px; }
+@media (max-width: 980px) { .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .hero .mcard { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .hero { grid-template-columns: 1fr; } }
+.score-k { font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; }
+.score-q { font-size: 13px; color: var(--muted); margin-top: -6px; }
+.score-v { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.score-v .v { font-family: var(--f-data); font-size: 44px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+.score-v .of { font-family: var(--f-data); color: var(--muted); font-size: 14px; }
+.zt { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 2px 8px; border-radius: 4px; border: 1px solid currentColor; white-space: nowrap; }
+.zt::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.z0 { color: var(--z0); } .z1 { color: var(--z1); } .z2 { color: var(--z2); } .z3 { color: var(--z3); } .zn { color: var(--muted); }
+.gauge { position: relative; height: 30px; margin-top: 2px; }
+.gauge .bands { position: absolute; left: 0; right: 0; top: 8px; height: 8px; display: flex; gap: 2px; }
+.gauge .bands span { height: 100%; border-radius: 2px; opacity: .35; }
+.gauge .bands span.on { opacity: 1; }
+.gauge .mk { position: absolute; top: 2px; width: 4px; height: 20px; margin-left: -2px; border-radius: 2px; background: var(--ink); box-shadow: 0 0 0 2px var(--surface); }
+.gauge .ticks { position: absolute; left: 0; right: 0; top: 19px; font-family: var(--f-data); font-size: 10px; color: var(--muted); }
+.gauge .ticks span { position: absolute; transform: translateX(-50%); }
+
+.matrix { display: grid; grid-template-columns: 64px repeat(3, minmax(0, 1fr)); gap: 3px; font-size: 12px; }
+.matrix .h { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2px; }
+.matrix .h.r { justify-content: flex-start; }
+.matrix .c { background: var(--sunken); border: 1px solid var(--line); border-radius: 5px; padding: 6px 7px; min-height: 52px; display: flex; flex-direction: column; justify-content: space-between; gap: 2px; position: relative; }
+.matrix .c b { font-weight: 600; font-size: 12px; line-height: 1.2; }
+.matrix .c .l { font-family: var(--f-data); color: var(--muted); font-size: 11px; }
+.matrix .c.on { background: var(--surface); border: 2px solid var(--ink); box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+.matrix .c .flags { display: flex; gap: 3px; flex-wrap: wrap; }
+.matrix .c .flag { font-size: 10px; font-weight: 700; padding: 0 4px; border-radius: 3px; background: var(--ink); color: var(--surface); }
+.matrix .c .flag.ref { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+.postura { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--line); padding-top: 10px; }
+.postura .t { font-family: var(--f-display); font-size: 19px; font-weight: 700; }
+.postura .liq { font-family: var(--f-data); font-size: 14px; }
+
+/* Tarjetas de indicadores */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.ind .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.ind .nm { font-weight: 600; font-size: 14.5px; line-height: 1.25; }
+.ind .w { font-family: var(--f-data); font-size: 11px; color: var(--muted); white-space: nowrap; border: 1px solid var(--line); border-radius: 3px; padding: 0 5px; }
+.ind .val { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.ind .val .v { font-family: var(--f-data); font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
+.ind .val .u { font-size: 12px; color: var(--muted); }
+.ind .que { font-size: 12.5px; color: var(--muted); }
+.ind .umb { font-size: 11.5px; color: var(--muted); border-left: 2px solid var(--line); padding-left: 8px; }
+.ind .det { font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 8px; display: flex; flex-direction: column; gap: 3px; }
+.ind .det .row { display: flex; justify-content: space-between; gap: 10px; }
+.ind .det .row b { font-weight: 500; font-family: var(--f-data); font-variant-numeric: tabular-nums; text-align: right; }
+.ind .foot { display: flex; justify-content: space-between; gap: 8px; font-size: 11.5px; color: var(--muted); flex-wrap: wrap; }
+.ind .foot a { text-decoration: none; } .ind .foot a:hover { text-decoration: underline; }
+.mini { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--muted); }
+.mini .bar { flex: 1; height: 6px; border-radius: 3px; background: var(--sunken); position: relative; overflow: hidden; }
+.mini .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+.comp { display: flex; flex-direction: column; gap: 5px; border-top: 1px solid var(--line); padding-top: 10px; font-size: 12.5px; }
+.comp .row { display: grid; grid-template-columns: minmax(0, 1fr) 70px 26px; align-items: center; gap: 8px; }
+.comp .row .n { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.comp .row .s { font-family: var(--f-data); text-align: right; }
+
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart svg text { font-family: var(--f-data); font-size: 10.5px; fill: var(--muted); }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; font-size: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.12); white-space: nowrap; z-index: 3; }
+.tip b { font-family: var(--f-data); font-weight: 600; }
+.tip .r { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.tip .k { display: inline-block; width: 12px; border-top: 2px solid; margin-right: 6px; vertical-align: middle; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; border-top: 2px solid; vertical-align: middle; margin-right: 6px; }
+
+table.t { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.t th, table.t td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+table.t th:first-child, table.t td:first-child { text-align: left; white-space: normal; }
+table.t th { color: var(--muted); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; vertical-align: bottom; }
+table.t td { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+table.t td.txt { font-family: var(--f-body); }
+table.t tr.hl td { background: var(--sunken); font-weight: 600; }
+.scroll { overflow-x: auto; }
+.cell-z { display: inline-flex; align-items: center; gap: 6px; }
+.cell-z::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+.cell-z span { color: var(--ink); }
+.up { color: var(--up); } .down { color: var(--down); }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 12px; }
+.chk { font-family: var(--f-body); font-weight: 700; }
+.informe { display: flex; flex-direction: column; gap: 8px; font-size: 14px; max-width: 95ch; }
+.informe ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+details.avisos { font-size: 13px; color: var(--muted); }
+details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* Propios de la página de sectores */
+.bars { display: flex; flex-direction: column; gap: 6px; }
+.bar-row { display: grid; grid-template-columns: minmax(150px, 210px) minmax(0, 1fr) 64px; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; border-radius: 4px; padding: 2px 4px; }
+.bar-row:hover, .bar-row:focus-visible { background: var(--sunken); outline: none; }
+.bar-track { position: relative; height: 16px; }
+.bar-track .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--muted); }
+.bar-track .b { position: absolute; top: 2px; height: 12px; border-radius: 3px; }
+.bar-row .v { font-family: var(--f-data); text-align: right; }
+.bar-axis { display: grid; grid-template-columns: minmax(150px, 210px) minmax(0, 1fr) 64px; gap: 10px; font-family: var(--f-data); font-size: 10.5px; color: var(--muted); padding: 0 4px; }
+.bar-axis .ax { position: relative; height: 14px; }
+.bar-axis .ax span { position: absolute; transform: translateX(-50%); }
+table.t td.na { color: var(--muted); }
+table.t tr.nr td { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+table.t tr.nr td:first-child { text-decoration: none; }
+table.t tr.princ td:first-child { font-weight: 700; }
+table.t tr.clk { cursor: pointer; }
+table.t tr.clk:hover td { background: var(--sunken); }
+.sub { display: block; font-size: 11px; color: var(--muted); font-family: var(--f-body); font-weight: 400; text-decoration: none; }
+details.sec-card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+details.sec-card > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+details.sec-card > summary::-webkit-details-marker { display: none; }
+details.sec-card > summary::before { content: "▸"; color: var(--muted); font-size: 12px; transition: transform .15s; }
+details.sec-card[open] > summary::before { transform: rotate(90deg); }
+details.sec-card > summary .nm { font-weight: 700; font-family: var(--f-display); font-size: 16px; }
+details.sec-card > summary .etf { font-family: var(--f-data); font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 0 5px; }
+details.sec-card > summary .desc { font-size: 12.5px; color: var(--muted); flex: 1 1 260px; }
+details.sec-card > summary .res { font-family: var(--f-data); font-size: 13px; }
+details.sec-card .body { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+.spark-y { display: inline-block; vertical-align: middle; }
+.pill-src { font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span style="color:var(--brand)">Estudio Cisneros</span><span class="muted" style="font-weight:600"> · Marcos Juárez</span></div>
+      <h1>Valuación por sector</h1>
+      <div class="muted" style="font-size:13.5px;margin-top:6px">Los 11 sectores del S&amp;P 500: cuánto valen hoy contra sus promedios de 3, 5 y 10 años.</div>
+    </div>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="index.html">Mercados</a>
+      <a href="eps.html">Precio vs EPS</a>
+      <a href="riesgo.html">Riesgo de mercado</a>
+      <a href="sectores.html" aria-current="page">Sectores</a>
+    </nav>
+  </header>
+
+  <p class="note" id="txtFecha">Cargando…</p>
+  <div class="banner" id="banner" hidden></div>
+  <main id="main" style="display:flex;flex-direction:column;gap:26px"></main>
+
+  <details class="avisos" id="avisos" hidden><summary>Avisos de la última actualización</summary><ul id="avisosList"></ul></details>
+  <section class="sec">
+    <div class="sec-head"><h2>Cómo se arma</h2></div>
+    <div class="card note" style="font-size:13px;gap:8px">
+      <p><b>P/E:</b> worldperatio.com, sobre el ETF de cada sector (XLK, XLF…). El valor actual y los promedios de 3, 5 y 10 años salen de la misma fuente y se actualizan todos los días.</p>
+      <p><b>P/E forward, P/Valor libros, EV/EBITDA y P/Ventas:</b> el valor publicado hoy sale de Siblis Research (mensual, índices sectoriales del S&amp;P 500) o de Yahoo Finance (diario, acciones de cada ETF). Los promedios son de Aswath Damodaran (NYU): múltiplos de enero de cada año de todas las empresas de EE.UU., agrupando sus industrias en los 11 sectores y ponderando por capitalización. Son promedios de 3, 5 y 10 <i>eneros</i>, no de datos mensuales.</p>
+      <p><b>La diferencia</b> se calcula siempre contra la misma fuente del promedio: para Damodaran, su último enero llevado a hoy con la suba o baja del ETF desde entonces (columna "Damodaran hoy"). El valor publicado por Siblis o Yahoo queda como referencia: puede no coincidir en nivel porque cada fuente mide distinto universo de empresas.</p>
+      <p><b>Ratio principal:</b> P/E en tecnología, comunicación, consumo y salud; EV/EBITDA en energía, materiales, industriales y servicios públicos; P/Valor libros en financieras; P/FFO en bienes raíces (REIT). Los ratios que no sirven para un sector aparecen tachados.</p>
+      <p><b>Zonas</b> (diferencia contra el promedio de 10 años): Muy barato &lt; −20% · Barato −20% a −7% · En línea ±7% · Caro +7% a +20% · Muy caro &gt; +20%. Un sector caro puede estarlo con razón (más crecimiento o rentabilidad): es un punto de partida para investigar, no una señal de venta. No constituye asesoramiento financiero.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const nf = (v, d = 1) => v == null || !isFinite(v) ? "—" : Number(v).toLocaleString("es-AR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const pct = v => v == null ? "—" : (v > 0 ? "+" : "") + nf(v, 1) + "%";
+  const fd = s => { if (!s) return "—"; if (!/^\d{4}-\d{2}-\d{2}/.test(s)) return s; const [y, m, d] = s.slice(0, 10).split("-"); return `${d}/${m}/${y}`; };
+  const ZCOL = ["var(--z0)", "var(--z1)", "var(--z2)", "var(--z3)"];
+  const zc = n => n == null ? "zn" : "z" + n;
+  const ztag = (z, n) => `<span class="zt ${zc(n)}">${esc(z)}</span>`;
+  const NOMBRE_RATIO = { pe: "P/E", pe_fwd: "P/E forward", pb: "P/Valor libros", ev_ebitda: "EV/EBITDA", ps: "P/Ventas", p_ffo: "P/FFO" };
+  let D = null;
+
+  function barras(secs) {
+    const xs = secs.filter(s => s.dif_prom != null).sort((a, b) => b.dif_prom - a.dif_prom);
+    if (!xs.length) return `<p class="note">Todavía no hay datos suficientes.</p>`;
+    const lo = Math.min(-30, ...xs.map(s => s.dif_prom)), hi = Math.max(30, ...xs.map(s => s.dif_prom));
+    const pos = v => (v - lo) / (hi - lo) * 100;
+    const ticks = [-40, -20, 0, 20, 40, 60, 80].filter(v => v >= lo && v <= hi);
+    const filas = xs.map(s => {
+      const a = pos(Math.min(0, s.dif_prom)), b = pos(Math.max(0, s.dif_prom));
+      return `<div class="bar-row" tabindex="0" role="button" data-sec="${esc(s.sector)}" title="Ver el detalle de ${esc(s.sector)}">
+        <span><span class="cell-z ${zc(s.nivel)}"><span>${esc(s.sector)}</span></span></span>
+        <span class="bar-track"><i class="zero" style="left:${pos(0)}%"></i><i class="b" style="left:${a}%;width:${Math.max(0.6, b - a)}%;background:${ZCOL[s.nivel] || "var(--muted)"}"></i></span>
+        <span class="v">${pct(s.dif_prom)}</span></div>`;
+    }).join("");
+    const ax = `<div class="bar-axis"><span></span><span class="ax">${ticks.map(v => `<span style="left:${pos(v)}%">${v > 0 ? "+" : ""}${v}%</span>`).join("")}</span><span></span></div>`;
+    return `<div class="bars">${filas}</div>${ax}`;
+  }
+
+  function filaPrincipal(s) {
+    const f = s.ratios.find(r => r.id === s.principal_fila) || s.ratios.find(r => r.principal);
+    return f || {};
+  }
+
+  function resumen(secs) {
+    const filas = secs.map(s => {
+      const f = filaPrincipal(s);
+      const actual = f.id === "pe" || f.id === "p_ffo" ? f.actual : f.comparado;
+      return `<tr class="clk" data-sec="${esc(s.sector)}" tabindex="0"><td class="txt"><b>${esc(s.sector)}</b><span class="sub">${esc(s.etf)}</span></td>
+        <td class="txt" style="text-align:left">${esc(NOMBRE_RATIO[f.id] || "—")}${f.id && f.id !== s.principal ? `<span class="sub">sin dato de ${esc(NOMBRE_RATIO[s.principal])}</span>` : ""}</td>
+        <td>${nf(actual, 1)}</td><td>${nf(f.p3, 1)}</td><td>${nf(f.p5, 1)}</td><td>${nf(f.p10, 1)}</td>
+        <td class="${f.d10 > 0 ? "down" : f.d10 < 0 ? "up" : ""}">${pct(f.d10)}</td>
+        <td class="txt" style="text-align:right">${f.zona ? ztag(f.zona, f.nivel) : "—"}</td>
+        <td>${pct(s.dif_prom)}</td><td class="txt" style="text-align:right">${ztag(s.zona, s.nivel)}</td></tr>`;
+    }).join("");
+    return `<div class="scroll"><table class="t"><thead><tr><th>Sector</th><th style="text-align:left">Ratio principal</th><th>Actual</th><th>Prom. 3 años</th><th>Prom. 5 años</th><th>Prom. 10 años</th><th>Dif. 10 años</th><th>Zona</th><th>Todos los ratios</th><th>Zona sector</th></tr></thead><tbody>${filas}</tbody></table></div>`;
+  }
+
+  function sparkAños(serie) {
+    if (!serie) return "";
+    const ks = Object.keys(serie).sort(), vs = ks.map(k => serie[k]).filter(v => v != null);
+    if (vs.length < 3) return "";
+    const W = 90, H = 22, lo = Math.min(...vs), hi = Math.max(...vs), r = hi - lo || 1;
+    const pts = ks.map((k, i) => `${(i / (ks.length - 1) * W).toFixed(1)},${(H - 2 - (serie[k] - lo) / r * (H - 4)).toFixed(1)}`).join(" ");
+    const tip = ks.map(k => `${k}: ${nf(serie[k], 1)}`).join(" · ");
+    return `<svg class="spark-y" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(tip)}"><title>${esc(tip)}</title><polyline points="${pts}" fill="none" stroke="var(--s1)" stroke-width="1.5"/></svg>`;
+  }
+
+  function detalle(s) {
+    const filas = s.ratios.map(f => {
+      const nr = !!f.no_repr;
+      const pub = f.actual != null ? `${nf(f.actual, 2)}<span class="sub">${esc(f.fuente || "")}${f.fecha ? " · " + esc(fd(f.fecha)) : ""}</span>` : `<span class="na">—</span>`;
+      const otros = (f.otros || []).map(o => `<span class="sub">${esc(o[0])}: ${nf(o[1], 2)}${o[2] ? " (" + esc(o[2]) + ")" : ""}</span>`).join("");
+      const dh = f.id === "pe" || f.id === "p_ffo" ? `<span class="na">misma fuente</span>` :
+        (f.dam_hoy != null ? `${nf(f.dam_hoy, 2)}<span class="sub">enero ${esc(f.dam_año)}: ${nf(f.dam_ultimo, 2)}</span>` : `<span class="na">—</span>`);
+      return `<tr class="${nr ? "nr" : ""} ${f.principal ? "princ" : ""}" ${nr ? `title="${esc(f.no_repr)}"` : ""}>
+        <td class="txt">${esc(f.nombre)}${f.principal ? `<span class="sub">ratio principal</span>` : ""}${nr ? `<span class="sub" style="text-decoration:none">no representativo</span>` : ""}</td>
+        <td>${pub}${otros}</td><td>${dh}</td>
+        <td>${nf(f.p3, 2)}</td><td>${nf(f.p5, 2)}</td><td>${nf(f.p10, 2)}<span class="sub">${esc(f.prom_fuente || "")}</span></td>
+        <td>${pct(f.d3)}</td><td>${pct(f.d5)}</td><td><b>${pct(f.d10)}</b></td>
+        <td class="txt" style="text-align:right">${nr ? "" : ztag(f.zona, f.nivel)}</td>
+        <td>${sparkAños(f.dam_serie)}</td></tr>`;
+    }).join("");
+    const nrs = s.ratios.filter(f => f.no_repr).map(f => `<li>${esc(f.nombre)}: ${esc(f.no_repr)}</li>`).join("");
+    const sb = s.siblis ? `<p class="note">Siblis: CAPE ${nf(s.siblis.cape, 1)} (percentil ${nf(s.siblis.cape_pct, 0)} de su historia) · P/E en el percentil ${nf(s.siblis.pe_pct, 0)} · dividendo ${nf(s.siblis.div, 2)}%. ETF ${s.var_desde_enero != null ? (s.var_desde_enero >= 0 ? "+" : "") + nf(s.var_desde_enero, 1) + "% desde el último enero de Damodaran" : ""}.</p>` : "";
+    return `<details class="sec-card" id="sec-${esc(s.etf)}" data-sec="${esc(s.sector)}"><summary>
+        <span class="nm">${esc(s.sector)}</span><span class="etf">${esc(s.etf)}</span><span class="desc">${esc(s.desc)}</span>
+        <span class="res">${pct(s.dif_prom)}</span>${ztag(s.zona, s.nivel)}</summary>
+      <div class="body"><div class="scroll"><table class="t"><thead><tr><th>Ratio</th><th>Actual publicado</th><th>Damodaran hoy (est.)</th><th>Prom. 3 años</th><th>Prom. 5 años</th><th>Prom. 10 años</th><th>Dif. 3 años</th><th>Dif. 5 años</th><th>Dif. 10 años</th><th>Zona</th><th>Eneros</th></tr></thead><tbody>${filas}</tbody></table></div>
+      ${sb}${nrs ? `<ul class="note" style="margin:0;padding-left:18px">${nrs}</ul>` : ""}</div></details>`;
+  }
+
+  function render() {
+    const secs = D.sectores || [];
+    const f = D.fuentes || {};
+    $("#txtFecha").textContent = `Actualizado ${D.actualizado ? D.actualizado.slice(0, 16).replace("T", " ") : "—"} · P/E: worldperatio ${f.worldperatio || "sin dato"} · Siblis: ${D.siblis_mes || "sin dato"} (${f.siblis || "sin dato"}) · Damodaran: eneros ${D.damodaran && D.damodaran.años ? D.damodaran.años[0] + "–" + D.damodaran.años[D.damodaran.años.length - 1] : "pendiente"}`;
+    const ban = [];
+    if (!D.damodaran) ban.push("Los promedios de Damodaran se están calculando: aparecen en la próxima actualización.");
+    $("#banner").hidden = !ban.length; $("#banner").textContent = ban.join(" ");
+    $("#main").innerHTML = `
+      <section class="sec"><div class="sec-head"><h2>Prima o descuento contra su historia</h2><small>Promedio de las diferencias de todos los ratios contra su promedio de 10 años (el principal pesa doble)</small></div>
+        <div class="card">${barras(secs)}<p class="note">Tocá un sector para ver el detalle. Positivo = más caro que su promedio histórico.</p></div></section>
+      <section class="sec"><div class="sec-head"><h2>Resumen de los 11 sectores</h2><small>Ratio principal de cada sector</small></div>
+        <div class="card">${resumen(secs)}<p class="note">En los ratios de Damodaran, "Actual" es el último enero llevado a hoy por el precio del ETF, para comparar contra la misma fuente. El valor publicado por Siblis o Yahoo está en el detalle.</p></div></section>
+      <section class="sec"><div class="sec-head"><h2>Detalle por sector</h2><small>Todos los ratios, diferencias contra 3, 5 y 10 años</small></div>
+        <div style="display:flex;flex-direction:column;gap:8px">${secs.map(detalle).join("")}</div></section>`;
+    const abrir = nombre => {
+      const d = document.querySelector(`details.sec-card[data-sec="${CSS.escape(nombre)}"]`);
+      if (d) { d.open = true; d.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    };
+    document.querySelectorAll("[data-sec].bar-row, tr.clk[data-sec]").forEach(el => {
+      el.addEventListener("click", () => abrir(el.dataset.sec));
+      el.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); abrir(el.dataset.sec); } });
+    });
+    const e = D.errores || [];
+    $("#avisos").hidden = !e.length;
+    const ul = $("#avisosList"); ul.textContent = "";
+    e.forEach(x => { const li = document.createElement("li"); li.textContent = x; ul.appendChild(li); });
+  }
+
+  fetch("data/sectores/actual.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null).then(d => {
+    D = d;
+    if (!D) { $("#txtFecha").textContent = ""; $("#main").innerHTML = `<div class="banner">Todavía no hay datos: se generan en la primera corrida de <i>Actions → Riesgo de mercado</i>.</div>`; return; }
+    render();
+  });
+})();
+</script>
+</body>
+</html>

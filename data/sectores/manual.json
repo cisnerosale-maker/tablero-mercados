@@ -1,0 +1,171 @@
+{
+ "_instrucciones": "Respaldo para las fuentes que GitHub no puede leer. Lo actualiza la tarea programada de los viernes. Si una fuente responde en vivo, se usa la de vivo.",
+ "siblis": {
+  "fecha": "2026-11-24",
+  "fuente": "https://siblisresearch.com/data/sectors/ (fin de octubre de 2026)",
+  "sectores": {
+   "Communication Services": {
+    "pe": 15.18,
+    "pe_fwd": 15.83,
+    "cape": 30.4,
+    "ev_ebitda": 12.4,
+    "pb": 4.22,
+    "div": 0.8,
+    "pe_pct": 20.0,
+    "cape_pct": 31.0,
+    "mes": "October 2026"
+   },
+   "Consumer Discretionary": {
+    "pe": 24.24,
+    "pe_fwd": 23.76,
+    "cape": 36.52,
+    "ev_ebitda": 18.29,
+    "pb": 7.44,
+    "div": 0.65,
+    "pe_pct": 70.0,
+    "cape_pct": 82.0,
+    "mes": "October 2026"
+   },
+   "Consumer Staples": {
+    "pe": 25.54,
+    "pe_fwd": 23.24,
+    "cape": 25.41,
+    "ev_ebitda": 16.64,
+    "pb": 7.49,
+    "div": 2.25,
+    "pe_pct": 95.0,
+    "cape_pct": 75.0,
+    "mes": "October 2026"
+   },
+   "Energy": {
+    "pe": 20.49,
+    "pe_fwd": 13.67,
+    "cape": 33.12,
+    "ev_ebitda": 8.94,
+    "pb": 2.84,
+    "div": 2.19,
+    "pe_pct": 76.0,
+    "cape_pct": 99.0,
+    "mes": "October 2026"
+   },
+   "Financials": {
+    "pe": 16.55,
+    "pe_fwd": 14.6,
+    "cape": 20.55,
+    "ev_ebitda": 18.96,
+    "pb": 2.45,
+    "div": 1.6,
+    "pe_pct": 76.0,
+    "cape_pct": 68.0,
+    "mes": "October 2026"
+   },
+   "Health Care": {
+    "pe": 26.79,
+    "pe_fwd": 19.92,
+    "cape": 28.86,
+    "ev_ebitda": 19.08,
+    "pb": 6.11,
+    "div": 1.44,
+    "pe_pct": 88.0,
+    "cape_pct": 68.0,
+    "mes": "October 2026"
+   },
+   "Industrials": {
+    "pe": 28.78,
+    "pe_fwd": 22.52,
+    "cape": 33.48,
+    "ev_ebitda": 17.83,
+    "pb": 7.11,
+    "div": 1.27,
+    "pe_pct": 92.0,
+    "cape_pct": 88.0,
+    "mes": "October 2026"
+   },
+   "Information Technology": {
+    "pe": 35.28,
+    "pe_fwd": 18.85,
+    "cape": 66.74,
+    "ev_ebitda": 22.82,
+    "pb": 13.04,
+    "div": 0.56,
+    "pe_pct": 82.0,
+    "cape_pct": 90.0,
+    "mes": "October 2026"
+   },
+   "Materials": {
+    "pe": 24.2,
+    "pe_fwd": 17.08,
+    "cape": 25.01,
+    "ev_ebitda": 12.89,
+    "pb": 3.22,
+    "div": 1.52,
+    "pe_pct": 70.0,
+    "cape_pct": 75.0,
+    "mes": "October 2026"
+   },
+   "Real Estate": {
+    "pe": 42.25,
+    "pe_fwd": 35.13,
+    "cape": 34.09,
+    "ev_ebitda": 21.88,
+    "pb": 3.22,
+    "div": 3.52,
+    "pe_pct": 77.0,
+    "cape_pct": 53.0,
+    "mes": "October 2026"
+   },
+   "Utilities": {
+    "pe": 19.31,
+    "pe_fwd": 16.96,
+    "cape": 22.05,
+    "ev_ebitda": 13.99,
+    "pb": 2.21,
+    "div": 2.89,
+    "pe_pct": 80.0,
+    "cape_pct": 93.0,
+    "mes": "October 2026"
+   }
+  }
+ },
+ "worldperatio": {
+  "fecha": "2026-11-24",
+  "fuente": "https://worldperatio.com/sp-500-sectors/",
+  "sectores": {
+   "Information Technology": {
+    "pe": 31.21,
+    "fecha": "2026-11-23",
+    "prom": {
+     "1": {
+      "mu": 35.69,
+      "sd": 1.83
+     },
+     "3": {
+      "mu": 35.65,
+      "sd": 1.71
+     },
+     "5": {
+      "mu": 33.08,
+      "sd": 3.4
+     },
+     "10": {
+      "mu": 26.56,
+      "sd": 6.17
+     },
+     "20": {
+      "mu": 19.77,
+      "sd": 6.19
+     }
+    }
+   }
+  }
+ },
+ "nareit": {
+  "p_ffo": null,
+  "fecha": null,
+  "p3": null,
+  "p5": null,
+  "p10": null,
+  "prom_fuente": "Nareit T-Tracker",
+  "_nota": "P/FFO del índice FTSE Nareit All Equity REITs y sus promedios. Lo carga la tarea de los viernes."
+ }
+}
