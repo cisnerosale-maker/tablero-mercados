@@ -44,7 +44,7 @@ h3 { font-size: 16px; font-weight: 700; }
 a { color: var(--accent); }
 
 header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
-nav.tabs { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
 nav.tabs a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 5px; }
 nav.tabs a[aria-current="page"] { background: var(--brand); color: #fff; }
 @media (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
@@ -111,6 +111,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     <nav class="tabs" aria-label="Secciones">
       <a href="index.html">Mercados</a>
       <a href="eps.html" aria-current="page">Precio vs EPS</a>
+      <a href="riesgo.html">Riesgo de mercado</a>
     </nav>
   </header>
 

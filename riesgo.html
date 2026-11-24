@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riesgo de mercado · Tablero de Mercados</title>
+<meta name="description" content="Monitor de riesgo de mercado: valuación y señales de deterioro para EE.UU. y Argentina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Misma estética que el tablero. Semáforo: verde / amarillo / naranja / rojo, siempre con su texto. */
+:root {
+  --bg: #DDEBF7; --surface: #FFFFFF; --sunken: #EAF2FA; --ink: #14202C; --muted: #4F6378; --line: #C3D6E8;
+  --accent: #1F5E8C; --brand: #1F4E79; --up: #1E7A4C; --down: #B42318; --warn: #A15C07; --grid: #E3ECF5;
+  --z0: #1E7A4C; --z1: #8C6D00; --z2: #C2570C; --z3: #B42318;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-data: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0D1724; --surface: #142131; --sunken: #111C2A; --ink: #E3ECF5; --muted: #93A6BA; --line: #26374B;
+    --accent: #6FB2E6; --brand: #8DBDEB; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A; --grid: #1E2D3F;
+    --z0: #5CC795; --z1: #E0C24A; --z2: #F59A4A; --z3: #F27B6F;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.45;
+  padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left));
+}
+.wrap { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; letter-spacing: -0.01em; color: var(--brand); }
+h2 { font-size: 20px; font-weight: 700; }
+h3 { font-size: 15.5px; font-weight: 700; }
+p { margin: 0; }
+.num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+[hidden] { display: none !important; }
+a { color: var(--accent); }
+
+header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+nav.tabs a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 5px; }
+nav.tabs a[aria-current="page"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.seg { display: inline-flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+.seg button { font: inherit; font-size: 14px; font-weight: 600; border: 0; background: transparent; color: var(--muted); padding: 6px 14px; border-radius: 5px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--sunken); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+section.sec { display: flex; flex-direction: column; gap: 12px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.sec-head small { color: var(--muted); font-size: 12.5px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.note { font-size: 12.5px; color: var(--muted); }
+.banner { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warn); padding: 12px 14px; border-radius: 6px; font-size: 14px; }
+
+/* Encabezado: dos puntajes + matriz */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.35fr); gap: 12px; }
+@media (max-width: 980px) { .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .hero .mcard { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .hero { grid-template-columns: 1fr; } }
+.score-k { font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; }
+.score-q { font-size: 13px; color: var(--muted); margin-top: -6px; }
+.score-v { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.score-v .v { font-family: var(--f-data); font-size: 44px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+.score-v .of { font-family: var(--f-data); color: var(--muted); font-size: 14px; }
+.zt { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 2px 8px; border-radius: 4px; border: 1px solid currentColor; white-space: nowrap; }
+.zt::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.z0 { color: var(--z0); } .z1 { color: var(--z1); } .z2 { color: var(--z2); } .z3 { color: var(--z3); } .zn { color: var(--muted); }
+.gauge { position: relative; height: 30px; margin-top: 2px; }
+.gauge .bands { position: absolute; left: 0; right: 0; top: 8px; height: 8px; display: flex; gap: 2px; }
+.gauge .bands span { height: 100%; border-radius: 2px; opacity: .35; }
+.gauge .bands span.on { opacity: 1; }
+.gauge .mk { position: absolute; top: 2px; width: 4px; height: 20px; margin-left: -2px; border-radius: 2px; background: var(--ink); box-shadow: 0 0 0 2px var(--surface); }
+.gauge .ticks { position: absolute; left: 0; right: 0; top: 19px; font-family: var(--f-data); font-size: 10px; color: var(--muted); }
+.gauge .ticks span { position: absolute; transform: translateX(-50%); }
+
+.matrix { display: grid; grid-template-columns: 64px repeat(3, minmax(0, 1fr)); gap: 3px; font-size: 12px; }
+.matrix .h { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2px; }
+.matrix .h.r { justify-content: flex-start; }
+.matrix .c { background: var(--sunken); border: 1px solid var(--line); border-radius: 5px; padding: 6px 7px; min-height: 52px; display: flex; flex-direction: column; justify-content: space-between; gap: 2px; position: relative; }
+.matrix .c b { font-weight: 600; font-size: 12px; line-height: 1.2; }
+.matrix .c .l { font-family: var(--f-data); color: var(--muted); font-size: 11px; }
+.matrix .c.on { background: var(--surface); border: 2px solid var(--ink); box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+.matrix .c .flags { display: flex; gap: 3px; flex-wrap: wrap; }
+.matrix .c .flag { font-size: 10px; font-weight: 700; padding: 0 4px; border-radius: 3px; background: var(--ink); color: var(--surface); }
+.matrix .c .flag.ref { background: transparent; color: var(--muted); border: 1px dashed var(--muted); }
+.postura { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--line); padding-top: 10px; }
+.postura .t { font-family: var(--f-display); font-size: 19px; font-weight: 700; }
+.postura .liq { font-family: var(--f-data); font-size: 14px; }
+
+/* Tarjetas de indicadores */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.ind .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.ind .nm { font-weight: 600; font-size: 14.5px; line-height: 1.25; }
+.ind .w { font-family: var(--f-data); font-size: 11px; color: var(--muted); white-space: nowrap; border: 1px solid var(--line); border-radius: 3px; padding: 0 5px; }
+.ind .val { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.ind .val .v { font-family: var(--f-data); font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
+.ind .val .u { font-size: 12px; color: var(--muted); }
+.ind .que { font-size: 12.5px; color: var(--muted); }
+.ind .umb { font-size: 11.5px; color: var(--muted); border-left: 2px solid var(--line); padding-left: 8px; }
+.ind .det { font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 8px; display: flex; flex-direction: column; gap: 3px; }
+.ind .det .row { display: flex; justify-content: space-between; gap: 10px; }
+.ind .det .row b { font-weight: 500; font-family: var(--f-data); font-variant-numeric: tabular-nums; text-align: right; }
+.ind .foot { display: flex; justify-content: space-between; gap: 8px; font-size: 11.5px; color: var(--muted); flex-wrap: wrap; }
+.ind .foot a { text-decoration: none; } .ind .foot a:hover { text-decoration: underline; }
+.mini { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--muted); }
+.mini .bar { flex: 1; height: 6px; border-radius: 3px; background: var(--sunken); position: relative; overflow: hidden; }
+.mini .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+.comp { display: flex; flex-direction: column; gap: 5px; border-top: 1px solid var(--line); padding-top: 10px; font-size: 12.5px; }
+.comp .row { display: grid; grid-template-columns: minmax(0, 1fr) 70px 26px; align-items: center; gap: 8px; }
+.comp .row .n { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.comp .row .s { font-family: var(--f-data); text-align: right; }
+
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart svg text { font-family: var(--f-data); font-size: 10.5px; fill: var(--muted); }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; font-size: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.12); white-space: nowrap; z-index: 3; }
+.tip b { font-family: var(--f-data); font-weight: 600; }
+.tip .r { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.tip .k { display: inline-block; width: 12px; border-top: 2px solid; margin-right: 6px; vertical-align: middle; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; border-top: 2px solid; vertical-align: middle; margin-right: 6px; }
+
+table.t { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.t th, table.t td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+table.t th:first-child, table.t td:first-child { text-align: left; white-space: normal; }
+table.t th { color: var(--muted); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; vertical-align: bottom; }
+table.t td { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+table.t td.txt { font-family: var(--f-body); }
+table.t tr.hl td { background: var(--sunken); font-weight: 600; }
+.scroll { overflow-x: auto; }
+.cell-z { display: inline-flex; align-items: center; gap: 6px; }
+.cell-z::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+.cell-z span { color: var(--ink); }
+.up { color: var(--up); } .down { color: var(--down); }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 12px; }
+.chk { font-family: var(--f-body); font-weight: 700; }
+.informe { display: flex; flex-direction: column; gap: 8px; font-size: 14px; max-width: 95ch; }
+.informe ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+details.avisos { font-size: 13px; color: var(--muted); }
+details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span style="color:var(--brand)">Estudio Cisneros</span><span class="muted" style="font-weight:600"> · Marcos Juárez</span></div>
+      <h1>Riesgo de mercado</h1>
+      <div class="muted" style="font-size:13.5px;margin-top:6px">¿Qué tan caro está el mercado y se está rompiendo? Dos puntajes de 0 a 100 y una postura sugerida.</div>
+    </div>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="index.html">Mercados</a>
+      <a href="eps.html">Precio vs EPS</a>
+      <a href="riesgo.html" aria-current="page">Riesgo de mercado</a>
+    </nav>
+  </header>
+
+  <div class="controls">
+    <div class="seg" id="selMercado" role="group" aria-label="Mercado">
+      <button type="button" data-m="eeuu" aria-pressed="true">EE.UU. (S&amp;P 500)</button>
+      <button type="button" data-m="argentina" aria-pressed="false">Argentina</button>
+    </div>
+    <span class="note" id="txtFecha">Cargando…</span>
+  </div>
+
+  <div class="banner" id="banner" hidden></div>
+  <main id="main" style="display:flex;flex-direction:column;gap:26px"></main>
+
+  <details class="avisos" id="avisos" hidden><summary>Avisos de la última actualización</summary><ul id="avisosList"></ul></details>
+  <p class="note" style="max-width:110ch">
+    <b>Cómo leerlo.</b> Cada indicador se pasa a un puntaje de 0 a 100 con umbrales fijos (se ven en cada tarjeta). En <b>valuación</b>, 100 es muy caro; en <b>señales</b>, 100 es deterioro fuerte.
+    Cada puntaje es el promedio ponderado de sus indicadores; si falta alguno, su peso se reparte entre los demás y se avisa la cobertura.
+    La matriz cruza los dos: estar caro no alcanza para vender, hace falta que además aparezca deterioro. Los rangos de liquidez son una propuesta inicial validada solo con un modelo reducido (ver backtesting).
+    Es una herramienta de apoyo, no una señal automática de compra o venta, y no constituye asesoramiento financiero.
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const nf = (v, d = 1) => v == null || !isFinite(v) ? "—" : Number(v).toLocaleString("es-AR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fd = s => { if (!s) return "—"; const [y, m, d] = s.slice(0, 10).split("-"); return `${d}/${m}/${y}`; };
+  const fdc = s => { if (!s) return ""; const [y, m] = s.slice(0, 10).split("-"); return `${m}/${y.slice(2)}`; };
+  const zc = n => n == null ? "zn" : "z" + n;
+  const ZV = [[33, "Barato"], [67, "Justo"], [85, "Caro"], [101, "Muy caro"]];
+  const ZS = [[40, "Sano"], [60, "Atención"], [80, "Deterioro"], [101, "Deterioro fuerte"]];
+  const nivel = (s, eje) => { if (s == null) return null; const t = eje === "val" ? ZV : ZS; for (let i = 0; i < t.length; i++) if (s < t[i][0]) return i; return 3; };
+  const zonaTxt = (s, eje) => s == null ? "Sin dato" : (eje === "val" ? ZV : ZS)[nivel(s, eje)][1];
+
+  let DATA = null, BT = null, INF = null, mercado = "eeuu";
+  try { const q = new URLSearchParams(location.search).get("m"); if (q === "argentina") mercado = q; } catch (e) {}
+
+  // ---------------------------------------------------------------- gráfico de líneas (SVG)
+  const M = { l: 46, r: 12, t: 10, b: 24 };
+  const ancho = el => Math.max(280, Math.round(el.clientWidth || 600));
+  function niceTicks(lo, hi, n = 4) {
+    const span = hi - lo || 1, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+    const step = [1, 2, 2.5, 5, 10].map(k => k * mag).find(s => span / s <= n + 1) || mag * 10;
+    const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10)); return out;
+  }
+  function logTicks(lo, hi) {
+    const out = []; for (let e = Math.floor(Math.log10(lo)); e <= Math.ceil(Math.log10(hi)); e++) for (const k of [1, 2, 5]) { const v = k * Math.pow(10, e); if (v >= lo && v <= hi) out.push(v); }
+    return out.length >= 2 ? out : niceTicks(lo, hi);
+  }
+  function tickLbl(v) {
+    const a = Math.abs(v);
+    if (a >= 1e6) return nf(v / 1e6, a >= 1e7 ? 0 : 1) + " M";
+    if (a >= 1e4) return nf(v / 1e3, 0) + " mil";
+    return nf(v, a >= 100 ? 0 : a >= 10 ? 1 : 2).replace(/,0+$/, "");
+  }
+  // series: [{nombre, color, valores, dash}], fechas: ["YYYY-MM-DD"]; opt: {h, min, max, log, fmt, refs:[{v, txt}], bandas:[{de,a,color}]}
+  function lineChart(el, fechas, series, opt = {}) {
+    const W = ancho(el), H = opt.h || 200, n = fechas.length;
+    const vals = series.flatMap(s => s.valores).filter(v => v != null && isFinite(v) && (!opt.log || v > 0));
+    if (n < 2 || !vals.length) { el.innerHTML = `<p class="note">Sin datos suficientes para el gráfico.</p>`; return; }
+    let lo = opt.min != null ? opt.min : Math.min(...vals), hi = opt.max != null ? opt.max : Math.max(...vals);
+    if (opt.log) { lo /= 1.08; hi *= 1.08; } else if (opt.min == null || opt.max == null) { const p = (hi - lo) * 0.08 || Math.abs(hi) * 0.05 || 1; if (opt.min == null) lo -= p; if (opt.max == null) hi += p; }
+    const iw = W - M.l - M.r, ih = H - M.t - M.b;
+    const t0 = Date.parse(fechas[0]), t1 = Date.parse(fechas[n - 1]);
+    const xs = fechas.map(f => M.l + (Date.parse(f) - t0) / ((t1 - t0) || 1) * iw);
+    const y = opt.log ? v => M.t + (Math.log(hi) - Math.log(v)) / (Math.log(hi) - Math.log(lo)) * ih : v => M.t + (hi - v) / (hi - lo) * ih;
+    let g = "";
+    (opt.bandas || []).forEach(b => { const a = Math.max(lo, b.de), z = Math.min(hi, b.a); if (z > a) g += `<rect x="${M.l}" width="${iw}" y="${y(z).toFixed(1)}" height="${(y(a) - y(z)).toFixed(1)}" fill="${b.color}" opacity=".07"/>`; });
+    const ticks = opt.ticks || (opt.log ? logTicks(lo, hi) : niceTicks(lo, hi));
+    g += ticks.map(v => `<line x1="${M.l}" x2="${W - M.r}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="var(--grid)"/><text x="${M.l - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${esc((opt.pre || "") + tickLbl(v))}</text>`).join("");
+    (opt.refs || []).forEach(r => { if (r.v >= lo && r.v <= hi) g += `<line x1="${M.l}" x2="${W - M.r}" y1="${y(r.v).toFixed(1)}" y2="${y(r.v).toFixed(1)}" stroke="var(--muted)" stroke-dasharray="3 3"/>${r.txt ? `<text x="${W - M.r}" y="${(y(r.v) - 4).toFixed(1)}" text-anchor="end">${esc(r.txt)}</text>` : ""}`; });
+    // etiquetas de fecha
+    const span = (t1 - t0) / 864e5, nl = Math.max(2, Math.floor(iw / 70));
+    const fmtX = span > 1500 ? f => f.slice(0, 4) : fdc;
+    let lastX = -1e9;
+    for (let k = 0; k < nl; k++) { const i = Math.round(k / (nl - 1) * (n - 1)); if (xs[i] - lastX < 50) continue; lastX = xs[i]; g += `<text x="${xs[i].toFixed(1)}" y="${H - 6}" text-anchor="${k === 0 ? "start" : k === nl - 1 ? "end" : "middle"}">${esc(fmtX(fechas[i]))}</text>`; }
+    const paths = series.map(s => {
+      let d = "", pen = false;
+      s.valores.forEach((v, i) => { if (v == null || !isFinite(v) || (opt.log && v <= 0)) { pen = false; return; } d += (pen ? "L" : "M") + xs[i].toFixed(1) + "," + y(v).toFixed(1); pen = true; });
+      const li = s.valores.map((v, i) => [v, i]).filter(([v]) => v != null && isFinite(v)).pop();
+      const dot = li ? `<circle cx="${xs[li[1]].toFixed(1)}" cy="${y(li[0]).toFixed(1)}" r="4" fill="${s.color}" stroke="var(--surface)" stroke-width="2"/>` : "";
+      return `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.ancho || 2}" ${s.dash ? `stroke-dasharray="${s.dash}"` : ""} stroke-linejoin="round" stroke-linecap="round"/>${dot}`;
+    }).join("");
+    (opt.marcas || []).forEach(m => { const i = fechas.indexOf(m.f); if (i >= 0) g += `<line x1="${xs[i].toFixed(1)}" x2="${xs[i].toFixed(1)}" y1="${M.t}" y2="${H - M.b}" stroke="var(--muted)" stroke-dasharray="1 3"/><text x="${(xs[i] + 3).toFixed(1)}" y="${M.t + 9}">${esc(m.txt)}</text>`; });
+    el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opt.aria || "")}">${g}${paths}
+      <line class="xh" x1="0" x2="0" y1="${M.t}" y2="${H - M.b}" stroke="var(--muted)" stroke-dasharray="2 3" opacity="0"/>
+      <rect class="hit" x="${M.l}" y="0" width="${iw}" height="${H}" fill="transparent" tabindex="0"/></svg><div class="tip" hidden></div>`;
+    const svg = el.querySelector("svg"), tip = el.querySelector(".tip"), xh = el.querySelector(".xh"), hit = el.querySelector(".hit");
+    const mostrar = i => {
+      xh.setAttribute("x1", xs[i]); xh.setAttribute("x2", xs[i]); xh.setAttribute("opacity", "1");
+      tip.textContent = "";
+      const h = document.createElement("div"); h.className = "muted"; h.textContent = fd(fechas[i]); tip.appendChild(h);
+      series.forEach(s => {
+        const r = document.createElement("div"); r.className = "r";
+        const a = document.createElement("span"); const k = document.createElement("i"); k.className = "k"; k.style.borderColor = s.color; if (s.dash) k.style.borderTopStyle = "dashed";
+        a.appendChild(k); a.appendChild(document.createTextNode(s.nombre));
+        const b = document.createElement("b"); b.textContent = (opt.fmt || (v => nf(v, 2)))(s.valores[i], s, i);
+        r.appendChild(a); r.appendChild(b); tip.appendChild(r);
+      });
+      if (opt.extraTip) { const e = opt.extraTip(i); if (e) { const x = document.createElement("div"); x.className = "muted"; x.textContent = e; tip.appendChild(x); } }
+      tip.hidden = false;
+      const sc = el.clientWidth / W, px = xs[i] * sc;
+      tip.style.left = Math.min(Math.max(0, px + 12), el.clientWidth - tip.offsetWidth - 2) + "px"; tip.style.top = "4px";
+      if (px + 12 + tip.offsetWidth > el.clientWidth) tip.style.left = Math.max(0, px - tip.offsetWidth - 12) + "px";
+    };
+    const cerca = cx => { let b = 0, bd = 1e9; xs.forEach((x, i) => { const dd = Math.abs(x - cx); if (dd < bd) { bd = dd; b = i; } }); return b; };
+    let cur = n - 1;
+    svg.addEventListener("pointermove", ev => { const r = svg.getBoundingClientRect(); cur = cerca((ev.clientX - r.left) / r.width * W); mostrar(cur); });
+    svg.addEventListener("pointerleave", () => { tip.hidden = true; xh.setAttribute("opacity", "0"); });
+    hit.addEventListener("focus", () => mostrar(cur));
+    hit.addEventListener("blur", () => { tip.hidden = true; xh.setAttribute("opacity", "0"); });
+    hit.addEventListener("keydown", ev => { if (ev.key === "ArrowLeft") { cur = Math.max(0, cur - 1); mostrar(cur); ev.preventDefault(); } if (ev.key === "ArrowRight") { cur = Math.min(n - 1, cur + 1); mostrar(cur); ev.preventDefault(); } });
+  }
+
+  // ---------------------------------------------------------------- piezas
+  const ZCOL = ["var(--z0)", "var(--z1)", "var(--z2)", "var(--z3)"];
+  function gauge(score, eje) {
+    const lims = eje === "val" ? [0, 33, 67, 85, 100] : [0, 40, 60, 80, 100];
+    const n = nivel(score, eje);
+    const bands = [0, 1, 2, 3].map(i => `<span class="${i === n ? "on" : ""}" style="width:${lims[i + 1] - lims[i]}%;background:${ZCOL[i]}"></span>`).join("");
+    const ticks = lims.slice(1, -1).map(v => `<span style="left:${v}%">${v}</span>`).join("");
+    return `<div class="gauge" aria-hidden="true"><div class="bands">${bands}</div>${score != null ? `<i class="mk" style="left:${Math.min(100, Math.max(0, score))}%"></i>` : ""}<div class="ticks">${ticks}</div></div>`;
+  }
+  const ztag = (zona, n) => `<span class="zt ${zc(n)}">${esc(zona)}</span>`;
+
+  const CORTO = { pe_fwd: "P/E forward", erp: "Prima de riesgo", cape: "CAPE", concentracion: "Concentración", amplitud: "Amplitud",
+    tendencia: "Tendencia", credito: "Crédito High Yield", volatilidad: "VIX", revisiones: "Revisiones de EPS", merval_usd: "Merval en US$",
+    rp_nivel: "Riesgo país (nivel)", rp_cambio: "Riesgo país (cambio)", merval_tend: "Tendencia Merval", reservas: "Reservas BCRA",
+    tcr: "Tipo de cambio real", brecha: "Brecha" };
+  function scoreCard(titulo, pregunta, p, eje, inds) {
+    const cob = p.cobertura != null && p.cobertura < 100 ? `<p class="note">Calculado con ${p.cobertura}% de los indicadores (por peso): faltan datos de ${esc((p.faltan || []).length)}.</p>` : "";
+    const comp = (inds || []).map(i => `<div class="row"><span class="n"><span class="cell-z ${zc(i.nivel)}"><span>${esc(CORTO[i.id] || i.nombre)}</span></span></span>
+      <span class="mini"><span class="bar"><i style="width:${Math.max(2, i.score || 0)}%;background:${ZCOL[i.nivel] || "var(--muted)"}"></i></span></span><span class="s">${nf(i.score, 0)}</span></div>`).join("");
+    return `<div class="card"><div class="score-k">${esc(titulo)}</div><div class="score-q">${esc(pregunta)}</div>
+      <div class="score-v"><span class="v">${p.score == null ? "—" : nf(p.score, 0)}</span><span class="of">/ 100</span>${ztag(p.zona, p.nivel)}</div>
+      ${gauge(p.score, eje)}${cob}${comp ? `<div class="comp"><span class="score-k">Puntaje de cada indicador</span>${comp}</div>` : ""}</div>`;
+  }
+
+  function matriz(b) {
+    const m = b.matriz, ref = (b.claves || []).find(c => c.fecha === "2026-09-18");
+    const filas = [2, 1, 0], nombres = ["Barato", "Justo", "Caro"], cols = ["Sanas", "Atención", "Deterioro"];
+    const MAT = MATRICES[mercado];
+    let h = `<div class="h"></div>` + cols.map(c => `<div class="h">${c}</div>`).join("");
+    filas.forEach(f => {
+      h += `<div class="h r">${nombres[f]}</div>`;
+      [0, 1, 2].forEach(c => {
+        const x = MAT[f][c], on = m && m.fila === f && m.col === c;
+        const r18 = ref && ref.matriz && ref.matriz.fila === f && ref.matriz.col === c;
+        const flags = (on ? `<span class="flag">HOY</span>` : "") + (r18 ? `<span class="flag ref">18/09</span>` : "");
+        h += `<div class="c${on ? " on" : ""}"><b>${esc(x.t)}</b>${x.l ? `<span class="l">${x.l}</span>` : ""}${flags ? `<div class="flags">${flags}</div>` : ""}</div>`;
+      });
+    });
+    const post = m ? `<div class="postura"><span class="score-k">Postura sugerida hoy</span><span class="t">${esc(m.titulo)}</span>
+      ${m.liq ? `<span class="liq">Liquidez sugerida: ${m.liq[0]}–${m.liq[1]}% de la cartera de acciones</span>` : ""}
+      <p style="font-size:14px">${esc(m.texto)}</p></div>` : `<p class="note">Sin datos suficientes para ubicar la matriz.</p>`;
+    return `<div class="card mcard"><div class="score-k">Matriz: valuación × señales</div>
+      <div class="matrix" role="table" aria-label="Matriz de postura">${h}</div>${post}</div>`;
+  }
+  const MATRICES = {
+    eeuu: [
+      [{ t: "Invertido al máximo", l: "0–5%" }, { t: "Comprar de a poco", l: "5–10%" }, { t: "Reingreso escalonado", l: "usar liquidez" }],
+      [{ t: "Normal", l: "5–10%" }, { t: "Prudente", l: "10–15%" }, { t: "Defensivo", l: "15–25%" }],
+      [{ t: "No perseguir", l: "10–15%" }, { t: "Reducir de a poco", l: "15–25%" }, { t: "Subir liquidez", l: "25–40%" }]],
+    argentina: [
+      [{ t: "Exposición plena" }, { t: "Sumar de a poco" }, { t: "Comprar con cautela" }],
+      [{ t: "Normal" }, { t: "Prudente" }, { t: "Defensivo" }],
+      [{ t: "No perseguir" }, { t: "Reducir de a poco" }, { t: "Reducir exposición" }]]
+  };
+
+  function indCard(i) {
+    const det = (i.detalle || []).map(([k, v]) => `<div class="row"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join("");
+    const pct = i.percentil != null ? `<div class="mini ${zc(i.nivel)}"><span style="color:var(--muted)">Percentil desde ${esc(i.percentil_desde)}</span><span class="num" style="color:var(--ink)">${nf(i.percentil, 0)}</span></div>` : "";
+    const sc = i.score != null ? `<div class="mini ${zc(i.nivel)}"><span style="color:var(--muted)">Puntaje</span><span class="bar"><i style="width:${Math.max(2, i.score)}%;background:${ZCOL[i.nivel] || "var(--muted)"}"></i></span><span class="num" style="color:var(--ink)">${nf(i.score, 0)}</span></div>` : "";
+    const u = i.unidad || "";
+    return `<article class="card ind" data-id="${esc(i.id)}">
+      <div class="top"><span class="nm">${esc(i.nombre)}</span>${i.peso ? `<span class="w" title="Peso dentro del puntaje">peso ${esc(i.peso)}%</span>` : ""}</div>
+      <div class="val"><span class="v">${nf(i.valor, i.dec)}</span><span class="u">${esc(u)}</span>${ztag(i.zona, i.nivel)}</div>
+      ${sc}${pct}
+      <p class="que">${esc(i.que)}</p>
+      <p class="umb">${esc(i.umbrales)}</p>
+      ${i.serie && i.serie.length > 2 ? `<div><div class="note" style="margin-bottom:2px">${esc(i.serie_titulo || "")}</div><div class="chart spark" data-id="${esc(i.id)}"></div></div>` : ""}
+      ${det ? `<div class="det">${det}</div>` : ""}
+      <div class="foot"><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.fuente)}</a><span>Dato al ${fd(i.fecha)}</span></div>
+    </article>`;
+  }
+
+  function tablaClaves(b) {
+    const cl = b.claves || [];
+    if (!cl.length) return "";
+    const ids = b.indicadores.map(i => i.id);
+    const nom = Object.fromEntries(b.indicadores.map(i => [i.id, [i.nombre, i.dec, i.eje]]));
+    const celda = (x, d) => x ? `<span class="cell-z ${zc(x.nivel)}"><span>${nf(x.valor, d)}</span></span>` : `<span class="muted">—</span>`;
+    const pz = (p, eje) => p && p.score != null ? `<span class="cell-z ${zc(p.nivel)}"><span>${nf(p.score, 0)} · ${esc(p.zona)}</span></span>` : "—";
+    let h = `<thead><tr><th>Indicador</th>${cl.map(c => `<th>${esc(fd(c.fecha))}<br><span style="text-transform:none;letter-spacing:0;font-weight:500">${esc(c.etiqueta)}</span></th>`).join("")}</tr></thead><tbody>`;
+    h += `<tr class="hl"><td class="txt">Puntaje de valuación</td>${cl.map(c => `<td>${pz(c.val, "val")}</td>`).join("")}</tr>`;
+    h += `<tr class="hl"><td class="txt">Puntaje de señales</td>${cl.map(c => `<td>${pz(c.sen, "sen")}</td>`).join("")}</tr>`;
+    h += `<tr class="hl"><td class="txt">Postura</td>${cl.map(c => `<td class="txt" style="text-align:right">${esc(c.matriz ? c.matriz.titulo : "—")}</td>`).join("")}</tr>`;
+    ids.forEach(id => { h += `<tr><td class="txt">${esc(nom[id][0])}</td>${cl.map(c => `<td>${celda((c.inds || {})[id], nom[id][1])}</td>`).join("")}</tr>`; });
+    return `<section class="sec"><div class="sec-head"><h2>Qué marcaba en fechas clave</h2><small>Mismo modelo, con los datos disponibles en cada fecha</small></div>
+      <div class="card"><div class="scroll"><table class="t">${h}</tbody></table></div>
+      <p class="note">El color de cada punto es la zona de ese indicador en esa fecha. Si falta un dato (por ejemplo, el P/E forward antes de la primera carga de FactSet), el puntaje se calcula con el resto.</p></div></section>`;
+  }
+
+  function reingreso(r) {
+    if (!r) return "";
+    const filas = r.tramos.map(t => `<tr class="${t.alcanzado ? "hl" : ""}"><td class="txt">${nf(t.caida, 0)}%</td><td>${nf(t.nivel, 0)}</td><td>${t.pct}%</td><td>${t.acum}%</td><td class="txt" style="text-align:right">${t.alcanzado ? `<span class="chk up">✓ alcanzado</span>` : `<span class="muted">pendiente</span>`}</td></tr>`).join("");
+    return `<section class="sec"><div class="sec-head"><h2>Plan de reingreso</h2><small>Cuánto de la liquidez usar según la caída del S&amp;P 500 desde su máximo</small></div>
+      <div class="card"><div class="two">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="score-v"><span class="v" style="font-size:34px">${nf(r.dd_hoy, 1)}%</span><span class="of">caída desde el máximo</span></div>
+          <div class="ind"><div class="det">
+            <div class="row"><span>Máximo de 52 semanas</span><b>${nf(r.maximo, 2)} (${fd(r.fecha_max)})</b></div>
+            <div class="row"><span>Último</span><b>${nf(r.ultimo, 2)}</b></div>
+            <div class="row"><span>Mínimo desde el máximo</span><b>${nf(r.minimo, 2)} (${fd(r.fecha_min)}, ${nf(r.dd_min, 1)}%)</b></div>
+          </div></div>
+          <p class="note">Se aplica cuando la matriz está en "Reingreso escalonado" o la valuación ya no está cara. Siempre junto con la valuación de cada empresa: no comprar algo solo porque cayó.</p>
+        </div>
+        <div class="scroll"><table class="t"><thead><tr><th>Caída</th><th>S&amp;P 500</th><th>Invertir</th><th>Acumulado</th><th></th></tr></thead><tbody>${filas}</tbody></table></div>
+      </div></div></section>`;
+  }
+
+  function extras(xs) {
+    if (!xs || !xs.length) return "";
+    return `<section class="sec"><div class="sec-head"><h2>Otros datos de referencia</h2><small>No suman al puntaje</small></div>
+      <div class="grid">${xs.map(x => `<div class="card ind"><span class="nm">${esc(x.nombre)}</span><div class="val"><span class="v" style="font-size:22px">${esc(x.valor)}</span></div><p class="que">${esc(x.nota)}</p><div class="foot"><span></span><span>Dato al ${fd(x.fecha)}</span></div></div>`).join("")}</div></section>`;
+  }
+
+  function backtest() {
+    if (!BT) return `<section class="sec"><div class="sec-head"><h2>Backtesting</h2></div><p class="note">Todavía no hay resultados: se generan en la próxima corrida.</p></section>`;
+    const col = { bh: "var(--s1)", matriz: "var(--s2)", senales: "var(--s3)", valuacion: "var(--s4)" };
+    const filas = BT.estrategias.map(e => `<tr class="${e.id === "matriz" ? "hl" : ""}"><td class="txt"><i style="display:inline-block;width:14px;border-top:2px solid ${col[e.id]};vertical-align:middle;margin-right:6px"></i>${esc(e.nombre)}</td>
+      <td>${nf(e.cagr, 2)}%</td><td>${nf(e.vol, 1)}%</td><td class="down">${nf(e.max_dd, 1)}%</td><td>${nf(e.peor_12m, 1)}%</td><td>${nf(e.sharpe, 2)}</td><td>${nf(e.liq_prom, 1)}%</td><td>US$ ${nf(e.final, 0)}</td></tr>`).join("");
+    const ep = BT.episodios.map(e => `<tr><td class="txt">${esc(e.nombre)}<br><span class="muted" style="font-size:11.5px">${fd(e.desde)} → ${fd(e.hasta)}</span></td>
+      ${["bh", "matriz", "senales", "valuacion"].map(k => `<td class="${e[k] < 0 ? "down" : ""}">${nf(e[k], 1)}%</td>`).join("")}<td>${nf(e.liq_prom, 1)}%</td></tr>`).join("");
+    const tc = BT.tiempo_celdas;
+    const celdas = [2, 1, 0].map(f => `<tr><td class="txt">${["Barato", "Justo", "Caro"][f]}</td>${[0, 1, 2].map(c => `<td>${nf(tc[f][c], 1)}%</td>`).join("")}</tr>`).join("");
+    return `<section class="sec" id="backtest"><div class="sec-head"><h2>Backtesting desde ${esc(BT.desde.slice(0, 4))}</h2><small>Modelo reducido · ${esc(nf(BT.semanas, 0))} semanas · hasta ${fd(BT.hasta)}</small></div>
+      <div class="card"><div class="scroll"><table class="t"><thead><tr><th>Estrategia</th><th>Rend. anual</th><th>Volatilidad</th><th>Peor caída</th><th>Peor 12 meses</th><th>Sharpe</th><th>Liquidez prom.</th><th>US$ 100.000 hoy</th></tr></thead><tbody>${filas}</tbody></table></div>
+      <div class="legend">${BT.estrategias.map(e => `<span><i style="border-color:${col[e.id]}"></i>${esc(e.nombre)}</span>`).join("")}</div>
+      <div class="chart" id="btChart"></div>
+      <p class="note">Valor de US$ 100.000 invertidos en ${esc(BT.desde.slice(0, 4))}, escala logarítmica.</p>
+      <div class="note" style="margin-top:4px">Liquidez de la matriz completa (% de la cartera)</div>
+      <div class="chart" id="btLiq"></div></div>
+      <div class="two">
+        <div class="card"><h3>Episodios</h3><div class="scroll"><table class="t"><thead><tr><th>Período</th><th>Mantener</th><th>Matriz</th><th>Señales</th><th>Valuación</th><th>Liq. prom.</th></tr></thead><tbody>${ep}</tbody></table></div></div>
+        <div class="card"><h3>Tiempo en cada celda de la matriz</h3><div class="scroll"><table class="t"><thead><tr><th></th><th>Sanas</th><th>Atención</th><th>Deterioro</th></tr></thead><tbody>${celdas}</tbody></table></div>
+          <h3 style="margin-top:6px">Limitaciones</h3><ul class="note" style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px">${BT.limitaciones.map(l => `<li>${esc(l)}</li>`).join("")}</ul></div>
+      </div></section>`;
+  }
+
+  function informe() {
+    if (!INF || !INF.fecha) return "";
+    const ps = (INF.puntos || []).map(p => `<li>${esc(p)}</li>`).join("");
+    return `<section class="sec" id="informe"><div class="sec-head"><h2>Informe semanal</h2><small>Viernes ${fd(INF.fecha)}</small></div>
+      <div class="card informe">${INF.titulo ? `<h3>${esc(INF.titulo)}</h3>` : ""}${(INF.parrafos || []).map(p => `<p>${esc(p)}</p>`).join("")}${ps ? `<ul>${ps}</ul>` : ""}
+      ${INF.recomendacion ? `<p><b>Recomendación: </b>${esc(INF.recomendacion)}</p>` : ""}</div></section>`;
+  }
+
+  // ---------------------------------------------------------------- render
+  function render() {
+    document.querySelectorAll("#selMercado button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === mercado)));
+    const b = DATA && DATA[mercado];
+    const main = $("#main");
+    if (!b) { main.innerHTML = `<p class="note">Todavía no hay datos para este mercado.</p>`; return; }
+    $("#txtFecha").textContent = `Datos al ${fd(b.fecha)} · actualizado ${DATA.actualizado ? DATA.actualizado.slice(0, 16).replace("T", " ") : ""}` + (b.desactualizado ? " · dato viejo" : "");
+    const ban = [];
+    if (b.desactualizado) ban.push("Esta corrida no pudo actualizar los datos: se muestran los últimos disponibles.");
+    if (b.faltan && b.faltan.length) ban.push("Sin dato hoy: " + b.faltan.map(f => f.nombre).join(", ") + ". Su peso se repartió entre el resto.");
+    $("#banner").hidden = !ban.length; $("#banner").textContent = ban.join(" ");
+
+    const vals = b.indicadores.filter(i => i.eje === "val"), sens = b.indicadores.filter(i => i.eje === "sen");
+    const esUS = mercado === "eeuu";
+    let h = `<div class="hero">
+      ${scoreCard("Valuación", esUS ? "¿Qué tan caro está el S&P 500?" : "¿Qué tan caros están los activos argentinos?", b.val, "val", vals)}
+      ${scoreCard("Señales", "¿Se está deteriorando?", b.sen, "sen", sens)}
+      ${matriz(b)}</div>`;
+    h += informe();
+    h += `<section class="sec"><div class="sec-head"><h2>Evolución de los puntajes</h2><small>Semanal, últimos 2 años y medio</small></div>
+      <div class="card"><div class="legend"><span><i style="border-color:var(--s1)"></i>Valuación</span><span><i style="border-color:var(--s2)"></i>Señales</span></div>
+      <div class="chart" id="histChart"></div>
+      <p class="note">Línea punteada: los límites de "caro" en valuación (67) y de "deterioro" en señales (60). Cuando un indicador no tiene historia para una fecha, el puntaje de esa fecha usa el resto (el detalle aparece al pasar el mouse).</p></div></section>`;
+    h += `<section class="sec"><div class="sec-head"><h2>Valuación</h2><small>¿Qué tan caro? · 100 = muy caro</small></div><div class="grid">${vals.map(indCard).join("")}</div></section>`;
+    h += `<section class="sec"><div class="sec-head"><h2>Señales</h2><small>¿Se está rompiendo? · 100 = deterioro fuerte</small></div><div class="grid">${sens.map(indCard).join("")}</div></section>`;
+    h += tablaClaves(b);
+    if (esUS) h += reingreso(b.reingreso);
+    h += extras(b.extras);
+    if (esUS) h += backtest();
+    main.innerHTML = h;
+
+    // gráfico de puntajes
+    const hs = b.historia || [];
+    lineChart($("#histChart"), hs.map(x => x.f), [
+      { nombre: "Valuación", color: "var(--s1)", valores: hs.map(x => x.val) },
+      { nombre: "Señales", color: "var(--s2)", valores: hs.map(x => x.sen) }],
+      { h: 230, min: 0, max: 100, ticks: [0, 25, 50, 75, 100], refs: [{ v: 67 }, { v: 60 }],
+        marcas: [{ f: hs.map(x => x.f).find(f => f >= "2026-09-18"), txt: "18/09" }],
+        fmt: (v, s) => v == null ? "—" : nf(v, 0) + " · " + zonaTxt(v, s.nombre === "Valuación" ? "val" : "sen"),
+        extraTip: i => (hs[i].cv < 100 || hs[i].cs < 100) ? `Cobertura: valuación ${hs[i].cv}%, señales ${hs[i].cs}%` : "",
+        aria: "Evolución semanal de los puntajes de valuación y señales" });
+    // mini gráficos
+    b.indicadores.forEach(i => {
+      const el = document.querySelector(`.spark[data-id="${CSS.escape(i.id)}"]`);
+      if (!el || !i.serie) return;
+      lineChart(el, i.serie.map(p => p[0]), [{ nombre: i.serie_titulo || i.nombre, color: "var(--s1)", valores: i.serie.map(p => p[1]) }],
+        { h: 120, fmt: v => nf(v, Math.abs(v) >= 1000 ? 0 : 2), aria: i.nombre });
+    });
+    if (esUS && BT) {
+      const c = BT.curvas;
+      lineChart($("#btChart"), c.f, [
+        { nombre: "Comprar y mantener", color: "var(--s1)", valores: c.bh },
+        { nombre: "Matriz completa", color: "var(--s2)", valores: c.matriz },
+        { nombre: "Solo señales", color: "var(--s3)", valores: c.senales },
+        { nombre: "Solo valuación", color: "var(--s4)", valores: c.valuacion }],
+        { h: 260, log: true, pre: "", fmt: v => "US$ " + nf(v, 0), aria: "Evolución de US$ 100.000 en cada estrategia" });
+      lineChart($("#btLiq"), c.f, [{ nombre: "Liquidez", color: "var(--s2)", valores: c.liq }],
+        { h: 110, min: 0, max: 40, ticks: [0, 10, 20, 30, 40], fmt: v => nf(v, 1) + "%",
+          extraTip: i => `Valuación ${nf(c.val[i], 0)} · señales ${nf(c.sen[i], 0)}`, aria: "Liquidez sugerida por la matriz en el tiempo" });
+    }
+  }
+
+  function avisos() {
+    const e = (DATA && DATA.errores) || [];
+    $("#avisos").hidden = !e.length;
+    const ul = $("#avisosList"); ul.textContent = "";
+    e.forEach(x => { const li = document.createElement("li"); li.textContent = x; ul.appendChild(li); });
+  }
+
+  document.querySelectorAll("#selMercado button").forEach(b => b.addEventListener("click", () => {
+    mercado = b.dataset.m;
+    try { history.replaceState(null, "", mercado === "eeuu" ? location.pathname : "?m=" + mercado); } catch (e) {}
+    render();
+  }));
+  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => DATA && render(), 200); });
+
+  const get = u => fetch(u + "?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null);
+  Promise.all([get("data/riesgo/actual.json"), get("data/riesgo/backtest.json"), get("data/riesgo/informe.json")]).then(([a, b, c]) => {
+    DATA = a; BT = b; INF = c;
+    if (!DATA) { $("#txtFecha").textContent = ""; $("#main").innerHTML = `<div class="banner">Todavía no hay datos. Se generan en la primera corrida de <i>Actions → Riesgo de mercado</i>.</div>`; return; }
+    avisos(); render();
+  });
+})();
+</script>
+</body>
+</html>

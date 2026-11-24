@@ -1,0 +1,14 @@
+{
+ "_instrucciones": "P/E forward del S&P 500 del informe semanal Earnings Insight de FactSet. Lo carga la tarea programada de los viernes. 'fecha' = fecha del informe; 'pe_fwd' = P/E forward a 12 meses; 'eps_fwd' y 'precio' solo si el informe los da; 'fecha_precio' = cierre que usó FactSet (si no se sabe, el programa toma el cierre anterior a la fecha del informe). Acumulativo: no borrar filas.",
+ "informes": [
+  {"fecha": "2026-08-28", "pe_fwd": 19.6, "eps_fwd": null, "precio": 7730.99, "fecha_precio": null, "fuente": "EarningsInsight_082826.pdf"},
+  {"fecha": "2026-09-04", "pe_fwd": 19.5, "eps_fwd": null, "precio": null, "fecha_precio": null, "fuente": "EarningsInsight_090426.pdf"},
+  {"fecha": "2026-09-11", "pe_fwd": 19.1, "eps_fwd": null, "precio": null, "fecha_precio": null, "fuente": "EarningsInsight_091126.pdf"},
+  {"fecha": "2026-09-18", "pe_fwd": 19.1, "eps_fwd": null, "precio": null, "fecha_precio": null, "fuente": "EarningsInsight_091826.pdf"},
+  {"fecha": "2026-09-25", "pe_fwd": 19.2, "eps_fwd": null, "precio": 7704.13, "fecha_precio": "2026-09-24", "fuente": "EarningsInsight_092526.pdf"},
+  {"fecha": "2026-10-02", "pe_fwd": 19.0, "eps_fwd": null, "precio": 7651.54, "fecha_precio": "2026-09-30", "fuente": "EarningsInsight_100226.pdf"},
+  {"fecha": "2026-10-09", "pe_fwd": 19.1, "eps_fwd": null, "precio": 7765.36, "fecha_precio": null, "fuente": "EarningsInsight_100926.pdf"},
+  {"fecha": "2026-10-23", "pe_fwd": 18.7, "eps_fwd": null, "precio": 7663.43, "fecha_precio": null, "fuente": "EarningsInsight_102326.pdf"},
+  {"fecha": "2026-11-06", "pe_fwd": 17.7, "eps_fwd": 415.82, "precio": 7353.73, "fecha_precio": "2026-11-05", "fuente": "EarningsInsight_110626A.pdf"}
+ ]
+}

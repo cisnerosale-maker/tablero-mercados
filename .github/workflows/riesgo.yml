@@ -1,0 +1,61 @@
+name: Riesgo de mercado
+
+on:
+  schedule:
+    # Días hábiles a las 19:45 hora argentina (después del cierre de EE.UU. y de Argentina)
+    - cron: "45 22 * * 1-5"
+    # Sábados a las 9 hora argentina: además recalcula el backtesting
+    - cron: "0 12 * * 6"
+  push:
+    paths:
+      - "data/riesgo/factset.json"
+      - "scripts/update_riesgo.py"
+      - "scripts/riesgo_comun.py"
+      - "scripts/backtest_riesgo.py"
+      - ".github/workflows/riesgo.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: riesgo-mercado
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Calcular indicadores y puntajes
+        run: python scripts/update_riesgo.py
+
+      - name: Backtesting (sábados, cambios en el programa o a pedido)
+        if: github.event_name != 'schedule' || github.event.schedule == '0 12 * * 6'
+        continue-on-error: true
+        run: python scripts/backtest_riesgo.py
+
+      - name: Guardar datos
+        run: |
+          git config user.name "tablero-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/riesgo/
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Riesgo $(TZ=America/Argentina/Buenos_Aires date +'%d/%m %H:%M')"
+            for i in 1 2 3; do
+              git pull --rebase && git push && break
+              sleep 10
+            done
+          fi

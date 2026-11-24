@@ -96,6 +96,43 @@ Relación entre la cotización y el EPS diluido de cada acción: P/E histórico 
 - **Sumar una acción:** agregarla en `acciones.json` (arranca con unos 4 años de Yahoo) o cargar su historia con `carga.xlsx`.
 - **Forzar una actualización:** *Actions → Actualizar EPS → Run workflow*.
 
+## Sección Riesgo de mercado (`riesgo.html`)
+
+Monitor general del mercado con **dos puntajes de 0 a 100**, para EE.UU. (S&P 500) y para Argentina:
+
+- **Valuación** (¿qué tan caro?): 100 = muy caro.
+- **Señales** (¿se está rompiendo?): 100 = deterioro fuerte.
+
+Los dos se cruzan en una **matriz de 3 × 3** que sugiere una postura (y, en EE.UU., un rango de liquidez). Estar caro no alcanza para vender: hace falta que además aparezca deterioro.
+
+| Puntaje | Indicadores (peso) |
+|---|---|
+| EE.UU. · Valuación | P/E forward (30), prima de riesgo (30), CAPE (20), concentración SPY vs RSP (20) |
+| EE.UU. · Señales | Amplitud: % de acciones sobre su media de 200 días (25), tendencia del S&P 500 (20), spread High Yield (20), VIX (15), revisiones del EPS forward (20) |
+| Argentina · Valuación | Merval en dólares, percentil desde 2014 (65), riesgo país (35) |
+| Argentina · Señales | Riesgo país, cambio en 3 meses (25), tendencia del Merval en US$ (25), reservas del BCRA (20), tipo de cambio real (15), brecha (15) |
+
+La página muestra además: evolución semanal de los puntajes, qué marcaba cada indicador en fechas clave (18/09/2026, máximo, mínimo y hoy), el plan de reingreso por caída desde máximos, el **backtesting desde 1991** y el **informe semanal** de los viernes.
+
+| Archivo | Para qué sirve | ¿Se edita? |
+|---|---|---|
+| `riesgo.html` | La página | Solo para cambiar diseño |
+| `scripts/update_riesgo.py` | Busca los datos y calcula indicadores y puntajes. Arriba están los **pesos** (`PESOS`) | Sí, para cambiar pesos |
+| `scripts/riesgo_comun.py` | Fuentes, zonas y la **matriz** con los rangos de liquidez | Sí, para cambiar la matriz |
+| `scripts/backtest_riesgo.py` | Backtesting con el modelo reducido | No hace falta |
+| `data/riesgo/factset.json` | P/E forward semanal de FactSet. **Acumulativo: no borrar filas** | Lo carga la tarea programada de los viernes |
+| `data/riesgo/actual.json` | Lo que lee la página | No: lo escribe el programa |
+| `data/riesgo/historial.json` | Un registro por día con puntajes y valores. **Acumulativo: nunca se borra** | No |
+| `data/riesgo/backtest.json` | Resultados del backtesting | No |
+| `data/riesgo/informe.json` | Informe semanal | Lo escribe la tarea programada de los viernes |
+| `data/riesgo/sp500.json` | Lista de empresas del S&P 500 (respaldo) | No |
+| `.github/workflows/riesgo.yml` | Horario: días hábiles 19:45; sábados 9:00 (con backtesting); y cada vez que cambia `factset.json` | No hace falta |
+
+- **Umbrales:** cada tarjeta muestra los suyos. Están en la lista `A` de `update_riesgo.py` como pares (valor, puntaje).
+- **Fuentes:** Yahoo Finance, FRED (tasa real, High Yield, curva), multpl.com (CAPE), FactSet (P/E forward), argentinadatos.com, Rava, BCRA (reservas e ITCRM) y Wikipedia (lista del S&P 500).
+- **Amplitud:** se calcula con las empresas que hoy forman el índice (sesgo de supervivencia en la historia).
+- **Forzar una actualización:** *Actions → Riesgo de mercado → Run workflow*.
+
 ## Agregar o quitar indicadores
 
 - **Quitar una tarjeta o cambiar el orden:** en `index.html`, lista `SECCIONES`.
