@@ -33,7 +33,10 @@ FACTSET = DIR / "factset.json"
 SP500 = DIR / "sp500.json"
 HIST_TABLERO = ROOT / "data" / "historial.json"
 
-MERVAL_EMPALME = ("2026-10-16", 100000.0)  # mismo empalme que usa el tablero (MSCI Merval base 100.000)
+MERVAL_EMPALME = ("2026-10-16", 100000.0)
+# Canasta de ADR argentinos (US$) usada como "acciones argentinas en dólares": tiene historia larga en Yahoo,
+# a diferencia del Merval, cuya serie histórica dejó de publicarse con el cambio a MSCI.
+ADR_AR = ["GGAL", "BMA", "BBAR", "SUPV", "YPF", "PAM", "TGS", "CEPU", "EDN", "LOMA", "TEO", "CRESY", "IRS"]  # mismo empalme que usa el tablero (MSCI Merval base 100.000)
 FECHA_REFERENCIA = ("2026-09-18", "18/09/2026 (tu fecha de referencia)")
 
 # ----------------------------------------------------------------- pesos de cada puntaje
@@ -110,10 +113,11 @@ META = {
                    "umbrales": "Sube > 0,5%: sano · 0 a 0,5%: neutro · cae hasta 1%: atención · cae > 1%: deterioro",
                    "fuente": "FactSet Earnings Insight (semanal)", "url": "https://insight.factset.com/topic/earnings"},
     # Argentina
-    "merval_usd": {"eje": "val", "nombre": "Merval en dólares (CCL)", "unidad": "puntos US$", "dec": 1,
-                   "que": "Merval (MSCI, base 100.000) dividido por el dólar contado con liquidación. El puntaje es su percentil desde 2014: 90 = está más caro que el 90% del tiempo.",
-                   "umbrales": "Puntaje = percentil histórico · Barato < 33 · Justo 33–67 · Caro > 67",
-                   "fuente": "Yahoo + Rava (Merval) y argentinadatos.com (CCL)", "url": "https://www.rava.com/perfil/MERVAL%20USD"},
+    "merval_usd": {"eje": "val", "nombre": "Acciones argentinas en dólares (canasta de ADR)", "unidad": "índice (2003 = 100)", "dec": 1,
+                   "que": "Promedio de 13 ADR argentinos en Nueva York (bancos, energía, servicios, real estate), en dólares. El puntaje es su percentil desde 2014: 90 = está más caro que el 90% del tiempo. Reemplaza al Merval en US$, cuya historia larga dejó de publicarse con el cambio a MSCI.",
+                   "umbrales": "Puntaje = percentil desde 2014 · Barato < 33 · Justo 33–67 · Caro > 67",
+                   "fuente": "Yahoo Finance (GGAL, BMA, BBAR, SUPV, YPF, PAM, TGS, CEPU, EDN, LOMA, TEO, CRESY, IRS)",
+                   "url": "https://finance.yahoo.com/quote/GGAL/"},
     "rp_nivel": {"eje": "val", "nombre": "Riesgo país (nivel)", "unidad": "puntos básicos", "dec": 0,
                  "que": "Con riesgo país bajo, bonos y acciones ya descuentan buenas noticias (están caros); alto, hay más margen.",
                  "umbrales": "< 600: caro · 600–900: justo · > 1.200: barato",
@@ -122,10 +126,10 @@ META = {
                   "que": "Cuánto subió o bajó el riesgo país en las últimas 63 ruedas.",
                   "umbrales": "Baja: sano · +150 pb: atención · +300 pb: deterioro · +500 pb: fuerte",
                   "fuente": "EMBI JP Morgan vía argentinadatos.com y Rava", "url": "https://www.rava.com/cotizaciones/historico/riesgo-pais/hoy/"},
-    "merval_tend": {"eje": "sen", "nombre": "Tendencia del Merval en dólares", "unidad": "% desde el máximo", "dec": 1,
-                    "que": "Merval en dólares contra sus medias de 50 y 200 ruedas y caída desde el máximo de 52 semanas.",
+    "merval_tend": {"eje": "sen", "nombre": "Tendencia de las acciones argentinas (ADR)", "unidad": "% desde el máximo", "dec": 1,
+                    "que": "Canasta de ADR argentinos contra sus medias de 50 y 200 ruedas y caída desde el máximo de 52 semanas.",
                     "umbrales": "Mismo criterio que la tendencia del S&P 500",
-                    "fuente": "Cálculo propio", "url": "https://www.rava.com/perfil/MERVAL%20USD"},
+                    "fuente": "Cálculo propio con Yahoo Finance", "url": "https://finance.yahoo.com/quote/GGAL/"},
     "reservas": {"eje": "sen", "nombre": "Reservas del BCRA (cambio en 3 meses)", "unidad": "millones de US$", "dec": 0,
                  "que": "Variación de las reservas internacionales brutas en 90 días. Caídas sostenidas anticipan tensión cambiaria.",
                  "umbrales": "Suben > 3.000: sano · ±0: atención · caen > 3.000: deterioro",
@@ -161,6 +165,7 @@ class Datos:
         self.err: list[str] = []
         self.factset: list[dict] = []
         self.n_amplitud = None
+        self.n_adr = None
 
     def get(self, k):
         return self.s.get(k)
@@ -244,7 +249,18 @@ def cargar_datos() -> Datos:
         if "spy" not in d.s or "rsp" not in d.s:
             raise ValueError("faltan SPY o RSP")
 
+    def adr():
+        r = yahoo(ADR_AR, start="2003-01-01")
+        df = pd.DataFrame(r).sort_index()
+        ret = df.pct_change(fill_method=None)
+        ret = ret.where(ret.abs() < 0.6)  # descarta saltos por datos erróneos
+        n = ret.notna().sum(axis=1)
+        prom = ret.mean(axis=1)[n >= 5]
+        d.s["adr_ar"] = (1 + prom).cumprod() * 100
+        d.n_adr = len(r)
+
     d.paso("Yahoo (índices)", y1)
+    d.paso("Yahoo (ADR argentinos)", adr)
     d.paso("Yahoo (SPY/RSP)", y2)
     def real10():
         try:
@@ -483,7 +499,7 @@ def credito_etf(d, t):
     c63 = (r.iloc[-1] / r.iloc[-64] - 1) * 100
     score = max(interp(dd, [(-8, 95), (-5, 75), (-3, 50), (-1.5, 25), (0, 5)]),
                 interp(c63, [(-5, 85), (-3, 60), (-1.5, 35), (0, 0)]))
-    return ind("credito", dd, score, r.index[-1], unidad="% desde el máximo (HYG/IEF)",
+    return ind("credito", dd, score, r.index[-1], unidad="% desde el máximo (HYG/IEF)", dec=2,
                detalle=[["Serie usada", "HYG / IEF (FRED no respondió)"], ["Cambio en 3 meses", f"{na(c63, 2, True)}%"]])
 
 
@@ -554,14 +570,18 @@ def i_revisiones(d, t):
 
 # ---- Argentina
 def i_merval_usd(d, t):
-    s = hasta(d.get("merval_usd"), t)
+    s = hasta(d.get("adr_ar"), t)
     if len(s) < 300 or (t - s.index[-1]).days > 10:
         return None
     s14 = s.loc["2014-01-01":]
     pc = percentil(s14, s.iloc[-1])
-    return ind("merval_usd", s.iloc[-1], pc, s.index[-1], percentil=rnd(pc, 0), percentil_desde="2014",
-               detalle=[["Percentil desde 2014", f"{na(pc, 0)}"], ["Mediana desde 2014", f"{na(s14.median(), 1)}"],
-                        ["Máximo desde 2014", f"{na(s14.max(), 1)} ({s14.idxmax():%m/%Y})"]])
+    det = [["Percentil desde 2014", f"{na(pc, 0)}"], ["Máximo desde 2014", f"{s14.idxmax():%m/%Y}"],
+           ["Caída desde ese máximo", f"{na((s.iloc[-1] / s14.max() - 1) * 100, 1)}%"],
+           ["Empresas en la canasta", str(d.n_adr or "—")]]
+    m = asof(d.get("merval_usd"), t, 10)
+    if m:
+        det.append(["Merval MSCI en US$ (CCL)", f"{na(m[1], 2)} ({m[0]:%d/%m})"])
+    return ind("merval_usd", s.iloc[-1], pc, s.index[-1], percentil=rnd(pc, 0), percentil_desde="2014", detalle=det)
 
 
 def i_rp_nivel(d, t):
@@ -583,7 +603,7 @@ def i_rp_cambio(d, t):
 
 
 def i_merval_tend(d, t):
-    r = tendencia(d.get("merval_usd"), t)
+    r = tendencia(d.get("adr_ar"), t)
     return ind("merval_tend", r[0], r[1], r[2], detalle=r[3]) if r else None
 
 
@@ -601,7 +621,7 @@ def i_reservas(d, t):
 
 def i_tcr(d, t):
     s = hasta(d.get("tcr"), t)
-    if len(s) < 300 or (t - s.index[-1]).days > 20:
+    if len(s) < 300 or (t - s.index[-1]).days > 75:
         return None
     pc = percentil(s.loc["2003-01-01":], s.iloc[-1])
     return ind("tcr", s.iloc[-1], interp(pc, A["tcr_pct"]), s.index[-1], percentil=rnd(pc, 0), percentil_desde="2003",
@@ -647,7 +667,7 @@ def con_meta(i: dict, pesos: dict, serie: pd.Series | None, desde, dec):
     i = dict(i)
     for k in ("nombre", "unidad", "que", "umbrales", "fuente", "url", "eje"):
         i.setdefault(k, m[k])
-    i["dec"] = m["dec"]
+    i.setdefault("dec", m["dec"])
     i["peso"] = pesos.get(i["id"])
     if serie is not None:
         i["serie"] = muestra(serie, desde, 160, dec)
@@ -699,13 +719,13 @@ def serie_indicador(d: Datos, id_: str, t: pd.Timestamp):
     if id_ == "cape":
         s = g("cape")
         return s.loc["1990-01-01":] if s is not None else None
-    m = {"cape": "cape", "amplitud": "amp200", "tendencia": "spx", "volatilidad": "vix", "merval_usd": "merval_usd",
-         "rp_nivel": "rp", "rp_cambio": "rp", "merval_tend": "merval_usd", "reservas": "reservas", "tcr": "tcr", "brecha": "brecha"}
+    m = {"cape": "cape", "amplitud": "amp200", "tendencia": "spx", "volatilidad": "vix", "merval_usd": "adr_ar",
+         "rp_nivel": "rp", "rp_cambio": "rp", "merval_tend": "adr_ar", "reservas": "reservas", "tcr": "tcr", "brecha": "brecha"}
     return g(m[id_]) if id_ in m else None
 
 
 SERIE_TITULO = {"revisiones": "EPS forward (US$)", "concentracion": "Relación SPY / RSP", "rp_cambio": "Riesgo país (pb)",
-                "merval_tend": "Merval en US$", "reservas": "Reservas (M US$)", "tendencia": "S&P 500"}
+                "merval_tend": "Canasta ADR (base 100 = 2003)", "merval_usd": "Canasta ADR (base 100 = 2003)", "reservas": "Reservas (M US$)", "tendencia": "S&P 500"}
 
 
 def bloque(d, t, fns, pv, ps, matriz, fechas_clave, años_hist=2.5):

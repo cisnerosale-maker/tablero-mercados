@@ -294,8 +294,8 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   const ztag = (zona, n) => `<span class="zt ${zc(n)}">${esc(zona)}</span>`;
 
   const CORTO = { pe_fwd: "P/E forward", erp: "Prima de riesgo", cape: "CAPE", concentracion: "Concentración", amplitud: "Amplitud",
-    tendencia: "Tendencia", credito: "Crédito High Yield", volatilidad: "VIX", revisiones: "Revisiones de EPS", merval_usd: "Merval en US$",
-    rp_nivel: "Riesgo país (nivel)", rp_cambio: "Riesgo país (cambio)", merval_tend: "Tendencia Merval", reservas: "Reservas BCRA",
+    tendencia: "Tendencia", credito: "Crédito High Yield", volatilidad: "VIX", revisiones: "Revisiones de EPS", merval_usd: "ADR argentinos (US$)",
+    rp_nivel: "Riesgo país (nivel)", rp_cambio: "Riesgo país (cambio)", merval_tend: "Tendencia ADR", reservas: "Reservas BCRA",
     tcr: "Tipo de cambio real", brecha: "Brecha" };
   function scoreCard(titulo, pregunta, p, eje, inds) {
     const cob = p.cobertura != null && p.cobertura < 100 ? `<p class="note">Calculado con ${p.cobertura}% de los indicadores (por peso): faltan datos de ${esc((p.faltan || []).length)}.</p>` : "";

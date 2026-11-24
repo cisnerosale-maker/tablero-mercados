@@ -230,9 +230,19 @@ def _get(url, timeout=40, intentos=3, **kw):
     raise err
 
 
+_FRED_CAIDO = {"v": False}
+
+
 def fred(serie_id: str, desde: str = "1990-01-01") -> pd.Series:
-    """Serie diaria de FRED (Reserva Federal de St. Louis), descarga CSV pública sin clave."""
-    r = _get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={serie_id}&cosd={desde}", timeout=90, intentos=2)
+    """Serie diaria de FRED (Reserva Federal de St. Louis), descarga CSV pública sin clave.
+    Si FRED no contesta una vez, no se lo vuelve a intentar en la misma corrida (ahorra minutos de espera)."""
+    if _FRED_CAIDO["v"]:
+        raise ConnectionError("FRED no respondió en esta corrida")
+    try:
+        r = _get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={serie_id}&cosd={desde}", timeout=45, intentos=1)
+    except Exception:
+        _FRED_CAIDO["v"] = True
+        raise
     df = pd.read_csv(io.StringIO(r.text))
     if df.shape[1] < 2:
         raise ValueError(f"FRED {serie_id}: formato inesperado")
