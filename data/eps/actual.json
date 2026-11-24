@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-21T03:20:10+00:00",
+ "actualizado": "2026-11-24T02:13:09+00:00",
  "acciones": {
   "META": {
    "precio": 560.84,
@@ -262,7 +262,8 @@
   "BN: Yahoo informa el EPS en otra base que lo cargado. Los períodos nuevos hay que cargarlos con la planilla.",
   "GGAL: Yahoo informa el EPS en ARS y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
   "GGAL: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
-  "GLOB: EPS pendiente. El último trimestre cargado cerró el 2026-06-30 y ya debería estar el siguiente.",
+  "GLOB: se sumó el trimestre cerrado el 2026-09-30 (EPS 0.32, fuente Yahoo).",
+  "INTU: se sumó el trimestre cerrado el 2026-10-31 (EPS 2.59, fuente Yahoo).",
   "ITUB: Yahoo informa el EPS en BRL y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",
   "NU: sin precio de cierre para 2018-12-31, 2019-12-31, 2020-12-31.",
   "NVO: Yahoo informa el EPS en DKK y la cotización en USD. Los EPS nuevos hay que cargarlos a mano.",

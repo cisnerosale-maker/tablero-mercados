@@ -7439,6 +7439,13 @@
      "eps_ltm": 2.55,
      "fuente": "stockmcp",
      "cargado": "2026-11-19"
+    },
+    {
+     "fin": "2026-09-30",
+     "eps": 0.32,
+     "eps_ltm": 2.14,
+     "fuente": "Yahoo",
+     "cargado": "2026-11-23"
     }
    ],
    "splits": [],
@@ -7562,6 +7569,11 @@
      "fecha": "2026-06-30",
      "cargado": "2026-11-19",
      "fuente": "stockmcp"
+    },
+    "2026-09-30": {
+     "cierre": 34.7,
+     "fecha": "2026-09-30",
+     "cargado": "2026-11-23"
     }
    }
   },
@@ -8001,6 +8013,13 @@
      "eps_ltm": 16.49,
      "fuente": "stockmcp",
      "cargado": "2026-11-19"
+    },
+    {
+     "fin": "2026-10-31",
+     "eps": 2.59,
+     "eps_ltm": 17.49,
+     "fuente": "Yahoo",
+     "cargado": "2026-11-23"
     }
    ],
    "splits": [],
@@ -8118,6 +8137,11 @@
      "fecha": "2026-04-30",
      "cargado": "2026-11-19",
      "fuente": "stockmcp"
+    },
+    "2026-10-31": {
+     "cierre": 341.09,
+     "fecha": "2026-10-30",
+     "cargado": "2026-11-23"
     }
    }
   },
