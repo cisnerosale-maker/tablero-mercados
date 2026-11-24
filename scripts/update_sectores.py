@@ -40,7 +40,7 @@ SECTORES = [
     ("Industrials", "XLI", "ev_ebitda", "GE Aerospace, Caterpillar, Union Pacific, defensa"),
     ("Information Technology", "XLK", "pe", "Nvidia, Apple, Microsoft, Broadcom, software"),
     ("Materials", "XLB", "ev_ebitda", "Linde, Sherwin-Williams, minería, químicos"),
-    ("Real Estate", "XLRE", "p_ffo", "REIT: Prologis, American Tower, Equinix, Welltower"),
+    ("Real Estate", "XLRE", "ev_ebitda", "REIT: Prologis, American Tower, Equinix, Welltower"),
     ("Utilities", "XLU", "ev_ebitda", "NextEra, Southern, Duke: electricidad, gas y agua"),
 ]
 
@@ -56,7 +56,8 @@ RATIOS = {
 NO_REPRESENTATIVO = {
     "Financials": {"ev_ebitda": "En bancos y aseguradoras la deuda es parte del negocio: EV/EBITDA no tiene sentido.",
                    "ps": "Los ingresos de un banco no son comparables con los de una empresa industrial."},
-    "Real Estate": {"pe": "Las amortizaciones contables deprimen la ganancia de los REIT: se usa P/FFO."},
+    "Real Estate": {"pe": "Las amortizaciones contables deprimen la ganancia de los REIT: el P/E no sirve. Se usa EV/EBITDA, "
+                           "que se acerca al P/FFO (Nareit publica el P/FFO solo en gráficos)."},
 }
 
 WPE_SLUGS = {
@@ -222,8 +223,8 @@ def main():
                 var_ene = p.iloc[-1] / a0[1] - 1
         filas = []
         for r, nombre in RATIOS.items():
-            if r == "p_ffo" and s != "Real Estate":
-                continue
+            if r == "p_ffo" and (s != "Real Estate" or not nareit.get("p_ffo")):
+                continue  # Nareit publica el P/FFO solo en gráficos: se muestra si la tarea de los viernes lo carga
             f = {"id": r, "nombre": nombre, "principal": r == principal,
                  "no_repr": NO_REPRESENTATIVO.get(s, {}).get(r)}
             if r == "pe":
