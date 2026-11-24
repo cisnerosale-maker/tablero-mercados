@@ -4,13 +4,21 @@
   "2026-11-24": {
    "eeuu": {
     "fecha_datos": "2026-11-23",
-    "val": 43.2,
-    "sen": 45.0,
+    "val": 62.5,
+    "sen": 47.5,
     "postura": "Prudente",
     "ind": {
      "pe_fwd": [
       17.4,
       43.3
+     ],
+     "erp": [
+      2.956,
+      76.8
+     ],
+     "cape": [
+      38.21,
+      89.1
      ],
      "concentracion": [
       -6.8,
@@ -23,6 +31,10 @@
      "tendencia": [
       -7.44,
       65.0
+     ],
+     "credito": [
+      -3.6,
+      57.3
      ],
      "volatilidad": [
       26.62,
