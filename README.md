@@ -133,6 +133,23 @@ La página muestra además: evolución semanal de los puntajes, qué marcaba cad
 - **Amplitud:** se calcula con las empresas que hoy forman el índice (sesgo de supervivencia en la historia).
 - **Forzar una actualización:** *Actions → Riesgo de mercado → Run workflow*.
 
+## Sección Sectores (`sectores.html`)
+
+Valuación de los 11 sectores GICS del S&P 500 (Communication Services, Consumer Discretionary, Consumer Staples, Energy, Financials, Health Care, Industrials, Information Technology, Materials, Real Estate, Utilities) contra sus promedios de 3, 5 y 10 años, con la diferencia de cada ratio dentro de cada sector.
+
+| Ratio | Valor actual | Promedios |
+|---|---|---|
+| P/E | worldperatio.com (ETF del sector, diario) | worldperatio (3, 5 y 10 años) |
+| P/E forward | Siblis Research (mensual) | Sin promedio comparable |
+| P/Valor libros, EV/EBITDA | Siblis Research (mensual) | Damodaran (3, 5 y 10 eneros) |
+| P/Ventas | Yahoo Finance (ETF del sector, diario) | Damodaran (3, 5 y 10 eneros) |
+
+- **Diferencia:** se calcula contra la misma fuente del promedio. Para Damodaran, su último enero llevado a hoy por la variación del ETF.
+- **Ratio principal:** P/E (tecnología, comunicación, consumo, salud), EV/EBITDA (energía, materiales, industriales, servicios públicos, bienes raíces), P/Valor libros (financieras).
+- **Damodaran:** `scripts/build_damodaran.py` arma `data/sectores/damodaran.json` una vez por año (febrero). Industrias agrupadas en sectores con las reglas `SECTOR_REGLAS`.
+- **Respaldo:** si worldperatio o Siblis no responden desde GitHub, se usa `data/sectores/manual.json`, que completa la tarea programada de los viernes.
+- `data/sectores/historial.json` guarda un registro por día (acumulativo).
+
 ## Agregar o quitar indicadores
 
 - **Quitar una tarjeta o cambiar el orden:** en `index.html`, lista `SECCIONES`.
