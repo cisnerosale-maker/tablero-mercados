@@ -104,15 +104,25 @@ def main():
     df["liq_senales"] = df["col"].map(lambda c: 0.0 if pd.isna(c) else MEDIO[1][int(c)] / 100)
     df["liq_valuacion"] = df["fila"].map(lambda f: 0.0 if pd.isna(f) else MEDIO[int(f)][0] / 100)
     df["liq_bh"] = 0.0
+    # Variante a evaluar: misma matriz pero con "Caro + señales sanas" en 5–10% en lugar de 10–15%.
+    def liq_ajustada(r):
+        if pd.isna(r["fila"]) or pd.isna(r["col"]):
+            return 0.0
+        if int(r["fila"]) == 2 and int(r["col"]) == 0:
+            return 0.075
+        return MEDIO[int(r["fila"])][int(r["col"])] / 100
+
+    df["liq_ajustada"] = df.apply(liq_ajustada, axis=1)
 
     curvas = {}
-    for k in ("bh", "matriz", "senales", "valuacion"):
+    for k in ("bh", "matriz", "ajustada", "senales", "valuacion"):
         liq = df["liq_" + k].shift(1).fillna(0)  # la decisión del viernes se aplica a la semana siguiente
         mov = liq.diff().abs().fillna(0)
         r = (1 - liq) * df["r_acc"] + liq * df["r_cash"] - mov * COSTO
         curvas[k] = (1 + r).cumprod()
 
-    nombres = {"bh": "Comprar y mantener", "matriz": "Matriz completa", "senales": "Solo señales", "valuacion": "Solo valuación"}
+    nombres = {"bh": "Comprar y mantener", "matriz": "Matriz completa", "ajustada": "Matriz con Caro + sanas al 5–10%",
+               "senales": "Solo señales", "valuacion": "Solo valuación"}
     estrategias = []
     for k, v in curvas.items():
         m = metricas(v, df["r_cash"])

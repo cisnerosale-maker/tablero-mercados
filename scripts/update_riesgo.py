@@ -114,8 +114,8 @@ META = {
                    "fuente": "FactSet Earnings Insight (semanal)", "url": "https://insight.factset.com/topic/earnings"},
     # Argentina
     "merval_usd": {"eje": "val", "nombre": "Acciones argentinas en dólares (canasta de ADR)", "unidad": "índice (2003 = 100)", "dec": 1,
-                   "que": "Promedio de 13 ADR argentinos en Nueva York (bancos, energía, servicios, real estate), en dólares. El puntaje es su percentil desde 2014: 90 = está más caro que el 90% del tiempo. Reemplaza al Merval en US$, cuya historia larga dejó de publicarse con el cambio a MSCI.",
-                   "umbrales": "Puntaje = percentil desde 2014 · Barato < 33 · Justo 33–67 · Caro > 67",
+                   "que": "Promedio de 13 ADR argentinos en Nueva York (bancos, energía, servicios, real estate), en dólares. El puntaje es el promedio de su percentil desde 2003 y desde 2014: 90 = está más caro que el 90% del tiempo. Reemplaza al Merval en US$, cuya historia larga dejó de publicarse con el cambio a MSCI.",
+                   "umbrales": "Puntaje = promedio de los percentiles desde 2003 y desde 2014 · Barato < 33 · Justo 33–67 · Caro > 67",
                    "fuente": "Yahoo Finance (GGAL, BMA, BBAR, SUPV, YPF, PAM, TGS, CEPU, EDN, LOMA, TEO, CRESY, IRS)",
                    "url": "https://finance.yahoo.com/quote/GGAL/"},
     "rp_nivel": {"eje": "val", "nombre": "Riesgo país (nivel)", "unidad": "puntos básicos", "dec": 0,
@@ -574,14 +574,17 @@ def i_merval_usd(d, t):
     if len(s) < 300 or (t - s.index[-1]).days > 10:
         return None
     s14 = s.loc["2014-01-01":]
-    pc = percentil(s14, s.iloc[-1])
-    det = [["Percentil desde 2014", f"{na(pc, 0)}"], ["Máximo desde 2014", f"{s14.idxmax():%m/%Y}"],
+    p14 = percentil(s14, s.iloc[-1])
+    p03 = percentil(s, s.iloc[-1])
+    pc = (p14 + p03) / 2
+    det = [["Percentil desde 2003", f"{na(p03, 0)}"], ["Percentil desde 2014", f"{na(p14, 0)}"],
+           ["Máximo desde 2014", f"{s14.idxmax():%m/%Y}"],
            ["Caída desde ese máximo", f"{na((s.iloc[-1] / s14.max() - 1) * 100, 1)}%"],
            ["Empresas en la canasta", str(d.n_adr or "—")]]
     m = asof(d.get("merval_usd"), t, 10)
     if m:
         det.append(["Merval MSCI en US$ (CCL)", f"{na(m[1], 2)} ({m[0]:%d/%m})"])
-    return ind("merval_usd", s.iloc[-1], pc, s.index[-1], percentil=rnd(pc, 0), percentil_desde="2014", detalle=det)
+    return ind("merval_usd", s.iloc[-1], pc, s.index[-1], percentil=rnd(pc, 0), percentil_desde="2003 y 2014 (promedio)", detalle=det)
 
 
 def i_rp_nivel(d, t):

@@ -14,7 +14,7 @@
   --bg: #DDEBF7; --surface: #FFFFFF; --sunken: #EAF2FA; --ink: #14202C; --muted: #4F6378; --line: #C3D6E8;
   --accent: #1F5E8C; --brand: #1F4E79; --up: #1E7A4C; --down: #B42318; --warn: #A15C07; --grid: #E3ECF5;
   --z0: #1E7A4C; --z1: #8C6D00; --z2: #C2570C; --z3: #B42318;
-  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4;
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
   --f-data: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -25,7 +25,7 @@
     --bg: #0D1724; --surface: #142131; --sunken: #111C2A; --ink: #E3ECF5; --muted: #93A6BA; --line: #26374B;
     --accent: #6FB2E6; --brand: #8DBDEB; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A; --grid: #1E2D3F;
     --z0: #5CC795; --z1: #E0C24A; --z2: #F59A4A; --z3: #F27B6F;
-    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
     color-scheme: dark;
   }
 }
@@ -261,6 +261,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       tip.textContent = "";
       const h = document.createElement("div"); h.className = "muted"; h.textContent = fd(fechas[i]); tip.appendChild(h);
       series.forEach(s => {
+        if (s.opcional && (s.valores[i] == null || series.some(o => !o.opcional && o.color === s.color && o.valores[i] != null))) return;
         const r = document.createElement("div"); r.className = "r";
         const a = document.createElement("span"); const k = document.createElement("i"); k.className = "k"; k.style.borderColor = s.color; if (s.dash) k.style.borderTopStyle = "dashed";
         a.appendChild(k); a.appendChild(document.createTextNode(s.nombre));
@@ -321,7 +322,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       });
     });
     const post = m ? `<div class="postura"><span class="score-k">Postura sugerida hoy</span><span class="t">${esc(m.titulo)}</span>
-      ${m.liq ? `<span class="liq">Liquidez sugerida: ${m.liq[0]}–${m.liq[1]}% de la cartera de acciones</span>` : ""}
+      ${m.liq ? `<span class="liq">Liquidez sugerida: ${m.liq[0]}–${m.liq[1]}% de la parte en acciones de EE.UU. (incluye CEDEAR)</span>` : ""}
       <p style="font-size:14px">${esc(m.texto)}</p></div>` : `<p class="note">Sin datos suficientes para ubicar la matriz.</p>`;
     return `<div class="card mcard"><div class="score-k">Matriz: valuación × señales</div>
       <div class="matrix" role="table" aria-label="Matriz de postura">${h}</div>${post}</div>`;
@@ -395,14 +396,17 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       <div class="grid">${xs.map(x => `<div class="card ind"><span class="nm">${esc(x.nombre)}</span><div class="val"><span class="v" style="font-size:22px">${esc(x.valor)}</span></div><p class="que">${esc(x.nota)}</p><div class="foot"><span></span><span>Dato al ${fd(x.fecha)}</span></div></div>`).join("")}</div></section>`;
   }
 
+  let EP_COLS = ["bh", "matriz", "senales", "valuacion"];
   function backtest() {
+    if (BT && BT.estrategias.some(e => e.id === "ajustada")) EP_COLS = ["bh", "matriz", "ajustada", "senales", "valuacion"];
     if (!BT) return `<section class="sec"><div class="sec-head"><h2>Backtesting</h2></div><p class="note">Todavía no hay resultados: se generan en la próxima corrida.</p></section>`;
-    const col = { bh: "var(--s1)", matriz: "var(--s2)", senales: "var(--s3)", valuacion: "var(--s4)" };
+    const col = { bh: "var(--s1)", matriz: "var(--s2)", senales: "var(--s3)", valuacion: "var(--s4)", ajustada: "var(--s5)" };
     const filas = BT.estrategias.map(e => `<tr class="${e.id === "matriz" ? "hl" : ""}"><td class="txt"><i style="display:inline-block;width:14px;border-top:2px solid ${col[e.id]};vertical-align:middle;margin-right:6px"></i>${esc(e.nombre)}</td>
       <td>${nf(e.cagr, 2)}%</td><td>${nf(e.vol, 1)}%</td><td class="down">${nf(e.max_dd, 1)}%</td><td>${nf(e.peor_12m, 1)}%</td><td>${nf(e.sharpe, 2)}</td><td>${nf(e.liq_prom, 1)}%</td><td>US$ ${nf(e.final, 0)}</td></tr>`).join("");
     const ep = BT.episodios.map(e => `<tr><td class="txt">${esc(e.nombre)}<br><span class="muted" style="font-size:11.5px">${fd(e.desde)} → ${fd(e.hasta)}</span></td>
-      ${["bh", "matriz", "senales", "valuacion"].map(k => `<td class="${e[k] < 0 ? "down" : ""}">${nf(e[k], 1)}%</td>`).join("")}<td>${nf(e.liq_prom, 1)}%</td></tr>`).join("");
+      ${EP_COLS.map(k => `<td class="${e[k] < 0 ? "down" : ""}">${nf(e[k], 1)}%</td>`).join("")}<td>${nf(e.liq_prom, 1)}%</td></tr>`).join("");
     const tc = BT.tiempo_celdas;
+    const EP_NOM = { bh: "Mantener", matriz: "Matriz", ajustada: "Matriz ajust.", senales: "Señales", valuacion: "Valuación" };
     const celdas = [2, 1, 0].map(f => `<tr><td class="txt">${["Barato", "Justo", "Caro"][f]}</td>${[0, 1, 2].map(c => `<td>${nf(tc[f][c], 1)}%</td>`).join("")}</tr>`).join("");
     return `<section class="sec" id="backtest"><div class="sec-head"><h2>Backtesting desde ${esc(BT.desde.slice(0, 4))}</h2><small>Modelo reducido · ${esc(nf(BT.semanas, 0))} semanas · hasta ${fd(BT.hasta)}</small></div>
       <div class="card"><div class="scroll"><table class="t"><thead><tr><th>Estrategia</th><th>Rend. anual</th><th>Volatilidad</th><th>Peor caída</th><th>Peor 12 meses</th><th>Sharpe</th><th>Liquidez prom.</th><th>US$ 100.000 hoy</th></tr></thead><tbody>${filas}</tbody></table></div>
@@ -412,7 +416,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       <div class="note" style="margin-top:4px">Liquidez de la matriz completa (% de la cartera)</div>
       <div class="chart" id="btLiq"></div></div>
       <div class="two">
-        <div class="card"><h3>Episodios</h3><div class="scroll"><table class="t"><thead><tr><th>Período</th><th>Mantener</th><th>Matriz</th><th>Señales</th><th>Valuación</th><th>Liq. prom.</th></tr></thead><tbody>${ep}</tbody></table></div></div>
+        <div class="card"><h3>Episodios</h3><div class="scroll"><table class="t"><thead><tr><th>Período</th>${EP_COLS.map(k => `<th>${EP_NOM[k]}</th>`).join("")}<th>Liq. prom.</th></tr></thead><tbody>${ep}</tbody></table></div></div>
         <div class="card"><h3>Tiempo en cada celda de la matriz</h3><div class="scroll"><table class="t"><thead><tr><th></th><th>Sanas</th><th>Atención</th><th>Deterioro</th></tr></thead><tbody>${celdas}</tbody></table></div>
           <h3 style="margin-top:6px">Limitaciones</h3><ul class="note" style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px">${BT.limitaciones.map(l => `<li>${esc(l)}</li>`).join("")}</ul></div>
       </div></section>`;
@@ -446,9 +450,9 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       ${matriz(b)}</div>`;
     h += informe();
     h += `<section class="sec"><div class="sec-head"><h2>Evolución de los puntajes</h2><small>Semanal, últimos 2 años y medio</small></div>
-      <div class="card"><div class="legend"><span><i style="border-color:var(--s1)"></i>Valuación</span><span><i style="border-color:var(--s2)"></i>Señales</span></div>
+      <div class="card"><div class="legend"><span><i style="border-color:var(--s1)"></i>Valuación</span><span><i style="border-color:var(--s2)"></i>Señales</span><span><i style="border-color:var(--muted);border-top-style:dashed"></i>Punteado: datos parciales</span></div>
       <div class="chart" id="histChart"></div>
-      <p class="note">Línea punteada: los límites de "caro" en valuación (67) y de "deterioro" en señales (60). Cuando un indicador no tiene historia para una fecha, el puntaje de esa fecha usa el resto (el detalle aparece al pasar el mouse).</p></div></section>`;
+      <p class="note">Las líneas horizontales marcan el límite de "caro" en valuación (67) y de "deterioro" en señales (60). El tramo punteado se calculó sin todos los indicadores (por ejemplo, antes de la primera carga de FactSet, el 28/08/2026): no es comparable con el resto. La cobertura de cada fecha aparece al pasar el mouse.</p></div></section>`;
     h += `<section class="sec"><div class="sec-head"><h2>Valuación</h2><small>¿Qué tan caro? · 100 = muy caro</small></div><div class="grid">${vals.map(indCard).join("")}</div></section>`;
     h += `<section class="sec"><div class="sec-head"><h2>Señales</h2><small>¿Se está rompiendo? · 100 = deterioro fuerte</small></div><div class="grid">${sens.map(indCard).join("")}</div></section>`;
     h += tablaClaves(b);
@@ -459,9 +463,14 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
 
     // gráfico de puntajes
     const hs = b.historia || [];
+    // Tramo completo (todos los indicadores) en línea llena; con datos parciales, punteada.
+    const partial = (k, c) => hs.map((x, i) => (x[c] < 100 || (i > 0 && hs[i - 1][c] < 100) || (i + 1 < hs.length && hs[i + 1][c] < 100)) ? x[k] : null);
+    const full = (k, c) => hs.map(x => x[c] >= 100 ? x[k] : null);
     lineChart($("#histChart"), hs.map(x => x.f), [
-      { nombre: "Valuación", color: "var(--s1)", valores: hs.map(x => x.val) },
-      { nombre: "Señales", color: "var(--s2)", valores: hs.map(x => x.sen) }],
+      { nombre: "Valuación", color: "var(--s1)", valores: full("val", "cv") },
+      { nombre: "Señales", color: "var(--s2)", valores: full("sen", "cs") },
+      { nombre: "Valuación (datos parciales)", color: "var(--s1)", dash: "4 4", ancho: 1.5, valores: partial("val", "cv"), opcional: true },
+      { nombre: "Señales (datos parciales)", color: "var(--s2)", dash: "4 4", ancho: 1.5, valores: partial("sen", "cs"), opcional: true }],
       { h: 230, min: 0, max: 100, ticks: [0, 25, 50, 75, 100], refs: [{ v: 67 }, { v: 60 }],
         marcas: [{ f: hs.map(x => x.f).find(f => f >= "2026-09-18"), txt: "18/09" }],
         fmt: (v, s) => v == null ? "—" : nf(v, 0) + " · " + zonaTxt(v, s.nombre === "Valuación" ? "val" : "sen"),
@@ -480,7 +489,8 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
         { nombre: "Comprar y mantener", color: "var(--s1)", valores: c.bh },
         { nombre: "Matriz completa", color: "var(--s2)", valores: c.matriz },
         { nombre: "Solo señales", color: "var(--s3)", valores: c.senales },
-        { nombre: "Solo valuación", color: "var(--s4)", valores: c.valuacion }],
+        { nombre: "Solo valuación", color: "var(--s4)", valores: c.valuacion }]
+        .concat(c.ajustada ? [{ nombre: "Matriz ajustada", color: "var(--s5)", valores: c.ajustada }] : []),
         { h: 260, log: true, pre: "", fmt: v => "US$ " + nf(v, 0), aria: "Evolución de US$ 100.000 en cada estrategia" });
       lineChart($("#btLiq"), c.f, [{ nombre: "Liquidez", color: "var(--s2)", valores: c.liq }],
         { h: 110, min: 0, max: 40, ticks: [0, 10, 20, 30, 40], fmt: v => nf(v, 1) + "%",
