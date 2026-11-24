@@ -232,7 +232,7 @@ def _get(url, timeout=40, intentos=3, **kw):
 
 def fred(serie_id: str, desde: str = "1990-01-01") -> pd.Series:
     """Serie diaria de FRED (Reserva Federal de St. Louis), descarga CSV pública sin clave."""
-    r = _get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={serie_id}&cosd={desde}")
+    r = _get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={serie_id}&cosd={desde}", timeout=90, intentos=2)
     df = pd.read_csv(io.StringIO(r.text))
     if df.shape[1] < 2:
         raise ValueError(f"FRED {serie_id}: formato inesperado")
@@ -380,3 +380,50 @@ def bcra_itcrm() -> pd.Series:
         if len(s) > 500:
             return s
     raise ValueError("no se encontró la columna ITCRM en la planilla del BCRA")
+
+
+def tesoro_real10(años: int = 4) -> pd.Series:
+    """Tasa real a 10 años (TIPS) del Tesoro de EE.UU. (curva de rendimientos reales diaria)."""
+    pts = []
+    hoy = now_ar().year
+    for y in range(hoy - años + 1, hoy + 1):
+        url = ("https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/"
+               f"{y}/all?type=daily_treasury_real_yield_curve&field_tdr_date_value={y}&page&_format=csv")
+        try:
+            df = pd.read_csv(io.StringIO(_get(url, timeout=60, intentos=2).text))
+            col = next(c for c in df.columns if c.strip().upper() in ("10 YR", "10YR", "10 YEAR"))
+            for f, v in zip(df.iloc[:, 0], df[col]):
+                pts.append((pd.Timestamp(f).strftime("%Y-%m-%d"), v))
+        except Exception:
+            continue
+    s = a_serie(pts)
+    if len(s) < 50:
+        raise ValueError("el Tesoro no devolvió la curva real")
+    return s
+
+
+CAPE_FILE = DIR / "cape.json"
+
+
+def cape_guardado() -> pd.Series:
+    return a_serie(load_json(CAPE_FILE, {}).get("valores", {}))
+
+
+def cape_con_respaldo(errores: list | None = None) -> pd.Series:
+    """CAPE de multpl.com en vivo; si no responde, el archivo cape.json. Lo leído en vivo se suma al archivo."""
+    base = cape_guardado()
+    try:
+        vivo = cape_multpl()
+        datos = load_json(CAPE_FILE, {"valores": {}})
+        vals = datos.setdefault("valores", {})
+        for f, v in vivo.loc["2023-01-01":].items():
+            vals[f.strftime("%Y-%m-%d")] = round(float(v), 2)
+        datos["valores"] = dict(sorted(vals.items()))
+        save_json(CAPE_FILE, datos)
+        return pd.concat([base, vivo]).groupby(level=0).last().sort_index()
+    except Exception as e:
+        if errores is not None:
+            errores.append(f"CAPE: multpl.com no respondió ({str(e)[:80]}); se usa cape.json")
+        if base.empty:
+            raise
+        return base

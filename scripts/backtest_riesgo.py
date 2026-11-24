@@ -4,7 +4,7 @@ Backtesting del monitor de riesgo (EE.UU.) desde 1991.
 
 Usa una versión REDUCIDA del modelo, porque no hay historia gratuita y larga del P/E forward,
 la prima de riesgo, la amplitud ni las revisiones de EPS:
-  - Valuación: solo CAPE (con un mes de demora, para no usar datos que no se conocían).
+  - Valuación: solo CAPE (último dato publicado, ajustado por el precio del S&P 500).
   - Señales: tendencia del S&P 500, crédito (spread Baa de Moody's en lugar del High Yield) y VIX.
 Mismos umbrales, misma matriz y mismos rangos de liquidez que la página.
 
@@ -23,7 +23,7 @@ import math
 
 import pandas as pd
 
-from riesgo_comun import DIR, MATRIZ_EEUU, asof, cape_multpl, col_sen, fila_val, fred, now_ar, rnd, save_json, yahoo
+from riesgo_comun import DIR, MATRIZ_EEUU, asof, cape_con_respaldo, col_sen, fila_val, fred, now_ar, rnd, save_json, yahoo
 from update_riesgo import Datos, evaluar, i_cape, i_credito, i_tendencia, i_volatilidad
 
 INICIO = "1991-01-04"
@@ -57,17 +57,21 @@ def metricas(v: pd.Series, cash_w: pd.Series) -> dict:
 
 def main():
     d = Datos()
-    px = yahoo(["^GSPC", "^SP500TR", "^VIX", "^VIX3M"], start="1989-01-01")
+    avisos = []
+    px = yahoo(["^GSPC", "^SP500TR", "^VIX", "^VIX3M", "^IRX"], start="1989-01-01")
     d.s["spx"], d.s["vix"] = px["^GSPC"], px["^VIX"]
     if "^VIX3M" in px:
         d.s["vix3m"] = px["^VIX3M"]
     tr = px.get("^SP500TR")
-    d.s["baa"] = fred("BAA10Y", "1988-01-01")
-    cape = cape_multpl()
-    # Un mes de demora: el CAPE de un mes se publica con las ganancias de trimestres ya cerrados.
-    cape.index = cape.index + pd.DateOffset(months=1)
-    d.s["cape"] = cape
-    tb = fred("DTB3", "1988-01-01")
+    try:
+        d.s["baa"] = fred("BAA10Y", "1988-01-01")
+    except Exception as e:
+        avisos.append(f"Sin spread Baa de FRED ({str(e)[:60]}): las señales usan solo tendencia y VIX.")
+    d.s["cape"] = cape_con_respaldo(avisos)
+    try:
+        tb = fred("DTB3", "1988-01-01")
+    except Exception:
+        tb = px.get("^IRX")
 
     fechas = pd.date_range(INICIO, d.s["spx"].index[-1], freq="W-FRI")
     filas = []
@@ -150,8 +154,10 @@ def main():
                    "liq": [rnd(df.loc[x, "liq_matriz"] * 100, 1) for x in sub.index],
                    "val": [rnd(df.loc[x, "val"], 0) for x in sub.index],
                    "sen": [rnd(df.loc[x, "sen"], 0) for x in sub.index]},
+        "avisos": avisos,
         "limitaciones": [
-            "Modelo reducido: valuación solo con CAPE; señales con tendencia, crédito (spread Baa) y VIX. "
+            "Modelo reducido: valuación solo con CAPE (hasta 2022 el dato de enero de cada año, ajustado por el precio del S&P 500); "
+            "señales con tendencia, crédito (spread Baa) y VIX. "
             "El P/E forward, la prima de riesgo, la amplitud y las revisiones de EPS no tienen historia gratuita larga.",
             "Rebalanceo semanal sin impuestos; costo de 0,10% sobre lo que se mueve.",
             "La liquidez rinde la letra del Tesoro de EE.UU. a 3 meses.",

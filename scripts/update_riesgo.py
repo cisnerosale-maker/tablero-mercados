@@ -22,10 +22,10 @@ import traceback
 
 import pandas as pd
 
-from riesgo_comun import (DIR, HEADERS, MATRIZ_AR, MATRIZ_EEUU, ROOT, _get, a_serie, argdatos, asof,
-                          bcra_itcrm, bcra_reservas, cape_multpl, clean, fred, hasta, interp,
+from riesgo_comun import (DIR, MATRIZ_AR, MATRIZ_EEUU, ROOT, _get, a_serie, argdatos, asof,
+                          bcra_itcrm, bcra_reservas, cape_con_respaldo, clean, fred, hasta, interp,
                           lectura_matriz, load_json, muestra, now_ar, percentil, puntaje, rnd,
-                          save_json, yahoo, zona)
+                          save_json, tesoro_real10, yahoo, zona)
 
 ACTUAL = DIR / "actual.json"
 HIST = DIR / "historial.json"
@@ -75,12 +75,12 @@ META = {
     "erp": {"eje": "val", "nombre": "Prima de riesgo de las acciones", "unidad": "% anual", "dec": 2,
             "que": "Rendimiento por ganancias (1 / P/E forward) menos la tasa real del bono a 10 años (TIPS). Cuanto más baja, menos te pagan por el riesgo de tener acciones.",
             "umbrales": "Barato > 4,5% · Justo 3,5–4,5% · Caro 2,5–3,5% · Muy caro < 2,5%",
-            "fuente": "Cálculo propio: FactSet + FRED (DFII10)",
+            "fuente": "Cálculo propio: FactSet + tasa real del Tesoro (FRED DFII10)",
             "url": "https://fred.stlouisfed.org/series/DFII10"},
     "cape": {"eje": "val", "nombre": "CAPE (Shiller P/E)", "unidad": "veces", "dec": 1,
              "que": "Precio sobre el promedio de ganancias reales de 10 años. Anticipa retornos de largo plazo, no el momento de una caída.",
              "umbrales": "Barato < 22 · Justo 22–30 · Caro 30–36 · Muy caro > 36",
-             "fuente": "multpl.com (datos de Robert Shiller), mensual",
+             "fuente": "multpl.com (datos de Robert Shiller), ajustado por el precio diario",
              "url": "https://www.multpl.com/shiller-pe/table/by-month"},
     "concentracion": {"eje": "val", "nombre": "Concentración del índice", "unidad": "pp en 12 meses", "dec": 1,
                       "que": "Cuánto le ganó el S&P 500 (ponderado por tamaño, SPY) al S&P 500 Equal Weight (RSP) en 12 meses, más el nivel histórico de esa relación. Alto = pocas empresas grandes explican la suba.",
@@ -228,24 +228,38 @@ def cargar_datos() -> Datos:
     d = Datos()
 
     def y1():
-        r = yahoo(["^GSPC", "^VIX", "^VIX3M", "BZ=F", "^MERV"], start="1996-01-01")
-        for k, t in {"spx": "^GSPC", "vix": "^VIX", "vix3m": "^VIX3M", "brent": "BZ=F", "merv_sp": "^MERV"}.items():
+        r = yahoo(["^GSPC", "^VIX", "^VIX3M", "BZ=F", "^MERV", "^TNX", "^IRX"], start="1996-01-01")
+        for k, t in {"spx": "^GSPC", "vix": "^VIX", "vix3m": "^VIX3M", "brent": "BZ=F", "merv_sp": "^MERV",
+                     "tnx": "^TNX", "irx": "^IRX"}.items():
             if t in r:
                 d.s[k] = r[t]
         if "spx" not in d.s:
             raise ValueError("sin datos del S&P 500")
 
     def y2():
-        r = yahoo(["SPY", "RSP"], start="2003-05-01", auto_adjust=True)
-        d.s["spy"], d.s["rsp"] = r["SPY"], r["RSP"]
+        r = yahoo(["SPY", "RSP", "HYG", "IEF"], start="2003-05-01", auto_adjust=True)
+        for k in ("SPY", "RSP", "HYG", "IEF"):
+            if k in r:
+                d.s[k.lower()] = r[k]
+        if "spy" not in d.s or "rsp" not in d.s:
+            raise ValueError("faltan SPY o RSP")
 
     d.paso("Yahoo (índices)", y1)
     d.paso("Yahoo (SPY/RSP)", y2)
-    d.paso("FRED tasa real 10 años (DFII10)", lambda: d.s.__setitem__("dfii10", fred("DFII10", "2003-01-01")))
+    def real10():
+        try:
+            d.s["dfii10"] = fred("DFII10", "2003-01-01")
+        except Exception as e:
+            d.err.append(f"FRED DFII10 no respondió ({str(e)[:60]}); se usa la curva real del Tesoro")
+            d.s["dfii10"] = tesoro_real10()
+
+    d.paso("Tasa real 10 años", real10)
     d.paso("FRED High Yield (BAMLH0A0HYM2)", lambda: d.s.__setitem__("hy", fred("BAMLH0A0HYM2", "1997-01-01") * 100))
-    d.paso("FRED spread Baa (BAA10Y)", lambda: d.s.__setitem__("baa", fred("BAA10Y", "1990-01-01")))
-    d.paso("FRED curva 10a-3m (T10Y3M)", lambda: d.s.__setitem__("curva", fred("T10Y3M", "1990-01-01")))
-    d.paso("CAPE (multpl)", lambda: d.s.__setitem__("cape", cape_multpl()))
+    if "hy" not in d.s:
+        d.paso("FRED spread Baa (BAA10Y)", lambda: d.s.__setitem__("baa", fred("BAA10Y", "1990-01-01")))
+    if d.get("tnx") is not None and d.get("irx") is not None:
+        d.s["curva"] = (d.s["tnx"] - d.s["irx"].reindex(d.s["tnx"].index).ffill(limit=5)).dropna()
+    d.paso("CAPE", lambda: d.s.__setitem__("cape", cape_con_respaldo(d.err)))
     d.paso("Amplitud del S&P 500", lambda: cargar_amplitud(d))
 
     # ---- FactSet (carga semanal)
@@ -359,16 +373,33 @@ def i_erp(d, t):
                detalle=[["Rendimiento por ganancias", f"{na(ey, 2)}%"], ["Tasa real 10 años (TIPS)", f"{na(a[1], 2)}%"]])
 
 
-def i_cape(d, t):
+def cape_estimado(d, t):
+    """Último CAPE publicado, ajustado por la variación del S&P 500 desde esa fecha (el promedio de
+    10 años de ganancias casi no se mueve en pocos meses)."""
     s = d.get("cape")
-    a = asof(s, t, 45)
+    a = asof(s, t, 400)
     if not a:
         return None
-    pt = percentil(hasta(s, t), a[1])
-    p90 = percentil(hasta(s, t).loc["1990-01-01":], a[1])
-    return ind("cape", a[1], interp(a[1], A["cape"]), a[0], percentil=rnd(pt, 0), percentil_desde="1881",
-               detalle=[["Percentil desde 1881", f"{na(pt, 0)}"], ["Percentil desde 1990", f"{na(p90, 0)}"],
-                        ["Promedio histórico", f"{na(hasta(s, t).mean(), 1)}"]])
+    f, v = a
+    p0, p1 = asof(d.get("spx"), f, 7), asof(d.get("spx"), t, 7)
+    if p0 and p1 and (t - f).days > 0:
+        return v * p1[1] / p0[1], f, v, True
+    return v, f, v, False
+
+
+def i_cape(d, t):
+    r = cape_estimado(d, t)
+    if not r:
+        return None
+    v, f, publicado, ajustado = r
+    s = hasta(d.get("cape"), t)
+    pt = percentil(s, v)
+    p90 = percentil(s.loc["1990-01-01":], v)
+    det = [["Último publicado", f"{na(publicado, 2)} ({f:%d/%m/%Y})" + (" · ajustado por precio" if ajustado else "")],
+           ["Percentil desde 1872", f"{na(pt, 0)}"], ["Percentil desde 1990", f"{na(p90, 0)}"],
+           ["Promedio histórico", f"{na(s.mean(), 1)}"]]
+    fecha = asof(d.get("spx"), t, 7)[0] if ajustado else f
+    return ind("cape", v, interp(v, A["cape"]), fecha, percentil=rnd(pt, 0), percentil_desde="1872", detalle=det)
 
 
 def i_concentracion(d, t):
@@ -440,10 +471,26 @@ def credito(d, t):
     return None
 
 
+def credito_etf(d, t):
+    """Respaldo sin FRED: bonos High Yield (HYG) contra Tesoro a 7-10 años (IEF), con dividendos."""
+    h, i = d.get("hyg"), d.get("ief")
+    if h is None or i is None:
+        return None
+    r = hasta((h / i.reindex(h.index).ffill(limit=5)).dropna(), t)
+    if len(r) < 260 or (t - r.index[-1]).days > 7:
+        return None
+    dd = (r.iloc[-1] / r.iloc[-252:].max() - 1) * 100
+    c63 = (r.iloc[-1] / r.iloc[-64] - 1) * 100
+    score = max(interp(dd, [(-8, 95), (-5, 75), (-3, 50), (-1.5, 25), (0, 5)]),
+                interp(c63, [(-5, 85), (-3, 60), (-1.5, 35), (0, 0)]))
+    return ind("credito", dd, score, r.index[-1], unidad="% desde el máximo (HYG/IEF)",
+               detalle=[["Serie usada", "HYG / IEF (FRED no respondió)"], ["Cambio en 3 meses", f"{na(c63, 2, True)}%"]])
+
+
 def i_credito(d, t):
     r = credito(d, t)
     if not r:
-        return None
+        return credito_etf(d, t)
     v, cambio, score, f, clave = r
     if clave == "hy":
         det = [["Cambio en 3 meses", f"{na(cambio, 0, True)} pb"]]
@@ -598,7 +645,8 @@ def evaluar(d: Datos, t, fns, pesos_val, pesos_sen, matriz, completo=False):
 def con_meta(i: dict, pesos: dict, serie: pd.Series | None, desde, dec):
     m = META[i["id"]]
     i = dict(i)
-    i.update({k: m[k] for k in ("nombre", "unidad", "que", "umbrales", "fuente", "url", "eje")})
+    for k in ("nombre", "unidad", "que", "umbrales", "fuente", "url", "eje"):
+        i.setdefault(k, m[k])
     i["dec"] = m["dec"]
     i["peso"] = pesos.get(i["id"])
     if serie is not None:
@@ -641,7 +689,16 @@ def serie_indicador(d: Datos, id_: str, t: pd.Timestamp):
     if id_ == "concentracion" and g("spy") is not None and g("rsp") is not None:
         return (g("spy") / g("rsp")).dropna()
     if id_ == "credito":
-        return g("hy") if g("hy") is not None else (g("baa") * 100 if g("baa") is not None else None)
+        if g("hy") is not None:
+            return g("hy")
+        if g("baa") is not None:
+            return g("baa") * 100
+        if g("hyg") is not None and g("ief") is not None:
+            return (g("hyg") / g("ief").reindex(g("hyg").index).ffill(limit=5)).dropna()
+        return None
+    if id_ == "cape":
+        s = g("cape")
+        return s.loc["1990-01-01":] if s is not None else None
     m = {"cape": "cape", "amplitud": "amp200", "tendencia": "spx", "volatilidad": "vix", "merval_usd": "merval_usd",
          "rp_nivel": "rp", "rp_cambio": "rp", "merval_tend": "merval_usd", "reservas": "reservas", "tcr": "tcr", "brecha": "brecha"}
     return g(m[id_]) if id_ in m else None
@@ -728,7 +785,9 @@ def main():
     DIR.mkdir(parents=True, exist_ok=True)
     d = cargar_datos()
     anterior = load_json(ACTUAL, {})
-    out = {"actualizado": now_ar().isoformat(timespec="minutes"), "errores": d.err}
+    out = {"actualizado": now_ar().isoformat(timespec="minutes"), "errores": d.err,
+           "diagnostico": {k: [len(v), v.index[0].strftime("%Y-%m-%d"), v.index[-1].strftime("%Y-%m-%d")]
+                           for k, v in d.s.items() if v is not None and not v.empty}}
 
     spx = d.get("spx")
     if spx is not None and not spx.empty:
