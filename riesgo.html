@@ -421,7 +421,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   function informe() {
     if (!INF || !INF.fecha) return "";
     const ps = (INF.puntos || []).map(p => `<li>${esc(p)}</li>`).join("");
-    return `<section class="sec" id="informe"><div class="sec-head"><h2>Informe semanal</h2><small>Viernes ${fd(INF.fecha)}</small></div>
+    return `<section class="sec" id="informe"><div class="sec-head"><h2>Informe semanal</h2><small>Al ${fd(INF.fecha)} · se actualiza los viernes</small></div>
       <div class="card informe">${INF.titulo ? `<h3>${esc(INF.titulo)}</h3>` : ""}${(INF.parrafos || []).map(p => `<p>${esc(p)}</p>`).join("")}${ps ? `<ul>${ps}</ul>` : ""}
       ${INF.recomendacion ? `<p><b>Recomendación: </b>${esc(INF.recomendacion)}</p>` : ""}</div></section>`;
   }

@@ -1,0 +1,18 @@
+{
+ "fecha": "2026-11-24",
+ "titulo": "EE.UU.: Prudente · Argentina: Defensivo",
+ "parrafos": [
+  "EE.UU. Valuación 63/100 (justo, cerca de caro) y señales 48/100 (atención). La corrección bajó el P/E forward a 17,4 (debajo del promedio de 10 años, 19,1) y las ganancias esperadas siguen subiendo (+2,3% en 4 semanas), pero el CAPE sigue muy caro (38,2, percentil 93 desde 1872) y la prima de riesgo es baja (2,96%) porque la tasa real a 10 años está en 2,79%.",
+  "Las señales empeoraron en noviembre: el S&P 500 está debajo de su media de 50 ruedas y apenas debajo de la de 200, el VIX está en 26,6 con la curva de plazos invertida (VIX por encima del VIX3M) y el crédito High Yield (HYG/IEF) cae 3,6% desde su máximo. La amplitud todavía no es mala: 56% de las empresas sigue sobre su media de 200 días. El 18/09 el modelo marcaba \"caro con señales sanas\" (No perseguir): pedía frenar compras, no vender.",
+  "Argentina. Valuación 64/100 y señales 79/100 (deterioro). La canasta de ADR cayó 44,6% desde su máximo de enero de 2025 y 43% desde junio, pero todavía está en el percentil 78 desde 2014. El riesgo país subió 518 pb en 3 meses (a 1.035), el tipo de cambio real está en el percentil 9 desde 2003 (atraso cambiario) y las reservas bajaron US$ 791 M en 90 días; la brecha (12,9%) es lo único que sigue en zona sana."
+ ],
+ "puntos": [
+  "Plan de reingreso: el mínimo del 20/11 fue −11,6% desde el máximo del 06/10, así que se alcanzó el primer tramo (−10%: 15% de la liquidez). Hoy el índice está −7,4%.",
+  "Indicadores que más empujan en EE.UU.: CAPE (89), VIX (82) y prima de riesgo (77) para arriba; revisiones de EPS (0) y P/E forward (43) para abajo.",
+  "Brent en US$ 89,37, 5,6% debajo de su media de 200 ruedas: viento en contra para VIST, YPF y PAMP.",
+  "Backtesting desde 1991 (modelo reducido): la matriz rindió 10,2% anual contra 11,1% de mantener, con menos volatilidad (13,5% vs 16,7%) y menor peor caída (−46% vs −55%).",
+  "Datos con respaldo: FRED no responde desde GitHub, así que el crédito se mide con HYG/IEF y la tasa real con la curva del Tesoro; el CAPE sale del archivo guardado (multpl.com bloquea a GitHub). El último informe de FactSet cargado es el del 06/11: los del 13/11 y 20/11 los suma la tarea del viernes.",
+  "El tipo de cambio real del BCRA llega con atraso (último dato: 16/10)."
+ ],
+ "recomendacion": "EE.UU.: mantener la exposición sin acelerar compras y usar el primer tramo de reingreso solo en empresas que el valuador marque en precio de compra. Argentina: no sumar y revisar las posiciones más cíclicas mientras el riesgo país y la tendencia no mejoren. Es apoyo para tu decisión, no asesoramiento financiero."
+}
