@@ -1,0 +1,63 @@
+{
+ "_nota": "Un registro por día. Acumulativo: no se borra nada.",
+ "dias": {
+  "2026-11-24": {
+   "eeuu": {
+    "fecha_datos": "2026-11-23",
+    "val": 43.2,
+    "sen": 45.0,
+    "postura": "Prudente",
+    "ind": {
+     "pe_fwd": [
+      17.4,
+      43.3
+     ],
+     "concentracion": [
+      -6.8,
+      43.1
+     ],
+     "amplitud": [
+      55.71,
+      42.7
+     ],
+     "tendencia": [
+      -7.44,
+      65.0
+     ],
+     "volatilidad": [
+      26.62,
+      82.2
+     ],
+     "revisiones": [
+      2.277,
+      0.0
+     ]
+    }
+   },
+   "argentina": {
+    "fecha_datos": "2026-11-23",
+    "val": 39.4,
+    "sen": 68.2,
+    "postura": "Defensivo",
+    "ind": {
+     "rp_nivel": [
+      1035.0,
+      39.4
+     ],
+     "rp_cambio": [
+      518.0,
+      100.0
+     ],
+     "reservas": [
+      -791.0,
+      52.9
+     ],
+     "brecha": [
+      12.89,
+      35.8
+     ]
+    }
+   }
+  }
+ }
+}
