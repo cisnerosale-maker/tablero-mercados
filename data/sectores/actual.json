@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-24T12:43-03:00",
+ "actualizado": "2026-11-25T02:04-03:00",
  "errores": [],
  "fuentes": {
   "worldperatio": "en vivo",
@@ -40,7 +40,7 @@
      "nombre": "P/E",
      "principal": true,
      "no_repr": null,
-     "actual": 15.92,
+     "actual": 15.82,
      "fuente": "worldperatio (ETF XLC)",
      "fecha": "2026-11-24",
      "p3": 19.58,
@@ -60,10 +60,10 @@
        ""
       ]
      ],
-     "comparado": 15.92,
-     "d3": -18.7,
-     "d5": -17.8,
-     "d10": -13.0,
+     "comparado": 15.82,
+     "d3": -19.2,
+     "d5": -18.3,
+     "d10": -13.6,
      "zona": "Barato",
      "nivel": 0
     },
@@ -105,7 +105,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 5.73,
      "dam_año": 2026,
-     "dam_hoy": 5.07,
+     "dam_hoy": 5.08,
      "dam_serie": {
       "2017": 3.32,
       "2018": 3.76,
@@ -125,10 +125,10 @@
        ""
       ]
      ],
-     "comparado": 5.07,
-     "d3": 7.2,
-     "d5": 19.0,
-     "d10": 30.7,
+     "comparado": 5.08,
+     "d3": 7.4,
+     "d5": 19.2,
+     "d10": 30.9,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -146,7 +146,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 17.52,
      "dam_año": 2026,
-     "dam_hoy": 15.81,
+     "dam_hoy": 15.84,
      "dam_serie": {
       "2017": 11.69,
       "2018": 12.31,
@@ -160,10 +160,10 @@
       "2026": 17.52
      },
      "otros": [],
-     "comparado": 15.81,
-     "d3": 2.2,
-     "d5": 9.0,
-     "d10": 14.2,
+     "comparado": 15.84,
+     "d3": 2.4,
+     "d5": 9.2,
+     "d10": 14.5,
      "zona": "Caro",
      "nivel": 2
     },
@@ -174,14 +174,14 @@
      "no_repr": null,
      "actual": 2.22,
      "fuente": "Yahoo (ETF XLC)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 3.91,
      "p5": 3.6,
      "p10": 3.28,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 4.77,
      "dam_año": 2026,
-     "dam_hoy": 4.22,
+     "dam_hoy": 4.23,
      "dam_serie": {
       "2017": 2.59,
       "2018": 2.7,
@@ -195,16 +195,16 @@
       "2026": 4.77
      },
      "otros": [],
-     "comparado": 4.22,
-     "d3": 7.9,
-     "d5": 17.2,
-     "d10": 28.7,
+     "comparado": 4.23,
+     "d3": 8.2,
+     "d5": 17.5,
+     "d10": 29.0,
      "zona": "Muy caro",
      "nivel": 3
     }
    ],
    "principal_fila": "pe",
-   "dif_prom": 9.5,
+   "dif_prom": 9.4,
    "zona": "Caro",
    "nivel": 2,
    "siblis": {
@@ -213,7 +213,7 @@
     "pe_pct": 20.0,
     "div": 0.8
    },
-   "var_desde_enero": -11.5
+   "var_desde_enero": -11.3
   },
   {
    "sector": "Consumer Discretionary",
@@ -226,7 +226,7 @@
      "nombre": "P/E",
      "principal": true,
      "no_repr": null,
-     "actual": 24.15,
+     "actual": 24.18,
      "fuente": "worldperatio (ETF XLY)",
      "fecha": "2026-11-24",
      "p3": 27.41,
@@ -246,10 +246,10 @@
        ""
       ]
      ],
-     "comparado": 24.15,
-     "d3": -11.9,
-     "d5": -9.9,
-     "d10": -4.2,
+     "comparado": 24.18,
+     "d3": -11.8,
+     "d5": -9.8,
+     "d10": -4.1,
      "zona": "En línea",
      "nivel": 1
     },
@@ -291,7 +291,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 7.8,
      "dam_año": 2026,
-     "dam_hoy": 7.63,
+     "dam_hoy": 7.69,
      "dam_serie": {
       "2017": 5.0,
       "2018": 5.86,
@@ -311,10 +311,10 @@
        ""
       ]
      ],
-     "comparado": 7.63,
-     "d3": 27.6,
-     "d5": 24.7,
-     "d10": 27.4,
+     "comparado": 7.69,
+     "d3": 28.6,
+     "d5": 25.7,
+     "d10": 28.4,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -332,7 +332,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 17.79,
      "dam_año": 2026,
-     "dam_hoy": 17.47,
+     "dam_hoy": 17.58,
      "dam_serie": {
       "2017": 13.24,
       "2018": 14.79,
@@ -346,10 +346,10 @@
       "2026": 17.79
      },
      "otros": [],
-     "comparado": 17.47,
-     "d3": 9.0,
-     "d5": 10.0,
-     "d10": 10.6,
+     "comparado": 17.58,
+     "d3": 9.7,
+     "d5": 10.7,
+     "d10": 11.3,
      "zona": "Caro",
      "nivel": 2
     },
@@ -360,14 +360,14 @@
      "no_repr": null,
      "actual": 2.3,
      "fuente": "Yahoo (ETF XLY)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 1.86,
      "p5": 1.9,
      "p10": 1.77,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 2.1,
      "dam_año": 2026,
-     "dam_hoy": 2.06,
+     "dam_hoy": 2.07,
      "dam_serie": {
       "2017": 1.38,
       "2018": 1.51,
@@ -381,16 +381,16 @@
       "2026": 2.1
      },
      "otros": [],
-     "comparado": 2.06,
-     "d3": 10.8,
-     "d5": 8.4,
-     "d10": 16.4,
+     "comparado": 2.07,
+     "d3": 11.3,
+     "d5": 8.9,
+     "d10": 16.9,
      "zona": "Caro",
      "nivel": 2
     }
    ],
    "principal_fila": "pe",
-   "dif_prom": 9.2,
+   "dif_prom": 9.7,
    "zona": "Caro",
    "nivel": 2,
    "siblis": {
@@ -399,7 +399,7 @@
     "pe_pct": 70.0,
     "div": 0.65
    },
-   "var_desde_enero": -2.1
+   "var_desde_enero": -1.4
   },
   {
    "sector": "Consumer Staples",
@@ -412,7 +412,7 @@
      "nombre": "P/E",
      "principal": true,
      "no_repr": null,
-     "actual": 24.44,
+     "actual": 24.54,
      "fuente": "worldperatio (ETF XLP)",
      "fecha": "2026-11-24",
      "p3": 23.7,
@@ -432,10 +432,10 @@
        ""
       ]
      ],
-     "comparado": 24.44,
-     "d3": 3.1,
-     "d5": 4.5,
-     "d10": 15.4,
+     "comparado": 24.54,
+     "d3": 3.5,
+     "d5": 5.0,
+     "d10": 15.9,
      "zona": "Caro",
      "nivel": 2
     },
@@ -518,7 +518,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 15.58,
      "dam_año": 2026,
-     "dam_hoy": 18.01,
+     "dam_hoy": 18.0,
      "dam_serie": {
       "2017": 12.06,
       "2018": 12.95,
@@ -532,10 +532,10 @@
       "2026": 15.58
      },
      "otros": [],
-     "comparado": 18.01,
-     "d3": 16.6,
-     "d5": 21.1,
-     "d10": 28.5,
+     "comparado": 18.0,
+     "d3": 16.5,
+     "d5": 21.0,
+     "d10": 28.4,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -546,7 +546,7 @@
      "no_repr": null,
      "actual": 1.32,
      "fuente": "Yahoo (ETF XLP)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 1.69,
      "p5": 1.56,
      "p10": 1.39,
@@ -576,7 +576,7 @@
     }
    ],
    "principal_fila": "pe",
-   "dif_prom": 28.5,
+   "dif_prom": 28.7,
    "zona": "Muy caro",
    "nivel": 3,
    "siblis": {
@@ -585,7 +585,7 @@
     "pe_pct": 95.0,
     "div": 2.25
    },
-   "var_desde_enero": 18.4
+   "var_desde_enero": 18.3
   },
   {
    "sector": "Energy",
@@ -598,7 +598,7 @@
      "nombre": "P/E",
      "principal": false,
      "no_repr": null,
-     "actual": 17.21,
+     "actual": 17.15,
      "fuente": "worldperatio (ETF XLE)",
      "fecha": "2026-11-24",
      "p3": 15.47,
@@ -618,10 +618,10 @@
        ""
       ]
      ],
-     "comparado": 17.21,
-     "d3": 11.2,
-     "d5": 33.2,
-     "d10": 2.1,
+     "comparado": 17.15,
+     "d3": 10.9,
+     "d5": 32.7,
+     "d10": 1.8,
      "zona": "En línea",
      "nivel": 1
     },
@@ -663,7 +663,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 1.74,
      "dam_año": 2026,
-     "dam_hoy": 2.34,
+     "dam_hoy": 2.35,
      "dam_serie": {
       "2017": 1.91,
       "2018": 1.78,
@@ -683,10 +683,10 @@
        ""
       ]
      ],
-     "comparado": 2.34,
-     "d3": 27.2,
-     "d5": 21.9,
-     "d10": 36.0,
+     "comparado": 2.35,
+     "d3": 27.7,
+     "d5": 22.4,
+     "d10": 36.6,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -704,7 +704,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 7.53,
      "dam_año": 2026,
-     "dam_hoy": 9.74,
+     "dam_hoy": 9.78,
      "dam_serie": {
       "2017": 15.88,
       "2018": 12.13,
@@ -718,10 +718,10 @@
       "2026": 7.53
      },
      "otros": [],
-     "comparado": 9.74,
-     "d3": 46.2,
-     "d5": 40.3,
-     "d10": 12.6,
+     "comparado": 9.78,
+     "d3": 46.8,
+     "d5": 40.9,
+     "d10": 13.1,
      "zona": "Caro",
      "nivel": 2
     },
@@ -732,14 +732,14 @@
      "no_repr": null,
      "actual": 1.71,
      "fuente": "Yahoo (ETF XLE)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 1.23,
      "p5": 1.19,
      "p10": 1.23,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 1.31,
      "dam_año": 2026,
-     "dam_hoy": 1.76,
+     "dam_hoy": 1.77,
      "dam_serie": {
       "2017": 1.83,
       "2018": 1.59,
@@ -753,16 +753,16 @@
       "2026": 1.31
      },
      "otros": [],
-     "comparado": 1.76,
-     "d3": 43.1,
-     "d5": 47.9,
-     "d10": 43.1,
+     "comparado": 1.77,
+     "d3": 43.9,
+     "d5": 48.7,
+     "d10": 43.9,
      "zona": "Muy caro",
      "nivel": 3
     }
    ],
    "principal_fila": "ev_ebitda",
-   "dif_prom": 21.3,
+   "dif_prom": 21.7,
    "zona": "Muy caro",
    "nivel": 3,
    "siblis": {
@@ -771,7 +771,7 @@
     "pe_pct": 76.0,
     "div": 2.19
    },
-   "var_desde_enero": 34.5
+   "var_desde_enero": 35.2
   },
   {
    "sector": "Financials",
@@ -784,7 +784,7 @@
      "nombre": "P/E",
      "principal": false,
      "no_repr": null,
-     "actual": 15.0,
+     "actual": 14.98,
      "fuente": "worldperatio (ETF XLF)",
      "fecha": "2026-11-24",
      "p3": 17.25,
@@ -804,10 +804,10 @@
        ""
       ]
      ],
-     "comparado": 15.0,
-     "d3": -13.0,
-     "d5": -6.0,
-     "d10": 4.6,
+     "comparado": 14.98,
+     "d3": -13.2,
+     "d5": -6.1,
+     "d10": 4.5,
      "zona": "En línea",
      "nivel": 1
     },
@@ -849,7 +849,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 2.22,
      "dam_año": 2026,
-     "dam_hoy": 2.26,
+     "dam_hoy": 2.27,
      "dam_serie": {
       "2017": 1.3,
       "2018": 1.49,
@@ -869,10 +869,10 @@
        ""
       ]
      ],
-     "comparado": 2.26,
-     "d3": 11.3,
-     "d5": 23.5,
-     "d10": 43.0,
+     "comparado": 2.27,
+     "d3": 11.8,
+     "d5": 24.0,
+     "d10": 43.7,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -890,7 +890,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 27.78,
      "dam_año": 2026,
-     "dam_hoy": 28.26,
+     "dam_hoy": 28.36,
      "dam_serie": {
       "2017": 13.18,
       "2018": 13.84,
@@ -904,10 +904,10 @@
       "2026": 27.78
      },
      "otros": [],
-     "comparado": 28.26,
-     "d3": -4.6,
-     "d5": 11.6,
-     "d10": 46.9,
+     "comparado": 28.36,
+     "d3": -4.2,
+     "d5": 12.0,
+     "d10": 47.4,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -918,14 +918,14 @@
      "no_repr": "Los ingresos de un banco no son comparables con los de una empresa industrial.",
      "actual": 3.26,
      "fuente": "Yahoo (ETF XLF)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 3.11,
      "p5": 2.82,
      "p10": 2.61,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 3.39,
      "dam_año": 2026,
-     "dam_hoy": 3.46,
+     "dam_hoy": 3.47,
      "dam_serie": {
       "2017": 2.44,
       "2018": 2.65,
@@ -939,16 +939,16 @@
       "2026": 3.39
      },
      "otros": [],
-     "comparado": 3.46,
-     "d3": 11.3,
-     "d5": 22.7,
-     "d10": 32.6,
+     "comparado": 3.47,
+     "d3": 11.6,
+     "d5": 23.0,
+     "d10": 33.0,
      "zona": "Muy caro",
      "nivel": 3
     }
    ],
    "principal_fila": "pb",
-   "dif_prom": 30.2,
+   "dif_prom": 30.6,
    "zona": "Muy caro",
    "nivel": 3,
    "siblis": {
@@ -957,7 +957,7 @@
     "pe_pct": 76.0,
     "div": 1.6
    },
-   "var_desde_enero": 2.0
+   "var_desde_enero": 2.4
   },
   {
    "sector": "Health Care",
@@ -970,7 +970,7 @@
      "nombre": "P/E",
      "principal": true,
      "no_repr": null,
-     "actual": 29.9,
+     "actual": 30.13,
      "fuente": "worldperatio (ETF XLV)",
      "fecha": "2026-11-24",
      "p3": 28.77,
@@ -990,10 +990,10 @@
        ""
       ]
      ],
-     "comparado": 29.9,
-     "d3": 3.9,
-     "d5": 16.4,
-     "d10": 39.2,
+     "comparado": 30.13,
+     "d3": 4.7,
+     "d5": 17.3,
+     "d10": 40.3,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -1035,7 +1035,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 5.05,
      "dam_año": 2026,
-     "dam_hoy": 5.99,
+     "dam_hoy": 6.03,
      "dam_serie": {
       "2017": 3.9,
       "2018": 4.34,
@@ -1055,10 +1055,10 @@
        ""
       ]
      ],
-     "comparado": 5.99,
-     "d3": 26.9,
-     "d5": 24.3,
-     "d10": 27.7,
+     "comparado": 6.03,
+     "d3": 27.8,
+     "d5": 25.1,
+     "d10": 28.6,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -1076,7 +1076,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 15.36,
      "dam_año": 2026,
-     "dam_hoy": 17.78,
+     "dam_hoy": 17.88,
      "dam_serie": {
       "2017": 12.42,
       "2018": 14.19,
@@ -1090,10 +1090,10 @@
       "2026": 15.36
      },
      "otros": [],
-     "comparado": 17.78,
-     "d3": 15.9,
-     "d5": 19.3,
-     "d10": 21.8,
+     "comparado": 17.88,
+     "d3": 16.6,
+     "d5": 20.0,
+     "d10": 22.5,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -1104,14 +1104,14 @@
      "no_repr": null,
      "actual": 1.66,
      "fuente": "Yahoo (ETF XLV)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 1.75,
      "p5": 1.9,
      "p10": 1.9,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 1.77,
      "dam_año": 2026,
-     "dam_hoy": 2.1,
+     "dam_hoy": 2.11,
      "dam_serie": {
       "2017": 1.6,
       "2018": 1.88,
@@ -1125,16 +1125,16 @@
       "2026": 1.77
      },
      "otros": [],
-     "comparado": 2.1,
-     "d3": 20.0,
-     "d5": 10.5,
-     "d10": 10.5,
+     "comparado": 2.11,
+     "d3": 20.6,
+     "d5": 11.1,
+     "d10": 11.1,
      "zona": "Caro",
      "nivel": 2
     }
    ],
    "principal_fila": "pe",
-   "dif_prom": 27.7,
+   "dif_prom": 28.6,
    "zona": "Muy caro",
    "nivel": 3,
    "siblis": {
@@ -1143,7 +1143,7 @@
     "pe_pct": 88.0,
     "div": 1.44
    },
-   "var_desde_enero": 18.6
+   "var_desde_enero": 19.3
   },
   {
    "sector": "Industrials",
@@ -1221,7 +1221,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 3.86,
      "dam_año": 2026,
-     "dam_hoy": 3.99,
+     "dam_hoy": 4.02,
      "dam_serie": {
       "2017": 3.63,
       "2018": 4.04,
@@ -1241,12 +1241,12 @@
        ""
       ]
      ],
-     "comparado": 3.99,
-     "d3": 9.0,
-     "d5": 7.0,
-     "d10": 6.4,
-     "zona": "En línea",
-     "nivel": 1
+     "comparado": 4.02,
+     "d3": 9.8,
+     "d5": 7.8,
+     "d10": 7.2,
+     "zona": "Caro",
+     "nivel": 2
     },
     {
      "id": "ev_ebitda",
@@ -1262,7 +1262,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 14.81,
      "dam_año": 2026,
-     "dam_hoy": 15.23,
+     "dam_hoy": 15.34,
      "dam_serie": {
       "2017": 12.08,
       "2018": 14.02,
@@ -1276,10 +1276,10 @@
       "2026": 14.81
      },
      "otros": [],
-     "comparado": 15.23,
-     "d3": 15.2,
-     "d5": 12.2,
-     "d10": 11.2,
+     "comparado": 15.34,
+     "d3": 16.0,
+     "d5": 13.0,
+     "d10": 12.1,
      "zona": "Caro",
      "nivel": 2
     },
@@ -1290,14 +1290,14 @@
      "no_repr": null,
      "actual": 2.84,
      "fuente": "Yahoo (ETF XLI)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 2.08,
      "p5": 2.17,
      "p10": 2.1,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 2.31,
      "dam_año": 2026,
-     "dam_hoy": 2.39,
+     "dam_hoy": 2.41,
      "dam_serie": {
       "2017": 1.78,
       "2018": 2.07,
@@ -1311,16 +1311,16 @@
       "2026": 2.31
      },
      "otros": [],
-     "comparado": 2.39,
-     "d3": 14.9,
-     "d5": 10.1,
-     "d10": 13.8,
+     "comparado": 2.41,
+     "d3": 15.9,
+     "d5": 11.1,
+     "d10": 14.8,
      "zona": "Caro",
      "nivel": 2
     }
    ],
    "principal_fila": "ev_ebitda",
-   "dif_prom": 14.1,
+   "dif_prom": 14.8,
    "zona": "Caro",
    "nivel": 2,
    "siblis": {
@@ -1329,7 +1329,7 @@
     "pe_pct": 92.0,
     "div": 1.27
    },
-   "var_desde_enero": 3.3
+   "var_desde_enero": 4.2
   },
   {
    "sector": "Information Technology",
@@ -1342,7 +1342,7 @@
      "nombre": "P/E",
      "principal": true,
      "no_repr": null,
-     "actual": 30.47,
+     "actual": 30.19,
      "fuente": "worldperatio (ETF XLK)",
      "fecha": "2026-11-24",
      "p3": 35.65,
@@ -1362,10 +1362,10 @@
        ""
       ]
      ],
-     "comparado": 30.47,
-     "d3": -14.5,
-     "d5": -7.9,
-     "d10": 14.7,
+     "comparado": 30.19,
+     "d3": -15.3,
+     "d5": -8.7,
+     "d10": 13.7,
      "zona": "Caro",
      "nivel": 2
     },
@@ -1407,7 +1407,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 11.75,
      "dam_año": 2026,
-     "dam_hoy": 12.73,
+     "dam_hoy": 12.82,
      "dam_serie": {
       "2017": 4.16,
       "2018": 5.03,
@@ -1427,10 +1427,10 @@
        ""
       ]
      ],
-     "comparado": 12.73,
-     "d3": 14.0,
-     "d5": 21.7,
-     "d10": 50.7,
+     "comparado": 12.82,
+     "d3": 14.8,
+     "d5": 22.6,
+     "d10": 51.7,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -1448,7 +1448,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 27.06,
      "dam_año": 2026,
-     "dam_hoy": 28.98,
+     "dam_hoy": 29.16,
      "dam_serie": {
       "2017": 12.96,
       "2018": 14.97,
@@ -1462,10 +1462,10 @@
       "2026": 27.06
      },
      "otros": [],
-     "comparado": 28.98,
-     "d3": 9.9,
-     "d5": 21.8,
-     "d10": 45.8,
+     "comparado": 29.16,
+     "d3": 10.5,
+     "d5": 22.5,
+     "d10": 46.7,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -1476,14 +1476,14 @@
      "no_repr": null,
      "actual": 8.87,
      "fuente": "Yahoo (ETF XLK)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 7.54,
      "p5": 6.63,
      "p10": 5.16,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 8.48,
      "dam_año": 2026,
-     "dam_hoy": 9.19,
+     "dam_hoy": 9.25,
      "dam_serie": {
       "2017": 2.77,
       "2018": 3.53,
@@ -1497,16 +1497,16 @@
       "2026": 8.48
      },
      "otros": [],
-     "comparado": 9.19,
-     "d3": 21.9,
-     "d5": 38.6,
-     "d10": 78.1,
+     "comparado": 9.25,
+     "d3": 22.7,
+     "d5": 39.5,
+     "d10": 79.3,
      "zona": "Muy caro",
      "nivel": 3
     }
    ],
    "principal_fila": "pe",
-   "dif_prom": 40.8,
+   "dif_prom": 41.0,
    "zona": "Muy caro",
    "nivel": 3,
    "siblis": {
@@ -1515,7 +1515,7 @@
     "pe_pct": 82.0,
     "div": 0.56
    },
-   "var_desde_enero": 8.3
+   "var_desde_enero": 9.1
   },
   {
    "sector": "Materials",
@@ -1528,7 +1528,7 @@
      "nombre": "P/E",
      "principal": false,
      "no_repr": null,
-     "actual": 21.06,
+     "actual": 21.19,
      "fuente": "worldperatio (ETF XLB)",
      "fecha": "2026-11-24",
      "p3": 24.68,
@@ -1548,10 +1548,10 @@
        ""
       ]
      ],
-     "comparado": 21.06,
-     "d3": -14.7,
-     "d5": -0.8,
-     "d10": 10.4,
+     "comparado": 21.19,
+     "d3": -14.1,
+     "d5": -0.2,
+     "d10": 11.1,
      "zona": "Caro",
      "nivel": 2
     },
@@ -1593,7 +1593,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 3.1,
      "dam_año": 2026,
-     "dam_hoy": 3.39,
+     "dam_hoy": 3.43,
      "dam_serie": {
       "2017": 3.07,
       "2018": 3.41,
@@ -1613,12 +1613,12 @@
        ""
       ]
      ],
-     "comparado": 3.39,
-     "d3": 20.6,
-     "d5": 19.8,
-     "d10": 18.9,
-     "zona": "Caro",
-     "nivel": 2
+     "comparado": 3.43,
+     "d3": 22.1,
+     "d5": 21.2,
+     "d10": 20.4,
+     "zona": "Muy caro",
+     "nivel": 3
     },
     {
      "id": "ev_ebitda",
@@ -1634,7 +1634,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 12.81,
      "dam_año": 2026,
-     "dam_hoy": 13.84,
+     "dam_hoy": 13.97,
      "dam_serie": {
       "2017": 11.06,
       "2018": 11.9,
@@ -1648,10 +1648,10 @@
       "2026": 12.81
      },
      "otros": [],
-     "comparado": 13.84,
-     "d3": 23.0,
-     "d5": 33.7,
-     "d10": 30.8,
+     "comparado": 13.97,
+     "d3": 24.2,
+     "d5": 35.0,
+     "d10": 32.0,
      "zona": "Muy caro",
      "nivel": 3
     },
@@ -1662,14 +1662,14 @@
      "no_repr": null,
      "actual": 1.71,
      "fuente": "Yahoo (ETF XLB)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 1.72,
      "p5": 1.64,
      "p10": 1.54,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 2.02,
      "dam_año": 2026,
-     "dam_hoy": 2.21,
+     "dam_hoy": 2.23,
      "dam_serie": {
       "2017": 1.42,
       "2018": 1.67,
@@ -1683,16 +1683,16 @@
       "2026": 2.02
      },
      "otros": [],
-     "comparado": 2.21,
-     "d3": 28.5,
-     "d5": 34.8,
-     "d10": 43.5,
+     "comparado": 2.23,
+     "d3": 29.7,
+     "d5": 36.0,
+     "d10": 44.8,
      "zona": "Muy caro",
      "nivel": 3
     }
    ],
    "principal_fila": "ev_ebitda",
-   "dif_prom": 26.9,
+   "dif_prom": 28.1,
    "zona": "Muy caro",
    "nivel": 3,
    "siblis": {
@@ -1701,7 +1701,7 @@
     "pe_pct": 70.0,
     "div": 1.52
    },
-   "var_desde_enero": 9.5
+   "var_desde_enero": 10.6
   },
   {
    "sector": "Real Estate",
@@ -1714,7 +1714,7 @@
      "nombre": "P/E",
      "principal": false,
      "no_repr": "Las amortizaciones contables deprimen la ganancia de los REIT: el P/E no sirve. Se usa EV/EBITDA, que se acerca al P/FFO (Nareit publica el P/FFO solo en gráficos).",
-     "actual": 28.29,
+     "actual": 28.46,
      "fuente": "worldperatio (ETF XLRE)",
      "fecha": "2026-11-24",
      "p3": 34.38,
@@ -1734,10 +1734,10 @@
        ""
       ]
      ],
-     "comparado": 28.29,
-     "d3": -17.7,
-     "d5": -17.9,
-     "d10": -25.0,
+     "comparado": 28.46,
+     "d3": -17.2,
+     "d5": -17.4,
+     "d10": -24.5,
      "zona": "Muy barato",
      "nivel": 0
     },
@@ -1779,7 +1779,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 2.05,
      "dam_año": 2026,
-     "dam_hoy": 2.19,
+     "dam_hoy": 2.21,
      "dam_serie": {
       "2017": 2.03,
       "2018": 2.07,
@@ -1799,10 +1799,10 @@
        ""
       ]
      ],
-     "comparado": 2.19,
-     "d3": 7.4,
-     "d5": 0.9,
-     "d10": 3.3,
+     "comparado": 2.21,
+     "d3": 8.3,
+     "d5": 1.8,
+     "d10": 4.2,
      "zona": "En línea",
      "nivel": 1
     },
@@ -1820,7 +1820,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 19.47,
      "dam_año": 2026,
-     "dam_hoy": 20.57,
+     "dam_hoy": 20.75,
      "dam_serie": {
       "2017": 19.99,
       "2018": 20.44,
@@ -1834,10 +1834,10 @@
       "2026": 19.47
      },
      "otros": [],
-     "comparado": 20.57,
-     "d3": 4.1,
-     "d5": -1.5,
-     "d10": -0.9,
+     "comparado": 20.75,
+     "d3": 5.0,
+     "d5": -0.6,
+     "d10": -0.0,
      "zona": "En línea",
      "nivel": 1
     },
@@ -1848,14 +1848,14 @@
      "no_repr": null,
      "actual": 5.45,
      "fuente": "Yahoo (ETF XLRE)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 4.74,
      "p5": 5.12,
      "p10": 5.33,
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 4.52,
      "dam_año": 2026,
-     "dam_hoy": 4.82,
+     "dam_hoy": 4.87,
      "dam_serie": {
       "2017": 5.35,
       "2018": 5.82,
@@ -1869,16 +1869,16 @@
       "2026": 4.52
      },
      "otros": [],
-     "comparado": 4.82,
-     "d3": 1.7,
-     "d5": -5.9,
-     "d10": -9.6,
+     "comparado": 4.87,
+     "d3": 2.7,
+     "d5": -4.9,
+     "d10": -8.6,
      "zona": "Barato",
      "nivel": 0
     }
    ],
    "principal_fila": "ev_ebitda",
-   "dif_prom": -2.0,
+   "dif_prom": -1.1,
    "zona": "En línea",
    "nivel": 1,
    "siblis": {
@@ -1887,7 +1887,7 @@
     "pe_pct": 77.0,
     "div": 3.52
    },
-   "var_desde_enero": 6.6
+   "var_desde_enero": 7.7
   },
   {
    "sector": "Utilities",
@@ -1900,7 +1900,7 @@
      "nombre": "P/E",
      "principal": false,
      "no_repr": null,
-     "actual": 18.03,
+     "actual": 17.98,
      "fuente": "worldperatio (ETF XLU)",
      "fecha": "2026-11-24",
      "p3": 20.62,
@@ -1920,10 +1920,10 @@
        ""
       ]
      ],
-     "comparado": 18.03,
-     "d3": -12.6,
-     "d5": -12.1,
-     "d10": -5.8,
+     "comparado": 17.98,
+     "d3": -12.8,
+     "d5": -12.3,
+     "d10": -6.1,
      "zona": "En línea",
      "nivel": 1
     },
@@ -2006,7 +2006,7 @@
      "prom_fuente": "Damodaran (eneros 2017–2026)",
      "dam_ultimo": 12.74,
      "dam_año": 2026,
-     "dam_hoy": 12.94,
+     "dam_hoy": 12.92,
      "dam_serie": {
       "2017": 10.73,
       "2018": 11.07,
@@ -2020,10 +2020,10 @@
       "2026": 12.74
      },
      "otros": [],
-     "comparado": 12.94,
-     "d3": 5.1,
-     "d5": 1.9,
-     "d10": 6.4,
+     "comparado": 12.92,
+     "d3": 5.0,
+     "d5": 1.7,
+     "d10": 6.2,
      "zona": "En línea",
      "nivel": 1
     },
@@ -2034,7 +2034,7 @@
      "no_repr": null,
      "actual": 2.51,
      "fuente": "Yahoo (ETF XLU)",
-     "fecha": "2026-11-24",
+     "fecha": "2026-11-25",
      "p3": 2.5,
      "p5": 2.52,
      "p10": 2.4,
@@ -2064,7 +2064,7 @@
     }
    ],
    "principal_fila": "ev_ebitda",
-   "dif_prom": 7.3,
+   "dif_prom": 7.1,
    "zona": "Caro",
    "nivel": 2,
    "siblis": {
@@ -2073,7 +2073,7 @@
     "pe_pct": 80.0,
     "div": 2.89
    },
-   "var_desde_enero": 1.9
+   "var_desde_enero": 1.7
   }
  ]
 }
