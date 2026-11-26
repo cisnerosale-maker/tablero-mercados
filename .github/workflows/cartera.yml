@@ -1,0 +1,67 @@
+name: Cartera
+
+on:
+  schedule:
+    # Cada 30 minutos de lunes a viernes, de 10:15 a 18:45 hora argentina
+    - cron: "15,45 13-21 * * 1-5"
+    # Después del cierre: 19:15 hora argentina (recalcula ratios, beta y bases del día)
+    - cron: "15 22 * * 1-5"
+  push:
+    paths:
+      - "scripts/update_cartera.py"
+      - "data/cartera/activos.json"
+      - "data/cartera/flujos.json"
+      - "data/cartera/control.json"
+      - "data/cartera/manual.json"
+      - ".github/workflows/cartera.yml"
+  workflow_dispatch:
+    inputs:
+      fund:
+        description: "Recalcular ratios y beta"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cartera
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Buscar precios, ratios y bonos
+        run: |
+          if [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.fund }}" = "true" ] || [ "${{ github.event.schedule }}" = "15 22 * * 1-5" ]; then
+            python scripts/update_cartera.py --fund
+          else
+            python scripts/update_cartera.py
+          fi
+
+      - name: Guardar datos
+        run: |
+          git config user.name "tablero-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cartera/datos.json data/cartera/fundamentos.json data/cartera/historial.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Cartera $(TZ=America/Argentina/Buenos_Aires date +'%d/%m %H:%M')"
+            for i in 1 2 3; do
+              git pull --rebase && git push && break
+              sleep 10
+            done
+          fi

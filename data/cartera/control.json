@@ -1,0 +1,4 @@
+{
+ "_nota": "Valores de control tomados de TIKR (lista SEGUIMIENTO NIVELES o página de la empresa). La página compara contra Yahoo y avisa si difieren más de 15%. Si 'usar' es true, la página usa estos valores en lugar de los de Yahoo.",
+ "empresas": {}
+}
