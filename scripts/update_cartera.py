@@ -44,6 +44,7 @@ DATA_TABLERO = ROOT / "data" / "data.json"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Tablero de Mercados; cartera)"}
 TZ = dt.timezone(dt.timedelta(hours=-3))
 HORAS_FUND = 20  # cada cuántas horas se recalculan ratios y beta
+VERSION_BASES = 2  # cambiar si cambia el cálculo de la historia, para no reusar las bases del día
 
 
 # ---------------------------------------------------------------- utilidades
@@ -273,6 +274,58 @@ def fci_en_fecha(fecha_iso: str, avisos, cache, adelante=False):
         if cache[k]:
             return cache[k], f.isoformat()
     return [], None
+
+
+def fci_ytd_iol(diag):
+    """%YTD de los fondos que lista IOL en su panel público: {símbolo: %}."""
+    from bs4 import BeautifulSoup
+    out = {}
+    try:
+        r = requests.get("https://iol.invertironline.com/mercado/cotizaciones/argentina/fondos", headers=HEADERS, timeout=40)
+        soup = BeautifulSoup(r.text, "html.parser")
+        heads = [th.get_text(" ", strip=True).lower() for th in soup.select("table thead th")]
+        iy = next((i for i, h in enumerate(heads) if "ytd" in h), 6)
+        for tr in soup.select("table tbody tr"):
+            tds = [td.get_text(" ", strip=True) for td in tr.find_all("td")]
+            if len(tds) > iy and tds[0]:
+                sym = tds[0].split()[0]
+                v = tds[iy].replace("%", "").replace(".", "").replace(",", ".").strip()
+                if num(v) is not None:
+                    out[sym] = num(v)
+    except Exception as e:  # noqa: BLE001
+        diag["fci_iol"] = str(e)[:200]
+    diag["fci_iol_n"] = len(out)
+    return out
+
+
+def fci_ytd_cafci(nombres: dict, diag):
+    """%YTD desde la ficha de la Cámara de FCI (CAFCI). nombres: {ticker: [busca, clase]}."""
+    out = {}
+    h = {**HEADERS, "Referer": "https://www.cafci.org.ar/", "Origin": "https://www.cafci.org.ar"}
+    try:
+        lista = requests.get("https://api.cafci.org.ar/fondo?estado=1&include=clase_fondo&limit=0", headers=h, timeout=60).json().get("data", [])
+    except Exception as e:  # noqa: BLE001
+        diag["fci_cafci"] = str(e)[:200]
+        return out
+    for tk, (busca, clase) in nombres.items():
+        try:
+            f = next((x for x in lista if any(norm(b) == norm(x.get("nombre", "")) or norm(b) in norm(x.get("nombre", "")) for b in busca)), None)
+            if not f:
+                continue
+            cl = f.get("clase_fondos") or f.get("claseFondos") or []
+            c = next((c for c in cl if clase and norm(c.get("nombre", "")).endswith(f" {clase}")), cl[0] if cl else None)
+            if not c:
+                continue
+            fi = requests.get(f"https://api.cafci.org.ar/fondo/{f['id']}/clase/{c['id']}/ficha", headers=h, timeout=60).json()
+            rend = (((fi.get("data") or {}).get("info") or {}).get("diaria") or {}).get("rendimientos") or {}
+            diag.setdefault("cafci_claves", list(rend.keys()))
+            y = rend.get("year") or rend.get("ytd") or {}
+            v = num(str(y.get("rendimiento", "")).replace(",", ".")) if isinstance(y, dict) else None
+            if v is not None:
+                out[tk] = v
+        except Exception as e:  # noqa: BLE001
+            diag.setdefault("fci_cafci_err", []).append(f"{tk}: {str(e)[:120]}")
+    return out
 
 
 # ---------------------------------------------------------------- bonos
@@ -620,11 +673,10 @@ def main():
     fci_pen = fci_lista("penultimo", avisos)
     fci_30, f30 = fci_en_fecha(fb["d30"], avisos, fci_cache)
     fci_an, fan = fci_en_fecha(fb["anio"], avisos, fci_cache, adelante=True)
-    if fci_hoy:
-        diag["fci_ejemplo"] = fci_hoy[0]
+    fci_sin_anio = None  # se calcula solo si hace falta
 
     bc_all = hist.get("bases", {})
-    bases_hoy = bc_all.get("valores", {}) if bc_all.get("fecha") == d.isoformat() else {}
+    bases_hoy = bc_all.get("valores", {}) if bc_all.get("fecha") == d.isoformat() and bc_all.get("version") == VERSION_BASES else {}
 
     tipo_hist = {"arg_stocks": "stocks", "arg_cedears": "cedears", "arg_bonds": "bonds", "arg_corp": "bonds"}
 
@@ -655,6 +707,16 @@ def main():
                     r["p30"], r["f30"] = (p30[0], f30) if p30 else (None, None)
                     r["panio"], r["fanio"] = (pan_[0], fan) if pan_ else (None, None)
                     r["fuente"] = "argentinadatos.com (CAFCI)"
+                    if r.get("panio") is None:
+                        if fci_sin_anio is None:
+                            fci_sin_anio = fci_ytd_iol(diag)
+                            pend = {x["ticker"]: (x["fci_busca"], (x["nombre"].lower().split(" - clase ") + [""])[1][:1])
+                                    for x in activos if x["tipo"] == "FCI" and x["ticker"] not in fci_sin_anio}
+                            fci_sin_anio.update(fci_ytd_cafci(pend, diag))
+                        ytd = fci_sin_anio.get(a["ticker"])
+                        if ytd is not None and r.get("precio"):
+                            r["panio"], r["fanio"] = r["precio"] / (1 + ytd / 100), fb["anio"]
+                            r["anio_por_ytd"] = ytd
                 else:
                     avisos.append(f"{a['ticker']}: no se encontró el fondo en argentinadatos")
             else:
@@ -720,7 +782,7 @@ def main():
         res[aid] = {k: (rnd(v, 6) if isinstance(v, float) else v) for k, v in r.items()}
 
     # Bases del día (30 días y año) para no pedir la historia en cada corrida
-    hist["bases"] = {"fecha": d.isoformat(), "valores": {
+    hist["bases"] = {"fecha": d.isoformat(), "version": VERSION_BASES, "valores": {
         k: {x: v[x] for x in ("p30", "f30", "panio", "fanio") if v.get(x) is not None}
         for k, v in res.items() if v.get("p30") and v.get("panio") and not v.get("base_propia")}}
 
