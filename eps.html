@@ -579,7 +579,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
         const nuevo = conV[conV.length - 1];
         const lim = new Date(Date.parse(nuevo.fecha) - 90 * 864e5).toISOString().slice(0, 10);
         const viejo = [...conV].reverse().find(f => f.fecha <= lim) || conV[0];
-        if (viejo !== nuevo && val(viejo)) out.rev = { v: val(nuevo) / val(viejo) - 1, desde: viejo.fecha, fin: obj.fin };
+        if (viejo !== nuevo && val(viejo) && Date.parse(nuevo.fecha) - Date.parse(viejo.fecha) >= 7 * 864e5) out.rev = { v: val(nuevo) / val(viejo) - 1, desde: viejo.fecha, fin: obj.fin };
       }
     }
     return out;
