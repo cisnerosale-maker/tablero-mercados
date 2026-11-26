@@ -1,4 +1,209 @@
 {
- "_nota": "Valores de control tomados de TIKR (lista SEGUIMIENTO NIVELES o página de la empresa). La página compara contra Yahoo y avisa si difieren más de 15%. Si 'usar' es true, la página usa estos valores en lugar de los de Yahoo.",
- "empresas": {}
+ "_nota": "Valores de control tomados de TIKR. La página avisa si Yahoo difiere más de 15%. En 'usar' van los ratios que se toman de TIKR en lugar de Yahoo (pe_ltm, pe_ntm, ev_ebitda); la página los ajusta por la variación del precio desde la fecha de carga.",
+ "empresas": {
+  "NVDA": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 149.3,
+   "pe_ltm": 16.04,
+   "pe_ntm": 10.3,
+   "ev_ebitda": 14.57,
+   "usar": []
+  },
+  "META": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 609.89,
+   "pe_ltm": 20.8,
+   "pe_ntm": 18.76,
+   "ev_ebitda": 13.7,
+   "usar": []
+  },
+  "GOOGL": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 273.1,
+   "pe_ltm": 14.26,
+   "pe_ntm": 19.5,
+   "ev_ebitda": 17.51,
+   "usar": []
+  },
+  "V": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 424.39,
+   "pe_ltm": 34.72,
+   "pe_ntm": 28.23,
+   "ev_ebitda": 25.44,
+   "usar": []
+  },
+  "MSFT": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 489.93,
+   "pe_ltm": 25.58,
+   "pe_ntm": 23.6,
+   "ev_ebitda": 18.03,
+   "usar": []
+  },
+  "TSM": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 342.34,
+   "pe_ltm": 22.41,
+   "pe_ntm": 15.38,
+   "ev_ebitda": 14.68,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  },
+  "ONON": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 31.5,
+   "pe_ltm": 19.62,
+   "pe_ntm": 15.99,
+   "ev_ebitda": 14.09,
+   "usar": []
+  },
+  "BABA": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 86.26,
+   "pe_ltm": 12.23,
+   "pe_ntm": 10.14,
+   "ev_ebitda": 10.45,
+   "usar": []
+  },
+  "SFM": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 53.32,
+   "pe_ltm": 10.23,
+   "pe_ntm": 12.33,
+   "ev_ebitda": 8.2,
+   "usar": []
+  },
+  "AMZN": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 244.43,
+   "pe_ltm": 19.75,
+   "pe_ntm": 23.68,
+   "ev_ebitda": 15.42,
+   "usar": []
+  },
+  "AMD": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 406.03,
+   "pe_ltm": 86.8,
+   "pe_ntm": 26.92,
+   "ev_ebitda": 59.76,
+   "usar": []
+  },
+  "ADBE": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 232.83,
+   "pe_ltm": 12.99,
+   "pe_ntm": 8.68,
+   "ev_ebitda": 9.25,
+   "usar": []
+  },
+  "BRK-B": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 579.32,
+   "pe_ltm": null,
+   "pe_ntm": 25.56,
+   "ev_ebitda": 8.26,
+   "usar": [],
+   "nota": "TIKR muestra P/E LTM 0,01x (dato erróneo): no se usa."
+  },
+  "RIO": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 74.58,
+   "pe_ltm": 10.1,
+   "pe_ntm": 9.18,
+   "ev_ebitda": 6.26,
+   "usar": []
+  },
+  "MELI": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 1467.3,
+   "pe_ltm": 39.36,
+   "pe_ntm": 33.04,
+   "ev_ebitda": 21.1,
+   "usar": []
+  },
+  "AXP": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 312.39,
+   "pe_ltm": 17.62,
+   "pe_ntm": 16.11,
+   "ev_ebitda": null,
+   "usar": []
+  },
+  "GGAL": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 26.66,
+   "pe_ltm": 16.13,
+   "pe_ntm": 6.1,
+   "ev_ebitda": null,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  },
+  "VIST": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 50.16,
+   "pe_ltm": 7.01,
+   "pe_ntm": 3.23,
+   "ev_ebitda": 3.32,
+   "usar": []
+  },
+  "BBD": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 2.43,
+   "pe_ltm": 5.08,
+   "pe_ntm": 5.1,
+   "ev_ebitda": null,
+   "usar": []
+  },
+  "BMA": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 50.35,
+   "pe_ltm": 12.48,
+   "pe_ntm": 6.12,
+   "ev_ebitda": null,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  },
+  "YPF": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 31.45,
+   "pe_ltm": 5.88,
+   "pe_ntm": 4.72,
+   "ev_ebitda": 2.91,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  },
+  "PAM": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 62.32,
+   "pe_ltm": 4.98,
+   "pe_ntm": 6.98,
+   "ev_ebitda": 5.58,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  }
+ }
 }

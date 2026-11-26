@@ -454,7 +454,20 @@ def fundamentos_de(acc_fund: str, meta: dict, ccl: float, local_price, avisos):
     ni_names = ["Net Income Common Stockholders", "Net Income", "Net Income Including Noncontrolling Interests"]
     ebitda_names = ["EBITDA", "Normalized EBITDA"]
     ni, nq = fila(q, ni_names)
-    eb, ne = fila(q, ebitda_names)
+    # EBITDA operativo = resultado operativo + amortizaciones (como TIKR); el "EBITDA" de Yahoo incluye otros ingresos
+    oi, noi = fila(q, ["Operating Income", "Total Operating Income As Reported"])
+    da, nda = fila(q, ["Reconciled Depreciation"])
+    if nda < 4:
+        try:
+            da, nda = fila(tk.quarterly_cashflow, ["Depreciation And Amortization", "Depreciation Amortization Depletion"])
+        except Exception:  # noqa: BLE001
+            da, nda = None, 0
+    if noi >= 4 and nda >= 4 and oi is not None and da is not None:
+        eb, ne = oi + da, 4
+        r["ebitda_metodo"] = "resultado operativo + amortizaciones (4 trimestres)"
+    else:
+        eb, ne = fila(q, ebitda_names)
+        r["ebitda_metodo"] = "EBITDA de Yahoo"
     base = "LTM (4 trimestres)"
     if nq < 4:
         if num(info.get("netIncomeToCommon")) is not None:

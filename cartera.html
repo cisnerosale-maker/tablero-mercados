@@ -373,9 +373,15 @@ details.cfg ol { margin: 4px 0 0; padding-left: 20px; font-size: 13.5px; }
     F.avisos = (F.avisos || []).slice();
     if (C) {
       const dif = (x, y) => x && y ? Math.abs(x / y - 1) : 0;
-      if (dif(F.pe_ltm, C.pe_ltm) > 0.15 || dif(F.pe_ntm, C.pe_ntm) > 0.15 || dif(F.ev_ebitda, C.ev_ebitda) > 0.15)
-        F.avisos.push(`TIKR (${dmy(C.fecha)}): P/E LTM ${fmt(C.pe_ltm, 1)}, NTM ${fmt(C.pe_ntm, 1)}, EV/EBITDA ${fmt(C.ev_ebitda, 1)}`);
-      if (C.usar) { ["pe_ltm", "pe_ntm", "ev_ebitda"].forEach(k => { if (C[k] != null) F[k] = C[k]; }); F.fuente = "TIKR " + dmy(C.fecha); }
+      const usarL = Array.isArray(C.usar) ? C.usar : [];
+      const difs = ["pe_ltm", "pe_ntm", "ev_ebitda"].filter(k => !usarL.includes(k) && dif(F[k], C[k]) > 0.15);
+      if (difs.length) F.avisos.push(`Difiere de TIKR (${dmy(C.fecha)}): P/E LTM ${fmt(C.pe_ltm, 1)}, NTM ${fmt(C.pe_ntm, 1)}, EV/EBITDA ${fmt(C.ev_ebitda, 1)} — verificar`);
+      const usar = Array.isArray(C.usar) ? C.usar : (C.usar ? ["pe_ltm", "pe_ntm", "ev_ebitda"] : []);
+      const ajuste = F.precio && C.precio ? F.precio / C.precio : 1;  // se ajusta por la variación del precio desde la carga
+      const nom = { pe_ltm: "P/E LTM", pe_ntm: "P/E NTM", ev_ebitda: "EV/EBITDA" };
+      const us = usar.filter(k => C[k] != null);
+      us.forEach(k => { F[k] = C[k] * ajuste; });
+      if (us.length) F.avisos.push(`${us.map(k => nom[k]).join(", ")}: de TIKR (${dmy(C.fecha)}), ajustado por precio`);
     }
     if (a.financiera) F.ev_ebitda = null;
     if (a.fund_local) F.avisos.unshift("Sin ADR: datos locales en pesos (BYMA y balances de TGN)");
