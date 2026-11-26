@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Cartera · Tablero de Mercados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Misma estética que el tablero: fondo celeste, tarjetas blancas, números en monoespaciada */
+:root {
+  --bg: #DDEBF7; --surface: #FFFFFF; --sunken: #EAF2FA; --ink: #14202C; --muted: #4F6378; --line: #C3D6E8;
+  --accent: #1F5E8C; --brand: #1F4E79; --up: #1E7A4C; --down: #B42318; --warn: #A15C07; --bar: #2a78d6;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-data: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0D1724; --surface: #142131; --sunken: #111C2A; --ink: #E3ECF5; --muted: #93A6BA; --line: #26374B;
+    --accent: #6FB2E6; --brand: #8DBDEB; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A; --bar: #3987e5;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.45;
+  padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left));
+}
+.wrap { max-width: 1320px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 700; letter-spacing: -0.01em; color: var(--brand); }
+h2 { font-size: 20px; font-weight: 700; }
+h3 { font-size: 16px; font-weight: 700; }
+.num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+[hidden] { display: none !important; }
+a { color: var(--accent); }
+
+header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+nav.tabs a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 5px; }
+nav.tabs a[aria-current="page"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+.seg button { font: inherit; font-size: 14px; font-weight: 600; border: 0; background: transparent; color: var(--muted); padding: 6px 12px; border-radius: 5px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--sunken); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+button.btn { font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 12px; border-radius: 6px; cursor: pointer; }
+button.btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { button.btn.primary { color: #0D1724; } }
+button.btn:disabled { opacity: .5; cursor: default; }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--muted); }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.kpi .k { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.kpi .v { font-family: var(--f-data); font-size: 20px; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi .s { font-size: 12px; color: var(--muted); font-family: var(--f-data); }
+.kpi.hero { border-left: 4px solid var(--accent); grid-column: span 2; }
+.kpi.hero .v { font-size: 24px; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card p { margin: 0; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 14px; }
+.note { font-size: 12.5px; color: var(--muted); }
+.banner { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warn); padding: 12px 14px; border-radius: 6px; }
+.banner.ok { border-left-color: var(--up); }
+
+table.t { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.t th, table.t td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+table.t th:first-child, table.t td:first-child { text-align: left; }
+table.t th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; vertical-align: bottom; }
+table.t td { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+table.t td.txt { font-family: var(--f-body); }
+table.t tr.grp td { background: var(--sunken); font-weight: 600; }
+table.t tr.tot td { background: var(--sunken); font-weight: 700; border-top: 2px solid var(--line); }
+table.t tr.cero td { opacity: .45; }
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sticky th:first-child, .sticky td:first-child { position: sticky; left: 0; background: var(--surface); z-index: 1; }
+.sticky tr.grp td:first-child, .sticky tr.tot td:first-child { background: var(--sunken); }
+.up { color: var(--up); } .down { color: var(--down); } .warn { color: var(--warn); }
+.tag { font-family: var(--f-body); font-size: 11px; font-weight: 600; padding: 0 6px; border-radius: 3px; border: 1px solid var(--line); color: var(--muted); }
+.tag.warn { color: var(--warn); border-color: currentColor; }
+.tag.down { color: var(--down); border-color: currentColor; }
+.tag.up { color: var(--up); border-color: currentColor; }
+.tk { font-family: var(--f-body); font-weight: 600; }
+.tk small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; max-width: 210px; overflow: hidden; text-overflow: ellipsis; }
+input.q { font: inherit; font-family: var(--f-data); font-size: 13px; width: 92px; text-align: right; padding: 3px 5px; border: 1px solid var(--line); border-radius: 4px; background: var(--sunken); color: var(--ink); }
+input.q.dirty { border-color: var(--warn); }
+select.cat { font: inherit; font-size: 12.5px; padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--sunken); color: var(--ink); }
+.ico { cursor: help; }
+
+.bars { display: flex; flex-direction: column; gap: 6px; }
+.bar { display: grid; grid-template-columns: minmax(110px, 38%) 1fr 62px; gap: 8px; align-items: center; font-size: 13px; }
+.bar .lab { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar .tr { background: var(--sunken); border-radius: 3px; height: 12px; overflow: hidden; }
+.bar .fi { background: var(--bar); height: 100%; }
+.bar .pc { font-family: var(--f-data); text-align: right; }
+
+ul.alertas { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+ul.alertas li.r { color: var(--down); } ul.alertas li.a { color: var(--warn); }
+
+.lock { max-width: 440px; margin: 40px auto; }
+.lock input[type=password], .cfg input[type=password], .cfg input[type=text] { font: inherit; width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--sunken); color: var(--ink); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+details.cfg { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; }
+details.cfg summary { cursor: pointer; font-weight: 600; }
+details.cfg .in { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+details.cfg ol { margin: 4px 0 0; padding-left: 20px; font-size: 13.5px; }
+.efe { display: grid; grid-template-columns: auto repeat(2, minmax(110px, 160px)); gap: 6px 10px; align-items: center; font-size: 14px; }
+.efe input { width: 100%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span style="color:var(--brand)">Estudio Cisneros</span><span class="muted" style="font-weight:600"> · Marcos Juárez</span></div>
+      <h1>Cartera consolidada</h1>
+      <div class="muted" style="font-size:13.5px;margin-top:6px">IOL + PPI + IBKR, en pesos y en dólares MEP: valor, rendimientos, múltiplos, beta, límites y bonos.</div>
+    </div>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="index.html">Mercados</a>
+      <a href="eps.html">Precio vs EPS</a>
+      <a href="riesgo.html">Riesgo de mercado</a>
+      <a href="sectores.html">Sectores</a>
+      <a href="cartera.html" aria-current="page">Cartera</a>
+    </nav>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <!-- Contraseña -->
+  <section class="card lock" id="lock" hidden>
+    <h2>Cartera protegida</h2>
+    <p class="muted" style="font-size:14px">Las cantidades están guardadas cifradas. Ingresá la contraseña para verlas. Se pide una sola vez por aparato.</p>
+    <form id="lockForm" style="display:flex;flex-direction:column;gap:10px">
+      <input type="password" id="pw" autocomplete="current-password" placeholder="Contraseña" aria-label="Contraseña" required>
+      <label class="chk"><input type="checkbox" id="pwRec" checked> Recordar en este aparato</label>
+      <div class="row"><button class="btn primary" type="submit">Abrir</button><span id="lockMsg" class="muted" style="font-size:13px"></span></div>
+    </form>
+  </section>
+
+  <main id="main" hidden style="display:flex;flex-direction:column;gap:20px">
+    <div class="controls">
+      <div class="seg" id="selVista" role="group" aria-label="Vista de la tabla">
+        <button type="button" data-v="pos" aria-pressed="true">Posición</button>
+        <button type="button" data-v="ren" aria-pressed="false">Rendimiento</button>
+        <button type="button" data-v="val" aria-pressed="false">Valuación</button>
+      </div>
+      <label class="chk"><input type="checkbox" id="ocultarCero" checked> Ocultar sin tenencia</label>
+      <span style="flex:1"></span>
+      <button class="btn primary" id="btnGuardar" type="button" hidden>Guardar cambios</button>
+      <button class="btn" id="btnExcel" type="button">Exportar a Excel</button>
+    </div>
+    <div id="estado" class="note"></div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <section class="card" id="alertasCard">
+      <h2>Alertas</h2>
+      <ul class="alertas" id="alertas"></ul>
+    </section>
+
+    <section class="card">
+      <div class="row" style="justify-content:space-between"><h2>Activos</h2><span class="note" id="notaTabla"></span></div>
+      <div class="scroll sticky"><table class="t" id="tabla"></table></div>
+      <p class="note">El % de cada activo es el mismo en pesos y en dólares, porque todo se convierte al mismo dólar MEP. Lo que cambia entre pesos y dólares es el rendimiento.</p>
+    </section>
+
+    <section class="card">
+      <h2>Rubros</h2>
+      <div class="scroll sticky"><table class="t" id="tablaRubros"></table></div>
+      <p class="note">Múltiplos ponderados por importe (promedio armónico: lo que paga la cartera por cada peso de ganancia). Solo acciones y CEDEARs; los que no aplican o tienen ganancia negativa quedan afuera. "Cob." = porcentaje del rubro que entra en el cálculo.</p>
+    </section>
+
+    <div class="grid2">
+      <section class="card">
+        <h2>Límites por posición</h2>
+        <div class="scroll"><table class="t" id="tablaLim"></table></div>
+        <p class="note">% sobre el total de la cartera, sumando la empresa en todos sus formatos (CEDEAR, acción directa y acción local). Límite / recorte según la categoría; la categoría se puede cambiar desde la tabla.</p>
+      </section>
+      <section class="card">
+        <h2>Topes globales</h2>
+        <div class="scroll"><table class="t" id="tablaTopes"></table></div>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2>Bonos y obligaciones negociables</h2>
+      <div class="scroll sticky"><table class="t" id="tablaBonos"></table></div>
+      <p class="note">TIR, duration y paridad calculadas con el precio en dólares (especie D) y los flujos de emisión, liquidación a 24 h. Los rendimientos incluyen la renta y amortización cobradas. Precio por cada 100 de valor nominal original.</p>
+    </section>
+
+    <section class="card">
+      <h2>Composición</h2>
+      <div class="grid2" id="compo"></div>
+    </section>
+
+    <section class="card">
+      <h2>Efectivo por broker</h2>
+      <div class="efe" id="efectivo"></div>
+      <p class="note">Se suma al total y a los porcentajes. Cargalo cuando cambie.</p>
+    </section>
+
+    <details class="cfg" id="cfg">
+      <summary>Ajustes de este aparato (guardar en GitHub, contraseña, respaldo)</summary>
+      <div class="in">
+        <div>
+          <h3>Guardar cambios para todos tus aparatos</h3>
+          <p class="note" id="ghEstado"></p>
+          <p class="note">Hace falta una clave de acceso de GitHub limitada a este repositorio. Se crea una sola vez y se pega en cada aparato:</p>
+          <ol>
+            <li>Entrá a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (con tu cuenta).</li>
+            <li>Nombre: <b>Cartera tablero</b>. Vencimiento: el más largo que te ofrezca.</li>
+            <li>En <b>Repository access</b> elegí <b>Only select repositories</b> → <b>tablero-mercados</b>.</li>
+            <li>En <b>Permissions → Repository permissions</b>, <b>Contents</b>: <b>Read and write</b>. Nada más.</li>
+            <li>Tocá <b>Generate token</b>, copiá la clave y pegala acá abajo.</li>
+          </ol>
+          <div class="row" style="margin-top:8px"><input type="password" id="ghTok" placeholder="github_pat_…" aria-label="Clave de GitHub" style="max-width:420px" autocomplete="off"><button class="btn" id="ghProbar" type="button">Probar y guardar</button><button class="btn" id="ghBorrar" type="button">Quitar</button></div>
+        </div>
+        <div>
+          <h3>Respaldo</h3>
+          <p class="note">Descarga un archivo con tus cantidades sin cifrar, o carga uno.</p>
+          <div class="row"><button class="btn" id="btnResp" type="button">Descargar respaldo</button><label class="btn" style="display:inline-block">Cargar respaldo<input type="file" id="fileResp" accept="application/json,.json" hidden></label></div>
+        </div>
+        <div>
+          <h3>Contraseña</h3>
+          <div class="row"><input type="password" id="pwNueva" placeholder="Contraseña nueva (mínimo 8)" aria-label="Contraseña nueva" style="max-width:280px" autocomplete="new-password"><button class="btn" id="btnPw" type="button">Cambiar contraseña</button></div>
+          <div class="row" style="margin-top:8px"><button class="btn" id="btnOlvidar" type="button">Olvidar la contraseña en este aparato</button></div>
+        </div>
+      </div>
+    </details>
+
+    <p class="note" id="fuentes"></p>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const REPO = "cisnerosale-maker/tablero-mercados";
+  const ENC = "data/cartera/cartera.enc.json";
+  const K = { key: "cartera.key", salt: "cartera.salt", borr: "cartera.borrador", gh: "cartera.gh", vista: "cartera.vista", cero: "cartera.cero" };
+  const BROKERS = ["IOL", "PPI", "IBKR"];
+  const TIPOS = [["Acción argentina", "Acciones argentinas"], ["Acción EEUU", "Acciones EE.UU."], ["CEDEAR", "CEDEARs"], ["Bono", "Bonos soberanos"], ["ON", "Obligaciones negociables"], ["FCI", "FCI"], ["Efectivo", "Efectivo"]];
+  const ACC = new Set(["Acción argentina", "Acción EEUU", "CEDEAR"]);
+  const CATS = ["CORE", "CERCA DE CORE", "CÍCLICAS", "RIESGO", "TURNAROUND", "ARGENTINA", "ÍNDICE"];
+  const $ = id => document.getElementById(id);
+
+  const ls = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } },
+    del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+  };
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmt = (n, d = 2) => n == null || !isFinite(n) ? "—" : Number(n).toLocaleString("es-AR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const pct = (x, d = 1) => x == null || !isFinite(x) ? "—" : (x > 0 ? "+" : "") + fmt(x * 100, d) + "%";
+  const pctc = (x, d = 1) => x == null || !isFinite(x) ? '<span class="muted">—</span>' : `<span class="${x > 0.00005 ? "up" : x < -0.00005 ? "down" : ""}">${pct(x, d)}</span>`;
+  const peso = (n, d = 0) => n == null || !isFinite(n) ? "—" : "$ " + fmt(n, d);
+  const usd = (n, d = 0) => n == null || !isFinite(n) ? "—" : "US$ " + fmt(n, d);
+  const mult = x => x == null || !isFinite(x) || x <= 0 ? '<span class="muted">—</span>' : fmt(x, 1) + "x";
+  const dmy = s => s ? s.slice(8, 10) + "/" + s.slice(5, 7) + "/" + s.slice(0, 4) : "—";
+  const dm = s => s ? s.slice(8, 10) + "/" + s.slice(5, 7) : "—";
+  const qfmt = q => !q ? "0" : fmt(q, Math.abs(q % 1) > 1e-9 ? (q < 100 ? 4 : 2) : 0);
+
+  // ---------------------------------------------------------------- cifrado
+  const b64 = buf => { const u = new Uint8Array(buf); let s = ""; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
+  const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const utf8b64 = s => b64(new TextEncoder().encode(s));
+  async function derivar(pw, salt, iter) {
+    const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+    return crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: iter, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+  }
+  async function descifrar(file, key) {
+    const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: unb64(file.iv) }, key, unb64(file.ct));
+    return JSON.parse(new TextDecoder().decode(pt));
+  }
+  async function cifrar(obj, key, saltB64, iter) {
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const ct = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, new TextEncoder().encode(JSON.stringify(obj)));
+    return { v: 1, alg: "AES-GCM", kdf: "PBKDF2-SHA256", iter, salt: saltB64, iv: b64(iv), ct: b64(ct), actualizado: obj.actualizado };
+  }
+  async function guardarClave(key, salt) {
+    const raw = await crypto.subtle.exportKey("raw", key);
+    ls.set(K.key, b64(raw)); ls.set(K.salt, salt);
+  }
+  async function claveGuardada(salt) {
+    const k = ls.get(K.key), s = ls.get(K.salt);
+    if (!k || s !== salt) return null;
+    try { return await crypto.subtle.importKey("raw", unb64(k), { name: "AES-GCM" }, true, ["encrypt", "decrypt"]); } catch (e) { return null; }
+  }
+
+  // ---------------------------------------------------------------- estado
+  let CFG, D, FL, ENCF, KEY = null, U = null, dirty = false;
+  const vista = () => ls.get(K.vista) || "pos";
+  const getJ = async f => { const r = await fetch(f + "?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) { const e = new Error(f + ": HTTP " + r.status); e.status = r.status; throw e; } return r.json(); };
+  const banner = (html, ok) => { const b = $("banner"); b.hidden = !html; b.className = "banner" + (ok ? " ok" : ""); b.innerHTML = html || ""; };
+
+  function vacio() {
+    return { v: 1, cant: {}, efectivo: { IOL: { ARS: 0, USD: 0 }, PPI: { ARS: 0, USD: 0 }, IBKR: { ARS: 0, USD: 0 } }, cat: {}, actualizado: new Date().toISOString() };
+  }
+  function normalizar(u) {
+    const x = Object.assign(vacio(), u || {});
+    x.cant = x.cant || {}; x.cat = x.cat || {};
+    BROKERS.forEach(b => { x.efectivo[b] = Object.assign({ ARS: 0, USD: 0 }, (x.efectivo || {})[b] || {}); });
+    return x;
+  }
+  function marcarCambio() {
+    dirty = true; U.actualizado = new Date().toISOString();
+    ls.set(K.borr, JSON.stringify({ U, base: ENCF && ENCF.actualizado, guardado: false }));
+    $("btnGuardar").hidden = false;
+    render();
+  }
+
+  // ---------------------------------------------------------------- arranque
+  async function iniciar() {
+    try {
+      [CFG, D, FL] = await Promise.all([getJ("data/cartera/activos.json"), getJ("data/cartera/datos.json"), getJ("data/cartera/flujos.json")]);
+    } catch (e) { banner("No se pudieron leer los datos de la cartera (" + esc(e.message) + "). Probá recargar en un rato."); return; }
+    try { ENCF = await getJ(ENC); } catch (e) { ENCF = null; }
+    if (!ENCF) { banner("Todavía no hay cantidades cargadas (falta el archivo cifrado)."); return; }
+    KEY = await claveGuardada(ENCF.salt);
+    if (KEY) { try { await abrir(); return; } catch (e) { KEY = null; } }
+    $("lock").hidden = false; $("pw").focus();
+  }
+  async function abrir() {
+    let u = await descifrar(ENCF, KEY);
+    const borr = (() => { try { return JSON.parse(ls.get(K.borr) || "null"); } catch (e) { return null; } })();
+    if (borr && borr.U && (borr.U.actualizado || "") > (u.actualizado || "")) {
+      u = borr.U;
+      if (borr.guardado) banner("Cambios guardados en GitHub; tardan un par de minutos en verse en los otros aparatos.", true);
+      else { dirty = true; $("btnGuardar").hidden = false; banner("Hay cambios en este aparato que todavía no se guardaron en GitHub."); }
+    } else if (borr) ls.del(K.borr);
+    U = normalizar(u);
+    $("lock").hidden = true; $("main").hidden = false;
+    configurarUI();
+    render();
+  }
+  $("lockForm").addEventListener("submit", async ev => {
+    ev.preventDefault();
+    $("lockMsg").textContent = "Abriendo…";
+    try {
+      const key = await derivar($("pw").value, unb64(ENCF.salt), ENCF.iter);
+      await descifrar(ENCF, key);
+      KEY = key;
+      if ($("pwRec").checked) await guardarClave(key, ENCF.salt);
+      $("pw").value = ""; $("lockMsg").textContent = "";
+      await abrir();
+    } catch (e) { $("lockMsg").textContent = "Contraseña incorrecta."; }
+  });
+
+  // ---------------------------------------------------------------- cálculo
+  function pagosDesde(a, desde) {
+    const sym = a.simbolo_usd; const f = sym && FL.bonos[sym];
+    if (!f || !desde) return 0;
+    const hoy = (D.actualizado || "").slice(0, 10);
+    return (f.pagados || []).filter(p => p.fecha > desde && p.fecha <= hoy).reduce((s, p) => s + p.monto, 0);
+  }
+  function fundDe(a) {
+    if (!ACC.has(a.tipo)) return null;
+    const key = a.indice ? "SPY" : a.fund;
+    const F = Object.assign({}, D.fundamentos[key] || {});
+    const C = (D.control || {})[key];
+    F.beta = a.indice ? 1 : ((D.betas || {})[key] || {}).beta;
+    F.avisos = (F.avisos || []).slice();
+    if (C) {
+      const dif = (x, y) => x && y ? Math.abs(x / y - 1) : 0;
+      if (dif(F.pe_ltm, C.pe_ltm) > 0.15 || dif(F.pe_ntm, C.pe_ntm) > 0.15 || dif(F.ev_ebitda, C.ev_ebitda) > 0.15)
+        F.avisos.push(`TIKR (${dmy(C.fecha)}): P/E LTM ${fmt(C.pe_ltm, 1)}, NTM ${fmt(C.pe_ntm, 1)}, EV/EBITDA ${fmt(C.ev_ebitda, 1)}`);
+      if (C.usar) { ["pe_ltm", "pe_ntm", "ev_ebitda"].forEach(k => { if (C[k] != null) F[k] = C[k]; }); F.fuente = "TIKR " + dmy(C.fecha); }
+    }
+    if (a.financiera) F.ev_ebitda = null;
+    if (a.fund_local) F.avisos.unshift("Sin ADR: datos locales en pesos (BYMA y balances de TGN)");
+    return F;
+  }
+  function calcular() {
+    const mep = D.dolar.mep;
+    const MB = { d: D.dolar.mep_ant || mep, m: D.dolar.mep_30, y: D.dolar.mep_anio };
+    const rows = [];
+    for (const a of CFG.activos) {
+      const qb = U.cant[a.id] || {};
+      const q = BROKERS.reduce((s, b) => s + (+qb[b] || 0), 0);
+      const p = D.precios[a.id] || {};
+      const div = a.por100 ? 100 : 1;
+      const conv = (nat, m) => a.moneda === "ARS" ? [nat, nat / m] : [nat * m, nat];
+      const [vA, vU] = p.precio ? conv(q * p.precio / div, mep) : [0, 0];
+      const base = {};
+      const PB = { d: [p.ant, null], m: [p.p30, p.f30], y: [p.panio, p.fanio] };
+      for (const k of ["d", "m", "y"]) {
+        const [pb, fb] = PB[k];
+        if (!pb || !MB[k] || !p.precio) continue;
+        const [bA, bU] = conv(q * pb / div, MB[k]);
+        const pag = k === "d" ? 0 : q * pagosDesde(a, fb) / 100;
+        base[k] = { bA, bU, cA: vA + pag * mep, cU: vU + pag, f: fb };
+      }
+      rows.push({ a, qb, q, p, vA, vU, base, F: fundDe(a), tipo: a.tipo, empresa: a.empresa, cat: U.cat[a.empresa] || a.categoria });
+    }
+    for (const b of BROKERS) for (const m of ["ARS", "USD"]) {
+      const amt = +U.efectivo[b][m] || 0;
+      const vA = m === "ARS" ? amt : amt * mep, vU = m === "ARS" ? amt / mep : amt;
+      const base = {};
+      for (const k of ["d", "m", "y"]) if (MB[k]) base[k] = { bA: m === "ARS" ? amt : amt * MB[k], bU: m === "ARS" ? amt / MB[k] : amt, cA: vA, cU: vU };
+      rows.push({ a: { id: "EF:" + b + m, ticker: (m === "ARS" ? "Pesos" : "Dólares") + " " + b, nombre: "Efectivo", tipo: "Efectivo", exposicion: m, pais: "—", sector: "Efectivo" }, q: amt, qb: {}, p: {}, vA, vU, base, tipo: "Efectivo", cat: "EFECTIVO", empresa: null });
+    }
+    const total = rows.reduce((s, r) => s + r.vA, 0);
+    rows.forEach(r => { r.w = total ? r.vA / total : 0; });
+    return { rows, total, totalU: rows.reduce((s, r) => s + r.vU, 0), mep };
+  }
+  function agregar(rs) {
+    const o = { vA: 0, vU: 0, ret: {} };
+    rs.forEach(r => { o.vA += r.vA; o.vU += r.vU; });
+    for (const k of ["d", "m", "y"]) {
+      let bA = 0, bU = 0, cA = 0, cU = 0, cob = 0;
+      rs.forEach(r => { const b = r.base[k]; if (b && b.bA > 0) { bA += b.bA; bU += b.bU; cA += b.cA; cU += b.cU; cob += r.vA; } });
+      o.ret[k] = bA > 0 ? { A: cA / bA - 1, U: cU / bU - 1, cob: o.vA ? cob / o.vA : 0 } : null;
+    }
+    const eq = rs.filter(r => ACC.has(r.tipo) && r.vA > 0);
+    const veq = eq.reduce((s, r) => s + r.vA, 0);
+    const harm = k => { let v = 0, s = 0; eq.forEach(r => { const x = r.F && r.F[k]; if (x > 0) { v += r.vA; s += r.vA / x; } }); return s ? { x: v / s, cob: veq ? v / veq : 0 } : null; };
+    o.pe_ltm = harm("pe_ltm"); o.pe_ntm = harm("pe_ntm"); o.ev_ebitda = harm("ev_ebitda");
+    let bv = 0, bs = 0, dv = 0, ds = 0;
+    eq.forEach(r => { const b = r.F && r.F.beta; if (b != null) { bv += r.vA; bs += r.vA * b; } const y = r.F && r.F.div_yield; if (y != null) { dv += r.vA; ds += r.vA * y; } });
+    o.beta = bv ? { x: bs / bv, cob: veq ? bv / veq : 0 } : null;
+    o.div = dv ? ds / dv : null;
+    o.veq = veq;
+    return o;
+  }
+
+  // ---------------------------------------------------------------- límites y alertas
+  function limites(C) {
+    const L = CFG.limites, tot = C.total, out = [], topes = [];
+    const emp = {};
+    C.rows.filter(r => ACC.has(r.tipo) && !r.a.indice).forEach(r => {
+      const e = emp[r.empresa] || (emp[r.empresa] = { empresa: r.empresa, cat: r.cat, vA: 0, partes: [] });
+      e.vA += r.vA; if (r.q) e.partes.push(r.a.ticker + (r.tipo === "CEDEAR" ? " (CEDEAR)" : r.tipo === "Acción EEUU" ? " (EE.UU.)" : ""));
+    });
+    Object.values(emp).forEach(e => {
+      const lr = L.posicion[e.cat]; const p = tot ? e.vA / tot : 0;
+      let est = "ok";
+      if (lr) { if (p * 100 > lr[1]) est = "recortar"; else if (p * 100 > lr[0]) est = "sobre"; else if (p * 100 > lr[0] * 0.9) est = "cerca"; }
+      out.push({ ...e, p, lim: lr ? lr[0] : null, rec: lr ? lr[1] : null, est });
+    });
+    out.sort((a, b) => b.p - a.p);
+    const suma = f => C.rows.filter(f).reduce((s, r) => s + r.vA, 0) / (tot || 1);
+    const t1 = suma(r => r.a.energia_ar); topes.push({ nom: "Energía argentina (acciones, CEDEAR VIST y ONs)", p: t1, lim: L.energia_ar });
+    const t2 = suma(r => r.a.soberano); topes.push({ nom: "Bonos soberanos argentinos", p: t2, lim: L.bonos_soberanos });
+    const emisores = new Set(C.rows.filter(r => r.tipo === "ON" && r.q > 0).map(r => r.a.emisor));
+    emisores.forEach(em => topes.push({ nom: "Emisor " + em + " (acción + ONs)", p: suma(r => r.a.emisor === em && r.tipo !== "FCI"), lim: L.emisor_con_on }));
+    topes.forEach(t => { t.est = t.p * 100 > t.lim ? "sobre" : t.p * 100 > t.lim * 0.9 ? "cerca" : "ok"; });
+    return { out, topes };
+  }
+  function alertas(C, LI) {
+    const al = [];
+    LI.out.forEach(e => {
+      if (e.est === "recortar") al.push(["r", `${e.empresa}: ${fmt(e.p * 100, 1)}% de la cartera, pasó el punto de recorte (${fmt(e.rec, 1)}% para ${e.cat}).`]);
+      else if (e.est === "sobre") al.push(["a", `${e.empresa}: ${fmt(e.p * 100, 1)}%, arriba del límite de ${fmt(e.lim, 1)}% (${e.cat}); recorte en ${fmt(e.rec, 1)}%.`]);
+    });
+    LI.topes.forEach(t => { if (t.est === "sobre") al.push(["r", `${t.nom}: ${fmt(t.p * 100, 1)}%, arriba del tope de ${fmt(t.lim, 0)}%.`]); });
+    C.rows.filter(r => (r.tipo === "Bono") && r.q > 0).forEach(r => {
+      const reg = (CFG.reglas_bonos || {})[r.a.ticker]; const tir = r.p.bono && r.p.bono.tir;
+      if (reg && tir != null) reg.filter(x => tir <= x.tir_max).forEach(x => al.push(["a", `${r.a.ticker}: TIR ${fmt(tir, 2)}%. ${x.accion}.`]));
+    });
+    const hoy = (D.actualizado || "").slice(0, 10), en14 = new Date(Date.parse(hoy) + 14 * 864e5).toISOString().slice(0, 10);
+    const vistos = new Set();
+    C.rows.filter(r => r.q > 0 && r.F && r.F.prox_balance).forEach(r => {
+      const f = r.F.prox_balance;
+      if (f >= hoy && f <= en14 && !vistos.has(r.empresa)) { vistos.add(r.empresa); al.push(["", `${r.empresa} presenta resultados el ${dmy(f)}.`]); }
+    });
+    C.rows.filter(r => r.q > 0 && !r.p.precio && r.tipo !== "Efectivo").forEach(r => al.push(["a", `${r.a.ticker}: sin cotización en la última actualización.`]));
+    const ver = C.rows.filter(r => r.q > 0 && r.F && r.F.avisos && r.F.avisos.some(x => /verificar|TIKR \(/.test(x))).map(r => r.a.ticker);
+    if (ver.length) al.push(["a", "Ratios a verificar en TIKR: " + [...new Set(ver)].join(", ") + " (pasá el mouse por el ⚠ de cada uno)."]);
+    return al;
+  }
+
+  // ---------------------------------------------------------------- render
+  function render() {
+    const C = calcular(), T = agregar(C.rows), LI = limites(C);
+    const v = vista();
+    document.querySelectorAll("#selVista button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === v)));
+    const ocultar = $("ocultarCero").checked;
+    // KPIs
+    const r = T.ret;
+    const kp = (k, val, s, hero) => `<div class="kpi${hero ? " hero" : ""}"><span class="k">${k}</span><span class="v">${val}</span><span class="s">${s || "&nbsp;"}</span></div>`;
+    const rs = k => r[k] ? `${pct(r[k].A)} en $ · ${pct(r[k].U)} US$` : "—";
+    const rv = k => r[k] ? `<span class="${r[k].U >= 0 ? "up" : "down"}">${pct(r[k].U)}</span>` : "—";
+    $("kpis").innerHTML = [
+      kp("Valor total", peso(C.total), usd(C.totalU) + " MEP", true),
+      kp("Día (US$)", rv("d"), rs("d")),
+      kp("30 días (US$)", rv("m"), rs("m")),
+      kp("Año (US$)", rv("y"), rs("y")),
+      kp("P/E LTM", T.pe_ltm ? fmt(T.pe_ltm.x, 1) + "x" : "—", T.pe_ltm ? "cob. " + fmt(T.pe_ltm.cob * 100, 0) + "% acciones" : ""),
+      kp("P/E NTM", T.pe_ntm ? fmt(T.pe_ntm.x, 1) + "x" : "—", T.pe_ntm ? "cob. " + fmt(T.pe_ntm.cob * 100, 0) + "%" : ""),
+      kp("EV/EBITDA LTM", T.ev_ebitda ? fmt(T.ev_ebitda.x, 1) + "x" : "—", T.ev_ebitda ? "cob. " + fmt(T.ev_ebitda.cob * 100, 0) + "%" : ""),
+      kp("Beta acciones", T.beta ? fmt(T.beta.x, 2) : "—", "vs S&P 500 · 5 años"),
+      kp("Div. yield acciones", T.div != null ? fmt(T.div, 2) + "%" : "—", "últimos 12 meses"),
+      kp("Dólar MEP", peso(C.mep, 2), D.dolar.mep_ant ? pct(C.mep / D.dolar.mep_ant - 1, 2) + " día" : "")
+    ].join("");
+    $("estado").innerHTML = `Precios: ${esc(dmy((D.actualizado || "").slice(0, 10)))} ${esc((D.actualizado || "").slice(11, 16))} · Ratios y beta: ${esc(dmy((D.fund_actualizado || "").slice(0, 10)))} · Año: desde el cierre previo a la primera rueda de ${new Date().getFullYear()} · 30 días: desde el ${esc(dmy(D.bases && D.bases.d30))}` + (U.actualizado ? ` · Cantidades: ${esc(new Date(U.actualizado).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" }))}` : "");
+
+    // Alertas
+    const al = alertas(C, LI);
+    $("alertas").innerHTML = al.length ? al.map(([c, t]) => `<li class="${c}">${esc(t)}</li>`).join("") : '<li class="muted">Sin alertas.</li>';
+
+    renderTabla(C, T, v, ocultar);
+    renderRubros(C, T);
+    renderLimites(LI);
+    renderBonos(C, ocultar);
+    renderCompo(C);
+    renderEfectivo();
+    const fu = (D.avisos || []).length ? ` Avisos de la última actualización: ${esc(D.avisos.join(" · "))}.` : "";
+    $("fuentes").innerHTML = `<b>Fuentes.</b> Cotizaciones BYMA: data912.com (con demora). Acciones de EE.UU., ADRs, estados contables, consenso y beta: Yahoo Finance. FCI: argentinadatos.com (CAFCI); el rendimiento del año de los FCI sale del %YTD publicado. Dólar MEP y CCL: dolarapi.com. Flujos de bonos y ONs: IOL y condiciones de emisión. En acciones argentinas los ratios salen del ADR (estados contables en pesos pasados al CCL); TGNO4, con datos locales. Los ratios de CEDEARs son los de la acción de EE.UU. P/E NTM: consenso del ejercicio actual y el siguiente, ponderado por los meses que faltan. Los valores marcados con ⚠ conviene controlarlos con TIKR. No es asesoramiento financiero.${fu}`;
+  }
+
+  function celdaTk(r) {
+    const avs = (r.F && r.F.avisos) || [];
+    const warn = avs.length ? ` <span class="ico warn" title="${esc(avs.join("\n"))}">⚠</span>` : "";
+    return `<td class="tk">${esc(r.a.ticker)}${warn}<small>${esc(r.a.nombre || "")}</small></td>`;
+  }
+  function precioTxt(r) {
+    if (!r.p.precio) return '<span class="muted">—</span>';
+    const d = r.a.tipo === "FCI" ? 4 : r.p.precio < 100 ? 2 : r.p.precio < 10000 ? 2 : 0;
+    return (r.a.moneda === "ARS" ? "$ " : "US$ ") + fmt(r.p.precio, d);
+  }
+  function renderTabla(C, T, v, ocultar) {
+    let h = "";
+    const head = {
+      pos: `<tr><th>Activo</th>${BROKERS.map(b => `<th>${b}</th>`).join("")}<th>Total</th><th>Cotización</th><th>Var. día</th><th>Valor $</th><th>Valor US$</th><th>%</th></tr>`,
+      ren: `<tr><th>Activo</th><th>%</th><th>Día $</th><th>Día US$</th><th>30 días $</th><th>30 días US$</th><th>Año $</th><th>Año US$</th><th>Base año</th></tr>`,
+      val: `<tr><th>Activo</th><th>%</th><th>P/E LTM</th><th>P/E NTM</th><th>EV/EBITDA</th><th>P/VL</th><th>ROE</th><th>Beta</th><th>Div.</th><th>Próx. balance</th><th>Categoría</th></tr>`
+    }[v];
+    const fila = r => {
+      const cls = r.q ? "" : ' class="cero"';
+      if (v === "pos") {
+        const ins = r.tipo === "Efectivo" ? `<td colspan="${BROKERS.length + 1}" class="txt muted">se carga abajo</td>` :
+          BROKERS.map(b => `<td><input class="q" type="number" inputmode="decimal" step="any" min="0" data-id="${esc(r.a.id)}" data-b="${b}" value="${(+r.qb[b] || 0) || ""}" placeholder="0" aria-label="${esc(r.a.ticker)} ${b}"></td>`).join("") + `<td>${qfmt(r.q)}</td>`;
+        const vd = r.base.d && r.base.d.bA ? r.base.d.cA / r.base.d.bA - 1 : (r.p.ant && r.p.precio ? r.p.precio / r.p.ant - 1 : null);
+        return `<tr${cls}>${celdaTk(r)}${ins}<td>${r.tipo === "Efectivo" ? "" : precioTxt(r)}</td><td>${r.tipo === "Efectivo" ? "" : pctc(r.p.ant ? r.p.precio / r.p.ant - 1 : null)}</td><td>${peso(r.vA)}</td><td>${usd(r.vU)}</td><td>${fmt(r.w * 100, 2)}%</td></tr>`;
+      }
+      if (v === "ren") {
+        const g = k => { const b = r.base[k]; return b && b.bA > 0 ? [b.cA / b.bA - 1, b.cU / b.bU - 1] : [null, null]; };
+        const [dA, dU] = g("d"), [mA, mU] = g("m"), [yA, yU] = g("y");
+        const by = r.base.y && r.base.y.f ? (r.base.y.f <= (D.bases && D.bases.anio || "") ? "" : dm(r.base.y.f)) : (r.tipo === "Efectivo" ? "" : "—");
+        return `<tr${cls}>${celdaTk(r)}<td>${fmt(r.w * 100, 2)}%</td><td>${pctc(dA)}</td><td>${pctc(dU)}</td><td>${pctc(mA)}</td><td>${pctc(mU)}</td><td>${pctc(yA)}</td><td>${pctc(yU)}</td><td class="txt muted" style="font-size:11.5px">${by ? (by === "—" ? "—" : "desde " + by) : "31/12"}${r.p.anio_por_ytd != null ? " (%YTD)" : ""}</td></tr>`;
+      }
+      const F = r.F;
+      if (!F) {
+        let extra = "";
+        if (r.p.bono) extra = `TIR ${fmt(r.p.bono.tir, 2)}% · dur. ${fmt(r.p.bono.dur_mod, 1)}`;
+        return `<tr${cls}>${celdaTk(r)}<td>${fmt(r.w * 100, 2)}%</td><td colspan="8" class="txt muted" style="text-align:left">${extra || "no aplica"}</td><td class="txt">${esc(r.tipo === "Efectivo" ? "" : r.cat)}</td></tr>`;
+      }
+      const sel = r.a.indice ? esc(r.cat) : `<select class="cat" data-emp="${esc(r.empresa)}" aria-label="Categoría ${esc(r.empresa)}">${CATS.filter(c => c !== "ÍNDICE").map(c => `<option${c === r.cat ? " selected" : ""}>${c}</option>`).join("")}</select>`;
+      return `<tr${cls}>${celdaTk(r)}<td>${fmt(r.w * 100, 2)}%</td><td>${mult(F.pe_ltm)}</td><td>${mult(F.pe_ntm)}</td><td>${r.a.financiera ? '<span class="muted">n/a</span>' : mult(F.ev_ebitda)}</td><td>${F.pvl ? fmt(F.pvl, 2) : "—"}</td><td>${F.roe != null ? fmt(F.roe, 1) + "%" : "—"}</td><td>${F.beta != null ? fmt(F.beta, 2) : "—"}</td><td>${F.div_yield != null ? fmt(F.div_yield, 2) + "%" : "—"}</td><td>${F.prox_balance ? dmy(F.prox_balance) : "—"}</td><td class="txt">${sel}</td></tr>`;
+    };
+    const grupoFila = (nombre, g, w) => {
+      if (v === "pos") return `<tr class="grp"><td>${esc(nombre)}</td><td colspan="${BROKERS.length + 3}"></td><td>${peso(g.vA)}</td><td>${usd(g.vU)}</td><td>${fmt(w * 100, 2)}%</td></tr>`;
+      if (v === "ren") { const x = k => g.ret[k]; return `<tr class="grp"><td>${esc(nombre)}</td><td>${fmt(w * 100, 2)}%</td>${["d", "m", "y"].map(k => `<td>${pctc(x(k) && x(k).A)}</td><td>${pctc(x(k) && x(k).U)}</td>`).join("")}<td></td></tr>`; }
+      const hm = o => o ? fmt(o.x, 1) + "x" + (o.cob < 0.999 ? ` <span class="muted" style="font-weight:400;font-size:11px">${fmt(o.cob * 100, 0)}%</span>` : "") : "—";
+      return `<tr class="grp"><td>${esc(nombre)}</td><td>${fmt(w * 100, 2)}%</td><td>${hm(g.pe_ltm)}</td><td>${hm(g.pe_ntm)}</td><td>${hm(g.ev_ebitda)}</td><td></td><td></td><td>${g.beta ? fmt(g.beta.x, 2) : "—"}</td><td>${g.div != null ? fmt(g.div, 2) + "%" : "—"}</td><td></td><td></td></tr>`;
+    };
+    for (const [tipo, nombre] of TIPOS) {
+      let rs = C.rows.filter(r => r.tipo === tipo);
+      if (!rs.length) continue;
+      const g = agregar(rs);
+      if (ocultar) rs = rs.filter(r => r.q);
+      if (!rs.length && tipo !== "Efectivo") continue;
+      rs.sort((a, b) => b.vA - a.vA);
+      h += grupoFila(nombre, g, C.total ? g.vA / C.total : 0) + rs.map(fila).join("");
+    }
+    h += grupoFila("Total cartera", T, 1).replace('class="grp"', 'class="tot"');
+    $("tabla").innerHTML = `<thead>${head}</thead><tbody>${h}</tbody>`;
+    $("notaTabla").textContent = v === "pos" ? "Las cantidades se editan acá; después tocá «Guardar cambios»." : v === "ren" ? "Rendimiento de la tenencia actual (no tiene en cuenta compras y ventas del período)." : "Ratios de la acción en EE.UU. o del ADR.";
+  }
+  function renderRubros(C, T) {
+    const fila = (n, g, cls) => {
+      const x = k => g.ret[k];
+      const hm = o => o ? fmt(o.x, 1) + "x" : "—", cb = o => o ? fmt(o.cob * 100, 0) + "%" : "";
+      return `<tr${cls ? ` class="${cls}"` : ""}><td class="txt">${esc(n)}</td><td>${peso(g.vA)}</td><td>${usd(g.vU)}</td><td>${fmt(C.total ? g.vA / C.total * 100 : 0, 2)}%</td>${["d", "m", "y"].map(k => `<td>${pctc(x(k) && x(k).A)}</td><td>${pctc(x(k) && x(k).U)}</td>`).join("")}<td>${hm(g.pe_ltm)}</td><td>${hm(g.pe_ntm)}</td><td>${hm(g.ev_ebitda)}</td><td class="muted">${cb(g.pe_ltm)}</td><td>${g.beta ? fmt(g.beta.x, 2) : "—"}</td></tr>`;
+    };
+    let h = `<thead><tr><th>Rubro</th><th>Valor $</th><th>Valor US$</th><th>%</th><th>Día $</th><th>Día US$</th><th>30 d $</th><th>30 d US$</th><th>Año $</th><th>Año US$</th><th>P/E LTM</th><th>P/E NTM</th><th>EV/EBITDA</th><th>Cob.</th><th>Beta</th></tr></thead><tbody>`;
+    for (const [tipo, nombre] of TIPOS) { const rs = C.rows.filter(r => r.tipo === tipo && (r.q || r.vA)); if (rs.length) h += fila(nombre, agregar(rs)); }
+    const eq = C.rows.filter(r => ACC.has(r.tipo) && r.q);
+    if (eq.length) h += fila("Total acciones y CEDEARs", agregar(eq), "grp");
+    h += fila("Total cartera", T, "tot") + "</tbody>";
+    $("tablaRubros").innerHTML = h;
+  }
+  function renderLimites(LI) {
+    const est = e => ({ recortar: '<span class="tag down">Recortar</span>', sobre: '<span class="tag warn">Sobre el límite</span>', cerca: '<span class="tag warn">Cerca</span>', ok: '<span class="tag up">OK</span>' }[e]);
+    $("tablaLim").innerHTML = `<thead><tr><th>Empresa</th><th>Categoría</th><th>%</th><th>Límite</th><th>Recorte</th><th>Estado</th></tr></thead><tbody>` +
+      LI.out.filter(e => e.vA > 0).map(e => `<tr><td class="txt" title="${esc(e.partes.join(", "))}">${esc(e.empresa)}</td><td class="txt">${esc(e.cat)}</td><td>${fmt(e.p * 100, 2)}%</td><td>${e.lim != null ? fmt(e.lim, 1) + "%" : "—"}</td><td>${e.rec != null ? fmt(e.rec, 1) + "%" : "—"}</td><td class="txt">${e.lim != null ? est(e.est) : '<span class="muted">sin límite</span>'}</td></tr>`).join("") + "</tbody>";
+    $("tablaTopes").innerHTML = `<thead><tr><th>Tope</th><th>%</th><th>Tope</th><th>Estado</th></tr></thead><tbody>` +
+      LI.topes.map(t => `<tr><td class="txt">${esc(t.nom)}</td><td>${fmt(t.p * 100, 2)}%</td><td>${fmt(t.lim, 0)}%</td><td class="txt">${est(t.est)}</td></tr>`).join("") + "</tbody>";
+  }
+  function renderBonos(C, ocultar) {
+    const rs = C.rows.filter(r => (r.tipo === "Bono" || r.tipo === "ON") && (!ocultar || r.q));
+    $("tablaBonos").innerHTML = `<thead><tr><th>Título</th><th>VN</th><th>Precio US$</th><th>TIR</th><th>Dur. mod.</th><th>Paridad</th><th>Próximo pago</th><th>Cobro estimado</th><th>Vencimiento</th><th>Valor US$</th><th>Regla</th></tr></thead><tbody>` +
+      rs.map(r => {
+        const b = r.p.bono, reg = (CFG.reglas_bonos || {})[r.a.ticker];
+        const regTxt = reg ? reg.map(x => (b && b.tir <= x.tir_max ? "<b class=\"warn\">" : "") + `TIR ≤ ${x.tir_max}%: ${esc(x.accion.replace(/ \(TIR.*\)/, ""))}` + (b && b.tir <= x.tir_max ? "</b>" : "")).join("<br>") : "";
+        const sup = FL.bonos[r.a.simbolo_usd] && FL.bonos[r.a.simbolo_usd].supuesto ? ` <span class="ico warn" title="${esc(FL.bonos[r.a.simbolo_usd].fuente)}">⚠</span>` : "";
+        return `<tr${r.q ? "" : ' class="cero"'}>${celdaTk(r)}<td>${qfmt(r.q)}</td><td>${r.p.precio_usd ? fmt(r.p.precio_usd, 2) : "—"}</td><td>${b ? fmt(b.tir, 2) + "%" + sup : '<span class="muted">' + esc(r.p.bono_nota || "—") + "</span>"}</td><td>${b ? fmt(b.dur_mod, 2) : "—"}</td><td>${b && b.paridad ? fmt(b.paridad, 1) + "%" : "—"}</td><td>${b ? dmy(b.prox_pago) : "—"}</td><td>${b ? usd(r.q * b.prox_monto / 100, 2) : "—"}</td><td>${b ? dmy(b.vencimiento) : "—"}</td><td>${usd(r.vU)}</td><td class="txt" style="white-space:normal;min-width:180px;font-size:12px">${regTxt}</td></tr>`;
+      }).join("") + "</tbody>";
+  }
+  function renderCompo(C) {
+    const grupos = [
+      ["Por rubro", r => (TIPOS.find(t => t[0] === r.tipo) || [0, r.tipo])[1]],
+      ["Por categoría", r => r.tipo === "Efectivo" ? "EFECTIVO" : r.cat],
+      ["Por moneda (exposición)", r => r.a.exposicion === "ARS" ? "Pesos" : "Dólares"],
+      ["Por país", r => r.a.pais || "—"],
+      ["Por sector", r => r.a.sector || "—"]
+    ];
+    $("compo").innerHTML = grupos.map(([tit, f]) => {
+      const m = {};
+      C.rows.forEach(r => { if (r.vA > 0) m[f(r)] = (m[f(r)] || 0) + r.vA; });
+      const it = Object.entries(m).sort((a, b) => b[1] - a[1]);
+      return `<div><h3 style="margin-bottom:8px">${tit}</h3><div class="bars">${it.map(([k, v]) => { const p = C.total ? v / C.total : 0; return `<div class="bar"><span class="lab" title="${esc(k)}">${esc(k)}</span><span class="tr"><span class="fi" style="width:${(p * 100).toFixed(2)}%;display:block"></span></span><span class="pc">${fmt(p * 100, 1)}%</span></div>`; }).join("")}</div></div>`;
+    }).join("");
+  }
+  function renderEfectivo() {
+    if ($("efectivo").dataset.ok) return;
+    $("efectivo").dataset.ok = "1";
+    $("efectivo").innerHTML = `<span></span><span class="muted" style="font-size:12px">Pesos</span><span class="muted" style="font-size:12px">Dólares</span>` +
+      BROKERS.map(b => `<b>${b}</b>${["ARS", "USD"].map(m => `<input class="q" type="number" inputmode="decimal" step="any" min="0" data-ef="${b}" data-m="${m}" value="${+U.efectivo[b][m] || ""}" placeholder="0" aria-label="Efectivo ${b} ${m}">`).join("")}`).join("");
+  }
+
+  // ---------------------------------------------------------------- UI
+  let uiOk = false;
+  function configurarUI() {
+    if (uiOk) return; uiOk = true;
+    $("ocultarCero").checked = ls.get(K.cero) !== "0";
+    $("ocultarCero").addEventListener("change", () => { ls.set(K.cero, $("ocultarCero").checked ? "1" : "0"); render(); });
+    $("selVista").addEventListener("click", e => { const b = e.target.closest("button[data-v]"); if (b) { ls.set(K.vista, b.dataset.v); render(); } });
+    document.addEventListener("change", e => {
+      const t = e.target;
+      if (t.matches("input.q[data-id]")) {
+        const v = Math.max(0, parseFloat(String(t.value).replace(",", ".")) || 0);
+        (U.cant[t.dataset.id] = U.cant[t.dataset.id] || {})[t.dataset.b] = v;
+        marcarCambio();
+      } else if (t.matches("input.q[data-ef]")) {
+        U.efectivo[t.dataset.ef][t.dataset.m] = Math.max(0, parseFloat(String(t.value).replace(",", ".")) || 0);
+        marcarCambio();
+      } else if (t.matches("select.cat")) {
+        U.cat[t.dataset.emp] = t.value; marcarCambio();
+      }
+    });
+    $("btnGuardar").addEventListener("click", guardar);
+    $("btnExcel").addEventListener("click", excel);
+    $("btnResp").addEventListener("click", () => descargar(new Blob([JSON.stringify(U, null, 1)], { type: "application/json" }), `cartera_respaldo_${hoyStr()}.json`));
+    $("fileResp").addEventListener("change", async e => {
+      const f = e.target.files[0]; if (!f) return;
+      try { const u = JSON.parse(await f.text()); if (!u.cant) throw new Error("formato"); U = normalizar(u); $("efectivo").dataset.ok = ""; marcarCambio(); banner("Respaldo cargado. Tocá «Guardar cambios» para guardarlo en GitHub."); }
+      catch (err) { banner("El archivo no es un respaldo válido."); }
+      e.target.value = "";
+    });
+    $("ghProbar").addEventListener("click", async () => {
+      const tok = $("ghTok").value.trim(); if (!tok) return;
+      $("ghEstado").textContent = "Probando…";
+      try {
+        const r = await fetch(`https://api.github.com/repos/${REPO}`, { headers: { Authorization: "Bearer " + tok, Accept: "application/vnd.github+json" } });
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.message || r.status);
+        if (!j.permissions || !j.permissions.push) throw new Error("la clave no tiene permiso de escritura (Contents: Read and write)");
+        ls.set(K.gh, tok); $("ghTok").value = ""; ghEstado();
+      } catch (err) { $("ghEstado").textContent = "No funcionó: " + err.message; }
+    });
+    $("ghBorrar").addEventListener("click", () => { ls.del(K.gh); ghEstado(); });
+    $("btnOlvidar").addEventListener("click", () => { ls.del(K.key); ls.del(K.salt); banner("Listo: la próxima vez este aparato va a pedir la contraseña.", true); });
+    $("btnPw").addEventListener("click", cambiarPw);
+    ghEstado();
+  }
+  function ghEstado() { $("ghEstado").innerHTML = ls.get(K.gh) ? '<span class="up">Este aparato guarda directo en GitHub.</span>' : "Este aparato todavía no tiene la clave: los cambios quedan solo acá hasta que la cargues."; }
+  const hoyStr = () => new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  function descargar(blob, nombre) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+
+  async function subirGitHub(fileObj) {
+    const tok = ls.get(K.gh);
+    if (!tok) throw new Error("sin clave");
+    const url = `https://api.github.com/repos/${REPO}/contents/${ENC}`;
+    const h = { Authorization: "Bearer " + tok, Accept: "application/vnd.github+json" };
+    let sha;
+    const g = await fetch(url + "?ref=main&t=" + Date.now(), { headers: h, cache: "no-store" });
+    if (g.ok) sha = (await g.json()).sha; else if (g.status !== 404) throw new Error("GitHub " + g.status);
+    const p = await fetch(url, { method: "PUT", headers: h, body: JSON.stringify({ message: "Cartera: cantidades (cifradas)", content: utf8b64(JSON.stringify(fileObj, null, 1) + "\n"), sha, branch: "main" }) });
+    if (!p.ok) { let m = p.status; try { m = (await p.json()).message || m; } catch (e) {} throw new Error("GitHub: " + m); }
+  }
+  async function guardar() {
+    const btn = $("btnGuardar"); btn.disabled = true;
+    try {
+      U.actualizado = new Date().toISOString();
+      const f = await cifrar(U, KEY, ENCF.salt, ENCF.iter);
+      if (!ls.get(K.gh)) {
+        ls.set(K.borr, JSON.stringify({ U, base: ENCF.actualizado, guardado: false }));
+        banner("Los cambios quedaron guardados en este aparato. Para que se vean en los otros, cargá la clave de GitHub en «Ajustes de este aparato» (abajo de todo) y volvé a tocar «Guardar cambios».");
+        $("cfg").open = true;
+        return;
+      }
+      await subirGitHub(f);
+      ENCF = f; dirty = false; btn.hidden = true;
+      ls.set(K.borr, JSON.stringify({ U, base: f.actualizado, guardado: true }));
+      banner("Guardado en GitHub. En un par de minutos se ve igual en todos tus aparatos.", true);
+      render();
+    } catch (e) { banner("No se pudo guardar: " + esc(e.message) + ". Los cambios siguen en este aparato."); }
+    finally { btn.disabled = false; }
+  }
+  async function cambiarPw() {
+    const pw = $("pwNueva").value;
+    if (pw.length < 8) { banner("La contraseña nueva tiene que tener al menos 8 caracteres."); return; }
+    if (!ls.get(K.gh)) { banner("Para cambiar la contraseña primero cargá la clave de GitHub en este aparato."); $("cfg").open = true; return; }
+    try {
+      const salt = crypto.getRandomValues(new Uint8Array(16)), sb = b64(salt);
+      const key = await derivar(pw, salt, ENCF.iter);
+      U.actualizado = new Date().toISOString();
+      const f = await cifrar(U, key, sb, ENCF.iter);
+      await subirGitHub(f);
+      KEY = key; ENCF = f; await guardarClave(key, sb);
+      $("pwNueva").value = ""; dirty = false; $("btnGuardar").hidden = true;
+      ls.set(K.borr, JSON.stringify({ U, base: f.actualizado, guardado: true }));
+      banner("Contraseña cambiada. Los otros aparatos la van a pedir de nuevo.", true);
+    } catch (e) { banner("No se pudo cambiar la contraseña: " + esc(e.message)); }
+  }
+
+  // ---------------------------------------------------------------- Excel
+  function cargarXLSX() {
+    return new Promise((ok, mal) => {
+      if (window.XLSX) return ok(window.XLSX);
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";
+      s.onload = () => ok(window.XLSX); s.onerror = () => mal(new Error("no se pudo cargar el generador de Excel"));
+      document.head.appendChild(s);
+    });
+  }
+  async function excel() {
+    let X;
+    try { X = await cargarXLSX(); } catch (e) { banner(esc(e.message)); return; }
+    const C = calcular(), T = agregar(C.rows), LI = limites(C);
+    const r4 = x => x == null || !isFinite(x) ? null : Math.round(x * 10000) / 10000;
+    const ret = (r, k, m) => { const b = r.base[k]; return b && b.bA > 0 ? r4(m === "A" ? b.cA / b.bA - 1 : b.cU / b.bU - 1) : null; };
+    const act = C.rows.filter(r => r.q || r.vA).map(r => ({
+      Rubro: r.tipo, Ticker: r.a.ticker, Nombre: r.a.nombre, IOL: +r.qb.IOL || 0, PPI: +r.qb.PPI || 0, IBKR: +r.qb.IBKR || 0, Cantidad: r.q,
+      Moneda: r.a.moneda || "", "Cotización": r.p.precio || null, "Valor $": Math.round(r.vA), "Valor US$ MEP": Math.round(r.vU * 100) / 100, "% cartera": r4(r.w),
+      "Día $": ret(r, "d", "A"), "Día US$": ret(r, "d", "U"), "30 días $": ret(r, "m", "A"), "30 días US$": ret(r, "m", "U"), "Año $": ret(r, "y", "A"), "Año US$": ret(r, "y", "U"),
+      "P/E LTM": r.F ? r.F.pe_ltm : null, "P/E NTM": r.F ? r.F.pe_ntm : null, "EV/EBITDA LTM": r.F && !r.a.financiera ? r.F.ev_ebitda : null, "P/VL": r.F ? r.F.pvl : null, "ROE %": r.F ? r.F.roe : null,
+      Beta: r.F ? r.F.beta : null, "Div. yield %": r.F ? r.F.div_yield : null, "Próx. balance": r.F ? r.F.prox_balance || "" : "", "Categoría": r.tipo === "Efectivo" ? "" : r.cat,
+      TIR: r.p.bono ? r.p.bono.tir : null, "Dur. mod.": r.p.bono ? r.p.bono.dur_mod : null, Avisos: r.F && r.F.avisos ? r.F.avisos.join(" | ") : ""
+    }));
+    const rub = [];
+    const addR = (n, g) => rub.push({ Rubro: n, "Valor $": Math.round(g.vA), "Valor US$ MEP": Math.round(g.vU * 100) / 100, "%": r4(C.total ? g.vA / C.total : 0),
+      "Día $": g.ret.d ? r4(g.ret.d.A) : null, "Día US$": g.ret.d ? r4(g.ret.d.U) : null, "30 días $": g.ret.m ? r4(g.ret.m.A) : null, "30 días US$": g.ret.m ? r4(g.ret.m.U) : null,
+      "Año $": g.ret.y ? r4(g.ret.y.A) : null, "Año US$": g.ret.y ? r4(g.ret.y.U) : null, "P/E LTM": g.pe_ltm ? r4(g.pe_ltm.x) : null, "P/E NTM": g.pe_ntm ? r4(g.pe_ntm.x) : null,
+      "EV/EBITDA": g.ev_ebitda ? r4(g.ev_ebitda.x) : null, Beta: g.beta ? r4(g.beta.x) : null });
+    for (const [t, n] of TIPOS) { const rs = C.rows.filter(r => r.tipo === t && (r.q || r.vA)); if (rs.length) addR(n, agregar(rs)); }
+    addR("Total cartera", T);
+    const wb = X.utils.book_new();
+    const hoja = (rows, nombre, pctCols) => {
+      const ws = X.utils.json_to_sheet(rows);
+      const rng = X.utils.decode_range(ws["!ref"] || "A1");
+      const heads = Object.keys(rows[0] || {});
+      heads.forEach((h, c) => {
+        const isPct = pctCols.includes(h);
+        for (let rr = 1; rr <= rng.e.r; rr++) { const cell = ws[X.utils.encode_cell({ r: rr, c })]; if (cell && typeof cell.v === "number") cell.z = isPct ? "0.00%" : (/Valor|Cotiz|Cantidad|IOL|PPI|IBKR/.test(h) ? "#,##0.00" : "0.00"); }
+      });
+      ws["!cols"] = heads.map(h => ({ wch: Math.max(10, Math.min(40, h.length + 4)) }));
+      X.utils.book_append_sheet(wb, ws, nombre);
+    };
+    const pc = ["% cartera", "%", "Día $", "Día US$", "30 días $", "30 días US$", "Año $", "Año US$"];
+    hoja([{ Concepto: "Fecha", Valor: new Date().toLocaleString("es-AR") }, { Concepto: "Dólar MEP", Valor: C.mep }, { Concepto: "Valor total $", Valor: Math.round(C.total) }, { Concepto: "Valor total US$ MEP", Valor: Math.round(C.totalU) },
+      { Concepto: "Rend. día US$", Valor: T.ret.d ? r4(T.ret.d.U) : null }, { Concepto: "Rend. 30 días US$", Valor: T.ret.m ? r4(T.ret.m.U) : null }, { Concepto: "Rend. año US$", Valor: T.ret.y ? r4(T.ret.y.U) : null },
+      { Concepto: "P/E LTM ponderado", Valor: T.pe_ltm ? r4(T.pe_ltm.x) : null }, { Concepto: "P/E NTM ponderado", Valor: T.pe_ntm ? r4(T.pe_ntm.x) : null }, { Concepto: "EV/EBITDA LTM ponderado", Valor: T.ev_ebitda ? r4(T.ev_ebitda.x) : null },
+      { Concepto: "Beta acciones", Valor: T.beta ? r4(T.beta.x) : null }], "Resumen", []);
+    hoja(act, "Activos", pc);
+    hoja(rub, "Rubros", pc);
+    hoja(LI.out.filter(e => e.vA > 0).map(e => ({ Empresa: e.empresa, "Categoría": e.cat, "%": r4(e.p), "Límite %": e.lim, "Recorte %": e.rec, Estado: e.est })).concat(LI.topes.map(t => ({ Empresa: t.nom, "Categoría": "Tope", "%": r4(t.p), "Límite %": t.lim, "Recorte %": null, Estado: t.est }))), "Límites", ["%"]);
+    X.writeFile(wb, `Cartera_Consolidada_${hoyStr()}.xlsx`);
+  }
+
+  iniciar();
+})();
+</script>
+</body>
+</html>

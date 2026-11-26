@@ -717,6 +717,18 @@ def main():
                         if ytd is not None and r.get("precio"):
                             r["panio"], r["fanio"] = r["precio"] / (1 + ytd / 100), fb["anio"]
                             r["anio_por_ytd"] = ytd
+                        else:
+                            # Sin %YTD publicado: primer valor del año que tenga argentinadatos (se busca una vez)
+                            fa = hist.setdefault("fci_anio", {}).get(a["ticker"])
+                            if not fa and hist.get("fci_sondeo") != d.isoformat():
+                                for mes in range(1, d.month + 1):
+                                    lst, ff = fci_en_fecha(f"{d.year}-{mes:02d}-05", avisos, fci_cache, adelante=True)
+                                    enc = esc(fci_buscar(lst, a["fci_busca"], a["nombre"])) if lst else None
+                                    if enc and enc[0]:
+                                        fa = hist["fci_anio"][a["ticker"]] = {"fecha": ff, "vcp": enc[0]}
+                                        break
+                            if fa and fa["fecha"][:4] == str(d.year):
+                                r["panio"], r["fanio"] = fa["vcp"], fa["fecha"]
                 else:
                     avisos.append(f"{a['ticker']}: no se encontró el fondo en argentinadatos")
             else:
@@ -780,6 +792,9 @@ def main():
         if not r.get("precio"):
             avisos.append(f"{a['ticker']}: sin cotización")
         res[aid] = {k: (rnd(v, 6) if isinstance(v, float) else v) for k, v in r.items()}
+
+    if any(a["tipo"] == "FCI" for a in activos):
+        hist["fci_sondeo"] = d.isoformat()
 
     # Bases del día (30 días y año) para no pedir la historia en cada corrida
     hist["bases"] = {"fecha": d.isoformat(), "version": VERSION_BASES, "valores": {
