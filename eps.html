@@ -106,7 +106,9 @@ table.crec td.tk { font-family: var(--f-body); font-weight: 600; position: stick
 table.crec th:first-child { position: sticky; left: 0; background: var(--surface); z-index: 1; }
 table.crec td.tk small { font-weight: 400; max-width: 170px; overflow: hidden; text-overflow: ellipsis; }
 .crec-wrap { overflow: auto; -webkit-overflow-scrolling: touch; max-height: 78vh; }
-.crec-top { overflow-x: auto; overflow-y: hidden; height: 14px; }
+.crec-top { overflow-x: auto; overflow-y: hidden; height: 18px; background: var(--sunken); border: 1px solid var(--line); border-radius: 6px; }
+.crec-top::-webkit-scrollbar, .crec-wrap::-webkit-scrollbar { height: 12px; }
+.crec-top::-webkit-scrollbar-thumb, .crec-wrap::-webkit-scrollbar-thumb { background: var(--band); border-radius: 6px; }
 .crec-top > div { height: 1px; }
 body.vista-crec .wrap { max-width: none; }
 body.vista-crec { padding-left: max(8px, env(safe-area-inset-left)); padding-right: max(8px, env(safe-area-inset-right)); }
@@ -636,8 +638,8 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     }
     h += "</tbody>";
     const faltan = filas.filter(r => !r.c.e).map(r => r.a.ticker);
-    $("main").innerHTML = `<section class="card"><h3>Crecimiento del EPS: historia y estimaciones</h3>
-      <div class="crec-top" id="crecTop" aria-hidden="true"><div></div></div>
+    $("main").innerHTML = `<div class="crec-top" id="crecTop" aria-hidden="true" title="Desplazar la tabla"><div></div></div>
+      <section class="card"><h3>Crecimiento del EPS: historia y estimaciones</h3>
       <div class="crec-wrap" id="crecWrap"><table class="t crec">${h}</table></div>
       <p class="note"><b>Cómo leerla.</b> Años sin "e": EPS diluido contable (GAAP), el mismo de los gráficos. Años con "e": consenso de analistas sobre EPS contable, en las mismas unidades que la historia (pasando el mouse se ve también el ajustado). Los promedios son crecimiento anual compuesto (CAGR): el largo va desde el primer año cargado hasta el último cerrado; el de 5 y 3 años, desde 5 y 3 ejercicios antes. "n/s": no se puede calcular porque el EPS es negativo o cero en una punta.
       El <b>promedio futuro</b> va del EPS ajustado del último ejercicio cerrado a la última estimación, los dos en la base del consenso; en verde, los que llegan al 15% anual. P/E 2.º y 3.er año: el precio de hoy sobre el EPS estimado de esos ejercicios. PEG: P/E de los próximos 12 meses dividido por el promedio futuro (menos de 1, crecimiento barato).
