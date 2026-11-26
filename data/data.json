@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-26T17:01-03:00",
+ "actualizado": "2026-11-26T19:03-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
@@ -823,7 +823,7 @@
     "var_pct": 0.82,
     "fecha": "2026-11-25",
     "prom_anio": 548925.0,
-    "usd_tn": 359.0
+    "usd_tn": 358.9
    }
   },
   "maiz": {
@@ -967,7 +967,7 @@
     "var_pct": -0.53,
     "fecha": "2026-11-25",
     "prom_anio": 275205.0,
-    "usd_tn": 169.3
+    "usd_tn": 169.2
    }
   },
   "trigo": {
@@ -1111,7 +1111,7 @@
     "var_pct": 3.4,
     "fecha": "2026-11-25",
     "prom_anio": 310208.0,
-    "usd_tn": 189.3
+    "usd_tn": 189.2
    }
   },
   "spx": {
@@ -1526,12 +1526,12 @@
    "nombre": "Merval",
    "unidad": "puntos (MSCI, base 100.000)",
    "fuente": "Rava (MSCI Merval) + historia S&P reescalada",
-   "valor": 84439.0,
+   "valor": 84358.0,
    "anterior": 81643.0,
-   "var_pct": 3.42,
+   "var_pct": 3.32,
    "mm50": null,
    "mm200": null,
-   "prom_anio": 89492.0,
+   "prom_anio": 89489.0,
    "max52": 102278.0,
    "min52": 81146.0,
    "fecha": "2026-11-26",
@@ -1562,19 +1562,19 @@
     81255.0,
     81261.0,
     81643.0,
-    84439.0
+    84358.0
    ]
   },
   "bovespa": {
    "nombre": "Ibovespa",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 173686.0,
+   "valor": 176800.0,
    "anterior": 166685.0,
-   "var_pct": 4.2,
-   "mm50": 184350.0,
-   "mm200": 180834.0,
-   "prom_anio": 179828.0,
+   "var_pct": 6.07,
+   "mm50": 184412.0,
+   "mm200": 180850.0,
+   "prom_anio": 179842.0,
    "max52": 209067.0,
    "min52": 154770.0,
    "fecha": "2026-11-26",
@@ -1698,7 +1698,7 @@
     164796.0,
     164090.0,
     166685.0,
-    173686.0
+    176800.0
    ]
   },
   "ipsa": {
@@ -1979,7 +1979,7 @@
    "fuente": "Yahoo Finance (demora ~15 min)",
    "valor": 103.78,
    "anterior": 103.67,
-   "var_pct": 0.1,
+   "var_pct": 0.11,
    "mm50": 102.2,
    "mm200": 100.15,
    "prom_anio": 99.88,
@@ -2380,7 +2380,7 @@
     5.8825,
     5.7446
    ],
-   "en_pesos": 278.6965
+   "en_pesos": 278.7836
   },
   "usdclp": {
    "nombre": "Peso chileno",
@@ -2517,7 +2517,7 @@
     1032.55,
     1035.5
    ],
-   "en_pesos": 1.5461
+   "en_pesos": 1.5466
   },
   "eurusd": {
    "nombre": "Euro",
@@ -2654,7 +2654,7 @@
     1.0935,
     1.0975
    ],
-   "en_pesos": 1757.0975
+   "en_pesos": 1757.6462
   },
   "oficial": {
    "nombre": "Dólar oficial (BNA)",
@@ -2792,15 +2792,15 @@
     1625.0
    ],
    "compra": 1575.0,
-   "actualizado": "2026-11-26T16:00:00.000Z"
+   "actualizado": "2026-11-26T18:00:00.000Z"
   },
   "mep": {
    "nombre": "Dólar MEP",
    "unidad": "$ por US$",
    "fuente": "dolarapi.com / argentinadatos.com",
-   "valor": 1666.3,
+   "valor": 1666.4,
    "anterior": 1688.7,
-   "var_pct": -1.33,
+   "var_pct": -1.32,
    "mm50": 1577.95,
    "mm200": 1500.14,
    "prom_anio": 1494.31,
@@ -2927,10 +2927,10 @@
     1743.1,
     1695.1,
     1688.7,
-    1666.3
+    1666.4
    ],
-   "compra": 1664.1,
-   "actualizado": "2026-11-26T18:59:00.000Z"
+   "compra": 1657.2,
+   "actualizado": "2026-11-26T20:56:00.000Z"
   },
   "ccl": {
    "nombre": "Dólar CCL",
@@ -3068,16 +3068,16 @@
     1767.9
    ],
    "compra": 1765.6,
-   "actualizado": "2026-11-26T18:59:00.000Z"
+   "actualizado": "2026-11-26T20:56:00.000Z"
   },
   "mayorista": {
    "nombre": "Dólar mayorista",
    "unidad": "$ por US$",
    "fuente": "dolarapi.com / argentinadatos.com",
-   "valor": 1601.0,
+   "valor": 1601.5,
    "anterior": 1604.0,
-   "var_pct": -0.19,
-   "mm50": 1536.87,
+   "var_pct": -0.16,
+   "mm50": 1536.88,
    "mm200": 1464.91,
    "prom_anio": 1460.17,
    "max52": 1604.0,
@@ -3203,10 +3203,10 @@
     1580.0,
     1593.0,
     1604.0,
-    1601.0
+    1601.5
    ],
-   "compra": 1592.0,
-   "actualizado": "2026-11-26T14:48:00.000Z"
+   "compra": 1592.5,
+   "actualizado": "2026-11-26T16:13:00.000Z"
   },
   "brecha": {
    "nombre": "Brecha CCL / oficial",
@@ -3538,7 +3538,7 @@
   "riesgo_ar": {
    "nombre": "Riesgo país Argentina",
    "unidad": "puntos básicos",
-   "fuente": "EMBI JP Morgan vía argentinadatos + Rava + dato en curso",
+   "fuente": "EMBI JP Morgan vía argentinadatos + Rava",
    "valor": 1067.0,
    "anterior": 1067.0,
    "var_pct": 0.0,
@@ -3675,9 +3675,9 @@
    "nombre": "Merval en dólares",
    "unidad": "puntos US$ (CCL)",
    "fuente": "Cálculo propio: Merval / CCL",
-   "valor": 47.76,
+   "valor": 47.72,
    "anterior": 46.18,
-   "var_pct": 3.42,
+   "var_pct": 3.32,
    "mm50": null,
    "mm200": null,
    "prom_anio": 53.28,
@@ -3711,7 +3711,7 @@
     44.99,
     45.22,
     46.18,
-    47.76
+    47.72
    ]
   },
   "riesgo_br": {
@@ -3744,6 +3744,6 @@
  },
  "errores": [
   "IPSA: Yahoo no tiene el índice actualizado con ningún código conocido; se muestra el ETF ECH (en US$)",
-  "Peso chileno (mindicador): 500 Server Error: Internal Server Error for url: https://mindicador.cl/api/dolar/2025; se usa Yahoo"
+  "Peso chileno (mindicador): sin datos; se usa Yahoo"
  ]
 }
