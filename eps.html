@@ -391,7 +391,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
 
     html += `<div class="grid2">
       <section class="card"><h3>Precio y EPS en base 100</h3>
-        <div class="legend"><span><i style="border-color:var(--s-precio)"></i>Precio</span><span><i style="border-color:var(--s-eps)"></i>EPS ${modo === "anual" ? "del ejercicio" : "LTM"}</span><span>Escala logarítmica</span></div>
+        <div class="legend"><span><i style="border-color:var(--s-precio)"></i>Precio</span><span><i style="border-color:var(--s-eps)"></i>EPS ${modo === "anual" ? "del ejercicio" : "LTM"}</span>${modo === "anual" && E && E.acciones[tk] ? '<span><i class="dash" style="border-color:var(--s-eps)"></i>EPS estimado (consenso)</span>' : ""}<span>Escala logarítmica</span></div>
         <div class="chart" id="chIdx"></div>
         <p class="note">Las dos líneas arrancan en 100. Si el precio queda por encima del EPS, el mercado le pagó más múltiplo; si queda por debajo, el múltiplo se achicó.</p></section>
       <section class="card"><h3>Precio vs. precio según su P/E histórico</h3>
@@ -407,15 +407,27 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     <section class="card"><h3>Tabla</h3><div class="scroll" id="tabla"></div></section>`;
     $("main").innerHTML = html;
 
-    // Gráfico 1: base 100
+    // Gráfico 1: base 100 (en la vista anual, con los años estimados en línea punteada)
     const base = serie.find(p => p.eps > 0 && p.precio > 0);
-    const et = serie.map(p => p.lab);
+    const CR = modo === "anual" && E ? crec(tk) : null;
+    const ultFin = hist.length ? hist[hist.length - 1].fin : "";
+    const extra = CR && CR.est && !CR.ars && !(CR.e && CR.e.historia_override) ? CR.est.filter(x => x.fin > ultFin) : [];
+    const et = serie.map(p => p.lab).concat(extra.map(x => anioFY(x.fin) + "e"));
+    const pad = a => a.concat(extra.map(() => null));
     if (base) {
-      lineChart($("chIdx"), et, [
-        { nombre: "Precio", color: "var(--s-precio)", valores: serie.map(p => p.precio > 0 && new Date(p.fin) >= new Date(base.fin) ? p.precio / base.precio * 100 : null) },
-        { nombre: "EPS", color: "var(--s-eps)", valores: serie.map(p => p.eps > 0 && new Date(p.fin) >= new Date(base.fin) ? p.eps / base.eps * 100 : null) }
-      ], { log: true, ref: 100, ultimoHoy: !!hoy, aria: "Precio y EPS en base 100",
-        tip: i => { const p = serie[i]; return `<div><b>${esc(p.lab === "Hoy" ? "Hoy " + dmy(p.fin) : p.lab)}</b></div>
+      const ultReal = [...hist].reverse().find(p => p.eps > 0);
+      const iUlt = ultReal ? hist.indexOf(ultReal) : -1;
+      const iIni = hoy && hoy.eps > 0 ? serie.length - 1 : iUlt;  // la línea punteada arranca en el último dato real
+      const estV = serie.map((p, i) => i === iIni && extra.length ? p.eps / base.eps * 100 : null).concat(extra.map(x => x.epsV > 0 ? x.epsV / base.eps * 100 : null));
+      const series = [
+        { nombre: "Precio", color: "var(--s-precio)", valores: pad(serie.map(p => p.precio > 0 && new Date(p.fin) >= new Date(base.fin) ? p.precio / base.precio * 100 : null)) },
+        { nombre: "EPS", color: "var(--s-eps)", valores: pad(serie.map(p => p.eps > 0 && new Date(p.fin) >= new Date(base.fin) ? p.eps / base.eps * 100 : null)) }
+      ];
+      if (extra.length) series.push({ nombre: "EPS estimado", color: "var(--s-eps)", dash: "5 4", valores: estV });
+      lineChart($("chIdx"), et, series, { log: true, ref: 100, ultimoHoy: !!hoy && !extra.length, aria: "Precio y EPS en base 100",
+        tip: i => { if (i >= serie.length) { const x = extra[i - serie.length]; return `<div><b>${anioFY(x.fin)} estimado</b></div>
+            <div class="r"><span>EPS</span><b>${x.epsV > 0 ? fmt(x.epsV / base.eps * 100, 0) : "—"}</b></div><div class="r"><span>EPS US$</span><b>${fmt(x.epsV)}</b></div>`; }
+          const p = serie[i]; return `<div><b>${esc(p.lab === "Hoy" ? "Hoy " + dmy(p.fin) : p.lab)}</b></div>
           <div class="r"><span>Precio</span><b>${p.precio > 0 ? fmt(p.precio / base.precio * 100, 0) : "—"}</b></div>
           <div class="r"><span>EPS</span><b>${p.eps > 0 ? fmt(p.eps / base.eps * 100, 0) : "—"}</b></div>`; } });
     } else $("chIdx").innerHTML = `<p class="note">Faltan precios para armar el gráfico.</p>`;
@@ -493,8 +505,14 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
         <td class="${cls(vE)}">${pct(vE)}</td><td class="${cls(vP)}">${pct(vP)}</td><td class="${cls(vPE)}">${pct(vPE)}</td>
         <td style="font-family:var(--f-body);color:var(--muted)">${p.hoy ? "EPS LTM al " + dmy(p.epsFin) : esc(p.fuente || "")}</td></tr>`;
     }).join("");
+    const filasE = (modo === "anual" && typeof extra !== "undefined" ? extra : []).map((x, i) => {
+      const prev = i ? extra[i - 1].epsV : (hist.length ? hist[hist.length - 1].eps : null);
+      const vE = prev > 0 && x.epsV > 0 ? x.epsV / prev - 1 : null;
+      return `<tr><td style="font-style:italic">${anioFY(x.fin)}e</td><td>${dmy(x.fin)}</td><td style="font-style:italic">${fmt(x.epsV)}</td><td>—</td><td>${x.pe ? fmt(x.pe, 1) + "x" : "—"}</td>
+        <td class="${cls(vE)}">${pct(vE)}</td><td></td><td></td><td style="font-family:var(--f-body);color:var(--muted)">Consenso ${esc(x.base || "")} · ${esc(x.fuente)} ${dmy(x.fecha)}${x.pe ? " · P/E con el precio de hoy" : ""}</td></tr>`;
+    }).join("");
     $("tabla").innerHTML = `<table class="t"><thead><tr><th>Período</th><th>Cierre</th>${modo === "trim" ? "<th>EPS trimestre</th>" : ""}
-      <th>${modo === "anual" ? "EPS diluido" : "EPS LTM"}</th><th>Precio</th><th>P/E</th><th>Var. EPS</th><th>Var. precio</th><th>Var. P/E</th><th>Fuente</th></tr></thead><tbody>${filas}</tbody></table>
+      <th>${modo === "anual" ? "EPS diluido" : "EPS LTM"}</th><th>Precio</th><th>P/E</th><th>Var. EPS</th><th>Var. precio</th><th>Var. P/E</th><th>Fuente</th></tr></thead><tbody>${filas}${filasE}</tbody></table>
       ${h.splits && h.splits.length ? `<p class="note">Splits registrados después de la carga: ${h.splits.map(s => `${s.factor}:1 el ${dmy(s.fecha)}`).join(", ")}. Los datos anteriores se muestran ajustados.</p>` : ""}`;
   }
 
@@ -507,6 +525,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     const e = E && E.acciones[t], h = H.acciones[t];
     const ars = !!(e && e.moneda === "ARS");
     let hist = ars ? (e.historia_ars || []).map(x => ({ fin: x.fin, eps: x.eps }))
+      : e && e.historia_override ? e.historia_override.map(x => ({ fin: x.fin, eps: x.eps }))
       : (h ? h.anual.map(x => ({ fin: x.fin, eps: x.eps / factor(h, x.cargado) })) : []);
     hist.sort((a, b) => a.fin < b.fin ? -1 : 1);
     // Para empresas en pesos los promedios se calculan en dólares (EPS ÷ dólar oficial de cada cierre)
@@ -525,12 +544,13 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     // Factor para mostrar las estimaciones en las mismas unidades que la historia (US$ por ADR):
     // EPS contable del último ejercicio en la historia ÷ el mismo dato en TIKR.
     let k = 1;
-    if (!ars && e.real && e.real.eps_gaap) {
+    if (e.real && e.real.eps_gaap) {
       const m = hist.find(x => Math.abs(new Date(x.fin) - new Date(e.real.fin)) < 30 * 864e5);
       if (m && m.eps && Math.sign(m.eps) === Math.sign(e.real.eps_gaap)) k = m.eps / e.real.eps_gaap;
     }
     out.k = k;
-    out.est = (e.est || []).map(x => ({ ...x, epsV: x.eps * k }));
+    // En la fila se muestra el consenso contable (misma base que la historia); si no hay, el ajustado
+    out.est = (e.est || []).map(x => ({ ...x, epsV: (x.eps_gaap != null ? x.eps_gaap : x.eps) * k, base: x.eps_gaap != null ? "contable" : "ajustado" }));
     // Promedio futuro: EPS ajustado real del último ejercicio → última estimación (misma base: consenso ajustado)
     const ult = out.est[Math.min(2, out.est.length - 1)];
     if (e.real && ult) {
@@ -589,27 +609,28 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     for (const { a, c } of filas) {
       const porAnio = {};
       c.hist.forEach(x => { porAnio[anioFY(x.fin)] = { v: x.eps, e: false, fin: x.fin }; });
-      (c.est || []).forEach(x => { if (!porAnio[anioFY(x.fin)]) porAnio[anioFY(x.fin)] = { v: c.ars ? x.eps : x.epsV, e: true, fin: x.fin, n: x.analistas }; });
+      (c.est || []).forEach(x => { if (!porAnio[anioFY(x.fin)]) porAnio[anioFY(x.fin)] = { v: x.epsV, e: true, fin: x.fin, n: x.analistas, base: x.base, aj: x.eps * (c.k || 1) }; });
       const celdas = yrs.map(y => { const p = porAnio[y]; if (!p) return "<td></td>";
-        return `<td class="${p.e ? "e" : ""}" title="${esc(dmy(p.fin))}${p.e ? " · estimado" + (p.n ? `, ${p.n} analistas` : "") : ""}">${fE(p.v, c.ars)}${p.e ? "e" : ""}${p.e && p.n != null && p.n < 3 ? '<small class="warn">pocos analistas</small>' : ""}</td>`; }).join("");
+        return `<td class="${p.e ? "e" : ""}" title="${esc(dmy(p.fin))}${p.e ? ` · consenso ${p.base}` + (p.base === "contable" ? ` (ajustado: ${fE(p.aj, c.ars)})` : "") + (p.n ? `, ${p.n} analistas` : "") : ""}">${fE(p.v, c.ars)}${p.e ? "e" : ""}${p.e && p.n != null && p.n < 3 ? '<small class="warn">pocos analistas</small>' : ""}</td>`; }).join("");
       const e2 = c.est && c.est[1], e3 = c.est && c.est[2];
-      const futTxt = c.fut ? (c.fut.ns ? '<td class="muted">n/s</td>' : `<td class="${c.fut.v >= 0.15 ? "ok15" : cls(c.fut.v)}">${pct(c.fut.v)}<small>${c.fut.k} años${c.ars ? " · en $" : ""}</small></td>`) : '<td class="muted">—</td>';
+      const futTxt = c.fut ? (c.fut.ns ? '<td class="muted">n/s</td>' : `<td class="${c.fut.v >= 0.15 ? "ok15" : cls(c.fut.v)}">${pct(c.fut.v)}<small>${c.fut.k} años${c.ars ? " · en US$" : ""}</small></td>`) : '<td class="muted">—</td>';
       const gap = c.gap != null && isFinite(c.gap) ? `<small>${c.gap >= 0 ? "+" : ""}${fmt(c.gap * 100, 0)}% vs contable</small>` : "";
       const peC = x => x && x.pe ? `<td>${fmt(x.pe, 1)}x<small>${anioFY(x.fin)}</small></td>` : '<td class="muted">—</td>';
-      const tags = [c.ars ? '<span class="tag warn">ARS</span>' : "", a.revisar ? '<span class="tag warn" title="' + esc(a.revisar) + '">revisar</span>' : ""].join(" ");
+      const tags = [c.ars ? '<span class="tag warn">ARS</span>' : "", a.revisar && !c.ars && !(c.e && c.e.historia_override) ? '<span class="tag warn" title="' + esc(a.revisar) + '">revisar</span>' : "",
+        c.e && c.e.nota ? '<span class="tag" title="' + esc(c.e.nota) + '">nota</span>' : ""].join(" ");
       h += `<tr><td class="tk">${esc(a.ticker)} ${tags}<small>${esc(a.nombre)}</small></td>${celdas}
         ${pc(c.largo, true).replace("<td", '<td class="sep"').replace('class="sep" class="', 'class="sep ')}${pc(c.p5)}${pc(c.p3)}<td>${c.nh > 1 ? c.caidas + " de " + (c.nh - 1) : "—"}</td>
-        <td class="sep">${c.e && c.e.real ? fE(c.e.real.eps_ajustado, c.ars) + gap : "—"}</td>${futTxt}${peC(e2)}${peC(e3)}
+        <td class="sep">${c.e && c.e.real ? fE(c.e.real.eps_ajustado * (c.k || 1), c.ars) + gap : "—"}</td>${futTxt}${peC(e2)}${peC(e3)}
         <td>${c.peg != null ? fmt(c.peg, 2) : "—"}</td><td>${c.rev ? `<span class="${cls(c.rev.v)}">${pct(c.rev.v)}</span><small>desde ${dmy(c.rev.desde)}</small>` : '<span class="muted">—</span>'}</td></tr>`;
     }
     h += "</tbody>";
     const faltan = filas.filter(r => !r.c.e).map(r => r.a.ticker);
     $("main").innerHTML = `<section class="card"><h3>Crecimiento del EPS: historia y estimaciones</h3>
       <div class="crec-wrap"><table class="t crec">${h}</table></div>
-      <p class="note"><b>Cómo leerla.</b> Años sin "e": EPS diluido contable (GAAP), el mismo de los gráficos. Años con "e": consenso de analistas (base ajustada), pasado a las mismas unidades que la historia. Los promedios son crecimiento anual compuesto (CAGR): el largo va desde el primer año cargado hasta el último cerrado; el de 5 y 3 años, desde 5 y 3 ejercicios antes. "n/s": no se puede calcular porque el EPS es negativo o cero en una punta.
+      <p class="note"><b>Cómo leerla.</b> Años sin "e": EPS diluido contable (GAAP), el mismo de los gráficos. Años con "e": consenso de analistas sobre EPS contable, en las mismas unidades que la historia (pasando el mouse se ve también el ajustado). Los promedios son crecimiento anual compuesto (CAGR): el largo va desde el primer año cargado hasta el último cerrado; el de 5 y 3 años, desde 5 y 3 ejercicios antes. "n/s": no se puede calcular porque el EPS es negativo o cero en una punta.
       El <b>promedio futuro</b> va del EPS ajustado del último ejercicio cerrado a la última estimación, los dos en la base del consenso; en verde, los que llegan al 15% anual. P/E 2.º y 3.er año: el precio de hoy sobre el EPS estimado de esos ejercicios. PEG: P/E de los próximos 12 meses dividido por el promedio futuro (menos de 1, crecimiento barato).
       Revisión: cuánto cambió el consenso del año siguiente en los últimos ~90 días (se arma con las fotos semanales; las primeras semanas no hay dato).
-      <b>BMA, GGAL e YPF</b>: EPS en pesos argentinos por acción local (reexpresados por inflación); sus promedios históricos se calculan en dólares (EPS ÷ dólar oficial de cada cierre) y el futuro queda en pesos, por lo que incluye la inflación esperada.
+      <b>BMA y GGAL</b>: EPS en <b>pesos argentinos</b> por acción local; los promedios históricos se calculan en dólares (EPS ÷ dólar oficial de cada cierre) y el futuro con las estimaciones en dólares, así no se mezcla la inflación; los años estimados se muestran en pesos al dólar de 2025. <b>YPF</b>: en dólares por acción, porque lleva su contabilidad en dólares.
       Ejercicios que cierran en enero o febrero se cuentan en el año anterior. Fuentes: TIKR (carga inicial y tercer año) y Yahoo Finance (actualización semanal).${faltan.length ? ` Sin estimaciones cargadas: ${esc(faltan.join(", "))}.` : ""}</p></section>`;
   }
 

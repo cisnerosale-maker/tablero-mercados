@@ -1,0 +1,2386 @@
+{
+ "_nota": "Estimaciones de EPS (consenso) por empresa. 'real' = último ejercicio cerrado: EPS ajustado (base del consenso) y contable. 'est' = próximos 3 ejercicios: eps (ajustado, consenso) y eps_gaap (consenso contable). Carga inicial TIKR 26/11/2026; Yahoo actualiza cada semana los dos primeros años. SNY sin estimaciones en TIKR.",
+ "actualizado": "2026-11-26",
+ "avisos": [
+  "SNY: TIKR no muestra estimaciones; queda sin datos futuros."
+ ],
+ "acciones": {
+  "NVDA": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 10.3,
+   "precio_tikr": 149.3,
+   "real": {
+    "fin": "2026-01-31",
+    "eps_ajustado": 4.77,
+    "eps_gaap": 4.9,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-01-31",
+     "eps": 9.67,
+     "eps_gaap": 10.31,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-01-31",
+     "eps": 16.61,
+     "eps_gaap": 16.41,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-01-31",
+     "eps": 21.65,
+     "eps_gaap": 20.81,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "META": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 18.76,
+   "precio_tikr": 609.89,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 29.68,
+    "eps_gaap": 23.49,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 29.36,
+     "eps_gaap": 29.01,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 35.56,
+     "eps_gaap": 33.74,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 42.4,
+     "eps_gaap": 39.45,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "GOOGL": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 19.5,
+   "precio_tikr": 273.1,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 10.81,
+    "eps_gaap": 10.81,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 13.09,
+     "eps_gaap": 19.54,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 15.29,
+     "eps_gaap": 14.9,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 18.58,
+     "eps_gaap": 18.35,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "ADP": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 25.08,
+   "precio_tikr": 316.72,
+   "real": {
+    "fin": "2026-06-30",
+    "eps_ajustado": 11.12,
+    "eps_gaap": 10.94,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-06-30",
+     "eps": 12.37,
+     "eps_gaap": 12.36,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-06-30",
+     "eps": 13.52,
+     "eps_gaap": 13.48,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-06-30",
+     "eps": 14.76,
+     "eps_gaap": 14.66,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "V": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 28.23,
+   "precio_tikr": 424.39,
+   "real": {
+    "fin": "2026-09-30",
+    "eps_ajustado": 13.27,
+    "eps_gaap": 12.32,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-09-30",
+     "eps": 15.03,
+     "eps_gaap": 14.88,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-09-30",
+     "eps": 17.13,
+     "eps_gaap": 17.01,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-09-30",
+     "eps": 19.51,
+     "eps_gaap": 19.37,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "UBER": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 16.27,
+   "precio_tikr": 66.35,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 2.45,
+    "eps_gaap": 4.73,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 3.38,
+     "eps_gaap": 2.59,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 4.41,
+     "eps_gaap": 4.39,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 5.54,
+     "eps_gaap": 5.47,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "MSFT": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 23.6,
+   "precio_tikr": 489.93,
+   "real": {
+    "fin": "2026-06-30",
+    "eps_ajustado": 17.28,
+    "eps_gaap": 17.95,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-06-30",
+     "eps": 20.03,
+     "eps_gaap": 19.92,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-06-30",
+     "eps": 24.23,
+     "eps_gaap": 24.1,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-06-30",
+     "eps": 30.2,
+     "eps_gaap": 29.83,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "TSM": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 15.38,
+   "precio_tikr": 342.34,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 10.65,
+    "eps_gaap": 10.65,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 17.5,
+     "eps_gaap": 17.14,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 23.35,
+     "eps_gaap": 23.12,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 29.84,
+     "eps_gaap": 29.67,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "ONON": {
+   "moneda_tikr": "CHF",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 15.99,
+   "precio_tikr": 31.5,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 0.8,
+    "eps_gaap": 0.61,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 1.5,
+     "eps_gaap": 1.31,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 1.7,
+     "eps_gaap": 1.49,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 2.13,
+     "eps_gaap": 1.9,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "DECK": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 10.89,
+   "precio_tikr": 85.56,
+   "real": {
+    "fin": "2026-03-31",
+    "eps_ajustado": 7.02,
+    "eps_gaap": 7.02,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-03-31",
+     "eps": 7.73,
+     "eps_gaap": 7.85,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-03-31",
+     "eps": 8.2,
+     "eps_gaap": 8.1,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-03-31",
+     "eps": 9.52,
+     "eps_gaap": 9.02,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "NKE": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 29.81,
+   "precio_tikr": 36.66,
+   "real": {
+    "fin": "2026-05-31",
+    "eps_ajustado": 1.58,
+    "eps_gaap": 2.1,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-05-31",
+     "eps": 1.29,
+     "eps_gaap": 1.25,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-05-31",
+     "eps": 1.37,
+     "eps_gaap": 1.34,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-05-31",
+     "eps": 1.88,
+     "eps_gaap": 1.81,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "BABA": {
+   "moneda_tikr": "CNY",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 10.14,
+   "precio_tikr": 86.26,
+   "real": {
+    "fin": "2026-03-31",
+    "eps_ajustado": 26.8,
+    "eps_gaap": 44.0,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-03-31",
+     "eps": 43.69,
+     "eps_gaap": 51.54,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-03-31",
+     "eps": 61.08,
+     "eps_gaap": 54.04,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-03-31",
+     "eps": 77.36,
+     "eps_gaap": 73.69,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "SFM": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 12.33,
+   "precio_tikr": 53.32,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 5.31,
+    "eps_gaap": 5.31,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 4.93,
+     "eps_gaap": 4.92,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 4.27,
+     "eps_gaap": 4.17,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 4.57,
+     "eps_gaap": 4.6,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "PEP": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 16.99,
+   "precio_tikr": 143.93,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 8.14,
+    "eps_gaap": 6.0,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 8.4,
+     "eps_gaap": 8.3,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 8.59,
+     "eps_gaap": 8.19,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 9.08,
+     "eps_gaap": 8.67,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "JNJ": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 24.58,
+   "precio_tikr": 273.94,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 10.79,
+    "eps_gaap": 11.03,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 11.12,
+     "eps_gaap": 7.32,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 11.61,
+     "eps_gaap": 10.01,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 13.88,
+     "eps_gaap": 11.57,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "AMZN": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 23.68,
+   "precio_tikr": 244.43,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 7.17,
+    "eps_gaap": 7.17,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 9.6,
+     "eps_gaap": 12.8,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 10.93,
+     "eps_gaap": 10.67,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 14.07,
+     "eps_gaap": 14.55,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "AMD": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 26.92,
+   "precio_tikr": 406.03,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 4.17,
+    "eps_gaap": 2.65,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 8.09,
+     "eps_gaap": 6.16,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 17.61,
+     "eps_gaap": 15.37,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 25.4,
+     "eps_gaap": 22.88,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "MU": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 3.43,
+   "precio_tikr": 601.25,
+   "real": {
+    "fin": "2026-08-31",
+    "eps_ajustado": 75.52,
+    "eps_gaap": 74.33,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-08-31",
+     "eps": 175.08,
+     "eps_gaap": 173.13,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-08-31",
+     "eps": 204.99,
+     "eps_gaap": 199.89,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-08-31",
+     "eps": 201.9,
+     "eps_gaap": 195.35,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "AAPL": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 37.75,
+   "precio_tikr": 355.58,
+   "real": {
+    "fin": "2026-09-30",
+    "eps_ajustado": 8.98,
+    "eps_gaap": 8.98,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-09-30",
+     "eps": 9.42,
+     "eps_gaap": 9.43,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-09-30",
+     "eps": 10.57,
+     "eps_gaap": 10.6,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-09-30",
+     "eps": 11.76,
+     "eps_gaap": 11.86,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "ASML": {
+   "moneda_tikr": "EUR",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 20.22,
+   "precio_tikr": 1303.08,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 24.71,
+    "eps_gaap": 24.71,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 41.38,
+     "eps_gaap": 41.72,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 56.94,
+     "eps_gaap": 57.5,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 76.65,
+     "eps_gaap": 76.65,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "ADBE": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 8.68,
+   "precio_tikr": 232.83,
+   "real": {
+    "fin": "2025-11-30",
+    "eps_ajustado": 20.94,
+    "eps_gaap": 16.7,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-11-30",
+     "eps": 24.47,
+     "eps_gaap": 18.24,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-11-30",
+     "eps": 27.41,
+     "eps_gaap": 21.43,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-11-30",
+     "eps": 31.0,
+     "eps_gaap": 24.36,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "BRK.B": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 25.56,
+   "precio_tikr": 579.32,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 20.62,
+    "eps_gaap": 31.04,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 22.73,
+     "eps_gaap": 22.49,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 22.82,
+     "eps_gaap": 20.0,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 23.61,
+     "eps_gaap": 17.45,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "RIO": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 9.18,
+   "precio_tikr": 74.58,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 6.69,
+    "eps_gaap": 6.08,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 8.27,
+     "eps_gaap": 7.89,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 7.98,
+     "eps_gaap": 7.7,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 8.16,
+     "eps_gaap": 9.02,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "GLOB": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 8.33,
+   "precio_tikr": 50.19,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 6.14,
+    "eps_gaap": 2.29,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 5.85,
+     "eps_gaap": 2.12,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 6.13,
+     "eps_gaap": 3.55,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 6.45,
+     "eps_gaap": 3.95,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "MELI": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 33.04,
+   "precio_tikr": 1467.3,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 39.4,
+    "eps_gaap": 39.4,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 36.66,
+     "eps_gaap": 36.59,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 52.96,
+     "eps_gaap": 51.89,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 73.57,
+     "eps_gaap": 72.71,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "C": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 9.28,
+   "precio_tikr": 113.33,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 7.53,
+    "eps_gaap": 6.99,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 11.4,
+     "eps_gaap": 11.41,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 13.06,
+     "eps_gaap": 12.95,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 14.82,
+     "eps_gaap": 14.73,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "AXP": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 16.11,
+   "precio_tikr": 312.39,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 15.38,
+    "eps_gaap": 15.38,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 17.77,
+     "eps_gaap": 18.39,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 20.22,
+     "eps_gaap": 20.17,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 23.19,
+     "eps_gaap": 23.08,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "KO": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 28.06,
+   "precio_tikr": 97.59,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 3.0,
+    "eps_gaap": 3.04,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 3.35,
+     "eps_gaap": 3.42,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 3.53,
+     "eps_gaap": 3.52,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 3.8,
+     "eps_gaap": 3.79,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "BAC": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 9.76,
+   "precio_tikr": 48.54,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 4.67,
+    "eps_gaap": 3.82,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 5.0,
+     "eps_gaap": 2.82,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 5.45,
+     "eps_gaap": 3.75,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 6.09,
+     "eps_gaap": 4.92,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "MCO": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 27.03,
+   "precio_tikr": 485.95,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 14.94,
+    "eps_gaap": 13.67,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 16.76,
+     "eps_gaap": 16.31,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 18.59,
+     "eps_gaap": 17.43,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 20.67,
+     "eps_gaap": 19.68,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "MA": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 29.66,
+   "precio_tikr": 659.97,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 17.01,
+    "eps_gaap": 16.52,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 20.06,
+     "eps_gaap": 19.63,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 23.18,
+     "eps_gaap": 23.06,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 26.93,
+     "eps_gaap": 26.76,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "NFLX": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 16.55,
+   "precio_tikr": 59.41,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 2.53,
+    "eps_gaap": 2.53,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 3.56,
+     "eps_gaap": 3.57,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 3.77,
+     "eps_gaap": 3.76,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 4.5,
+     "eps_gaap": 4.49,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "PG": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 24.46,
+   "precio_tikr": 173.23,
+   "real": {
+    "fin": "2026-06-30",
+    "eps_ajustado": 6.89,
+    "eps_gaap": 6.62,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-06-30",
+     "eps": 6.98,
+     "eps_gaap": 6.87,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-06-30",
+     "eps": 7.43,
+     "eps_gaap": 7.38,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-06-30",
+     "eps": 7.82,
+     "eps_gaap": 7.8,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "PM": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 21.25,
+   "precio_tikr": 184.32,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 7.54,
+    "eps_gaap": 7.26,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 8.35,
+     "eps_gaap": 7.24,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 9.02,
+     "eps_gaap": 8.43,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 9.87,
+     "eps_gaap": 9.39,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "UNH": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 15.25,
+   "precio_tikr": 346.19,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 16.35,
+    "eps_gaap": 13.23,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 20.61,
+     "eps_gaap": 19.42,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 23.47,
+     "eps_gaap": 22.15,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 27.34,
+     "eps_gaap": 25.91,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "TSLA": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 178.25,
+   "precio_tikr": 380.14,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 1.66,
+    "eps_gaap": 1.08,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 1.73,
+     "eps_gaap": 0.98,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 2.16,
+     "eps_gaap": 1.45,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 3.22,
+     "eps_gaap": 2.18,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "AMAT": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 16.14,
+   "precio_tikr": 311.18,
+   "real": {
+    "fin": "2026-10-31",
+    "eps_ajustado": 12.89,
+    "eps_gaap": 12.62,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-10-31",
+     "eps": 19.28,
+     "eps_gaap": 19.16,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-10-31",
+     "eps": 24.77,
+     "eps_gaap": 24.7,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-10-31",
+     "eps": 28.1,
+     "eps_gaap": 27.37,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "DIS": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 16.53,
+   "precio_tikr": 125.6,
+   "real": {
+    "fin": "2026-09-30",
+    "eps_ajustado": 7.02,
+    "eps_gaap": 5.63,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-09-30",
+     "eps": 7.6,
+     "eps_gaap": 6.87,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-09-30",
+     "eps": 8.55,
+     "eps_gaap": 7.67,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-09-30",
+     "eps": 9.71,
+     "eps_gaap": 9.0,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "INTU": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 11.57,
+   "precio_tikr": 271.72,
+   "real": {
+    "fin": "2026-07-31",
+    "eps_ajustado": 24.27,
+    "eps_gaap": 16.46,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-07-31",
+     "eps": 22.95,
+     "eps_gaap": 20.57,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-07-31",
+     "eps": 25.9,
+     "eps_gaap": 23.42,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-07-31",
+     "eps": 28.52,
+     "eps_gaap": 26.08,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "PYPL": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 9.84,
+   "precio_tikr": 57.81,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 5.31,
+    "eps_gaap": 5.41,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 5.59,
+     "eps_gaap": 5.07,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 5.91,
+     "eps_gaap": 5.72,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 6.41,
+     "eps_gaap": 6.19,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "NU": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 11.77,
+   "precio_tikr": 12.36,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 0.63,
+    "eps_gaap": 0.58,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 0.88,
+     "eps_gaap": 0.85,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 1.07,
+     "eps_gaap": 1.06,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 1.32,
+     "eps_gaap": 1.35,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "GGAL": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 6.1,
+   "precio_tikr": 26.66,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 0.87,
+    "eps_gaap": 0.87,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 4.53,
+     "eps_gaap": 4.6,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 6.84,
+     "eps_gaap": 6.63,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 10.8,
+     "eps_gaap": 10.41,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ],
+   "moneda": "ARS",
+   "historia_ars": [
+    {
+     "fin": "2016-12-31",
+     "eps": 4.63
+    },
+    {
+     "fin": "2017-12-31",
+     "eps": 8.21
+    },
+    {
+     "fin": "2018-12-31",
+     "eps": -3.43
+    },
+    {
+     "fin": "2019-12-31",
+     "eps": 20.86
+    },
+    {
+     "fin": "2020-12-31",
+     "eps": 26.86
+    },
+    {
+     "fin": "2021-12-31",
+     "eps": 43.5
+    },
+    {
+     "fin": "2022-12-31",
+     "eps": 242.5
+    },
+    {
+     "fin": "2023-12-31",
+     "eps": 540.56
+    },
+    {
+     "fin": "2024-12-31",
+     "eps": 1414.3
+    },
+    {
+     "fin": "2025-12-31",
+     "eps": 122.21
+    }
+   ],
+   "nota": "EPS en pesos por acción local (TIKR, sin reexpresar a moneda de hoy). Promedios en dólares. Estimaciones de TIKR en US$ por ADR, mostradas en pesos al dólar de 2025."
+  },
+  "VIST": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 3.23,
+   "precio_tikr": 50.16,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 56.8,
+    "eps_gaap": 115.09,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 189.49,
+     "eps_gaap": 187.74,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 215.36,
+     "eps_gaap": 182.67,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 202.42,
+     "eps_gaap": 177.38,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "BBD": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 5.1,
+   "precio_tikr": 2.43,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 0.44,
+    "eps_gaap": 0.44,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 0.45,
+     "eps_gaap": 0.45,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 0.48,
+     "eps_gaap": 0.49,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 0.55,
+     "eps_gaap": 0.52,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "BMA": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 6.11,
+   "precio_tikr": 50.35,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 3.9,
+    "eps_gaap": 3.08,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 7.6,
+     "eps_gaap": 7.37,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 10.43,
+     "eps_gaap": 9.74,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 14.56,
+     "eps_gaap": 15.04,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ],
+   "moneda": "ARS",
+   "historia_ars": [
+    {
+     "fin": "2017-12-31",
+     "eps": 9.43
+    },
+    {
+     "fin": "2018-12-31",
+     "eps": 23.79
+    },
+    {
+     "fin": "2019-12-31",
+     "eps": 41.41
+    },
+    {
+     "fin": "2020-12-31",
+     "eps": 120.27
+    },
+    {
+     "fin": "2021-12-31",
+     "eps": 69.68
+    },
+    {
+     "fin": "2022-12-31",
+     "eps": 209.61
+    },
+    {
+     "fin": "2023-12-31",
+     "eps": 2607.59
+    },
+    {
+     "fin": "2024-12-31",
+     "eps": 669.67
+    },
+    {
+     "fin": "2025-12-31",
+     "eps": 452.75
+    }
+   ],
+   "nota": "EPS en pesos por acción local (TIKR, sin reexpresar a moneda de hoy). Promedios en dólares. Estimaciones de TIKR en US$ por ADR, mostradas en pesos al dólar de 2025."
+  },
+  "CB": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 13.16,
+   "precio_tikr": 380.51,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 24.79,
+    "eps_gaap": 25.68,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 29.11,
+     "eps_gaap": 28.05,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 29.47,
+     "eps_gaap": 29.29,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 31.91,
+     "eps_gaap": 31.94,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "CRM": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 13.43,
+   "precio_tikr": 197.21,
+   "real": {
+    "fin": "2026-01-31",
+    "eps_ajustado": 12.52,
+    "eps_gaap": 7.8,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-01-31",
+     "eps": 16.76,
+     "eps_gaap": 10.42,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-01-31",
+     "eps": 16.03,
+     "eps_gaap": 9.8,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-01-31",
+     "eps": 18.49,
+     "eps_gaap": 12.03,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "YPF": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 4.72,
+   "precio_tikr": 31.45,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": -2.02,
+    "eps_gaap": -2.11,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 8.58,
+     "eps_gaap": 8.76,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 6.03,
+     "eps_gaap": 7.37,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 7.7,
+     "eps_gaap": 7.78,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ],
+   "historia_override": [
+    {
+     "fin": "2016-12-31",
+     "eps": -0.45
+    },
+    {
+     "fin": "2017-12-31",
+     "eps": 0.17
+    },
+    {
+     "fin": "2018-12-31",
+     "eps": 0.26
+    },
+    {
+     "fin": "2019-12-31",
+     "eps": -0.15
+    },
+    {
+     "fin": "2020-12-31",
+     "eps": -0.21
+    },
+    {
+     "fin": "2021-12-31",
+     "eps": 0.0
+    },
+    {
+     "fin": "2022-12-31",
+     "eps": 0.42
+    },
+    {
+     "fin": "2023-12-31",
+     "eps": -0.49
+    },
+    {
+     "fin": "2024-12-31",
+     "eps": 0.51
+    },
+    {
+     "fin": "2025-12-31",
+     "eps": -0.19
+    }
+   ],
+   "nota": "YPF lleva su contabilidad en dólares (moneda funcional): EPS en US$ por acción, de TIKR (reemplaza en esta tabla la historia cargada, que está mal)."
+  },
+  "BN": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 12.6,
+   "precio_tikr": 40.32,
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 2.78,
+     "eps_gaap": 1.7,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 3.33,
+     "eps_gaap": null,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 4.03,
+     "eps_gaap": null,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "COST": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 47.7,
+   "precio_tikr": 1086.81,
+   "real": {
+    "fin": "2026-08-31",
+    "eps_ajustado": 20.61,
+    "eps_gaap": 20.76,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-08-31",
+     "eps": 22.78,
+     "eps_gaap": 22.84,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-08-31",
+     "eps": 25.06,
+     "eps_gaap": 25.15,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-08-31",
+     "eps": 27.51,
+     "eps_gaap": 27.68,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "MCD": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 21.31,
+   "precio_tikr": 283.5,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 12.2,
+    "eps_gaap": 11.95,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 12.94,
+     "eps_gaap": 12.78,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 13.65,
+     "eps_gaap": 13.69,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 14.5,
+     "eps_gaap": 14.54,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "SPGI": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 23.75,
+   "precio_tikr": 460.74,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 17.83,
+    "eps_gaap": 14.66,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 17.94,
+     "eps_gaap": 16.47,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 20.15,
+     "eps_gaap": 17.84,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 22.75,
+     "eps_gaap": 20.36,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "JPM": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 12.66,
+   "precio_tikr": 316.74,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 19.73,
+    "eps_gaap": 20.02,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 23.91,
+     "eps_gaap": 24.88,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 25.57,
+     "eps_gaap": 25.53,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 27.22,
+     "eps_gaap": 27.28,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "CAT": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 18.0,
+   "precio_tikr": 543.69,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 19.06,
+    "eps_gaap": 18.81,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 27.03,
+     "eps_gaap": 26.6,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 32.18,
+     "eps_gaap": 31.77,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 38.54,
+     "eps_gaap": 38.13,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "UNP": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 21.26,
+   "precio_tikr": 298.38,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 11.66,
+    "eps_gaap": 11.98,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 13.17,
+     "eps_gaap": 13.02,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 14.39,
+     "eps_gaap": 14.32,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 15.7,
+     "eps_gaap": 15.66,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "XOM": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 11.21,
+   "precio_tikr": 158.17,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 6.99,
+    "eps_gaap": 6.7,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 13.68,
+     "eps_gaap": 12.83,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 12.49,
+     "eps_gaap": 12.81,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 10.33,
+     "eps_gaap": 11.33,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "NVO": {
+   "moneda_tikr": "DKK",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 12.36,
+   "precio_tikr": 40.97,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 23.03,
+    "eps_gaap": 23.03,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 23.67,
+     "eps_gaap": 23.55,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 23.37,
+     "eps_gaap": 24.84,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 26.29,
+     "eps_gaap": 29.31,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "ITUB": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 7.56,
+   "precio_tikr": 6.88,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 0.8,
+    "eps_gaap": 0.78,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 0.8,
+     "eps_gaap": 0.78,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 0.87,
+     "eps_gaap": 0.82,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 0.93,
+     "eps_gaap": 0.84,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "PAM": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 6.98,
+   "precio_tikr": 62.32,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 6.9,
+    "eps_gaap": 6.9,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 12.01,
+     "eps_gaap": 10.94,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 11.89,
+     "eps_gaap": 12.57,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 13.33,
+     "eps_gaap": 14.43,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "PFE": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 10.08,
+   "precio_tikr": 28.46,
+   "real": {
+    "fin": "2025-12-31",
+    "eps_ajustado": 3.22,
+    "eps_gaap": 1.36,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2026-12-31",
+     "eps": 3.05,
+     "eps_gaap": 1.54,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2027-12-31",
+     "eps": 2.95,
+     "eps_gaap": 2.02,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-12-31",
+     "eps": 2.44,
+     "eps_gaap": 1.73,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  },
+  "WMT": {
+   "moneda_tikr": "USD",
+   "fuente": "TIKR",
+   "fecha_tikr": "2026-11-26",
+   "pe_ntm_tikr": 42.48,
+   "precio_tikr": 131.94,
+   "real": {
+    "fin": "2026-01-31",
+    "eps_ajustado": 2.64,
+    "eps_gaap": 2.73,
+    "fuente": "TIKR",
+    "fecha": "2026-11-26"
+   },
+   "est": [
+    {
+     "fin": "2027-01-31",
+     "eps": 2.89,
+     "eps_gaap": 2.86,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2028-01-31",
+     "eps": 3.23,
+     "eps_gaap": 3.2,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    },
+    {
+     "fin": "2029-01-31",
+     "eps": 3.61,
+     "eps_gaap": 3.57,
+     "fuente": "TIKR",
+     "fecha": "2026-11-26"
+    }
+   ]
+  }
+ }
+}
