@@ -97,6 +97,15 @@ table.t tr.hoy td { font-weight: 600; background: var(--sunken); }
 .verdict { font-weight: 600; }
 .banner { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--warn); padding: 12px 14px; border-radius: 6px; }
 details.avisos { font-size: 13px; color: var(--muted); }
+table.crec td.e { font-style: italic; color: var(--muted); }
+table.crec th.e { color: var(--accent); }
+table.crec td.ok15 { background: color-mix(in srgb, var(--up) 16%, transparent); font-weight: 600; }
+table.crec td.sep, table.crec th.sep { border-left: 2px solid var(--line); }
+table.crec td small { display: block; font-size: 10.5px; color: var(--muted); font-style: normal; }
+table.crec td.tk { font-family: var(--f-body); font-weight: 600; position: sticky; left: 0; background: var(--surface); z-index: 1; }
+table.crec th:first-child { position: sticky; left: 0; background: var(--surface); z-index: 1; }
+table.crec td.tk small { font-weight: 400; max-width: 170px; overflow: hidden; text-overflow: ellipsis; }
+.crec-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
 </style>
 </head>
@@ -118,8 +127,21 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   </header>
 
   <div class="controls">
-    <label class="sel"><span class="muted">Empresa</span>
+    <div class="seg" id="selVista" role="group" aria-label="Vista">
+      <button type="button" data-vista="empresa" aria-pressed="true">Por empresa</button>
+      <button type="button" data-vista="crec" aria-pressed="false">Crecimiento <small>(todas)</small></button>
+    </div>
+    <label class="sel" id="ctlEmpresa"><span class="muted">Empresa</span>
       <select id="selEmpresa" aria-label="Empresa"></select></label>
+    <label class="sel" id="ctlOrden" hidden><span class="muted">Ordenar por</span>
+      <select id="selOrden" aria-label="Ordenar por">
+        <option value="ticker">Ticker</option>
+        <option value="fut">Promedio futuro</option>
+        <option value="peg">PEG</option>
+        <option value="pe2">P/E 2.º año estimado</option>
+        <option value="p5">Promedio 5 años</option>
+        <option value="rev">Revisión de estimaciones</option>
+      </select></label>
     <div class="seg" id="selModo" role="group" aria-label="Período">
       <button type="button" data-modo="anual" aria-pressed="true">Anual</button>
       <button type="button" data-modo="trim" aria-pressed="false">Trimestral <small>(LTM)</small></button>
@@ -156,7 +178,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   const median = a => { const s = [...a].sort((x, y) => x - y), n = s.length; return n ? (n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2) : null; };
   const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
 
-  let H = null, ACT = null, LISTA = [], tk = null, modo = "anual";
+  let H = null, ACT = null, LISTA = [], tk = null, modo = "anual", E = null, EH = null, vista = "empresa", orden = "ticker";
 
   // ---------- Datos ----------
   // Factor de split: los datos cargados antes de un split se dividen por el factor (no se modifican en el archivo).
@@ -476,6 +498,121 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       ${h.splits && h.splits.length ? `<p class="note">Splits registrados después de la carga: ${h.splits.map(s => `${s.factor}:1 el ${dmy(s.fecha)}`).join(", ")}. Los datos anteriores se muestran ajustados.</p>` : ""}`;
   }
 
+
+  // ---------- Crecimiento: historia, estimaciones y promedios ----------
+  // Año de cada ejercicio: el del cierre, salvo los que cierran en enero o febrero, que se cuentan en el año anterior.
+  const anioFY = fin => { const y = +fin.slice(0, 4), m = +fin.slice(5, 7); return m <= 2 ? y - 1 : y; };
+  const cagr = (a, b, n) => a > 0 && b > 0 && n > 0 ? Math.pow(b / a, 1 / n) - 1 : null;
+  function crec(t) {
+    const e = E && E.acciones[t], h = H.acciones[t];
+    const ars = !!(e && e.moneda === "ARS");
+    let hist = ars ? (e.historia_ars || []).map(x => ({ fin: x.fin, eps: x.eps }))
+      : (h ? h.anual.map(x => ({ fin: x.fin, eps: x.eps / factor(h, x.cargado) })) : []);
+    hist.sort((a, b) => a.fin < b.fin ? -1 : 1);
+    // Para empresas en pesos los promedios se calculan en dólares (EPS ÷ dólar oficial de cada cierre)
+    const histC = ars ? hist.map(x => ({ fin: x.fin, eps: e.tc_cierre && e.tc_cierre[x.fin] ? x.eps / e.tc_cierre[x.fin] : null })) : hist;
+    const n = histC.length, last = histC[n - 1];
+    const prom = k => {
+      if (n < k + 1 || !last) return null;
+      const a = histC[n - 1 - k];
+      const v = cagr(a.eps, last.eps, k);
+      return { v, ns: v == null, desde: a.fin, k };
+    };
+    const largo = n >= 2 ? { v: cagr(histC[0].eps, last.eps, n - 1), ns: !(histC[0].eps > 0 && last.eps > 0), desde: histC[0].fin, k: n - 1 } : null;
+    let caidas = 0; for (let i = 1; i < hist.length; i++) if (hist[i].eps < hist[i - 1].eps) caidas++;
+    const out = { t, e, ars, hist, histC, largo, p5: prom(5), p3: prom(3), caidas, nh: hist.length };
+    if (!e) return out;
+    // Factor para mostrar las estimaciones en las mismas unidades que la historia (US$ por ADR):
+    // EPS contable del último ejercicio en la historia ÷ el mismo dato en TIKR.
+    let k = 1;
+    if (!ars && e.real && e.real.eps_gaap) {
+      const m = hist.find(x => Math.abs(new Date(x.fin) - new Date(e.real.fin)) < 30 * 864e5);
+      if (m && m.eps && Math.sign(m.eps) === Math.sign(e.real.eps_gaap)) k = m.eps / e.real.eps_gaap;
+    }
+    out.k = k;
+    out.est = (e.est || []).map(x => ({ ...x, epsV: x.eps * k }));
+    // Promedio futuro: EPS ajustado real del último ejercicio → última estimación (misma base: consenso ajustado)
+    const ult = out.est[Math.min(2, out.est.length - 1)];
+    if (e.real && ult) {
+      const yrs = Math.round((new Date(ult.fin) - new Date(e.real.fin)) / (365.25 * 864e5));
+      out.fut = { v: cagr(e.real.eps_ajustado, ult.eps, yrs), ns: !(e.real.eps_ajustado > 0 && ult.eps > 0), k: yrs, hasta: ult.fin };
+    }
+    if (e.real && e.real.eps_gaap) out.gap = e.real.eps_ajustado / e.real.eps_gaap - 1;
+    // P/E hoy sobre cada año estimado: P/E NTM de TIKR movido con el precio, llevado a cada año
+    const a = ACT && ACT.acciones && ACT.acciones[t];
+    const pNow = a && a.precio;
+    if (e.pe_ntm_tikr && e.precio_tikr && pNow && out.est.length >= 2) {
+      const peNtm = e.pe_ntm_tikr * pNow / e.precio_tikr;
+      const f0 = new Date(out.est[0].fin), w = Math.max(0, Math.min(1, (f0 - Date.now()) / (365.25 * 864e5)));
+      const epsNtm = w * out.est[0].eps + (1 - w) * out.est[1].eps;
+      out.peNtm = peNtm;
+      out.est.forEach(x => { x.pe = x.eps > 0 && epsNtm > 0 ? peNtm * epsNtm / x.eps : null; });
+      if (out.fut && out.fut.v > 0) out.peg = peNtm / (out.fut.v * 100);
+    }
+    // Revisión del consenso del año siguiente: hoy contra la foto de hace ~90 días (o la más vieja que haya)
+    const fotos = (EH && EH.fotos && EH.fotos[t]) || [];
+    const obj = out.est[1] || out.est[0];
+    if (obj && fotos.length >= 2) {
+      const val = f => { const k2 = Object.keys(f.valores).find(z => Math.abs(new Date(z) - new Date(obj.fin)) < 30 * 864e5); return k2 ? f.valores[k2] : null; };
+      const conV = fotos.filter(f => val(f) != null).sort((x, y) => x.fecha < y.fecha ? -1 : 1);
+      if (conV.length >= 2) {
+        const nuevo = conV[conV.length - 1];
+        const lim = new Date(Date.parse(nuevo.fecha) - 90 * 864e5).toISOString().slice(0, 10);
+        const viejo = [...conV].reverse().find(f => f.fecha <= lim) || conV[0];
+        if (viejo !== nuevo && val(viejo)) out.rev = { v: val(nuevo) / val(viejo) - 1, desde: viejo.fecha, fin: obj.fin };
+      }
+    }
+    return out;
+  }
+
+  function renderCrecimiento() {
+    const filas = LISTA.map(a => ({ a, c: crec(a.ticker) }));
+    const anios = new Set();
+    filas.forEach(({ c }) => { c.hist.forEach(x => anios.add(anioFY(x.fin))); (c.est || []).forEach(x => anios.add(anioFY(x.fin))); });
+    const yrs = [...anios].sort();
+    const val = (o, k) => o && !o.ns && o.v != null ? o.v : null;
+    const key = { ticker: r => r.a.ticker, fut: r => -(val(r.c.fut) ?? -9), peg: r => r.c.peg ?? 99, pe2: r => (r.c.est && r.c.est[1] && r.c.est[1].pe) ?? 999, p5: r => -(val(r.c.p5) ?? -9), rev: r => -(r.c.rev ? r.c.rev.v : -9) }[orden];
+    filas.sort((x, y) => { const a = key(x), b = key(y); return a < b ? -1 : a > b ? 1 : 0; });
+    const fE = (v, ars) => v == null || !isFinite(v) ? "—" : fmt(v, ars && Math.abs(v) >= 100 ? 0 : 2);
+    const pc = (o, conAnios) => {
+      if (!o) return '<td class="muted">—</td>';
+      if (o.ns) return `<td class="muted" title="Sin promedio: EPS negativo o cero al inicio o al final">n/s</td>`;
+      return `<td class="${cls(o.v)}">${pct(o.v)}${conAnios ? `<small>${o.k} años</small>` : ""}</td>`;
+    };
+    const ultFut = r => r.c.fut;
+    let h = `<thead><tr><th>Empresa</th>${yrs.map(y => {
+      const esE = filas.some(r => (r.c.est || []).some(x => anioFY(x.fin) === y)) && !filas.some(r => r.c.hist.some(x => anioFY(x.fin) === y));
+      return `<th class="${esE ? "e" : ""}">${y}${esE ? "e" : ""}</th>`;
+    }).join("")}<th class="sep">Prom. largo</th><th>Prom. 5 años</th><th>Prom. 3 años</th><th title="Años en que el EPS bajó respecto del anterior">Años con caída</th>
+      <th class="sep" title="EPS ajustado (base del consenso) del último ejercicio cerrado y su diferencia con el contable">EPS ajust. último</th><th title="Del EPS ajustado del último ejercicio a la última estimación">Prom. futuro</th>
+      <th>P/E 2.º año e</th><th>P/E 3.er año e</th><th title="P/E NTM ÷ promedio futuro (en puntos)">PEG</th><th title="Cambio del consenso del año siguiente en ~90 días">Revisión</th></tr></thead><tbody>`;
+    for (const { a, c } of filas) {
+      const porAnio = {};
+      c.hist.forEach(x => { porAnio[anioFY(x.fin)] = { v: x.eps, e: false, fin: x.fin }; });
+      (c.est || []).forEach(x => { if (!porAnio[anioFY(x.fin)]) porAnio[anioFY(x.fin)] = { v: c.ars ? x.eps : x.epsV, e: true, fin: x.fin, n: x.analistas }; });
+      const celdas = yrs.map(y => { const p = porAnio[y]; if (!p) return "<td></td>";
+        return `<td class="${p.e ? "e" : ""}" title="${esc(dmy(p.fin))}${p.e ? " · estimado" + (p.n ? `, ${p.n} analistas` : "") : ""}">${fE(p.v, c.ars)}${p.e ? "e" : ""}${p.e && p.n != null && p.n < 3 ? '<small class="warn">pocos analistas</small>' : ""}</td>`; }).join("");
+      const e2 = c.est && c.est[1], e3 = c.est && c.est[2];
+      const futTxt = c.fut ? (c.fut.ns ? '<td class="muted">n/s</td>' : `<td class="${c.fut.v >= 0.15 ? "ok15" : cls(c.fut.v)}">${pct(c.fut.v)}<small>${c.fut.k} años${c.ars ? " · en $" : ""}</small></td>`) : '<td class="muted">—</td>';
+      const gap = c.gap != null && isFinite(c.gap) ? `<small>${c.gap >= 0 ? "+" : ""}${fmt(c.gap * 100, 0)}% vs contable</small>` : "";
+      const peC = x => x && x.pe ? `<td>${fmt(x.pe, 1)}x<small>${anioFY(x.fin)}</small></td>` : '<td class="muted">—</td>';
+      const tags = [c.ars ? '<span class="tag warn">ARS</span>' : "", a.revisar ? '<span class="tag warn" title="' + esc(a.revisar) + '">revisar</span>' : ""].join(" ");
+      h += `<tr><td class="tk">${esc(a.ticker)} ${tags}<small>${esc(a.nombre)}</small></td>${celdas}
+        ${pc(c.largo, true).replace("<td", '<td class="sep"').replace('class="sep" class="', 'class="sep ')}${pc(c.p5)}${pc(c.p3)}<td>${c.nh > 1 ? c.caidas + " de " + (c.nh - 1) : "—"}</td>
+        <td class="sep">${c.e && c.e.real ? fE(c.e.real.eps_ajustado, c.ars) + gap : "—"}</td>${futTxt}${peC(e2)}${peC(e3)}
+        <td>${c.peg != null ? fmt(c.peg, 2) : "—"}</td><td>${c.rev ? `<span class="${cls(c.rev.v)}">${pct(c.rev.v)}</span><small>desde ${dmy(c.rev.desde)}</small>` : '<span class="muted">—</span>'}</td></tr>`;
+    }
+    h += "</tbody>";
+    const faltan = filas.filter(r => !r.c.e).map(r => r.a.ticker);
+    $("main").innerHTML = `<section class="card"><h3>Crecimiento del EPS: historia y estimaciones</h3>
+      <div class="crec-wrap"><table class="t crec">${h}</table></div>
+      <p class="note"><b>Cómo leerla.</b> Años sin "e": EPS diluido contable (GAAP), el mismo de los gráficos. Años con "e": consenso de analistas (base ajustada), pasado a las mismas unidades que la historia. Los promedios son crecimiento anual compuesto (CAGR): el largo va desde el primer año cargado hasta el último cerrado; el de 5 y 3 años, desde 5 y 3 ejercicios antes. "n/s": no se puede calcular porque el EPS es negativo o cero en una punta.
+      El <b>promedio futuro</b> va del EPS ajustado del último ejercicio cerrado a la última estimación, los dos en la base del consenso; en verde, los que llegan al 15% anual. P/E 2.º y 3.er año: el precio de hoy sobre el EPS estimado de esos ejercicios. PEG: P/E de los próximos 12 meses dividido por el promedio futuro (menos de 1, crecimiento barato).
+      Revisión: cuánto cambió el consenso del año siguiente en los últimos ~90 días (se arma con las fotos semanales; las primeras semanas no hay dato).
+      <b>BMA, GGAL e YPF</b>: EPS en pesos argentinos por acción local (reexpresados por inflación); sus promedios históricos se calculan en dólares (EPS ÷ dólar oficial de cada cierre) y el futuro queda en pesos, por lo que incluye la inflación esperada.
+      Ejercicios que cierran en enero o febrero se cuentan en el año anterior. Fuentes: TIKR (carga inicial y tercer año) y Yahoo Finance (actualización semanal).${faltan.length ? ` Sin estimaciones cargadas: ${esc(faltan.join(", "))}.` : ""}</p></section>`;
+  }
+
   function renderSelector() {
     $("selEmpresa").innerHTML = [...LISTA].sort((a, b) => a.ticker < b.ticker ? -1 : 1)
       .map(a => `<option value="${esc(a.ticker)}"${a.ticker === tk ? " selected" : ""}>${esc(a.ticker)} · ${esc(a.nombre)}${a.revisar ? " ⚠" : ""}</option>`).join("");
@@ -483,6 +620,17 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   $("selEmpresa").addEventListener("change", e => {
     tk = e.target.value; render(); try { localStorage.setItem("eps_tk", tk); } catch (_) {}
   });
+  function aplicarVista() {
+    [...$("selVista").children].forEach(x => x.setAttribute("aria-pressed", String(x.dataset.vista === vista)));
+    $("ctlEmpresa").hidden = vista !== "empresa"; $("selModo").hidden = vista !== "empresa"; $("ctlOrden").hidden = vista === "empresa";
+    if (vista === "crec") renderCrecimiento(); else render();
+  }
+  $("selVista").addEventListener("click", e => {
+    const b = e.target.closest("button[data-vista]"); if (!b) return;
+    vista = b.dataset.vista; try { localStorage.setItem("eps_vista", vista); } catch (_) {}
+    aplicarVista();
+  });
+  $("selOrden").addEventListener("change", e => { orden = e.target.value; renderCrecimiento(); });
   $("selModo").addEventListener("click", e => {
     const b = e.target.closest("button[data-modo]"); if (!b) return;
     modo = b.dataset.modo; [...$("selModo").children].forEach(x => x.setAttribute("aria-pressed", x === b)); render();
@@ -493,12 +641,15 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     const get = async f => { const r = await fetch(f + "?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) throw new Error(f + ": HTTP " + r.status); return r.json(); };
     try {
       const [lista, hist] = await Promise.all([get("data/eps/acciones.json"), get("data/eps/historia.json")]);
+      try { E = await get("data/eps/estimaciones.json"); } catch (_) { E = null; }
+      try { EH = await get("data/eps/estimaciones_historial.json"); } catch (_) { EH = null; }
       H = hist; LISTA = lista.acciones.filter(a => H.acciones[a.ticker]);
       try { ACT = await get("data/eps/actual.json"); } catch (_) { ACT = null; }
       let guardado = null, gm = null; try { guardado = localStorage.getItem("eps_tk"); gm = localStorage.getItem("eps_modo"); } catch (_) {}
       tk = LISTA.some(a => a.ticker === guardado) ? guardado : (LISTA.find(a => a.ticker === "META") || LISTA[0]).ticker;
       if (gm === "trim" || gm === "anual") { modo = gm; [...$("selModo").children].forEach(x => x.setAttribute("aria-pressed", x.dataset.modo === modo)); }
-      renderSelector(); render();
+      try { const gv = localStorage.getItem("eps_vista"); if (gv === "crec") vista = "crec"; } catch (_) {}
+      renderSelector(); aplicarVista();
       const av = (ACT && ACT.avisos) || [];
       $("avisos").hidden = !av.length; $("avisosList").innerHTML = av.map(a => `<li>${esc(a)}</li>`).join("");
       if (ACT && ACT.actualizado) $("avisos").querySelector("summary").textContent = "Avisos de la última actualización (" + new Date(ACT.actualizado).toLocaleString("es-AR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "America/Buenos_Aires" }) + ")";
@@ -508,7 +659,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     }
   }
   let rz = null, ultimoAncho = window.innerWidth;
-  window.addEventListener("resize", () => { if (Math.abs(window.innerWidth - ultimoAncho) < 40) return; ultimoAncho = window.innerWidth; clearTimeout(rz); rz = setTimeout(() => { if (H) render(); }, 200); });
+  window.addEventListener("resize", () => { if (Math.abs(window.innerWidth - ultimoAncho) < 40) return; ultimoAncho = window.innerWidth; clearTimeout(rz); rz = setTimeout(() => { if (H && vista === "empresa") render(); }, 200); });
   cargar();
 })();
 </script>
