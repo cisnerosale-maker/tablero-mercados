@@ -105,7 +105,18 @@ table.crec td small { display: block; font-size: 10.5px; color: var(--muted); fo
 table.crec td.tk { font-family: var(--f-body); font-weight: 600; position: sticky; left: 0; background: var(--surface); z-index: 1; }
 table.crec th:first-child { position: sticky; left: 0; background: var(--surface); z-index: 1; }
 table.crec td.tk small { font-weight: 400; max-width: 170px; overflow: hidden; text-overflow: ellipsis; }
-.crec-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.crec-wrap { overflow: auto; -webkit-overflow-scrolling: touch; max-height: 78vh; }
+.crec-top { overflow-x: auto; overflow-y: hidden; height: 14px; }
+.crec-top > div { height: 1px; }
+body.vista-crec .wrap { max-width: none; }
+body.vista-crec { padding-left: max(8px, env(safe-area-inset-left)); padding-right: max(8px, env(safe-area-inset-right)); }
+body.vista-crec main .card { padding: 10px 8px; }
+table.crec { font-size: 11px; }
+table.crec th, table.crec td { padding: 3px 4px; }
+table.crec th { white-space: normal; font-size: 10px; letter-spacing: .02em; line-height: 1.2; vertical-align: bottom; min-width: 38px; position: sticky; top: 0; background: var(--surface); z-index: 2; }
+table.crec th:first-child { z-index: 3; }
+table.crec td small { font-size: 9.5px; }
+table.crec td.tk small { max-width: 105px; }
 details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
 </style>
 </head>
@@ -611,27 +622,38 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       c.hist.forEach(x => { porAnio[anioFY(x.fin)] = { v: x.eps, e: false, fin: x.fin }; });
       (c.est || []).forEach(x => { if (!porAnio[anioFY(x.fin)]) porAnio[anioFY(x.fin)] = { v: x.epsV, e: true, fin: x.fin, n: x.analistas, base: x.base, aj: x.eps * (c.k || 1) }; });
       const celdas = yrs.map(y => { const p = porAnio[y]; if (!p) return "<td></td>";
-        return `<td class="${p.e ? "e" : ""}" title="${esc(dmy(p.fin))}${p.e ? ` · consenso ${p.base}` + (p.base === "contable" ? ` (ajustado: ${fE(p.aj, c.ars)})` : "") + (p.n ? `, ${p.n} analistas` : "") : ""}">${fE(p.v, c.ars)}${p.e ? "e" : ""}${p.e && p.n != null && p.n < 3 ? '<small class="warn">pocos analistas</small>' : ""}</td>`; }).join("");
+        return `<td class="${p.e ? "e" : ""}" title="${esc(dmy(p.fin))}${p.e ? ` · consenso ${p.base}` + (p.base === "contable" ? ` (ajustado: ${fE(p.aj, c.ars)})` : "") + (p.n ? `, ${p.n} analistas` : "") : ""}">${fE(p.v, c.ars)}${p.e ? "e" : ""}${p.e && p.n != null && p.n < 3 ? '<small class="warn" title="Menos de 3 analistas">pocos anal.</small>' : ""}</td>`; }).join("");
       const e2 = c.est && c.est[1], e3 = c.est && c.est[2];
-      const futTxt = c.fut ? (c.fut.ns ? '<td class="muted">n/s</td>' : `<td class="${c.fut.v >= 0.15 ? "ok15" : cls(c.fut.v)}">${pct(c.fut.v)}<small>${c.fut.k} años${c.ars ? " · en US$" : ""}</small></td>`) : '<td class="muted">—</td>';
-      const gap = c.gap != null && isFinite(c.gap) ? `<small>${c.gap >= 0 ? "+" : ""}${fmt(c.gap * 100, 0)}% vs contable</small>` : "";
+      const futTxt = c.fut ? (c.fut.ns ? '<td class="muted">n/s</td>' : `<td class="${c.fut.v >= 0.15 ? "ok15" : cls(c.fut.v)}">${pct(c.fut.v)}<small>${c.fut.k} años${c.ars ? " US$" : ""}</small></td>`) : '<td class="muted">—</td>';
+      const gap = c.gap != null && isFinite(c.gap) ? `<small title="Diferencia con el EPS contable">${c.gap >= 0 ? "+" : ""}${fmt(c.gap * 100, 0)}% vs cont.</small>` : "";
       const peC = x => x && x.pe ? `<td>${fmt(x.pe, 1)}x<small>${anioFY(x.fin)}</small></td>` : '<td class="muted">—</td>';
       const tags = [c.ars ? '<span class="tag warn">ARS</span>' : "", a.revisar && !c.ars && !(c.e && c.e.historia_override) ? '<span class="tag warn" title="' + esc(a.revisar) + '">revisar</span>' : "",
         c.e && c.e.nota ? '<span class="tag" title="' + esc(c.e.nota) + '">nota</span>' : ""].join(" ");
       h += `<tr><td class="tk">${esc(a.ticker)} ${tags}<small>${esc(a.nombre)}</small></td>${celdas}
-        ${pc(c.largo, true).replace("<td", '<td class="sep"').replace('class="sep" class="', 'class="sep ')}${pc(c.p5)}${pc(c.p3)}<td>${c.nh > 1 ? c.caidas + " de " + (c.nh - 1) : "—"}</td>
+        ${pc(c.largo, true).replace("<td", '<td class="sep"').replace('class="sep" class="', 'class="sep ')}${pc(c.p5)}${pc(c.p3)}<td>${c.nh > 1 ? c.caidas + "/" + (c.nh - 1) : "—"}</td>
         <td class="sep">${c.e && c.e.real ? fE(c.e.real.eps_ajustado * (c.k || 1), c.ars) + gap : "—"}</td>${futTxt}${peC(e2)}${peC(e3)}
         <td>${c.peg != null ? fmt(c.peg, 2) : "—"}</td><td>${c.rev ? `<span class="${cls(c.rev.v)}">${pct(c.rev.v)}</span><small>desde ${dmy(c.rev.desde)}</small>` : '<span class="muted">—</span>'}</td></tr>`;
     }
     h += "</tbody>";
     const faltan = filas.filter(r => !r.c.e).map(r => r.a.ticker);
     $("main").innerHTML = `<section class="card"><h3>Crecimiento del EPS: historia y estimaciones</h3>
-      <div class="crec-wrap"><table class="t crec">${h}</table></div>
+      <div class="crec-top" id="crecTop" aria-hidden="true"><div></div></div>
+      <div class="crec-wrap" id="crecWrap"><table class="t crec">${h}</table></div>
       <p class="note"><b>Cómo leerla.</b> Años sin "e": EPS diluido contable (GAAP), el mismo de los gráficos. Años con "e": consenso de analistas sobre EPS contable, en las mismas unidades que la historia (pasando el mouse se ve también el ajustado). Los promedios son crecimiento anual compuesto (CAGR): el largo va desde el primer año cargado hasta el último cerrado; el de 5 y 3 años, desde 5 y 3 ejercicios antes. "n/s": no se puede calcular porque el EPS es negativo o cero en una punta.
       El <b>promedio futuro</b> va del EPS ajustado del último ejercicio cerrado a la última estimación, los dos en la base del consenso; en verde, los que llegan al 15% anual. P/E 2.º y 3.er año: el precio de hoy sobre el EPS estimado de esos ejercicios. PEG: P/E de los próximos 12 meses dividido por el promedio futuro (menos de 1, crecimiento barato).
       Revisión: cuánto cambió el consenso del año siguiente en los últimos ~90 días (se arma con las fotos semanales; las primeras semanas no hay dato).
       <b>BMA y GGAL</b>: EPS en <b>pesos argentinos</b> por acción local; los promedios históricos se calculan en dólares (EPS ÷ dólar oficial de cada cierre) y el futuro con las estimaciones en dólares, así no se mezcla la inflación; los años estimados se muestran en pesos al dólar de 2025. <b>YPF</b>: en dólares por acción, porque lleva su contabilidad en dólares.
-      Ejercicios que cierran en enero o febrero se cuentan en el año anterior. Fuentes: TIKR (carga inicial y tercer año) y Yahoo Finance (actualización semanal).${faltan.length ? ` Sin estimaciones cargadas: ${esc(faltan.join(", "))}.` : ""}</p></section>`;
+      Ejercicios que cierran en enero o febrero se cuentan en el año anterior. La barra de arriba de la tabla también la desplaza. Fuentes: TIKR (carga inicial y tercer año) y Yahoo Finance (actualización semanal).${faltan.length ? ` Sin estimaciones cargadas: ${esc(faltan.join(", "))}.` : ""}</p></section>`;
+    barraArriba();
+  }
+
+  function barraArriba() {
+    const top = $("crecTop"), wr = $("crecWrap"); if (!top || !wr) return;
+    top.firstElementChild.style.width = wr.querySelector("table").scrollWidth + "px";
+    top.hidden = wr.scrollWidth <= wr.clientWidth + 2;
+    let lock = false;
+    top.onscroll = () => { if (lock) return; lock = true; wr.scrollLeft = top.scrollLeft; lock = false; };
+    wr.onscroll = () => { if (lock) return; lock = true; top.scrollLeft = wr.scrollLeft; lock = false; };
   }
 
   function renderSelector() {
@@ -643,6 +665,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   });
   function aplicarVista() {
     [...$("selVista").children].forEach(x => x.setAttribute("aria-pressed", String(x.dataset.vista === vista)));
+    document.body.classList.toggle("vista-crec", vista === "crec");
     $("ctlEmpresa").hidden = vista !== "empresa"; $("selModo").hidden = vista !== "empresa"; $("ctlOrden").hidden = vista === "empresa";
     if (vista === "crec") renderCrecimiento(); else render();
   }
@@ -680,7 +703,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     }
   }
   let rz = null, ultimoAncho = window.innerWidth;
-  window.addEventListener("resize", () => { if (Math.abs(window.innerWidth - ultimoAncho) < 40) return; ultimoAncho = window.innerWidth; clearTimeout(rz); rz = setTimeout(() => { if (H && vista === "empresa") render(); }, 200); });
+  window.addEventListener("resize", () => { if (Math.abs(window.innerWidth - ultimoAncho) < 40) return; ultimoAncho = window.innerWidth; clearTimeout(rz); rz = setTimeout(() => { if (H && vista === "empresa") render(); else if (H) barraArriba(); }, 200); });
   cargar();
 })();
 </script>
