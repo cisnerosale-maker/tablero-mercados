@@ -1,6 +1,6 @@
 {
- "actualizado": "2026-11-26T09:01-03:00",
- "fund_actualizado": "2026-11-26T09:01-03:00",
+ "actualizado": "2026-11-26T09:03-03:00",
+ "fund_actualizado": "2026-11-26T09:03-03:00",
  "dolar": {
   "mep": 1688.7,
   "ccl": 1767.9,
@@ -691,12 +691,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 232.83,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 90617438208.0,
    "fx_balance": 1.0,
    "pe_ltm": 12.44,
-   "ev_ebitda": 8.9,
+   "ev_ebitda": 9.14,
    "pvl": 7.7,
    "roe": 61.9,
    "yahoo_pe_ltm": 13.0,
@@ -713,12 +714,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 406.03,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 672006275072.0,
    "fx_balance": 1.0,
    "pe_ltm": 88.2,
-   "ev_ebitda": 58.78,
+   "ev_ebitda": 59.94,
    "pvl": 9.83,
    "roe": 11.1,
    "yahoo_pe_ltm": 86.76,
@@ -735,6 +737,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 244.43,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (Yahoo)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 2643055345664.0,
@@ -757,6 +760,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 312.39,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 209473748992.0,
@@ -780,12 +784,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "CNY",
    "precio": 86.26,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 1427214488479.914,
    "fx_balance": 6.6508002281188965,
    "pe_ltm": 12.21,
-   "ev_ebitda": 6.9,
+   "ev_ebitda": 18.28,
    "pvl": 1.21,
    "roe": 9.9,
    "yahoo_pe_ltm": 12.82,
@@ -802,12 +807,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "BRL",
    "precio": 2.43,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 157994294833.54688,
-   "fx_balance": 5.823200225830078,
-   "pe_ltm": 11.49,
-   "pvl": 0.81,
+   "mcap_balance": 156648550849.50586,
+   "fx_balance": 5.773600101470947,
+   "pe_ltm": 11.39,
+   "pvl": 0.8,
    "roe": 7.0,
    "yahoo_pe_ltm": 5.4,
    "yahoo_ev_ebitda": null,
@@ -825,6 +831,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "ARS",
    "precio": 50.35,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (Yahoo)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
@@ -848,6 +855,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 579.32,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 1230776565760.0,
@@ -872,6 +880,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "ARS",
    "precio": 8.21,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
@@ -879,7 +888,7 @@
    "mcap_balance": 1029440855214.7477,
    "fx_balance": 1767.9,
    "pe_ltm": 6.68,
-   "ev_ebitda": 8.64,
+   "ev_ebitda": 14.31,
    "pvl": 0.68,
    "roe": 10.1,
    "yahoo_pe_ltm": 5.99,
@@ -898,6 +907,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "CNY",
    "precio": 2.43,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 3815620064.006531,
@@ -921,6 +931,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "ARS",
    "precio": 26.66,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
@@ -944,12 +955,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 273.1,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 3357491331072.0,
    "fx_balance": 1.0,
    "pe_ltm": 14.27,
-   "ev_ebitda": 10.15,
+   "ev_ebitda": 17.49,
    "pvl": 5.09,
    "roe": 35.7,
    "yahoo_pe_ltm": 14.26,
@@ -968,6 +980,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "ARS",
    "precio": 11.04,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
@@ -975,7 +988,7 @@
    "mcap_balance": 1651180543081.4307,
    "fx_balance": 1767.9,
    "pe_ltm": 8.48,
-   "ev_ebitda": 6.05,
+   "ev_ebitda": 7.6,
    "pvl": 0.69,
    "roe": 8.1,
    "yahoo_pe_ltm": 6.42,
@@ -992,12 +1005,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 1467.3,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 74387415040.0,
    "fx_balance": 1.0,
    "pe_ltm": 39.36,
-   "ev_ebitda": 21.45,
+   "ev_ebitda": 21.15,
    "pvl": 9.07,
    "roe": 23.0,
    "yahoo_pe_ltm": 39.36,
@@ -1014,15 +1028,16 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 609.89,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 1559025942528.0,
    "fx_balance": 1.0,
    "pe_ltm": 20.72,
-   "ev_ebitda": 14.93,
+   "ev_ebitda": 15.26,
    "pvl": 5.72,
    "roe": 27.6,
-   "yahoo_pe_ltm": 20.81,
+   "yahoo_pe_ltm": 20.12,
    "yahoo_ev_ebitda": 13.7,
    "eps_ntm": 33.2826,
    "pe_ntm": 18.32,
@@ -1036,12 +1051,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 489.93,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 3638315450368.0,
    "fx_balance": 1.0,
    "pe_ltm": 25.51,
-   "ev_ebitda": 16.29,
+   "ev_ebitda": 17.69,
    "pvl": 7.73,
    "roe": 30.3,
    "yahoo_pe_ltm": 25.57,
@@ -1058,6 +1074,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 149.3,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (Yahoo)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 3605147156480.0,
@@ -1080,12 +1097,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "CHF",
    "precio": 31.5,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 8792723793.440552,
-   "fx_balance": 0.8344200253486633,
-   "pe_ltm": 19.97,
-   "ev_ebitda": 11.6,
+   "mcap_balance": 8795146947.574585,
+   "fx_balance": 0.8346499800682068,
+   "pe_ltm": 19.98,
+   "ev_ebitda": 12.17,
    "pvl": 4.04,
    "roe": 20.2,
    "yahoo_pe_ltm": 19.21,
@@ -1102,6 +1120,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 62.32,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 25,
    "mcap_metodo": "precio ADR × acciones/25 × tipo de cambio",
@@ -1125,6 +1144,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 74.58,
+   "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (Yahoo)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 121304170496.0,
@@ -1147,12 +1167,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 53.32,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 4917843968.0,
    "fx_balance": 1.0,
    "pe_ltm": 9.91,
-   "ev_ebitda": 6.88,
+   "ev_ebitda": 6.87,
    "pvl": 3.22,
    "roe": 32.4,
    "yahoo_pe_ltm": 10.2,
@@ -1169,12 +1190,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 22.97,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 154736787456.0,
    "fx_balance": 1.0,
    "pe_ltm": 11.91,
-   "ev_ebitda": 7.44,
+   "ev_ebitda": 7.14,
    "pvl": 1.45,
    "roe": 12.2,
    "yahoo_pe_ltm": 12.28,
@@ -1193,12 +1215,13 @@
    "moneda_cot": "ARS",
    "moneda_balance": "ARS",
    "precio": 2655.0,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "precio BYMA × acciones",
    "mcap_balance": 1172029982282.5,
    "fx_balance": 1.0,
    "pe_ltm": 5.97,
-   "ev_ebitda": 2.37,
+   "ev_ebitda": 2.42,
    "pvl": 0.88,
    "roe": 14.8,
    "yahoo_pe_ltm": 5.7,
@@ -1212,12 +1235,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "TWD",
    "precio": 342.34,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 58514602767257.0,
-   "fx_balance": 32.95600128173828,
+   "mcap_balance": 58503948623542.5,
+   "fx_balance": 32.95000076293945,
    "pe_ltm": 23.15,
-   "ev_ebitda": 14.57,
+   "ev_ebitda": 15.37,
    "pvl": 8.36,
    "roe": 36.1,
    "yahoo_pe_ltm": 22.19,
@@ -1234,12 +1258,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 424.39,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 791826923520.0,
    "fx_balance": 1.0,
    "pe_ltm": 34.11,
-   "ev_ebitda": 26.44,
+   "ev_ebitda": 25.57,
    "pvl": 22.24,
    "roe": 65.2,
    "yahoo_pe_ltm": 34.45,
@@ -1258,12 +1283,13 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD",
    "precio": 50.16,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
    "mcap_balance": 5532016128.0,
    "fx_balance": 1.0,
    "pe_ltm": 6.71,
-   "ev_ebitda": 3.37,
+   "ev_ebitda": 3.38,
    "pvl": 1.55,
    "roe": 23.1,
    "yahoo_pe_ltm": 7.07,
@@ -1283,6 +1309,7 @@
    "moneda_cot": "USD",
    "moneda_balance": "USD (corregido)",
    "precio": 31.45,
+   "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
@@ -1290,7 +1317,7 @@
    "mcap_balance": 21799551507750.484,
    "fx_balance": 1.0,
    "pe_ltm": 5.78,
-   "ev_ebitda": 2.23,
+   "ev_ebitda": 2.41,
    "pvl": 0.9,
    "roe": 15.5,
    "yahoo_pe_ltm": 5.79,
@@ -1309,68 +1336,36 @@
   }
  },
  "betas": {
-  "YPF": {
-   "beta": 1.48,
-   "meses": 59
-  },
-  "CRESY": {
-   "beta": 0.75,
+  "AMD": {
+   "beta": 2.64,
    "meses": 59
   },
   "PAM": {
    "beta": 0.94,
    "meses": 59
   },
-  "ONON": {
-   "beta": 2.09,
-   "meses": 59
-  },
-  "AXP": {
-   "beta": 1.06,
-   "meses": 59
-  },
-  "GOOGL": {
-   "beta": 1.22,
-   "meses": 59
-  },
-  "VIST": {
-   "beta": 0.7,
-   "meses": 59
-  },
-  "META": {
-   "beta": 1.26,
-   "meses": 59
-  },
-  "ADBE": {
-   "beta": 1.43,
-   "meses": 59
-  },
-  "IRS": {
-   "beta": 1.37,
-   "meses": 59
-  },
-  "BABA": {
-   "beta": 0.49,
-   "meses": 59
-  },
-  "TSM": {
-   "beta": 1.5,
-   "meses": 59
-  },
-  "MSFT": {
-   "beta": 1.06,
-   "meses": 59
-  },
-  "V": {
-   "beta": 0.73,
-   "meses": 59
-  },
   "SFM": {
    "beta": 0.71,
    "meses": 59
   },
-  "BMA": {
-   "beta": 1.56,
+  "NVDA": {
+   "beta": 2.4,
+   "meses": 59
+  },
+  "RIO": {
+   "beta": 0.67,
+   "meses": 59
+  },
+  "AMZN": {
+   "beta": 1.49,
+   "meses": 59
+  },
+  "CRESY": {
+   "beta": 0.75,
+   "meses": 59
+  },
+  "YPF": {
+   "beta": 1.48,
    "meses": 59
   },
   "T": {
@@ -1381,40 +1376,277 @@
    "beta": 0.45,
    "meses": 59
   },
-  "BRK-B": {
-   "beta": 0.52,
-   "meses": 59
-  },
-  "NVDA": {
-   "beta": 2.4,
-   "meses": 59
-  },
-  "AMZN": {
-   "beta": 1.49,
-   "meses": 59
-  },
-  "RIO": {
-   "beta": 0.67,
-   "meses": 59
-  },
   "GGAL": {
    "beta": 1.39,
    "meses": 59
   },
-  "AMD": {
-   "beta": 2.64,
+  "BRK-B": {
+   "beta": 0.52,
+   "meses": 59
+  },
+  "IRS": {
+   "beta": 1.37,
    "meses": 59
   },
   "BBD": {
    "beta": 0.67,
    "meses": 59
   },
+  "BABA": {
+   "beta": 0.49,
+   "meses": 59
+  },
+  "VIST": {
+   "beta": 0.7,
+   "meses": 59
+  },
   "MELI": {
    "beta": 1.38,
    "meses": 59
+  },
+  "ADBE": {
+   "beta": 1.43,
+   "meses": 59
+  },
+  "META": {
+   "beta": 1.26,
+   "meses": 59
+  },
+  "ONON": {
+   "beta": 2.09,
+   "meses": 59
+  },
+  "GOOGL": {
+   "beta": 1.22,
+   "meses": 59
+  },
+  "TSM": {
+   "beta": 1.5,
+   "meses": 59
+  },
+  "BMA": {
+   "beta": 1.56,
+   "meses": 59
+  },
+  "MSFT": {
+   "beta": 1.06,
+   "meses": 59
+  },
+  "V": {
+   "beta": 0.73,
+   "meses": 59
+  },
+  "AXP": {
+   "beta": 1.06,
+   "meses": 59
   }
  },
- "control": {},
+ "control": {
+  "NVDA": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 149.3,
+   "pe_ltm": 16.04,
+   "pe_ntm": 10.3,
+   "ev_ebitda": 14.57,
+   "usar": []
+  },
+  "META": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 609.89,
+   "pe_ltm": 20.8,
+   "pe_ntm": 18.76,
+   "ev_ebitda": 13.7,
+   "usar": []
+  },
+  "GOOGL": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 273.1,
+   "pe_ltm": 14.26,
+   "pe_ntm": 19.5,
+   "ev_ebitda": 17.51,
+   "usar": []
+  },
+  "V": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 424.39,
+   "pe_ltm": 34.72,
+   "pe_ntm": 28.23,
+   "ev_ebitda": 25.44,
+   "usar": []
+  },
+  "MSFT": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 489.93,
+   "pe_ltm": 25.58,
+   "pe_ntm": 23.6,
+   "ev_ebitda": 18.03,
+   "usar": []
+  },
+  "TSM": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 342.34,
+   "pe_ltm": 22.41,
+   "pe_ntm": 15.38,
+   "ev_ebitda": 14.68,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  },
+  "ONON": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 31.5,
+   "pe_ltm": 19.62,
+   "pe_ntm": 15.99,
+   "ev_ebitda": 14.09,
+   "usar": []
+  },
+  "BABA": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 86.26,
+   "pe_ltm": 12.23,
+   "pe_ntm": 10.14,
+   "ev_ebitda": 10.45,
+   "usar": []
+  },
+  "SFM": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 53.32,
+   "pe_ltm": 10.23,
+   "pe_ntm": 12.33,
+   "ev_ebitda": 8.2,
+   "usar": []
+  },
+  "AMZN": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 244.43,
+   "pe_ltm": 19.75,
+   "pe_ntm": 23.68,
+   "ev_ebitda": 15.42,
+   "usar": []
+  },
+  "AMD": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 406.03,
+   "pe_ltm": 86.8,
+   "pe_ntm": 26.92,
+   "ev_ebitda": 59.76,
+   "usar": []
+  },
+  "ADBE": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 232.83,
+   "pe_ltm": 12.99,
+   "pe_ntm": 8.68,
+   "ev_ebitda": 9.25,
+   "usar": []
+  },
+  "BRK-B": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 579.32,
+   "pe_ltm": null,
+   "pe_ntm": 25.56,
+   "ev_ebitda": 8.26,
+   "usar": [],
+   "nota": "TIKR muestra P/E LTM 0,01x (dato erróneo): no se usa."
+  },
+  "RIO": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 74.58,
+   "pe_ltm": 10.1,
+   "pe_ntm": 9.18,
+   "ev_ebitda": 6.26,
+   "usar": []
+  },
+  "MELI": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 1467.3,
+   "pe_ltm": 39.36,
+   "pe_ntm": 33.04,
+   "ev_ebitda": 21.1,
+   "usar": []
+  },
+  "AXP": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 312.39,
+   "pe_ltm": 17.62,
+   "pe_ntm": 16.11,
+   "ev_ebitda": null,
+   "usar": []
+  },
+  "GGAL": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 26.66,
+   "pe_ltm": 16.13,
+   "pe_ntm": 6.1,
+   "ev_ebitda": null,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  },
+  "VIST": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 50.16,
+   "pe_ltm": 7.01,
+   "pe_ntm": 3.23,
+   "ev_ebitda": 3.32,
+   "usar": []
+  },
+  "BBD": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 2.43,
+   "pe_ltm": 5.08,
+   "pe_ntm": 5.1,
+   "ev_ebitda": null,
+   "usar": []
+  },
+  "BMA": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 50.35,
+   "pe_ltm": 12.48,
+   "pe_ntm": 6.12,
+   "ev_ebitda": null,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  },
+  "YPF": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 31.45,
+   "pe_ltm": 5.88,
+   "pe_ntm": 4.72,
+   "ev_ebitda": 2.91,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  },
+  "PAM": {
+   "fecha": "2026-11-26",
+   "fuente": "TIKR (SEGUIMIENTO NIVELES)",
+   "precio": 62.32,
+   "pe_ltm": 4.98,
+   "pe_ntm": 6.98,
+   "ev_ebitda": 5.58,
+   "usar": [],
+   "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
+  }
+ },
  "manual": {},
  "avisos": [],
  "diagnostico": {
