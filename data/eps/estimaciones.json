@@ -1,9 +1,7 @@
 {
  "_nota": "Estimaciones de EPS (consenso) por empresa. 'real' = último ejercicio cerrado: EPS ajustado (base del consenso) y contable. 'est' = próximos 3 ejercicios: eps (ajustado, consenso) y eps_gaap (consenso contable). Carga inicial TIKR 26/11/2026; Yahoo actualiza cada semana los dos primeros años. SNY sin estimaciones en TIKR.",
- "actualizado": "2026-11-26",
- "avisos": [
-  "SNY: TIKR no muestra estimaciones; queda sin datos futuros."
- ],
+ "actualizado": "2026-11-26T21:55+00:00",
+ "avisos": [],
  "acciones": {
   "NVDA": {
    "moneda_tikr": "USD",
@@ -21,17 +19,21 @@
    "est": [
     {
      "fin": "2027-01-31",
-     "eps": 9.67,
+     "eps": 9.6725,
      "eps_gaap": 10.31,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 53,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-01-31",
-     "eps": 16.61,
+     "eps": 16.6053,
      "eps_gaap": 16.41,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 55,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-01-31",
@@ -58,17 +60,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 29.36,
+     "eps": 29.0085,
      "eps_gaap": 29.01,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 55,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 35.56,
+     "eps": 33.7359,
      "eps_gaap": 33.74,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 56,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -98,14 +104,17 @@
      "eps": 13.09,
      "eps_gaap": 19.54,
      "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fecha": "2026-11-26",
+     "yahoo_distinto": 19.5393
     },
     {
      "fin": "2027-12-31",
-     "eps": 15.29,
+     "eps": 14.8973,
      "eps_gaap": 14.9,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 52,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -132,17 +141,21 @@
    "est": [
     {
      "fin": "2027-06-30",
-     "eps": 12.37,
+     "eps": 12.3665,
      "eps_gaap": 12.36,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 19,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-06-30",
-     "eps": 13.52,
+     "eps": 13.5225,
      "eps_gaap": 13.48,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 19,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-06-30",
@@ -169,17 +182,21 @@
    "est": [
     {
      "fin": "2027-09-30",
-     "eps": 15.03,
+     "eps": 15.0349,
      "eps_gaap": 14.88,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 39,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-09-30",
-     "eps": 17.13,
+     "eps": 17.1326,
      "eps_gaap": 17.01,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 32,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-09-30",
@@ -206,17 +223,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 3.38,
+     "eps": 2.59,
      "eps_gaap": 2.59,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 36,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 4.41,
+     "eps": 4.3918,
      "eps_gaap": 4.39,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 37,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -243,17 +264,21 @@
    "est": [
     {
      "fin": "2027-06-30",
-     "eps": 20.03,
+     "eps": 20.0286,
      "eps_gaap": 19.92,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 32,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-06-30",
-     "eps": 24.23,
+     "eps": 24.2278,
      "eps_gaap": 24.1,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 33,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-06-30",
@@ -280,17 +305,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 17.5,
+     "eps": 17.5043,
      "eps_gaap": 17.14,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 11,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 23.35,
+     "eps": 23.3853,
      "eps_gaap": 23.12,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 13,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -317,17 +346,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 1.5,
+     "eps": 1.5027,
      "eps_gaap": 1.31,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 1.7,
+     "eps": 1.7039,
      "eps_gaap": 1.49,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -354,17 +387,21 @@
    "est": [
     {
      "fin": "2027-03-31",
-     "eps": 7.73,
+     "eps": 7.8484,
      "eps_gaap": 7.85,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 22,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-03-31",
-     "eps": 8.2,
+     "eps": 8.097,
      "eps_gaap": 8.1,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 22,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-03-31",
@@ -391,17 +428,21 @@
    "est": [
     {
      "fin": "2027-05-31",
-     "eps": 1.29,
+     "eps": 1.255,
      "eps_gaap": 1.25,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 37,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-05-31",
-     "eps": 1.37,
+     "eps": 1.3444,
      "eps_gaap": 1.34,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 39,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-05-31",
@@ -428,17 +469,21 @@
    "est": [
     {
      "fin": "2027-03-31",
-     "eps": 43.69,
+     "eps": 43.6932,
      "eps_gaap": 51.54,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 29,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-03-31",
-     "eps": 61.08,
+     "eps": 61.0844,
      "eps_gaap": 54.04,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 30,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-03-31",
@@ -465,17 +510,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 4.93,
+     "eps": 4.9241,
      "eps_gaap": 4.92,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 13,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 4.27,
+     "eps": 4.1696,
      "eps_gaap": 4.17,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 13,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -502,17 +551,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 8.4,
+     "eps": 8.3983,
      "eps_gaap": 8.3,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 23,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 8.59,
+     "eps": 8.5939,
      "eps_gaap": 8.19,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -539,17 +592,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 11.12,
+     "eps": 11.1184,
      "eps_gaap": 7.32,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 22,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 11.61,
+     "eps": 11.612,
      "eps_gaap": 10.01,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 23,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -579,14 +636,17 @@
      "eps": 9.6,
      "eps_gaap": 12.8,
      "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fecha": "2026-11-26",
+     "yahoo_distinto": 12.7986
     },
     {
      "fin": "2027-12-31",
-     "eps": 10.93,
+     "eps": 10.6704,
      "eps_gaap": 10.67,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 58,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -613,17 +673,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 8.09,
+     "eps": 8.0868,
      "eps_gaap": 6.16,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 45,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 17.61,
+     "eps": 17.607,
      "eps_gaap": 15.37,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 49,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -650,17 +714,21 @@
    "est": [
     {
      "fin": "2027-08-31",
-     "eps": 175.08,
+     "eps": 175.0832,
      "eps_gaap": 173.13,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 35,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-08-31",
-     "eps": 204.99,
+     "eps": 204.9897,
      "eps_gaap": 199.89,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 36,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-08-31",
@@ -687,17 +755,21 @@
    "est": [
     {
      "fin": "2027-09-30",
-     "eps": 9.42,
+     "eps": 9.4294,
      "eps_gaap": 9.43,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 40,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-09-30",
-     "eps": 10.57,
+     "eps": 10.5991,
      "eps_gaap": 10.6,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 35,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-09-30",
@@ -724,17 +796,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 41.38,
+     "eps": 41.3806,
      "eps_gaap": 41.72,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 25,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 56.94,
+     "eps": 56.9449,
      "eps_gaap": 57.5,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 27,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -761,17 +837,21 @@
    "est": [
     {
      "fin": "2026-11-30",
-     "eps": 24.47,
+     "eps": 24.4684,
      "eps_gaap": 18.24,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 37,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-11-30",
-     "eps": 27.41,
+     "eps": 27.4072,
      "eps_gaap": 21.43,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 38,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-11-30",
@@ -798,17 +878,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 22.73,
+     "eps": 22.7256,
      "eps_gaap": 22.49,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 3,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 22.82,
+     "eps": 22.8166,
      "eps_gaap": 20.0,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 3,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -835,17 +919,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 8.27,
+     "eps": 8.2658,
      "eps_gaap": 7.89,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 6,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 7.98,
+     "eps": 7.9806,
      "eps_gaap": 7.7,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 6,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -872,17 +960,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 5.85,
+     "eps": 5.852,
      "eps_gaap": 2.12,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 19,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 6.13,
+     "eps": 6.1286,
      "eps_gaap": 3.55,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 21,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -909,17 +1001,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 36.66,
+     "eps": 36.5907,
      "eps_gaap": 36.59,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 22,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 52.96,
+     "eps": 51.8936,
      "eps_gaap": 51.89,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 22,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -946,17 +1042,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 11.4,
+     "eps": 11.4046,
      "eps_gaap": 11.41,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 10,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 13.06,
+     "eps": 13.0628,
      "eps_gaap": 12.95,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 12,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -983,17 +1083,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 17.77,
+     "eps": 18.3911,
      "eps_gaap": 18.39,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 23,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 20.22,
+     "eps": 20.1675,
      "eps_gaap": 20.17,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 25,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1020,17 +1124,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 3.35,
+     "eps": 3.3494,
      "eps_gaap": 3.42,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 26,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 3.53,
+     "eps": 3.5348,
      "eps_gaap": 3.52,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 26,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1057,17 +1165,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 5.0,
+     "eps": 4.3675,
      "eps_gaap": 2.82,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 18,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 5.45,
+     "eps": 5.0963,
      "eps_gaap": 3.75,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 17,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1096,15 +1208,19 @@
      "fin": "2026-12-31",
      "eps": 16.76,
      "eps_gaap": 16.31,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 18.59,
+     "eps": 18.5867,
      "eps_gaap": 17.43,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1131,17 +1247,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 20.06,
+     "eps": 20.0577,
      "eps_gaap": 19.63,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 39,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 23.18,
+     "eps": 23.1753,
      "eps_gaap": 23.06,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 41,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1168,17 +1288,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 3.56,
+     "eps": 3.5721,
      "eps_gaap": 3.57,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 38,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 3.77,
+     "eps": 3.7648,
      "eps_gaap": 3.76,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 44,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1205,17 +1329,21 @@
    "est": [
     {
      "fin": "2027-06-30",
-     "eps": 6.98,
+     "eps": 6.9789,
      "eps_gaap": 6.87,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 20,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-06-30",
-     "eps": 7.43,
+     "eps": 7.426,
      "eps_gaap": 7.38,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 20,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-06-30",
@@ -1242,17 +1370,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 8.35,
+     "eps": 8.347,
      "eps_gaap": 7.24,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 17,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 9.02,
+     "eps": 9.0244,
      "eps_gaap": 8.43,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 17,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1279,17 +1411,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 20.61,
+     "eps": 20.6136,
      "eps_gaap": 19.42,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 26,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 23.47,
+     "eps": 23.4737,
      "eps_gaap": 22.15,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 26,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1316,17 +1452,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 1.73,
+     "eps": 1.7287,
      "eps_gaap": 0.98,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 33,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 2.16,
+     "eps": 2.1638,
      "eps_gaap": 1.45,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 33,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1353,17 +1493,21 @@
    "est": [
     {
      "fin": "2027-10-31",
-     "eps": 19.28,
+     "eps": 19.3012,
      "eps_gaap": 19.16,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 34,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-10-31",
-     "eps": 24.77,
+     "eps": 24.5431,
      "eps_gaap": 24.7,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 29,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-10-31",
@@ -1390,17 +1534,21 @@
    "est": [
     {
      "fin": "2027-09-30",
-     "eps": 7.6,
+     "eps": 7.5975,
      "eps_gaap": 6.87,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 23,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-09-30",
-     "eps": 8.55,
+     "eps": 8.5524,
      "eps_gaap": 7.67,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 21,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-09-30",
@@ -1427,17 +1575,21 @@
    "est": [
     {
      "fin": "2027-07-31",
-     "eps": 22.95,
+     "eps": 22.9486,
      "eps_gaap": 20.57,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 31,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-07-31",
-     "eps": 25.9,
+     "eps": 25.899,
      "eps_gaap": 23.42,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 30,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-07-31",
@@ -1464,17 +1616,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 5.59,
+     "eps": 5.585,
      "eps_gaap": 5.07,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 42,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 5.91,
+     "eps": 5.906,
      "eps_gaap": 5.72,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 44,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1501,17 +1657,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 0.88,
+     "eps": 0.851,
      "eps_gaap": 0.85,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 16,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 1.07,
+     "eps": 1.0589,
      "eps_gaap": 1.06,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 18,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1538,17 +1698,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 4.53,
+     "eps": 4.5302,
      "eps_gaap": 4.6,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 5,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 6.84,
+     "eps": 6.8396,
      "eps_gaap": 6.63,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 5,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1601,7 +1765,23 @@
      "eps": 122.21
     }
    ],
-   "nota": "EPS en pesos por acción local (TIKR, sin reexpresar a moneda de hoy). Promedios en dólares. Estimaciones de TIKR en US$ por ADR, mostradas en pesos al dólar de 2025."
+   "nota": "EPS en pesos por acción local (TIKR, sin reexpresar a moneda de hoy). Promedios en dólares. Estimaciones de TIKR en US$ por ADR, mostradas en pesos al dólar de 2025.",
+   "tc_cierre": {
+    "2016-12-31": 16.0,
+    "2017-12-31": 19.0,
+    "2018-12-31": 39.0,
+    "2019-12-31": 63.0,
+    "2020-12-31": 90.0,
+    "2021-12-31": 108.0,
+    "2022-12-31": 185.0,
+    "2023-12-31": 828.25,
+    "2024-12-31": 1052.5,
+    "2025-12-31": 1480.0,
+    "2026-12-31": 1630.0,
+    "2027-12-31": 1630.0,
+    "2028-12-31": 1630.0
+   },
+   "tc_hoy": 1630.0
   },
   "VIST": {
    "moneda_tikr": "USD",
@@ -1619,17 +1799,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 189.49,
+     "eps": 189.4948,
      "eps_gaap": 187.74,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 4,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 215.36,
+     "eps": 215.3585,
      "eps_gaap": 182.67,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 6,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1656,17 +1840,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 0.45,
+     "eps": 0.4547,
      "eps_gaap": 0.45,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 3,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 0.48,
+     "eps": 0.4838,
      "eps_gaap": 0.49,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 4,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1696,14 +1884,16 @@
      "eps": 7.6,
      "eps_gaap": 7.37,
      "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fecha": "2026-11-26",
+     "yahoo_distinto": 12163.116
     },
     {
      "fin": "2027-12-31",
      "eps": 10.43,
      "eps_gaap": 9.74,
      "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fecha": "2026-11-26",
+     "yahoo_distinto": 16704.055
     },
     {
      "fin": "2028-12-31",
@@ -1752,7 +1942,22 @@
      "eps": 452.75
     }
    ],
-   "nota": "EPS en pesos por acción local (TIKR, sin reexpresar a moneda de hoy). Promedios en dólares. Estimaciones de TIKR en US$ por ADR, mostradas en pesos al dólar de 2025."
+   "nota": "EPS en pesos por acción local (TIKR, sin reexpresar a moneda de hoy). Promedios en dólares. Estimaciones de TIKR en US$ por ADR, mostradas en pesos al dólar de 2025.",
+   "tc_cierre": {
+    "2017-12-31": 19.0,
+    "2018-12-31": 39.0,
+    "2019-12-31": 63.0,
+    "2020-12-31": 90.0,
+    "2021-12-31": 108.0,
+    "2022-12-31": 185.0,
+    "2023-12-31": 828.25,
+    "2024-12-31": 1052.5,
+    "2025-12-31": 1480.0,
+    "2026-12-31": 1630.0,
+    "2027-12-31": 1630.0,
+    "2028-12-31": 1630.0
+   },
+   "tc_hoy": 1630.0
   },
   "CB": {
    "moneda_tikr": "USD",
@@ -1770,17 +1975,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 29.11,
+     "eps": 29.1132,
      "eps_gaap": 28.05,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 25,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 29.47,
+     "eps": 29.4714,
      "eps_gaap": 29.29,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 25,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1807,17 +2016,21 @@
    "est": [
     {
      "fin": "2027-01-31",
-     "eps": 16.76,
+     "eps": 16.7555,
      "eps_gaap": 10.42,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 52,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-01-31",
-     "eps": 16.03,
+     "eps": 16.0325,
      "eps_gaap": 9.8,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 53,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-01-31",
@@ -1846,15 +2059,19 @@
      "fin": "2026-12-31",
      "eps": 8.58,
      "eps_gaap": 8.76,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 2,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 6.03,
+     "eps": 6.0251,
      "eps_gaap": 7.37,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 5,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1919,15 +2136,19 @@
      "fin": "2026-12-31",
      "eps": 2.78,
      "eps_gaap": 1.7,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 1,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
      "eps": 3.33,
      "eps_gaap": null,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 1,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -1954,17 +2175,21 @@
    "est": [
     {
      "fin": "2027-08-31",
-     "eps": 22.78,
+     "eps": 22.8365,
      "eps_gaap": 22.84,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 34,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-08-31",
-     "eps": 25.06,
+     "eps": 25.1493,
      "eps_gaap": 25.15,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 32,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-08-31",
@@ -1991,17 +2216,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 12.94,
+     "eps": 12.9387,
      "eps_gaap": 12.78,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 30,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 13.65,
+     "eps": 13.6532,
      "eps_gaap": 13.69,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 31,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2030,15 +2259,19 @@
      "fin": "2026-12-31",
      "eps": 17.94,
      "eps_gaap": 16.47,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 19,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 20.15,
+     "eps": 20.1523,
      "eps_gaap": 17.84,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 23,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2065,17 +2298,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 23.91,
+     "eps": 23.9132,
      "eps_gaap": 24.88,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 13,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 25.57,
+     "eps": 25.5731,
      "eps_gaap": 25.53,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 15,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2102,17 +2339,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 27.03,
+     "eps": 27.0285,
      "eps_gaap": 26.6,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 26,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 32.18,
+     "eps": 32.1774,
      "eps_gaap": 31.77,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 27,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2139,17 +2380,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 13.17,
+     "eps": 13.1689,
      "eps_gaap": 13.02,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 14.39,
+     "eps": 14.3941,
      "eps_gaap": 14.32,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2176,17 +2421,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 13.68,
+     "eps": 13.6799,
      "eps_gaap": 12.83,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 20,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 12.49,
+     "eps": 12.4852,
      "eps_gaap": 12.81,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2213,17 +2462,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 23.67,
+     "eps": 23.6651,
      "eps_gaap": 23.55,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 8,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 23.37,
+     "eps": 23.3731,
      "eps_gaap": 24.84,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 9,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2250,17 +2503,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 0.8,
+     "eps": 0.7995,
      "eps_gaap": 0.78,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 3,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 0.87,
+     "eps": 0.8652,
      "eps_gaap": 0.82,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 4,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2287,17 +2544,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 12.01,
+     "eps": 12.0137,
      "eps_gaap": 10.94,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 5,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 11.89,
+     "eps": 11.8942,
      "eps_gaap": 12.57,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 9,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2324,17 +2585,21 @@
    "est": [
     {
      "fin": "2026-12-31",
-     "eps": 3.05,
+     "eps": 3.0509,
      "eps_gaap": 1.54,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 23,
+     "yahoo_ok": true
     },
     {
      "fin": "2027-12-31",
-     "eps": 2.95,
+     "eps": 2.9533,
      "eps_gaap": 2.02,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 24,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-12-31",
@@ -2361,17 +2626,21 @@
    "est": [
     {
      "fin": "2027-01-31",
-     "eps": 2.89,
+     "eps": 2.8881,
      "eps_gaap": 2.86,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 41,
+     "yahoo_ok": true
     },
     {
      "fin": "2028-01-31",
-     "eps": 3.23,
+     "eps": 3.2267,
      "eps_gaap": 3.2,
-     "fuente": "TIKR",
-     "fecha": "2026-11-26"
+     "fuente": "Yahoo",
+     "fecha": "2026-11-26",
+     "analistas": 43,
+     "yahoo_ok": true
     },
     {
      "fin": "2029-01-31",
