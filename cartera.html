@@ -95,7 +95,8 @@ table.t tr.cero td { opacity: .45; }
 input.q { font: inherit; font-family: var(--f-data); font-size: 13px; width: 92px; text-align: right; padding: 3px 5px; border: 1px solid var(--line); border-radius: 4px; background: var(--sunken); color: var(--ink); }
 input.q.dirty { border-color: var(--warn); }
 select.cat { font: inherit; font-size: 12.5px; padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--sunken); color: var(--ink); }
-.ico { cursor: help; }
+.ico { cursor: pointer; border: 0; background: none; padding: 0 2px; font: inherit; color: var(--warn); }
+.tk small.av { white-space: normal; max-width: 260px; color: var(--warn); margin-top: 2px; }
 
 .bars { display: flex; flex-direction: column; gap: 6px; }
 .bar { display: grid; grid-template-columns: minmax(110px, 38%) 1fr 62px; gap: 8px; align-items: center; font-size: 13px; }
@@ -381,6 +382,7 @@ details.cfg ol { margin: 4px 0 0; padding-left: 20px; font-size: 13.5px; }
       const nom = { pe_ltm: "P/E LTM", pe_ntm: "P/E NTM", ev_ebitda: "EV/EBITDA" };
       const us = usar.filter(k => C[k] != null);
       us.forEach(k => { F[k] = C[k] * ajuste; });
+      if (us.includes("pe_ntm")) F.avisos = F.avisos.filter(x => !/^P\/E NTM/.test(x));
       if (us.length) F.avisos.push(`${us.map(k => nom[k]).join(", ")}: de TIKR (${dmy(C.fecha)}), ajustado por precio`);
     }
     if (a.financiera) F.ev_ebitda = null;
@@ -482,7 +484,7 @@ details.cfg ol { margin: 4px 0 0; padding-left: 20px; font-size: 13.5px; }
     });
     C.rows.filter(r => r.q > 0 && !r.p.precio && r.tipo !== "Efectivo").forEach(r => al.push(["a", `${r.a.ticker}: sin cotización en la última actualización.`]));
     const ver = C.rows.filter(r => r.q > 0 && r.F && r.F.avisos && r.F.avisos.some(x => /verificar/.test(x))).map(r => r.a.ticker);
-    if (ver.length) al.push(["a", "Ratios a verificar en TIKR: " + [...new Set(ver)].join(", ") + " (pasá el mouse por el ⚠ de cada uno)."]);
+    if (ver.length) al.push(["a", "Ratios a verificar en TIKR: " + [...new Set(ver)].join(", ") + " (tocá el ⚠ de cada uno)."]);
     return al;
   }
 
@@ -527,8 +529,9 @@ details.cfg ol { margin: 4px 0 0; padding-left: 20px; font-size: 13.5px; }
 
   function celdaTk(r) {
     const avs = (r.F && r.F.avisos) || [];
-    const warn = avs.length ? ` <span class="ico warn" title="${esc(avs.join("\n"))}">⚠</span>` : "";
-    return `<td class="tk">${esc(r.a.ticker)}${warn}<small>${esc(r.a.nombre || "")}</small></td>`;
+    const warn = avs.length ? ` <button type="button" class="ico warn" title="${esc(avs.join("\n"))}" aria-label="Ver avisos de ${esc(r.a.ticker)}">⚠</button>` : "";
+    const det = avs.length ? `<small class="av" hidden>${avs.map(esc).join("<br>")}</small>` : "";
+    return `<td class="tk">${esc(r.a.ticker)}${warn}<small>${esc(r.a.nombre || "")}</small>${det}</td>`;
   }
   function precioTxt(r) {
     if (!r.p.precio) return '<span class="muted">—</span>';
@@ -643,6 +646,10 @@ details.cfg ol { margin: 4px 0 0; padding-left: 20px; font-size: 13.5px; }
     $("ocultarCero").checked = ls.get(K.cero) !== "0";
     $("ocultarCero").addEventListener("change", () => { ls.set(K.cero, $("ocultarCero").checked ? "1" : "0"); render(); });
     $("selVista").addEventListener("click", e => { const b = e.target.closest("button[data-v]"); if (b) { ls.set(K.vista, b.dataset.v); render(); } });
+    document.addEventListener("click", e => {
+      const b = e.target.closest("button.ico");
+      if (b) { const av = b.parentElement.querySelector("small.av"); if (av) av.hidden = !av.hidden; }
+    });
     document.addEventListener("change", e => {
       const t = e.target;
       if (t.matches("input.q[data-id]")) {
