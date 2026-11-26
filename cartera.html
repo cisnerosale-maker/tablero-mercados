@@ -481,7 +481,7 @@ details.cfg ol { margin: 4px 0 0; padding-left: 20px; font-size: 13.5px; }
       if (f >= hoy && f <= en14 && !vistos.has(r.empresa)) { vistos.add(r.empresa); al.push(["", `${r.empresa} presenta resultados el ${dmy(f)}.`]); }
     });
     C.rows.filter(r => r.q > 0 && !r.p.precio && r.tipo !== "Efectivo").forEach(r => al.push(["a", `${r.a.ticker}: sin cotización en la última actualización.`]));
-    const ver = C.rows.filter(r => r.q > 0 && r.F && r.F.avisos && r.F.avisos.some(x => /verificar|TIKR \(/.test(x))).map(r => r.a.ticker);
+    const ver = C.rows.filter(r => r.q > 0 && r.F && r.F.avisos && r.F.avisos.some(x => /verificar/.test(x))).map(r => r.a.ticker);
     if (ver.length) al.push(["a", "Ratios a verificar en TIKR: " + [...new Set(ver)].join(", ") + " (pasá el mouse por el ⚠ de cada uno)."]);
     return al;
   }
