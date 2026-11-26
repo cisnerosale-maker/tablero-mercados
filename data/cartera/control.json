@@ -63,7 +63,9 @@
    "pe_ltm": 19.62,
    "pe_ntm": 15.99,
    "ev_ebitda": 14.09,
-   "usar": []
+   "usar": [
+    "pe_ntm"
+   ]
   },
   "BABA": {
    "fecha": "2026-11-26",
@@ -72,7 +74,9 @@
    "pe_ltm": 12.23,
    "pe_ntm": 10.14,
    "ev_ebitda": 10.45,
-   "usar": []
+   "usar": [
+    "ev_ebitda"
+   ]
   },
   "SFM": {
    "fecha": "2026-11-26",
@@ -81,7 +85,9 @@
    "pe_ltm": 10.23,
    "pe_ntm": 12.33,
    "ev_ebitda": 8.2,
-   "usar": []
+   "usar": [
+    "ev_ebitda"
+   ]
   },
   "AMZN": {
    "fecha": "2026-11-26",
@@ -154,7 +160,10 @@
    "pe_ltm": 16.13,
    "pe_ntm": 6.1,
    "ev_ebitda": null,
-   "usar": [],
+   "usar": [
+    "pe_ltm",
+    "pe_ntm"
+   ],
    "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
   },
   "VIST": {
@@ -164,7 +173,9 @@
    "pe_ltm": 7.01,
    "pe_ntm": 3.23,
    "ev_ebitda": 3.32,
-   "usar": []
+   "usar": [
+    "pe_ntm"
+   ]
   },
   "BBD": {
    "fecha": "2026-11-26",
@@ -173,7 +184,9 @@
    "pe_ltm": 5.08,
    "pe_ntm": 5.1,
    "ev_ebitda": null,
-   "usar": []
+   "usar": [
+    "pe_ltm"
+   ]
   },
   "BMA": {
    "fecha": "2026-11-26",
@@ -182,7 +195,9 @@
    "pe_ltm": 12.48,
    "pe_ntm": 6.12,
    "ev_ebitda": null,
-   "usar": [],
+   "usar": [
+    "pe_ltm"
+   ],
    "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
   },
   "YPF": {
@@ -192,7 +207,9 @@
    "pe_ltm": 5.88,
    "pe_ntm": 4.72,
    "ev_ebitda": 2.91,
-   "usar": [],
+   "usar": [
+    "ev_ebitda"
+   ],
    "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
   },
   "PAM": {
@@ -202,7 +219,10 @@
    "pe_ltm": 4.98,
    "pe_ntm": 6.98,
    "ev_ebitda": 5.58,
-   "usar": [],
+   "usar": [
+    "pe_ntm",
+    "ev_ebitda"
+   ],
    "nota": "P/E LTM de TIKR dividido por el ratio del ADR (TIKR lo informa por acción ordinaria)."
   }
  }
