@@ -1,5 +1,5 @@
 {
- "_nota": "Flujos futuros por cada 100 de valor nominal ORIGINAL, en US$. Fuente: IOL (análisis de renta fija, 25/11/2026) salvo indicación. CP41D (CGC Clase 41) queda sin flujos hasta confirmar sus condiciones de emisión.",
+ "_nota": "Flujos futuros y pagos de 2026 por cada 100 de valor nominal ORIGINAL, en US$. Fuente: IOL (análisis de renta fija, 25/11/2026) salvo indicación. Los 'pagados' sirven para que el rendimiento de bonos y ONs incluya la renta y amortización cobradas.",
  "bonos": {
   "AE38D": {
    "tasa": 5.0,
@@ -120,6 +120,16 @@
      "int": 0.1165,
      "amort": 4.66
     }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-01-09",
+     "monto": 2.5
+    },
+    {
+     "fecha": "2026-07-09",
+     "monto": 2.5
+    }
    ]
   },
   "AL30D": {
@@ -165,6 +175,16 @@
      "fecha": "2030-07-09",
      "int": 0.07,
      "amort": 8
+    }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-01-09",
+     "monto": 8.3
+    },
+    {
+     "fecha": "2026-07-09",
+     "monto": 8.27
     }
    ]
   },
@@ -262,6 +282,16 @@
      "int": 0.25,
      "amort": 10
     }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-01-09",
+     "monto": 2.0625
+    },
+    {
+     "fecha": "2026-07-09",
+     "monto": 2.0625
+    }
    ]
   },
   "YM34D": {
@@ -343,6 +373,16 @@
      "int": 1.66,
      "amort": 40
     }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-01-17",
+     "monto": 4.15
+    },
+    {
+     "fecha": "2026-07-17",
+     "monto": 4.15
+    }
    ]
   },
   "YM42D": {
@@ -379,6 +419,12 @@
      "int": 3.5,
      "amort": 100
     }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-06-02",
+     "monto": 3.5
+    }
    ]
   },
   "TTCBD": {
@@ -395,6 +441,16 @@
      "int": 3.75,
      "amort": 100
     }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-04-16",
+     "monto": 3.75
+    },
+    {
+     "fecha": "2026-10-16",
+     "monto": 3.75
+    }
    ]
   },
   "JNC6D": {
@@ -410,6 +466,16 @@
      "fecha": "2027-10-03",
      "int": 4,
      "amort": 100
+    }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-04-03",
+     "monto": 4.0
+    },
+    {
+     "fecha": "2026-10-03",
+     "monto": 4.0
     }
    ]
   },
@@ -441,6 +507,16 @@
      "fecha": "2029-01-23",
      "int": 3.5,
      "amort": 100
+    }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-01-24",
+     "monto": 3.5
+    },
+    {
+     "fecha": "2026-07-24",
+     "monto": 3.5
     }
    ]
   },
@@ -533,7 +609,55 @@
      "int": 1.36,
      "amort": 34
     }
+   ],
+   "pagados": [
+    {
+     "fecha": "2026-03-31",
+     "monto": 4.0
+    },
+    {
+     "fecha": "2026-09-30",
+     "monto": 4.0
+    }
    ]
+  },
+  "CP41D": {
+   "tasa": 8.0,
+   "fuente": "Emitida 08/09/2026 a 36 meses, 8% anual. Se supone cupón semestral y amortización al vencimiento: confirmar con el suplemento de prospecto.",
+   "supuesto": true,
+   "flujos": [
+    {
+     "fecha": "2027-03-08",
+     "int": 4.0,
+     "amort": 0.0
+    },
+    {
+     "fecha": "2027-09-08",
+     "int": 4.0,
+     "amort": 0.0
+    },
+    {
+     "fecha": "2028-03-08",
+     "int": 4.0,
+     "amort": 0.0
+    },
+    {
+     "fecha": "2028-09-08",
+     "int": 4.0,
+     "amort": 0.0
+    },
+    {
+     "fecha": "2029-03-08",
+     "int": 4.0,
+     "amort": 0.0
+    },
+    {
+     "fecha": "2029-09-08",
+     "int": 4.0,
+     "amort": 100.0
+    }
+   ],
+   "pagados": []
   }
  }
 }

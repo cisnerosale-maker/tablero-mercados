@@ -614,7 +614,10 @@
    "energia_ar": true,
    "financiera": false,
    "exposicion": "USD",
-   "empresa": "Vista Energy"
+   "empresa": "Vista Energy",
+   "monedas_extra": [
+    "MXN"
+   ]
   },
   {
    "id": "BO:AE38",
@@ -814,7 +817,8 @@
    "emisor": "Delta Ahorro Plus",
    "energia_ar": false,
    "exposicion": "ARS",
-   "empresa": "Delta Ahorro Plus"
+   "empresa": "Delta Ahorro Plus",
+   "vcp_por": 1000
   },
   {
    "id": "FC:FIMA.CPL.A",
@@ -831,7 +835,8 @@
    "emisor": "Fima Capital Plus",
    "energia_ar": false,
    "exposicion": "ARS",
-   "empresa": "Fima Capital Plus"
+   "empresa": "Fima Capital Plus",
+   "vcp_por": 1000
   },
   {
    "id": "FC:TT.RT.A",
@@ -848,7 +853,8 @@
    "emisor": "Toronto Trust Retorno Total",
    "energia_ar": false,
    "exposicion": "ARS",
-   "empresa": "Toronto Trust Retorno Total"
+   "empresa": "Toronto Trust Retorno Total",
+   "vcp_por": 1000
   },
   {
    "id": "FC:IOLDOLD",
@@ -866,7 +872,8 @@
    "emisor": "IOL Dólar Ahorro Plus",
    "energia_ar": false,
    "exposicion": "USD",
-   "empresa": "IOL Dólar Ahorro Plus"
+   "empresa": "IOL Dólar Ahorro Plus",
+   "vcp_por": 1000
   },
   {
    "id": "FC:PRPEDOB",
@@ -884,7 +891,8 @@
    "emisor": "Premier Performance Dólares",
    "energia_ar": false,
    "exposicion": "USD",
-   "empresa": "Premier Performance Dólares"
+   "empresa": "Premier Performance Dólares",
+   "vcp_por": 1000
   }
  ]
 }

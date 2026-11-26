@@ -191,6 +191,38 @@ def historia_data912(tipo, sym, avisos, diag):
     return serie
 
 
+NICE = [1 / 25, 1 / 20, 1 / 10, 1 / 5, 1 / 4, 1 / 3, 1 / 2, 2, 3, 4, 5, 10, 20, 25]
+
+
+def ajustar_ratio(serie, fund, desde):
+    """Corrige la historia local por cambios de ratio de CEDEAR o splits.
+
+    Compara el precio local contra el del subyacente/ADR (Yahoo, ya ajustado por splits):
+    ese cociente es casi el CCL y no salta más de 30% en un día salvo por un cambio de ratio.
+    """
+    fd = dict(fund)
+    pares = [(f, p, fd[f]) for f, p in serie if f in fd and f >= desde[:8] + "01"]
+    ajustes = []
+    factor = {}
+    for (f0, p0, u0), (f1, p1, u1) in zip(pares, pares[1:]):
+        q = (p1 / u1) / (p0 / u0)
+        if q > 1.3 or q < 0.77:
+            k = min(NICE, key=lambda n: abs(math.log(q / n)))
+            k = k if abs(math.log(q / k)) < 0.15 else q
+            factor[f1] = k
+            ajustes.append({"fecha": f1, "factor": round(k, 4)})
+    if not factor:
+        return serie, []
+    out = []
+    for f, p in serie:
+        m = 1.0
+        for fa, k in factor.items():
+            if f < fa:
+                m *= k
+        out.append((f, p * m))
+    return out, ajustes
+
+
 # ---------------------------------------------------------------- FCI
 FCI_TIPOS = ["mercadoDinero", "rentaFija", "rentaMixta", "rentaVariable", "otros"]
 
@@ -227,11 +259,12 @@ def fci_buscar(lista, busca, nombre):
     return num(x.get("vcp")), (x.get("fecha") or "")[:10], x.get("fondo")
 
 
-def fci_en_fecha(fecha_iso: str, avisos, cache):
-    """FCI del último día con datos <= fecha (hasta 7 días atrás)."""
+def fci_en_fecha(fecha_iso: str, avisos, cache, adelante=False):
+    """FCI del último día con datos <= fecha (hasta 7 días atrás); si no hay, los primeros días siguientes."""
     d = dt.date.fromisoformat(fecha_iso)
-    for i in range(8):
-        f = (d - dt.timedelta(days=i))
+    pasos = [-i for i in range(8)] + ([i for i in range(1, 12)] if adelante else [])
+    for i in pasos:
+        f = (d + dt.timedelta(days=i))
         if f.weekday() >= 5:
             continue
         k = f.strftime("%Y/%m/%d")
@@ -265,7 +298,9 @@ def tir_bono(flujos, precio, settle: dt.date):
     residual = sum(x["amort"] for x in fl)
     prim = dt.date.fromisoformat(fl[0]["fecha"])
     m_ant = prim.month - 6
-    prev = prim.replace(year=prim.year + (m_ant - 1) // 12, month=(m_ant - 1) % 12 + 1)
+    y_ant, mes_ant = prim.year + (m_ant - 1) // 12, (m_ant - 1) % 12 + 1
+    import calendar
+    prev = dt.date(y_ant, mes_ant, min(prim.day, calendar.monthrange(y_ant, mes_ant)[1]))
     tasa_per = fl[0]["int"] / residual if residual else 0  # tasa del período (semestral)
     corrido = residual * tasa_per * max(0, (settle - prev).days) / max(1, (prim - prev).days)
     vt = residual + corrido
@@ -369,12 +404,17 @@ def fundamentos_de(acc_fund: str, meta: dict, ccl: float, local_price, avisos):
     eb, ne = fila(q, ebitda_names)
     base = "LTM (4 trimestres)"
     if nq < 4:
-        ni2, _ = fila(a, ni_names, 1)
-        if ni2 is not None:
-            ni, base = ni2, "último ejercicio (Yahoo no tiene 4 trimestres)"
+        if num(info.get("netIncomeToCommon")) is not None:
+            ni, base = num(info.get("netIncomeToCommon")), "LTM (Yahoo)"
+        else:
+            ni2, _ = fila(a, ni_names, 1)
+            ni, base = (ni2, "último ejercicio (Yahoo no tiene 4 trimestres)") if ni2 is not None else (None, base)
     if ne < 4:
-        eb2, _ = fila(a, ebitda_names, 1)
-        eb = eb2 if eb2 is not None else None
+        if num(info.get("ebitda")) is not None:
+            eb = num(info.get("ebitda"))
+        else:
+            eb2, _ = fila(a, ebitda_names, 1)
+            eb = eb2 if eb2 is not None else None
     bs = qb if qb is not None and not getattr(qb, "empty", True) else ab
     deuda = ultimo(bs, ["Total Debt"]) or 0
     caja = ultimo(bs, ["Cash Cash Equivalents And Short Term Investments", "Cash And Cash Equivalents"]) or 0
@@ -391,7 +431,16 @@ def fundamentos_de(acc_fund: str, meta: dict, ccl: float, local_price, avisos):
         mcap = local_price * acc_ord  # TGNO4: pesos, precio BYMA
         r["mcap_metodo"] = "precio BYMA × acciones"
     elif meta.get("adr_ratio") and precio and acc_ord and fx:
-        mcap = precio * acc_ord / meta["adr_ratio"] * fx
+        ratio = meta["adr_ratio"]
+        if local_price and fin == "ARS":
+            imp = precio * ccl / local_price
+            cand = min([1, 2, 3, 4, 5, 10, 20, 25, 50], key=lambda n: abs(math.log(imp / n)))
+            if abs(math.log(imp / cand)) < 0.2 and cand != ratio:
+                r["avisos"].append(f"ratio del ADR: la cotización indica 1 ADR = {cand} acciones (cargado {ratio}); se usa {cand}")
+                ratio = cand
+        r["adr_ratio_usado"] = ratio
+        meta = {**meta, "adr_ratio": ratio}
+        mcap = precio * acc_ord / ratio * fx
         r["mcap_metodo"] = f"precio ADR × acciones/{meta['adr_ratio']} × {'CCL' if fin == 'ARS' else 'tipo de cambio'}"
         if mcap_y and fx:
             dif = mcap / (mcap_y * fx) - 1
@@ -406,6 +455,15 @@ def fundamentos_de(acc_fund: str, meta: dict, ccl: float, local_price, avisos):
         r["mcap_metodo"] = "Yahoo"
     r["mcap_balance"] = mcap
 
+    # Si el P/E propio difiere de Yahoo justo por el tipo de cambio, el balance está en la moneda de cotización
+    ype = num(info.get("trailingPE"))
+    if mcap and ni and ni > 0 and ype and fx and fx != 1:
+        ratio_pe = (mcap / ni) / ype
+        if abs(math.log(ratio_pe / fx)) < 0.2:
+            r["avisos"].append(f"Yahoo informa el balance en {fin} pero las cifras están en {cur}: se corrige")
+            mcap, r["moneda_balance"] = mcap / fx, f"{cur} (corregido)"
+            fx = 1.0
+    r["fx_balance"] = fx
     if mcap and ni:
         r["pe_ltm"] = round(mcap / ni, 2) if ni > 0 else None
         if ni <= 0:
@@ -439,19 +497,31 @@ def fundamentos_de(acc_fund: str, meta: dict, ccl: float, local_price, avisos):
         else:
             eps_ntm = e1 or num(info.get("forwardEps"))
         r["eps_ntm"] = rnd(eps_ntm, 4)
-        te = num(info.get("trailingEps"))
-        pe_a = precio / eps_ntm if precio and eps_ntm and eps_ntm > 0 else None
-        pe_b = r.get("pe_ltm") * te / eps_ntm if r.get("pe_ltm") and te and te > 0 and eps_ntm and eps_ntm > 0 else None
         pe_l = r.get("pe_ltm")
-        ok = lambda v: v is not None and pe_l and 0.3 <= v / pe_l <= 2.2  # noqa: E731
-        if pe_a is not None and (pe_l is None or ok(pe_a)):
-            r["pe_ntm"] = round(pe_a, 2)
-        elif ok(pe_b):
-            r["pe_ntm"] = round(pe_b, 2)
-            r["avisos"].append("P/E NTM por crecimiento del consenso (el consenso viene en otra moneda o por acción ordinaria)")
-        elif pe_a is not None:
-            r["pe_ntm"] = round(pe_a, 2)
-            r["avisos"].append("P/E NTM muy distinto del LTM: verificar")
+        if precio and eps_ntm and eps_ntm > 0:
+            # el consenso puede venir en la moneda del balance, por acción ordinaria o en otra moneda de cotización
+            monedas = [cur, fin] + list(meta.get("monedas_extra", []))
+            cands = []
+            for mo in dict.fromkeys(monedas):
+                f_ = 1.0 if mo == cur else (fx if mo == fin else fx_rate(cur, mo, ccl, []))
+                if not f_:
+                    continue
+                for k in dict.fromkeys([1, meta.get("adr_ratio") or 1, r.get("adr_ratio_usado") or 1]):
+                    cands.append((precio / (eps_ntm / f_ / k), mo, k))
+            pe_a = cands[0][0]
+            if pe_l is None:
+                r["pe_ntm"] = round(pe_a, 2)
+            else:
+                ok = [c for c in cands if 0.25 <= c[0] / pe_l <= 2.5]
+                if ok and ok[0] is cands[0]:
+                    r["pe_ntm"] = round(pe_a, 2)
+                elif ok:
+                    best = min(ok, key=lambda c: abs(math.log(c[0] / pe_l)))
+                    r["pe_ntm"] = round(best[0], 2)
+                    r["avisos"].append(f"P/E NTM: el consenso de Yahoo viene en {best[1]}{' por acción ordinaria' if best[2] != 1 else ''}; se convirtió")
+                else:
+                    r["pe_ntm"] = None
+                    r["avisos"].append("P/E NTM sin dato confiable en Yahoo: verificar en TIKR")
         if eps_ntm is not None and eps_ntm <= 0:
             r["avisos"].append("consenso de ganancias negativo: sin P/E NTM")
     except Exception as e:  # noqa: BLE001
@@ -536,12 +606,20 @@ def main():
     # Historia de Yahoo para acciones de EE.UU. (cotización directa)
     us = [a["yahoo"] for a in activos if a["tipo"] == "Acción EEUU"]
     yh = yahoo_historia(us, avisos, start=f"{d.year - 1}-12-01")
+    funds_y = sorted({a["fund"] for a in activos if a.get("fund") and a["tipo"] in ("CEDEAR", "Acción argentina") and not a.get("fund_local")})
+    yh_fund = yahoo_historia(funds_y, avisos, start=f"{d.year - 1}-12-01")
+    sin_hist = [a["simbolo"] + ".BA" for a in activos if a["tipo"] in ("CEDEAR", "Acción argentina")]
+    yh_ba = {}
+    def cargar_ba():
+        if not yh_ba:
+            yh_ba.update(yahoo_historia(sin_hist, avisos, start=f"{d.year - 1}-12-01"))
+        return yh_ba
 
     fci_cache = {}
     fci_hoy = fci_lista("ultimo", avisos)
     fci_pen = fci_lista("penultimo", avisos)
     fci_30, f30 = fci_en_fecha(fb["d30"], avisos, fci_cache)
-    fci_an, fan = fci_en_fecha(fb["anio"], avisos, fci_cache)
+    fci_an, fan = fci_en_fecha(fb["anio"], avisos, fci_cache, adelante=True)
     if fci_hoy:
         diag["fci_ejemplo"] = fci_hoy[0]
 
@@ -565,12 +643,15 @@ def main():
                     r["fuente"] = "Yahoo Finance"
             elif t == "FCI":
                 h = fci_buscar(fci_hoy, a["fci_busca"], a["nombre"])
+                k = a.get("vcp_por", 1)
+                esc = lambda t_: (t_[0] / k if t_ and t_[0] else None, *t_[1:]) if t_ else None  # noqa: E731
+                h = esc(h)
                 if h:
                     r["precio"], r["fecha"], r["fondo_fuente"] = h
-                    p = fci_buscar(fci_pen, a["fci_busca"], a["nombre"])
+                    p = esc(fci_buscar(fci_pen, a["fci_busca"], a["nombre"]))
                     r["ant"] = p[0] if p else None
-                    p30 = fci_buscar(fci_30, a["fci_busca"], a["nombre"])
-                    pan_ = fci_buscar(fci_an, a["fci_busca"], a["nombre"])
+                    p30 = esc(fci_buscar(fci_30, a["fci_busca"], a["nombre"]))
+                    pan_ = esc(fci_buscar(fci_an, a["fci_busca"], a["nombre"]))
                     r["p30"], r["f30"] = (p30[0], f30) if p30 else (None, None)
                     r["panio"], r["fanio"] = (pan_[0], fan) if pan_ else (None, None)
                     r["fuente"] = "argentinadatos.com (CAFCI)"
@@ -586,6 +667,14 @@ def main():
                 s = [] if (bc and r.get("precio")) else historia_data912(tipo_hist.get(a["panel"], "stocks"), a["simbolo"], avisos, diag)
                 if bc and r.get("precio"):
                     r.update(bc)
+                if not s and not bc:
+                    s = [(f_, v_) for f_, v_ in cargar_ba().get(a["simbolo"] + ".BA", [])]
+                    if s:
+                        r["hist_fuente"] = "Yahoo (.BA)"
+                if s and a.get("fund") and yh_fund.get(a["fund"]):
+                    s, ajustes = ajustar_ratio(s, yh_fund[a["fund"]], fb["anio"])
+                    if ajustes:
+                        r["ajustes"] = ajustes
                 if s:
                     if not r.get("precio"):
                         r["precio"], r["fecha"] = s[-1][1], s[-1][0]
