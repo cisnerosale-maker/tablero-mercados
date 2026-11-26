@@ -1,6 +1,6 @@
 {
- "actualizado": "2026-11-26T08:54-03:00",
- "fund_actualizado": "2026-11-26T08:54-03:00",
+ "actualizado": "2026-11-26T09:01-03:00",
+ "fund_actualizado": "2026-11-26T09:01-03:00",
  "dolar": {
   "mep": 1688.7,
   "ccl": 1767.9,
@@ -83,12 +83,6 @@
    "var_dia": -1.48,
    "fecha": "2026-11-26",
    "fuente": "data912 (BYMA)",
-   "ajustes": [
-    {
-     "fecha": "2026-08-03",
-     "factor": 0.1
-    }
-   ],
    "p30": 8030.0,
    "f30": "2026-10-27",
    "panio": 5475.0,
@@ -334,7 +328,6 @@
    "var_dia": 1.39,
    "fecha": "2026-11-26",
    "fuente": "data912 (BYMA)",
-   "hist_fuente": "Yahoo (.BA)",
    "p30": 17780.0,
    "f30": "2026-10-27",
    "panio": 15400.0,
@@ -347,12 +340,6 @@
    "var_dia": -0.69,
    "fecha": "2026-11-26",
    "fuente": "data912 (BYMA)",
-   "ajustes": [
-    {
-     "fecha": "2026-05-29",
-     "factor": 0.3333
-    }
-   ],
    "p30": 21260.0,
    "f30": "2026-10-27",
    "panio": 17433.333333,
@@ -365,7 +352,6 @@
    "var_dia": -4.21,
    "fecha": "2026-11-26",
    "fuente": "data912 (BYMA)",
-   "hist_fuente": "Yahoo (.BA)",
    "p30": 80425.0,
    "f30": "2026-10-27",
    "panio": 50850.0,
@@ -391,10 +377,11 @@
    "fecha": "2026-11-26",
    "fuente": "data912 (BYMA)",
    "hist_fuente": "Yahoo (.BA)",
-   "p30": null,
-   "f30": null,
-   "panio": null,
-   "fanio": null
+   "p30": 39460,
+   "f30": "2026-10-27",
+   "panio": 24470,
+   "fanio": "2025-12-30",
+   "base_propia": true
   },
   "BO:AE38": {
    "moneda": "ARS",
@@ -641,8 +628,8 @@
    "ant": 411.051237,
    "p30": 409.642769,
    "f30": "2026-10-27",
-   "panio": null,
-   "fanio": null,
+   "panio": 327.197125,
+   "fanio": "2026-01-05",
    "fuente": "argentinadatos.com (CAFCI)"
   },
   "FC:FIMA.CPL.A": {
@@ -653,8 +640,8 @@
    "ant": 99.778027,
    "p30": 96.799485,
    "f30": "2026-10-27",
-   "panio": null,
-   "fanio": null,
+   "panio": 89.024796,
+   "fanio": "2026-01-05",
    "fuente": "argentinadatos.com (CAFCI)"
   },
   "FC:TT.RT.A": {
@@ -665,8 +652,8 @@
    "ant": 56.89902,
    "p30": 56.787396,
    "f30": "2026-10-27",
-   "panio": null,
-   "fanio": null,
+   "panio": 44.384997,
+   "fanio": "2026-01-05",
    "fuente": "argentinadatos.com (CAFCI)"
   },
   "FC:IOLDOLD": {
@@ -795,8 +782,8 @@
    "precio": 86.26,
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 1427193000047.8047,
-   "fx_balance": 6.650700092315674,
+   "mcap_balance": 1427214488479.914,
+   "fx_balance": 6.6508002281188965,
    "pe_ltm": 12.21,
    "ev_ebitda": 6.9,
    "pvl": 1.21,
@@ -913,8 +900,8 @@
    "precio": 2.43,
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 3815562615.253479,
-   "fx_balance": 6.650700092315674,
+   "mcap_balance": 3815620064.006531,
+   "fx_balance": 6.6508002281188965,
    "pe_ltm": 2.0,
    "pvl": 0.23,
    "roe": 11.5,
@@ -1035,7 +1022,7 @@
    "ev_ebitda": 14.93,
    "pvl": 5.72,
    "roe": 27.6,
-   "yahoo_pe_ltm": 20.12,
+   "yahoo_pe_ltm": 20.81,
    "yahoo_ev_ebitda": 13.7,
    "eps_ntm": 33.2826,
    "pe_ntm": 18.32,
@@ -1095,10 +1082,10 @@
    "precio": 31.5,
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 8796411911.915161,
-   "fx_balance": 0.8347700238227844,
-   "pe_ltm": 19.98,
-   "ev_ebitda": 11.61,
+   "mcap_balance": 8792723793.440552,
+   "fx_balance": 0.8344200253486633,
+   "pe_ltm": 19.97,
+   "ev_ebitda": 11.6,
    "pvl": 4.04,
    "roe": 20.2,
    "yahoo_pe_ltm": 19.21,
@@ -1227,8 +1214,8 @@
    "precio": 342.34,
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 58516377329020.0,
-   "fx_balance": 32.957000732421875,
+   "mcap_balance": 58514602767257.0,
+   "fx_balance": 32.95600128173828,
    "pe_ltm": 23.15,
    "ev_ebitda": 14.57,
    "pvl": 8.36,
@@ -1322,108 +1309,108 @@
   }
  },
  "betas": {
-  "V": {
-   "beta": 0.73,
-   "meses": 59
-  },
-  "RIO": {
-   "beta": 0.67,
-   "meses": 59
-  },
-  "SFM": {
-   "beta": 0.71,
-   "meses": 59
-  },
-  "BRK-B": {
-   "beta": 0.52,
-   "meses": 59
-  },
-  "FINV": {
-   "beta": 0.45,
-   "meses": 59
-  },
-  "BBD": {
-   "beta": 0.67,
-   "meses": 59
-  },
-  "META": {
-   "beta": 1.26,
-   "meses": 59
-  },
   "YPF": {
    "beta": 1.48,
-   "meses": 59
-  },
-  "GGAL": {
-   "beta": 1.39,
-   "meses": 59
-  },
-  "ADBE": {
-   "beta": 1.43,
    "meses": 59
   },
   "CRESY": {
    "beta": 0.75,
    "meses": 59
   },
-  "AMZN": {
-   "beta": 1.49,
+  "PAM": {
+   "beta": 0.94,
    "meses": 59
   },
   "ONON": {
    "beta": 2.09,
    "meses": 59
   },
-  "TSM": {
-   "beta": 1.5,
-   "meses": 59
-  },
   "AXP": {
    "beta": 1.06,
-   "meses": 59
-  },
-  "T": {
-   "beta": 0.22,
-   "meses": 59
-  },
-  "MELI": {
-   "beta": 1.38,
-   "meses": 59
-  },
-  "AMD": {
-   "beta": 2.64,
-   "meses": 59
-  },
-  "IRS": {
-   "beta": 1.37,
-   "meses": 59
-  },
-  "MSFT": {
-   "beta": 1.06,
-   "meses": 59
-  },
-  "NVDA": {
-   "beta": 2.4,
-   "meses": 59
-  },
-  "PAM": {
-   "beta": 0.94,
-   "meses": 59
-  },
-  "VIST": {
-   "beta": 0.7,
-   "meses": 59
-  },
-  "BABA": {
-   "beta": 0.49,
    "meses": 59
   },
   "GOOGL": {
    "beta": 1.22,
    "meses": 59
   },
+  "VIST": {
+   "beta": 0.7,
+   "meses": 59
+  },
+  "META": {
+   "beta": 1.26,
+   "meses": 59
+  },
+  "ADBE": {
+   "beta": 1.43,
+   "meses": 59
+  },
+  "IRS": {
+   "beta": 1.37,
+   "meses": 59
+  },
+  "BABA": {
+   "beta": 0.49,
+   "meses": 59
+  },
+  "TSM": {
+   "beta": 1.5,
+   "meses": 59
+  },
+  "MSFT": {
+   "beta": 1.06,
+   "meses": 59
+  },
+  "V": {
+   "beta": 0.73,
+   "meses": 59
+  },
+  "SFM": {
+   "beta": 0.71,
+   "meses": 59
+  },
   "BMA": {
    "beta": 1.56,
+   "meses": 59
+  },
+  "T": {
+   "beta": 0.22,
+   "meses": 59
+  },
+  "FINV": {
+   "beta": 0.45,
+   "meses": 59
+  },
+  "BRK-B": {
+   "beta": 0.52,
+   "meses": 59
+  },
+  "NVDA": {
+   "beta": 2.4,
+   "meses": 59
+  },
+  "AMZN": {
+   "beta": 1.49,
+   "meses": 59
+  },
+  "RIO": {
+   "beta": 0.67,
+   "meses": 59
+  },
+  "GGAL": {
+   "beta": 1.39,
+   "meses": 59
+  },
+  "AMD": {
+   "beta": 2.64,
+   "meses": 59
+  },
+  "BBD": {
+   "beta": 0.67,
+   "meses": 59
+  },
+  "MELI": {
+   "beta": 1.38,
    "meses": 59
   }
  },
@@ -1431,16 +1418,6 @@
  "manual": {},
  "avisos": [],
  "diagnostico": {
-  "formato_historia": {
-   "date": "2026-11-25",
-   "o": "8960.0",
-   "h": "9130.0",
-   "l": "8280.0",
-   "c": "8980.0",
-   "v": "696684.0",
-   "dr": "-0.0094",
-   "sa": "0.4783"
-  },
   "fci_iol_n": 22,
   "fci_cafci": "Expecting value: line 1 column 1 (char 0)"
  }
