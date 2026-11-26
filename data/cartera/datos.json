@@ -1,6 +1,6 @@
 {
- "actualizado": "2026-11-26T08:51-03:00",
- "fund_actualizado": "2026-11-26T08:51-03:00",
+ "actualizado": "2026-11-26T08:54-03:00",
+ "fund_actualizado": "2026-11-26T08:54-03:00",
  "dolar": {
   "mep": 1688.7,
   "ccl": 1767.9,
@@ -83,9 +83,15 @@
    "var_dia": -1.48,
    "fecha": "2026-11-26",
    "fuente": "data912 (BYMA)",
+   "ajustes": [
+    {
+     "fecha": "2026-08-03",
+     "factor": 0.1
+    }
+   ],
    "p30": 8030.0,
    "f30": "2026-10-27",
-   "panio": 54750.0,
+   "panio": 5475.0,
    "fanio": "2025-12-30"
   },
   "AR:TGNO4": {
@@ -341,9 +347,15 @@
    "var_dia": -0.69,
    "fecha": "2026-11-26",
    "fuente": "data912 (BYMA)",
+   "ajustes": [
+    {
+     "fecha": "2026-05-29",
+     "factor": 0.3333
+    }
+   ],
    "p30": 21260.0,
    "f30": "2026-10-27",
-   "panio": 52300.0,
+   "panio": 17433.333333,
    "fanio": "2025-12-30"
   },
   "CE:TSM": {
@@ -665,9 +677,10 @@
    "ant": 1.087606,
    "p30": 1.107984,
    "f30": "2026-10-27",
-   "panio": null,
-   "fanio": null,
-   "fuente": "argentinadatos.com (CAFCI)"
+   "panio": 1.060439,
+   "fanio": "2025-12-31",
+   "fuente": "argentinadatos.com (CAFCI)",
+   "anio_por_ytd": 2.59
   },
   "FC:PRPEDOB": {
    "moneda": "USD",
@@ -677,9 +690,10 @@
    "ant": 1.53113,
    "p30": 1.72286,
    "f30": "2026-10-27",
-   "panio": null,
-   "fanio": null,
-   "fuente": "argentinadatos.com (CAFCI)"
+   "panio": 1.690548,
+   "fanio": "2025-12-31",
+   "fuente": "argentinadatos.com (CAFCI)",
+   "anio_por_ytd": -7.5
   }
  },
  "fundamentos": {
@@ -781,8 +795,8 @@
    "precio": 86.26,
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 1427171511615.6953,
-   "fx_balance": 6.650599956512451,
+   "mcap_balance": 1427193000047.8047,
+   "fx_balance": 6.650700092315674,
    "pe_ltm": 12.21,
    "ev_ebitda": 6.9,
    "pvl": 1.21,
@@ -899,8 +913,8 @@
    "precio": 2.43,
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 3815505166.5004272,
-   "fx_balance": 6.650599956512451,
+   "mcap_balance": 3815562615.253479,
+   "fx_balance": 6.650700092315674,
    "pe_ltm": 2.0,
    "pvl": 0.23,
    "roe": 11.5,
@@ -1081,8 +1095,8 @@
    "precio": 31.5,
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 8795779429.744873,
-   "fx_balance": 0.8347100019454956,
+   "mcap_balance": 8796411911.915161,
+   "fx_balance": 0.8347700238227844,
    "pe_ltm": 19.98,
    "ev_ebitda": 11.61,
    "pvl": 4.04,
@@ -1268,7 +1282,7 @@
    "yahoo_pe_ltm": 7.07,
    "yahoo_ev_ebitda": 3.42,
    "eps_ntm": 212.8784,
-   "pe_ntm": 4.63,
+   "pe_ntm": 4.64,
    "div_yield": 0.0,
    "prox_balance": "2026-10-28"
   },
@@ -1308,20 +1322,20 @@
   }
  },
  "betas": {
-  "CRESY": {
-   "beta": 0.75,
+  "V": {
+   "beta": 0.73,
    "meses": 59
   },
-  "AMD": {
-   "beta": 2.64,
+  "RIO": {
+   "beta": 0.67,
    "meses": 59
   },
-  "MELI": {
-   "beta": 1.38,
+  "SFM": {
+   "beta": 0.71,
    "meses": 59
   },
-  "MSFT": {
-   "beta": 1.06,
+  "BRK-B": {
+   "beta": 0.52,
    "meses": 59
   },
   "FINV": {
@@ -1332,24 +1346,68 @@
    "beta": 0.67,
    "meses": 59
   },
-  "PAM": {
-   "beta": 0.94,
+  "META": {
+   "beta": 1.26,
+   "meses": 59
+  },
+  "YPF": {
+   "beta": 1.48,
+   "meses": 59
+  },
+  "GGAL": {
+   "beta": 1.39,
+   "meses": 59
+  },
+  "ADBE": {
+   "beta": 1.43,
+   "meses": 59
+  },
+  "CRESY": {
+   "beta": 0.75,
+   "meses": 59
+  },
+  "AMZN": {
+   "beta": 1.49,
+   "meses": 59
+  },
+  "ONON": {
+   "beta": 2.09,
    "meses": 59
   },
   "TSM": {
    "beta": 1.5,
    "meses": 59
   },
-  "BMA": {
-   "beta": 1.56,
+  "AXP": {
+   "beta": 1.06,
    "meses": 59
   },
-  "META": {
-   "beta": 1.26,
+  "T": {
+   "beta": 0.22,
    "meses": 59
   },
-  "BRK-B": {
-   "beta": 0.52,
+  "MELI": {
+   "beta": 1.38,
+   "meses": 59
+  },
+  "AMD": {
+   "beta": 2.64,
+   "meses": 59
+  },
+  "IRS": {
+   "beta": 1.37,
+   "meses": 59
+  },
+  "MSFT": {
+   "beta": 1.06,
+   "meses": 59
+  },
+  "NVDA": {
+   "beta": 2.4,
+   "meses": 59
+  },
+  "PAM": {
+   "beta": 0.94,
    "meses": 59
   },
   "VIST": {
@@ -1360,56 +1418,12 @@
    "beta": 0.49,
    "meses": 59
   },
-  "AXP": {
-   "beta": 1.06,
-   "meses": 59
-  },
-  "SFM": {
-   "beta": 0.71,
-   "meses": 59
-  },
-  "NVDA": {
-   "beta": 2.4,
-   "meses": 59
-  },
-  "ADBE": {
-   "beta": 1.43,
-   "meses": 59
-  },
-  "YPF": {
-   "beta": 1.48,
-   "meses": 59
-  },
-  "RIO": {
-   "beta": 0.67,
-   "meses": 59
-  },
-  "V": {
-   "beta": 0.73,
-   "meses": 59
-  },
-  "AMZN": {
-   "beta": 1.49,
-   "meses": 59
-  },
   "GOOGL": {
    "beta": 1.22,
    "meses": 59
   },
-  "IRS": {
-   "beta": 1.37,
-   "meses": 59
-  },
-  "GGAL": {
-   "beta": 1.39,
-   "meses": 59
-  },
-  "ONON": {
-   "beta": 2.09,
-   "meses": 59
-  },
-  "T": {
-   "beta": 0.22,
+  "BMA": {
+   "beta": 1.56,
    "meses": 59
   }
  },
@@ -1417,13 +1431,17 @@
  "manual": {},
  "avisos": [],
  "diagnostico": {
-  "fci_ejemplo": {
-   "fondo": "1810 Ahorro",
-   "horizonte": "corto",
-   "fecha": "2026-11-25",
-   "vcp": 247304.121,
-   "ccp": 6532862130,
-   "patrimonio": 1615603728111.32
-  }
+  "formato_historia": {
+   "date": "2026-11-25",
+   "o": "8960.0",
+   "h": "9130.0",
+   "l": "8280.0",
+   "c": "8980.0",
+   "v": "696684.0",
+   "dr": "-0.0094",
+   "sa": "0.4783"
+  },
+  "fci_iol_n": 22,
+  "fci_cafci": "Expecting value: line 1 column 1 (char 0)"
  }
 }
