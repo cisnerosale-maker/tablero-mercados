@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-27T17:31-03:00",
+ "actualizado": "2026-11-27T20:34-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
@@ -1526,12 +1526,12 @@
    "nombre": "Merval",
    "unidad": "puntos (MSCI, base 100.000)",
    "fuente": "Rava (MSCI Merval) + historia S&P reescalada",
-   "valor": 83890.0,
+   "valor": 83903.0,
    "anterior": 84358.0,
-   "var_pct": -0.55,
+   "var_pct": -0.54,
    "mm50": null,
    "mm200": null,
-   "prom_anio": 89289.0,
+   "prom_anio": 89290.0,
    "max52": 102278.0,
    "min52": 81146.0,
    "fecha": "2026-11-27",
@@ -1563,19 +1563,19 @@
     81261.0,
     81643.0,
     84358.0,
-    83890.0
+    83903.0
    ]
   },
   "bovespa": {
    "nombre": "Ibovespa",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 177154.0,
+   "valor": 176573.0,
    "anterior": 176800.0,
-   "var_pct": 0.2,
-   "mm50": 184225.0,
-   "mm200": 180821.0,
-   "prom_anio": 179830.0,
+   "var_pct": -0.13,
+   "mm50": 184214.0,
+   "mm200": 180818.0,
+   "prom_anio": 179827.0,
    "max52": 209067.0,
    "min52": 154770.0,
    "fecha": "2026-11-27",
@@ -1699,7 +1699,7 @@
     164090.0,
     166685.0,
     176800.0,
-    177154.0
+    176573.0
    ]
   },
   "ipsa": {
@@ -1978,9 +1978,9 @@
    "nombre": "Índice dólar (DXY)",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 104.03,
+   "valor": 104.01,
    "anterior": 103.67,
-   "var_pct": 0.35,
+   "var_pct": 0.33,
    "mm50": 102.21,
    "mm200": 100.15,
    "prom_anio": 99.88,
@@ -2107,7 +2107,7 @@
     104.32,
     103.81,
     103.67,
-    104.03
+    104.01
    ]
   },
   "ust10": {
@@ -2793,7 +2793,7 @@
     1625.0
    ],
    "compra": 1575.0,
-   "actualizado": "2026-11-27T17:00:00.000Z"
+   "actualizado": "2026-11-27T18:00:00.000Z"
   },
   "mep": {
    "nombre": "Dólar MEP",
@@ -2931,7 +2931,7 @@
     1661.9
    ],
    "compra": 1647.9,
-   "actualizado": "2026-11-27T19:59:00.000Z"
+   "actualizado": "2026-11-27T20:59:00.000Z"
   },
   "ccl": {
    "nombre": "Dólar CCL",
@@ -3069,7 +3069,7 @@
     1751.3
    ],
    "compra": 1748.3,
-   "actualizado": "2026-11-27T19:59:00.000Z"
+   "actualizado": "2026-11-27T20:59:00.000Z"
   },
   "mayorista": {
    "nombre": "Dólar mayorista",
@@ -3677,12 +3677,12 @@
    "nombre": "Merval en dólares",
    "unidad": "puntos US$ (CCL)",
    "fuente": "Cálculo propio: Merval / CCL",
-   "valor": 47.9,
+   "valor": 47.91,
    "anterior": 47.72,
-   "var_pct": 0.39,
+   "var_pct": 0.4,
    "mm50": null,
    "mm200": null,
-   "prom_anio": 53.08,
+   "prom_anio": 53.09,
    "max52": 61.84,
    "min52": 44.99,
    "fecha": "2026-11-27",
@@ -3714,7 +3714,7 @@
     45.22,
     46.18,
     47.72,
-    47.9
+    47.91
    ]
   },
   "riesgo_br": {
