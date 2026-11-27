@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-27T16:04-03:00",
+ "actualizado": "2026-11-27T16:22-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
@@ -413,10 +413,10 @@
    "nombre": "Petróleo Brent",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 90.36,
+   "valor": 90.46,
    "anterior": 94.61,
    "var_pct": null,
-   "mm50": 102.16,
+   "mm50": 102.17,
    "mm200": 95.05,
    "prom_anio": 91.45,
    "max52": 118.35,
@@ -542,7 +542,7 @@
     89.37,
     91.4,
     94.61,
-    90.36
+    90.46
    ],
    "nota": "Hoy cambió el contrato de futuros de referencia: la variación del día no es comparable."
   },
@@ -550,9 +550,9 @@
    "nombre": "Petróleo WTI",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 82.96,
+   "valor": 83.0,
    "anterior": 83.68,
-   "var_pct": -0.86,
+   "var_pct": -0.81,
    "mm50": 92.5,
    "mm200": 88.66,
    "prom_anio": 85.29,
@@ -679,7 +679,7 @@
     80.17,
     82.05,
     83.68,
-    82.96
+    83.0
    ]
   },
   "soja": {
@@ -1526,12 +1526,12 @@
    "nombre": "Merval",
    "unidad": "puntos (MSCI, base 100.000)",
    "fuente": "Rava (MSCI Merval) + historia S&P reescalada",
-   "valor": 82974.0,
+   "valor": 83428.0,
    "anterior": 84358.0,
-   "var_pct": -1.64,
+   "var_pct": -1.1,
    "mm50": null,
    "mm200": null,
-   "prom_anio": 89257.0,
+   "prom_anio": 89273.0,
    "max52": 102278.0,
    "min52": 81146.0,
    "fecha": "2026-11-27",
@@ -1563,19 +1563,19 @@
     81261.0,
     81643.0,
     84358.0,
-    82974.0
+    83428.0
    ]
   },
   "bovespa": {
    "nombre": "Ibovespa",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 176789.0,
+   "valor": 177019.0,
    "anterior": 176800.0,
-   "var_pct": -0.01,
-   "mm50": 184218.0,
-   "mm200": 180819.0,
-   "prom_anio": 179828.0,
+   "var_pct": 0.12,
+   "mm50": 184222.0,
+   "mm200": 180820.0,
+   "prom_anio": 179829.0,
    "max52": 209067.0,
    "min52": 154770.0,
    "fecha": "2026-11-27",
@@ -1699,7 +1699,7 @@
     164090.0,
     166685.0,
     176800.0,
-    176789.0
+    177019.0
    ]
   },
   "ipsa": {
@@ -1978,9 +1978,9 @@
    "nombre": "Índice dólar (DXY)",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 104.04,
+   "valor": 104.05,
    "anterior": 103.67,
-   "var_pct": 0.36,
+   "var_pct": 0.37,
    "mm50": 102.21,
    "mm200": 100.15,
    "prom_anio": 99.88,
@@ -2107,16 +2107,16 @@
     104.32,
     103.81,
     103.67,
-    104.04
+    104.05
    ]
   },
   "ust10": {
    "nombre": "Bono EE.UU. 10 años",
    "unidad": "% anual",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 4.94,
+   "valor": 4.93,
    "anterior": 4.85,
-   "var_pct": 1.82,
+   "var_pct": 1.77,
    "mm50": 5.07,
    "mm200": 4.62,
    "prom_anio": 4.57,
@@ -2243,7 +2243,7 @@
     4.92,
     4.9,
     4.85,
-    4.94
+    4.93
    ]
   },
   "usdbrl": {
@@ -3677,12 +3677,12 @@
    "nombre": "Merval en dólares",
    "unidad": "puntos US$ (CCL)",
    "fuente": "Cálculo propio: Merval / CCL",
-   "valor": 47.37,
+   "valor": 47.63,
    "anterior": 47.72,
-   "var_pct": -0.72,
+   "var_pct": -0.18,
    "mm50": null,
    "mm200": null,
-   "prom_anio": 53.07,
+   "prom_anio": 53.08,
    "max52": 61.84,
    "min52": 44.99,
    "fecha": "2026-11-27",
@@ -3714,7 +3714,7 @@
     45.22,
     46.18,
     47.72,
-    47.37
+    47.63
    ]
   },
   "riesgo_br": {
