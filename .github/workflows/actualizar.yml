@@ -10,7 +10,12 @@ on:
     - cron: "17 15 * * 1-5"      # 12:17
     - cron: "52 17 * * 1-5"      # 14:52
     - cron: "26 20 * * 1-5"      # 17:26
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      ciclo:
+        description: "Quedarse actualizando cada 15 minutos hasta el cierre"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -36,5 +41,5 @@ jobs:
 
       - name: Buscar y guardar datos cada 15 minutos (horario de mercado)
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ]; then export UNA_VEZ=0; else export UNA_VEZ=1; fi
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.ciclo }}" = "true" ]; then export UNA_VEZ=0; else export UNA_VEZ=1; fi
           bash scripts/ciclo.sh "python scripts/update_data.py" "Datos" data/

@@ -23,6 +23,10 @@ on:
         description: "Recalcular ratios y beta"
         type: boolean
         default: false
+      ciclo:
+        description: "Quedarse actualizando cada 15 minutos hasta el cierre"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -51,7 +55,7 @@ jobs:
           RUTAS="data/cartera/datos.json data/cartera/fundamentos.json data/cartera/historial.json"
           if [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.fund }}" = "true" ] || [ "${{ github.event.schedule }}" = "15 22 * * 1-5" ]; then
             UNA_VEZ=1 bash scripts/ciclo.sh "python scripts/update_cartera.py --fund" "Cartera" $RUTAS
-          elif [ "${{ github.event_name }}" = "schedule" ]; then
+          elif [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.ciclo }}" = "true" ]; then
             bash scripts/ciclo.sh "python scripts/update_cartera.py" "Cartera" $RUTAS
           else
             UNA_VEZ=1 bash scripts/ciclo.sh "python scripts/update_cartera.py" "Cartera" $RUTAS
