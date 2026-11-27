@@ -1,18 +1,18 @@
 {
- "actualizado": "2026-11-26T19:22-03:00",
- "fund_actualizado": "2026-11-26T09:06-03:00",
+ "actualizado": "2026-11-27T01:16-03:00",
+ "fund_actualizado": "2026-11-27T01:16-03:00",
  "dolar": {
   "mep": 1666.4,
   "ccl": 1767.9,
   "fuente": "dolarapi.com",
-  "mep_ant": 1695.1,
-  "mep_30": 1577.5,
-  "f30": "2026-10-27",
+  "mep_ant": 1688.7,
+  "mep_30": 1560.9,
+  "f30": "2026-10-28",
   "mep_anio": 1501.5,
   "fanio": "2025-12-31"
  },
  "bases": {
-  "d30": "2026-10-27",
+  "d30": "2026-10-28",
   "anio": "2025-12-31"
  },
  "precios": {
@@ -21,10 +21,10 @@
    "precio": 9160.0,
    "ant": 8965.449741,
    "var_dia": 2.17,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 10230.0,
-   "f30": "2026-10-27",
+   "p30": 9995.0,
+   "f30": "2026-10-28",
    "panio": 13550.0,
    "fanio": "2025-12-30"
   },
@@ -33,10 +33,10 @@
    "precio": 1510.0,
    "ant": 1466.019417,
    "var_dia": 3.0,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 1668.0,
-   "f30": "2026-10-27",
+   "p30": 1634.0,
+   "f30": "2026-10-28",
    "panio": 1932.0,
    "fanio": "2025-12-30"
   },
@@ -45,10 +45,10 @@
    "precio": 4890.0,
    "ant": 4755.42157,
    "var_dia": 2.83,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 5835.0,
-   "f30": "2026-10-27",
+   "p30": 5620.0,
+   "f30": "2026-10-28",
    "panio": 8245.0,
    "fanio": "2025-12-30"
   },
@@ -57,10 +57,10 @@
    "precio": 1990.0,
    "ant": 1970.10197,
    "var_dia": 1.01,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 2155.0,
-   "f30": "2026-10-27",
+   "p30": 2130.0,
+   "f30": "2026-10-28",
    "panio": 2535.0,
    "fanio": "2025-12-30"
   },
@@ -69,10 +69,10 @@
    "precio": 4555.0,
    "ant": 4440.003899,
    "var_dia": 2.59,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 4997.5,
-   "f30": "2026-10-27",
+   "p30": 4992.5,
+   "f30": "2026-10-28",
    "panio": 5290.0,
    "fanio": "2025-12-30"
   },
@@ -81,10 +81,16 @@
    "precio": 5940.0,
    "ant": 5620.210048,
    "var_dia": 5.69,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 8030.0,
-   "f30": "2026-10-27",
+   "ajustes": [
+    {
+     "fecha": "2026-08-03",
+     "factor": 0.1
+    }
+   ],
+   "p30": 8185.0,
+   "f30": "2026-10-28",
    "panio": 5475.0,
    "fanio": "2025-12-30"
   },
@@ -93,10 +99,10 @@
    "precio": 2735.0,
    "ant": 2655.082031,
    "var_dia": 3.01,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 2787.5,
-   "f30": "2026-10-27",
+   "p30": 2700.0,
+   "f30": "2026-10-28",
    "panio": 4900.0,
    "fanio": "2025-12-30"
   },
@@ -105,22 +111,30 @@
    "precio": 86.260002,
    "fecha": "2026-11-25",
    "ant": 84.860001,
-   "p30": 100.239998,
-   "f30": "2026-10-27",
+   "p30": 100.959999,
+   "f30": "2026-10-28",
    "panio": 146.580002,
    "fanio": "2025-12-31",
    "fuente": "Yahoo Finance"
   },
   "US:FINV": {
-   "moneda": "USD"
+   "moneda": "USD",
+   "precio": 2.43,
+   "fecha": "2026-11-25",
+   "ant": 2.48,
+   "p30": 2.83,
+   "f30": "2026-10-28",
+   "panio": 5.23,
+   "fanio": "2025-12-31",
+   "fuente": "Yahoo Finance"
   },
   "US:GOOGL": {
    "moneda": "USD",
    "precio": 273.100006,
    "fecha": "2026-11-25",
    "ant": 279.049988,
-   "p30": 320.579987,
-   "f30": "2026-10-27",
+   "p30": 324.890015,
+   "f30": "2026-10-28",
    "panio": 313.0,
    "fanio": "2025-12-31",
    "fuente": "Yahoo Finance"
@@ -130,8 +144,8 @@
    "precio": 609.890015,
    "fecha": "2026-11-25",
    "ant": 589.820007,
-   "p30": 620.190002,
-   "f30": "2026-10-27",
+   "p30": 612.48999,
+   "f30": "2026-10-28",
    "panio": 660.090027,
    "fanio": "2025-12-31",
    "fuente": "Yahoo Finance"
@@ -141,8 +155,8 @@
    "precio": 31.5,
    "fecha": "2026-11-25",
    "ant": 31.48,
-   "p30": 32.169998,
-   "f30": "2026-10-27",
+   "p30": 31.940001,
+   "f30": "2026-10-28",
    "panio": 46.48,
    "fanio": "2025-12-31",
    "fuente": "Yahoo Finance"
@@ -152,8 +166,8 @@
    "precio": 53.32,
    "fecha": "2026-11-25",
    "ant": 51.790001,
-   "p30": 64.410004,
-   "f30": "2026-10-27",
+   "p30": 62.0,
+   "f30": "2026-10-28",
    "panio": 79.669998,
    "fanio": "2025-12-31",
    "fuente": "Yahoo Finance"
@@ -163,8 +177,8 @@
    "precio": 22.969999,
    "fecha": "2026-11-25",
    "ant": 22.879999,
-   "p30": 20.940001,
-   "f30": "2026-10-27",
+   "p30": 20.700001,
+   "f30": "2026-10-28",
    "panio": 24.84,
    "fanio": "2025-12-31",
    "fuente": "Yahoo Finance"
@@ -174,10 +188,10 @@
    "precio": 9400.0,
    "ant": 9395.302349,
    "var_dia": 0.05,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 9295.0,
-   "f30": "2026-10-27",
+   "p30": 9400.0,
+   "f30": "2026-10-28",
    "panio": 12230.0,
    "fanio": "2025-12-30"
   },
@@ -186,10 +200,10 @@
    "precio": 73600.0,
    "ant": 71804.878049,
    "var_dia": 2.5,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 92675.0,
-   "f30": "2026-10-27",
+   "p30": 95825.0,
+   "f30": "2026-10-28",
    "panio": 32640.0,
    "fanio": "2025-12-30"
   },
@@ -198,10 +212,10 @@
    "precio": 3035.0,
    "ant": 3022.60731,
    "var_dia": 0.41,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 2922.5,
-   "f30": "2026-10-27",
+   "p30": 2932.5,
+   "f30": "2026-10-28",
    "panio": 2449.0,
    "fanio": "2025-12-30"
   },
@@ -210,10 +224,10 @@
    "precio": 37500.0,
    "ant": 37102.997922,
    "var_dia": 1.07,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 34580.0,
-   "f30": "2026-10-27",
+   "p30": 35240.0,
+   "f30": "2026-10-28",
    "panio": 37920.0,
    "fanio": "2025-12-30"
   },
@@ -222,10 +236,10 @@
    "precio": 17300.0,
    "ant": 17051.054603,
    "var_dia": 1.46,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 18380.0,
-   "f30": "2026-10-27",
+   "p30": 18580.0,
+   "f30": "2026-10-28",
    "panio": 24970.0,
    "fanio": "2025-12-30"
   },
@@ -234,10 +248,10 @@
    "precio": 4500.0,
    "ant": 4297.583803,
    "var_dia": 4.71,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 4867.5,
-   "f30": "2026-10-27",
+   "p30": 4572.5,
+   "f30": "2026-10-28",
    "panio": 5085.0,
    "fanio": "2025-12-30"
   },
@@ -246,10 +260,10 @@
    "precio": 46920.0,
    "ant": 46938.77551,
    "var_dia": -0.04,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 40860.0,
-   "f30": "2026-10-27",
+   "p30": 40840.0,
+   "f30": "2026-10-28",
    "panio": 34880.0,
    "fanio": "2025-12-30"
   },
@@ -258,10 +272,10 @@
    "precio": 8520.0,
    "ant": 8400.709919,
    "var_dia": 1.42,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 9190.0,
-   "f30": "2026-10-27",
+   "p30": 9315.0,
+   "f30": "2026-10-28",
    "panio": 8240.0,
    "fanio": "2025-12-30"
   },
@@ -270,10 +284,10 @@
    "precio": 22000.0,
    "ant": 21831.894413,
    "var_dia": 0.77,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 23190.0,
-   "f30": "2026-10-27",
+   "p30": 23050.0,
+   "f30": "2026-10-28",
    "panio": 25560.0,
    "fanio": "2025-12-30"
   },
@@ -282,10 +296,10 @@
    "precio": 45440.0,
    "ant": 45101.736973,
    "var_dia": 0.75,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 42760.0,
-   "f30": "2026-10-27",
+   "p30": 42300.0,
+   "f30": "2026-10-28",
    "panio": 42240.0,
    "fanio": "2025-12-30"
   },
@@ -294,10 +308,10 @@
    "precio": 29100.0,
    "ant": 29158.316633,
    "var_dia": -0.2,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 29260.0,
-   "f30": "2026-10-27",
+   "p30": 29280.0,
+   "f30": "2026-10-28",
    "panio": 24720.0,
    "fanio": "2025-12-30"
   },
@@ -306,10 +320,10 @@
    "precio": 11430.0,
    "ant": 11080.950073,
    "var_dia": 3.15,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 15050.0,
-   "f30": "2026-10-27",
+   "p30": 14870.0,
+   "f30": "2026-10-28",
    "panio": 11920.0,
    "fanio": "2025-12-30"
   },
@@ -318,10 +332,11 @@
    "precio": 16540.0,
    "ant": 16579.7915,
    "var_dia": -0.24,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
+   "hist_fuente": "Yahoo (.BA)",
    "p30": 17780.0,
-   "f30": "2026-10-27",
+   "f30": "2026-10-28",
    "panio": 15400.0,
    "fanio": "2025-12-30"
   },
@@ -330,10 +345,16 @@
    "precio": 21600.0,
    "ant": 21331.226546,
    "var_dia": 1.26,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 21260.0,
-   "f30": "2026-10-27",
+   "ajustes": [
+    {
+     "fecha": "2026-05-29",
+     "factor": 0.3333
+    }
+   ],
+   "p30": 21360.0,
+   "f30": "2026-10-28",
    "panio": 17433.333333,
    "fanio": "2025-12-30"
   },
@@ -342,10 +363,11 @@
    "precio": 68600.0,
    "ant": 67506.396379,
    "var_dia": 1.62,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 80425.0,
-   "f30": "2026-10-27",
+   "hist_fuente": "Yahoo (.BA)",
+   "p30": 80925.0,
+   "f30": "2026-10-28",
    "panio": 50850.0,
    "fanio": "2025-12-30"
   },
@@ -354,10 +376,10 @@
    "precio": 41820.0,
    "ant": 42178.517398,
    "var_dia": -0.85,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 36800.0,
-   "f30": "2026-10-27",
+   "p30": 36920.0,
+   "f30": "2026-10-28",
    "panio": 29800.0,
    "fanio": "2025-12-30"
   },
@@ -366,7 +388,7 @@
    "precio": 30640.0,
    "ant": 29840.280483,
    "var_dia": 2.68,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
    "hist_fuente": "Yahoo (.BA)",
    "p30": 39460,
@@ -380,15 +402,15 @@
    "precio": 108800.0,
    "ant": 107002.360346,
    "var_dia": 1.68,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 111910.0,
-   "f30": "2026-10-27",
+   "p30": 110600.0,
+   "f30": "2026-10-28",
    "panio": 118250.0,
    "fanio": "2025-12-30",
    "precio_usd": 65.4,
    "bono": {
-    "tir": 16.19,
+    "tir": 16.2,
     "dur_mod": 3.4,
     "dur_mac": 3.95,
     "paridad": 64.2,
@@ -403,15 +425,15 @@
    "precio": 82150.0,
    "ant": 81798.26745,
    "var_dia": 0.43,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 85120.0,
-   "f30": "2026-10-27",
+   "p30": 84920.0,
+   "f30": "2026-10-28",
    "panio": 99950.0,
    "fanio": "2025-12-30",
    "precio_usd": 49.4,
    "bono": {
-    "tir": 17.86,
+    "tir": 17.89,
     "dur_mod": 1.4,
     "dur_mac": 1.65,
     "paridad": 77.0,
@@ -426,15 +448,15 @@
    "precio": 110500.0,
    "ant": 108845.547675,
    "var_dia": 1.52,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
-   "p30": 113210.0,
-   "f30": "2026-10-27",
+   "p30": 112610.0,
+   "f30": "2026-10-28",
    "panio": 116890.0,
    "fanio": "2025-12-30",
    "precio_usd": 66.63,
    "bono": {
-    "tir": 13.66,
+    "tir": 13.67,
     "dur_mod": 4.46,
     "dur_mac": 5.07,
     "paridad": 65.6,
@@ -449,13 +471,13 @@
    "precio": 94.97,
    "ant": 94.497512,
    "var_dia": 0.5,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
    "precio_usd": 94.97,
    "bono": {
-    "tir": 11.17,
-    "dur_mod": 2.25,
-    "dur_mac": 2.5,
+    "tir": 11.18,
+    "dur_mod": 2.24,
+    "dur_mac": 2.49,
     "paridad": 93.3,
     "residual": 100.0,
     "prox_pago": "2027-03-08",
@@ -473,12 +495,12 @@
    "precio": 165600.0,
    "ant": 163008.170095,
    "var_dia": 1.59,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
    "precio_usd": 99.88,
    "bono": {
     "tir": 8.42,
-    "dur_mod": 5.17,
+    "dur_mod": 5.16,
     "dur_mac": 5.6,
     "paridad": 98.6,
     "residual": 100,
@@ -497,14 +519,14 @@
    "precio": 178330.0,
    "ant": 165996.462813,
    "var_dia": 7.43,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
    "precio_usd": 104.5,
    "bono": {
-    "tir": 4.05,
+    "tir": 4.06,
     "dur_mod": 0.8,
     "dur_mac": 0.83,
-    "paridad": 103.3,
+    "paridad": 103.2,
     "residual": 100,
     "prox_pago": "2027-04-03",
     "prox_monto": 4,
@@ -521,12 +543,12 @@
    "precio": 167040.0,
    "ant": 170240.52181,
    "var_dia": -1.88,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
    "precio_usd": 100.9,
    "bono": {
-    "tir": 7.91,
-    "dur_mod": 1.85,
+    "tir": 7.92,
+    "dur_mod": 1.84,
     "dur_mac": 1.99,
     "paridad": 98.5,
     "residual": 100,
@@ -545,13 +567,13 @@
    "precio": 103.0,
    "ant": 103.051526,
    "var_dia": -0.05,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
    "precio_usd": 103.0,
    "bono": {
-    "tir": 5.05,
-    "dur_mod": 0.83,
-    "dur_mac": 0.87,
+    "tir": 5.07,
+    "dur_mod": 0.82,
+    "dur_mac": 0.86,
     "paridad": 102.1,
     "residual": 100,
     "prox_pago": "2027-04-16",
@@ -569,11 +591,11 @@
    "precio": 103.55,
    "ant": 102.301917,
    "var_dia": 1.22,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
    "precio_usd": 103.55,
    "bono": {
-    "tir": 8.34,
+    "tir": 8.35,
     "dur_mod": 4.47,
     "dur_mac": 4.84,
     "paridad": 100.5,
@@ -593,12 +615,12 @@
    "precio": 104.8,
    "ant": 103.59826,
    "var_dia": 1.16,
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "fuente": "data912 (BYMA)",
    "precio_usd": 104.8,
    "bono": {
-    "tir": 6.49,
-    "dur_mod": 2.14,
+    "tir": 6.5,
+    "dur_mod": 2.13,
     "dur_mac": 2.27,
     "paridad": 101.3,
     "residual": 100,
@@ -618,8 +640,8 @@
    "fecha": "2026-11-25",
    "fondo_fuente": "Delta Ahorro Plus - Clase A",
    "ant": 411.051237,
-   "p30": 409.642769,
-   "f30": "2026-10-27",
+   "p30": null,
+   "f30": null,
    "panio": 327.197125,
    "fanio": "2026-01-05",
    "fuente": "argentinadatos.com (CAFCI)"
@@ -630,8 +652,8 @@
    "fecha": "2026-11-25",
    "fondo_fuente": "Fima Capital Plus - Clase A",
    "ant": 99.778027,
-   "p30": 96.799485,
-   "f30": "2026-10-27",
+   "p30": null,
+   "f30": null,
    "panio": 89.024796,
    "fanio": "2026-01-05",
    "fuente": "argentinadatos.com (CAFCI)"
@@ -642,8 +664,8 @@
    "fecha": "2026-11-25",
    "fondo_fuente": "Toronto Trust Retorno Total - Clase A",
    "ant": 56.89902,
-   "p30": 56.787396,
-   "f30": "2026-10-27",
+   "p30": null,
+   "f30": null,
    "panio": 44.384997,
    "fanio": "2026-01-05",
    "fuente": "argentinadatos.com (CAFCI)"
@@ -654,8 +676,8 @@
    "fecha": "2026-11-25",
    "fondo_fuente": "IOL Dólar Ahorro Plus - Clase C",
    "ant": 1.087606,
-   "p30": 1.107984,
-   "f30": "2026-10-27",
+   "p30": null,
+   "f30": null,
    "panio": 1.060232,
    "fanio": "2025-12-31",
    "fuente": "argentinadatos.com (CAFCI)",
@@ -667,8 +689,8 @@
    "fecha": "2026-11-25",
    "fondo_fuente": "Premier Performance Dólares - Clase B",
    "ant": 1.53113,
-   "p30": 1.72286,
-   "f30": "2026-10-27",
+   "p30": null,
+   "f30": null,
    "panio": 1.669789,
    "fanio": "2025-12-31",
    "fuente": "argentinadatos.com (CAFCI)",
@@ -678,7 +700,7 @@
  "fundamentos": {
   "ADBE": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -694,14 +716,14 @@
    "roe": 61.9,
    "yahoo_pe_ltm": 13.0,
    "yahoo_ev_ebitda": 9.25,
-   "eps_ntm": 27.3911,
+   "eps_ntm": 27.3991,
    "pe_ntm": 8.5,
    "div_yield": 0.0,
    "prox_balance": "2026-12-09"
   },
   "AMD": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -717,14 +739,14 @@
    "roe": 11.1,
    "yahoo_pe_ltm": 86.76,
    "yahoo_ev_ebitda": 59.17,
-   "eps_ntm": 16.7984,
-   "pe_ntm": 24.17,
+   "eps_ntm": 16.8245,
+   "pe_ntm": 24.13,
    "div_yield": 0.0,
    "prox_balance": "2027-02-02"
   },
   "AMZN": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -740,14 +762,14 @@
    "roe": 22.0,
    "yahoo_pe_ltm": 19.76,
    "yahoo_ev_ebitda": 15.42,
-   "eps_ntm": 10.8745,
-   "pe_ntm": 22.48,
+   "eps_ntm": 10.8687,
+   "pe_ntm": 22.49,
    "div_yield": 0.0,
    "prox_balance": "2027-02-04"
   },
   "AXP": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -762,14 +784,14 @@
    "roe": 33.8,
    "yahoo_pe_ltm": 17.6,
    "yahoo_ev_ebitda": null,
-   "eps_ntm": 19.9971,
+   "eps_ntm": 20.002,
    "pe_ntm": 15.62,
    "div_yield": 1.17,
    "prox_balance": "2027-01-29"
   },
   "BABA": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "P/E NTM: el consenso de Yahoo viene en CNY; se convirtió"
    ],
@@ -779,22 +801,22 @@
    "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 1427214488479.914,
-   "fx_balance": 6.6508002281188965,
-   "pe_ltm": 12.21,
-   "ev_ebitda": 18.28,
-   "pvl": 1.21,
+   "mcap_balance": 1429768132821.4453,
+   "fx_balance": 6.662700176239014,
+   "pe_ltm": 12.23,
+   "ev_ebitda": 18.31,
+   "pvl": 1.22,
    "roe": 9.9,
    "yahoo_pe_ltm": 12.82,
    "yahoo_ev_ebitda": 0.86,
-   "eps_ntm": 55.1285,
-   "pe_ntm": 10.41,
+   "eps_ntm": 55.1762,
+   "pe_ntm": 10.42,
    "div_yield": 1.22,
    "prox_balance": "2027-02-17"
   },
   "BBD": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "BRL",
@@ -802,21 +824,21 @@
    "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 156515605280.13867,
-   "fx_balance": 5.768700122833252,
-   "pe_ltm": 11.38,
-   "pvl": 0.8,
+   "mcap_balance": 153330319482.97852,
+   "fx_balance": 5.651299953460693,
+   "pe_ltm": 11.15,
+   "pvl": 0.79,
    "roe": 7.0,
    "yahoo_pe_ltm": 5.4,
    "yahoo_ev_ebitda": null,
-   "eps_ntm": 0.481,
+   "eps_ntm": 0.4811,
    "pe_ntm": 5.05,
    "div_yield": 9.75,
    "prox_balance": "2027-02-04"
   },
   "BMA": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "P/E NTM: el consenso de Yahoo viene en ARS; se convirtió"
    ],
@@ -827,7 +849,7 @@
    "base_ltm": "LTM (Yahoo)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
-   "dif_local_vs_adr": -0.9,
+   "dif_local_vs_adr": -2.8,
    "mcap_balance": 5691453799649.327,
    "fx_balance": 1767.9,
    "pe_ltm": 14.87,
@@ -835,14 +857,14 @@
    "roe": 6.1,
    "yahoo_pe_ltm": 10.3,
    "yahoo_ev_ebitda": null,
-   "eps_ntm": 16268.6225,
+   "eps_ntm": 16281.0634,
    "pe_ntm": 5.47,
    "div_yield": 6.26,
    "prox_balance": "2027-02-24"
   },
   "BRK-B": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -858,14 +880,14 @@
    "roe": 10.1,
    "yahoo_pe_ltm": 16.21,
    "yahoo_ev_ebitda": -2.04,
-   "eps_ntm": 22.8079,
+   "eps_ntm": 22.8081,
    "pe_ntm": 25.4,
    "div_yield": 0.0,
    "prox_balance": "2026-11-09"
   },
   "CRESY": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "P/E NTM sin dato confiable en Yahoo: verificar en TIKR"
    ],
@@ -876,7 +898,7 @@
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
-   "dif_local_vs_adr": -0.9,
+   "dif_local_vs_adr": -3.9,
    "mcap_balance": 1029440855214.7477,
    "fx_balance": 1767.9,
    "pe_ltm": 6.68,
@@ -885,14 +907,14 @@
    "roe": 10.1,
    "yahoo_pe_ltm": 5.99,
    "yahoo_ev_ebitda": 12.51,
-   "eps_ntm": 0.1611,
+   "eps_ntm": 0.1613,
    "pe_ntm": null,
    "div_yield": 16.72,
    "prox_balance": "2027-02-10"
   },
   "FINV": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "P/E NTM: el consenso de Yahoo viene en CNY; se convirtió"
    ],
@@ -902,21 +924,21 @@
    "ebitda_metodo": "EBITDA de Yahoo",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 3815620064.006531,
-   "fx_balance": 6.6508002281188965,
-   "pe_ltm": 2.0,
+   "mcap_balance": 3822447164.3930054,
+   "fx_balance": 6.662700176239014,
+   "pe_ltm": 2.01,
    "pvl": 0.23,
    "roe": 11.5,
    "yahoo_pe_ltm": 2.29,
    "yahoo_ev_ebitda": -0.71,
-   "eps_ntm": 5.2146,
-   "pe_ntm": 3.1,
+   "eps_ntm": 5.2142,
+   "pe_ntm": 3.11,
    "div_yield": 12.59,
    "prox_balance": "2027-03-22"
   },
   "GGAL": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "P/E NTM: el consenso de Yahoo viene en USD por acción ordinaria; se convirtió"
    ],
@@ -927,7 +949,7 @@
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
-   "dif_local_vs_adr": -0.7,
+   "dif_local_vs_adr": -3.6,
    "mcap_balance": 7570629449352.601,
    "fx_balance": 1767.9,
    "pe_ltm": 37.46,
@@ -935,14 +957,14 @@
    "roe": 2.2,
    "yahoo_pe_ltm": 29.96,
    "yahoo_ev_ebitda": null,
-   "eps_ntm": 6.6181,
-   "pe_ntm": 40.28,
+   "eps_ntm": 6.6244,
+   "pe_ntm": 40.24,
    "div_yield": 6.28,
    "prox_balance": "2027-03-03"
   },
   "GOOGL": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -958,14 +980,14 @@
    "roe": 35.7,
    "yahoo_pe_ltm": 14.26,
    "yahoo_ev_ebitda": 17.58,
-   "eps_ntm": 15.3424,
-   "pe_ntm": 17.8,
+   "eps_ntm": 15.3297,
+   "pe_ntm": 17.82,
    "div_yield": 0.31,
    "prox_balance": "2027-02-03"
   },
   "IRS": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "P/E NTM sin dato confiable en Yahoo: verificar en TIKR"
    ],
@@ -976,7 +998,7 @@
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
-   "dif_local_vs_adr": -0.4,
+   "dif_local_vs_adr": -1.9,
    "mcap_balance": 1651180543081.4307,
    "fx_balance": 1767.9,
    "pe_ltm": 8.48,
@@ -985,14 +1007,14 @@
    "roe": 8.1,
    "yahoo_pe_ltm": 6.42,
    "yahoo_ev_ebitda": 3.17,
-   "eps_ntm": 0.1773,
+   "eps_ntm": 0.1777,
    "pe_ntm": null,
    "div_yield": 0.0,
    "prox_balance": "2027-02-03"
   },
   "MELI": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1008,14 +1030,14 @@
    "roe": 23.0,
    "yahoo_pe_ltm": 39.36,
    "yahoo_ev_ebitda": 21.11,
-   "eps_ntm": 50.4262,
-   "pe_ntm": 29.1,
+   "eps_ntm": 50.4681,
+   "pe_ntm": 29.07,
    "div_yield": 0.0,
    "prox_balance": "2026-11-04"
   },
   "META": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1029,16 +1051,16 @@
    "ev_ebitda": 15.26,
    "pvl": 5.72,
    "roe": 27.6,
-   "yahoo_pe_ltm": 20.81,
+   "yahoo_pe_ltm": 20.12,
    "yahoo_ev_ebitda": 13.7,
-   "eps_ntm": 33.2826,
+   "eps_ntm": 33.2956,
    "pe_ntm": 18.32,
    "div_yield": 0.34,
    "prox_balance": "2027-01-27"
   },
   "MSFT": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1054,14 +1076,14 @@
    "roe": 30.3,
    "yahoo_pe_ltm": 25.57,
    "yahoo_ev_ebitda": 18.03,
-   "eps_ntm": 21.7428,
-   "pe_ntm": 22.53,
+   "eps_ntm": 21.7543,
+   "pe_ntm": 22.52,
    "div_yield": 0.76,
    "prox_balance": "2027-01-27"
   },
   "NVDA": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1077,14 +1099,14 @@
    "roe": 98.8,
    "yahoo_pe_ltm": 16.04,
    "yahoo_ev_ebitda": 14.55,
-   "eps_ntm": 15.4656,
-   "pe_ntm": 9.65,
+   "eps_ntm": 15.4846,
+   "pe_ntm": 9.64,
    "div_yield": 0.35,
    "prox_balance": "2026-11-17"
   },
   "ONON": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "CHF",
@@ -1092,22 +1114,22 @@
    "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 8795568392.99292,
-   "fx_balance": 0.8346899747848511,
-   "pe_ltm": 19.98,
-   "ev_ebitda": 12.17,
+   "mcap_balance": 8786717411.122314,
+   "fx_balance": 0.8338500261306763,
+   "pe_ltm": 19.96,
+   "ev_ebitda": 12.16,
    "pvl": 4.04,
    "roe": 20.2,
    "yahoo_pe_ltm": 19.21,
    "yahoo_ev_ebitda": 32.93,
-   "eps_ntm": 1.6846,
-   "pe_ntm": 18.7,
+   "eps_ntm": 1.6851,
+   "pe_ntm": 18.69,
    "div_yield": 0.0,
    "prox_balance": "2026-11-10"
   },
   "PAM": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1124,14 +1146,14 @@
    "roe": 16.4,
    "yahoo_pe_ltm": 4.99,
    "yahoo_ev_ebitda": 5.29,
-   "eps_ntm": 11.9057,
+   "eps_ntm": 11.9054,
    "pe_ntm": 5.23,
    "div_yield": 0.0,
    "prox_balance": "2026-11-02"
   },
   "RIO": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1147,14 +1169,14 @@
    "roe": 18.5,
    "yahoo_pe_ltm": 10.11,
    "yahoo_ev_ebitda": 6.15,
-   "eps_ntm": 8.0079,
+   "eps_ntm": 8.0071,
    "pe_ntm": 9.31,
    "div_yield": 6.23,
    "prox_balance": "2027-02-18"
   },
   "SFM": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1170,14 +1192,14 @@
    "roe": 32.4,
    "yahoo_pe_ltm": 10.2,
    "yahoo_ev_ebitda": 8.2,
-   "eps_ntm": 4.2358,
+   "eps_ntm": 4.2337,
    "pe_ntm": 12.59,
    "div_yield": 0.0,
    "prox_balance": "2027-02-17"
   },
   "T": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1193,36 +1215,36 @@
    "roe": 12.2,
    "yahoo_pe_ltm": 12.28,
    "yahoo_ev_ebitda": 7.46,
-   "eps_ntm": 2.5766,
+   "eps_ntm": 2.5771,
    "pe_ntm": 8.91,
    "div_yield": 4.84,
    "prox_balance": "2027-01-27"
   },
   "TGNO4.BA": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "estimaciones: 'avg'"
    ],
    "moneda_cot": "ARS",
    "moneda_balance": "ARS",
-   "precio": 2655.0,
+   "precio": 2735.0,
    "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "precio BYMA × acciones",
-   "mcap_balance": 1172029982282.5,
+   "mcap_balance": 1201687723165.0,
    "fx_balance": 1.0,
-   "pe_ltm": 5.97,
-   "ev_ebitda": 2.42,
-   "pvl": 0.88,
+   "pe_ltm": 6.12,
+   "ev_ebitda": 2.5,
+   "pvl": 0.9,
    "roe": 14.8,
-   "yahoo_pe_ltm": 5.7,
+   "yahoo_pe_ltm": 5.88,
    "yahoo_ev_ebitda": 3.03,
-   "div_yield": 12.63
+   "div_yield": 12.26
   },
   "TSM": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "TWD",
@@ -1230,22 +1252,22 @@
    "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 58500399500016.5,
-   "fx_balance": 32.948001861572266,
-   "pe_ltm": 23.14,
+   "mcap_balance": 58523475576072.0,
+   "fx_balance": 32.96099853515625,
+   "pe_ltm": 23.15,
    "ev_ebitda": 15.37,
    "pvl": 8.36,
    "roe": 36.1,
    "yahoo_pe_ltm": 22.19,
    "yahoo_ev_ebitda": 3.14,
-   "eps_ntm": 22.8214,
-   "pe_ntm": 15.0,
+   "eps_ntm": 22.8375,
+   "pe_ntm": 14.99,
    "div_yield": 1.13,
    "prox_balance": "2027-01-14"
   },
   "V": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [],
    "moneda_cot": "USD",
    "moneda_balance": "USD",
@@ -1261,14 +1283,14 @@
    "roe": 65.2,
    "yahoo_pe_ltm": 34.45,
    "yahoo_ev_ebitda": 24.71,
-   "eps_ntm": 15.3625,
-   "pe_ntm": 27.63,
+   "eps_ntm": 15.3682,
+   "pe_ntm": 27.61,
    "div_yield": 0.66,
    "prox_balance": "2027-01-26"
   },
   "VIST": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "P/E NTM: el consenso de Yahoo viene en MXN; se convirtió"
    ],
@@ -1278,22 +1300,22 @@
    "ebitda_metodo": "resultado operativo + amortizaciones (4 trimestres)",
    "base_ltm": "LTM (4 trimestres)",
    "mcap_metodo": "Yahoo",
-   "mcap_balance": 5532016128.0,
+   "mcap_balance": 5529006592.0,
    "fx_balance": 1.0,
-   "pe_ltm": 6.71,
+   "pe_ltm": 6.7,
    "ev_ebitda": 3.38,
    "pvl": 1.55,
    "roe": 23.1,
    "yahoo_pe_ltm": 7.07,
    "yahoo_ev_ebitda": 3.42,
-   "eps_ntm": 212.8784,
-   "pe_ntm": 4.63,
+   "eps_ntm": 212.9493,
+   "pe_ntm": 4.62,
    "div_yield": 0.0,
    "prox_balance": "2026-10-28"
   },
   "YPF": {
    "fuente": "Yahoo Finance",
-   "fecha": "2026-11-26",
+   "fecha": "2026-11-27",
    "avisos": [
     "ratio del ADR: la cotización indica 1 ADR = 10 acciones (cargado 1); se usa 10",
     "Yahoo informa el balance en ARS pero las cifras están en USD: se corrige"
@@ -1305,7 +1327,7 @@
    "base_ltm": "LTM (4 trimestres)",
    "adr_ratio_usado": 10,
    "mcap_metodo": "precio ADR × acciones/10 × CCL",
-   "dif_local_vs_adr": -1.6,
+   "dif_local_vs_adr": -6.4,
    "mcap_balance": 21799551507750.484,
    "fx_balance": 1.0,
    "pe_ltm": 5.78,
@@ -1314,7 +1336,7 @@
    "roe": 15.5,
    "yahoo_pe_ltm": 5.79,
    "yahoo_ev_ebitda": 1.0,
-   "eps_ntm": 6.2701,
+   "eps_ntm": 6.2631,
    "pe_ntm": 5.02,
    "div_yield": 0.0,
    "prox_balance": "2027-02-11"
@@ -1328,12 +1350,32 @@
   }
  },
  "betas": {
+  "MSFT": {
+   "beta": 1.06,
+   "meses": 59
+  },
+  "ADBE": {
+   "beta": 1.43,
+   "meses": 59
+  },
+  "BABA": {
+   "beta": 0.49,
+   "meses": 59
+  },
+  "AXP": {
+   "beta": 1.06,
+   "meses": 59
+  },
   "AMD": {
    "beta": 2.64,
    "meses": 59
   },
-  "V": {
-   "beta": 0.73,
+  "YPF": {
+   "beta": 1.48,
+   "meses": 59
+  },
+  "VIST": {
+   "beta": 0.7,
    "meses": 59
   },
   "BMA": {
@@ -1344,92 +1386,72 @@
    "beta": 0.67,
    "meses": 59
   },
-  "IRS": {
-   "beta": 1.37,
-   "meses": 59
-  },
-  "GOOGL": {
-   "beta": 1.22,
-   "meses": 59
-  },
-  "META": {
-   "beta": 1.26,
-   "meses": 59
-  },
-  "PAM": {
-   "beta": 0.94,
-   "meses": 59
-  },
-  "AXP": {
-   "beta": 1.06,
-   "meses": 59
-  },
-  "TSM": {
-   "beta": 1.5,
-   "meses": 59
-  },
-  "BABA": {
-   "beta": 0.49,
-   "meses": 59
-  },
-  "SFM": {
-   "beta": 0.71,
-   "meses": 59
-  },
-  "GGAL": {
-   "beta": 1.39,
-   "meses": 59
-  },
-  "ONON": {
-   "beta": 2.09,
-   "meses": 59
-  },
-  "MELI": {
-   "beta": 1.38,
-   "meses": 59
-  },
-  "VIST": {
-   "beta": 0.7,
-   "meses": 59
-  },
-  "CRESY": {
-   "beta": 0.75,
-   "meses": 59
-  },
-  "BBD": {
-   "beta": 0.67,
+  "FINV": {
+   "beta": 0.45,
    "meses": 59
   },
   "NVDA": {
    "beta": 2.4,
    "meses": 59
   },
-  "ADBE": {
-   "beta": 1.43,
+  "ONON": {
+   "beta": 2.09,
    "meses": 59
   },
-  "YPF": {
-   "beta": 1.48,
+  "SFM": {
+   "beta": 0.71,
    "meses": 59
   },
-  "BRK-B": {
-   "beta": 0.52,
+  "BBD": {
+   "beta": 0.67,
+   "meses": 59
+  },
+  "TSM": {
+   "beta": 1.5,
+   "meses": 59
+  },
+  "GOOGL": {
+   "beta": 1.22,
    "meses": 59
   },
   "AMZN": {
    "beta": 1.49,
    "meses": 59
   },
-  "FINV": {
-   "beta": 0.45,
+  "GGAL": {
+   "beta": 1.39,
    "meses": 59
   },
-  "MSFT": {
-   "beta": 1.06,
+  "PAM": {
+   "beta": 0.94,
    "meses": 59
   },
   "T": {
    "beta": 0.22,
+   "meses": 59
+  },
+  "CRESY": {
+   "beta": 0.75,
+   "meses": 59
+  },
+  "V": {
+   "beta": 0.73,
+   "meses": 59
+  },
+  "IRS": {
+   "beta": 1.37,
+   "meses": 59
+  },
+  "MELI": {
+   "beta": 1.38,
+   "meses": 59
+  },
+  "META": {
+   "beta": 1.26,
+   "meses": 59
+  },
+  "BRK-B": {
+   "beta": 0.52,
    "meses": 59
   }
  },
@@ -1660,10 +1682,18 @@
   }
  },
  "manual": {},
- "avisos": [
-  "FINV: sin cotización"
- ],
+ "avisos": [],
  "diagnostico": {
+  "formato_historia": {
+   "date": "2026-11-26",
+   "o": "8895.0",
+   "h": "9200.0",
+   "l": "8670.0",
+   "c": "9160.0",
+   "v": "294569.0",
+   "dr": "0.02",
+   "sa": "0.4756"
+  },
   "fci_iol_n": 22,
   "fci_cafci": "Expecting value: line 1 column 1 (char 0)"
  }
