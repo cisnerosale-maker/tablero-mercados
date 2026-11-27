@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-27T16:39-03:00",
+ "actualizado": "2026-11-27T16:57-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
@@ -413,12 +413,12 @@
    "nombre": "Petróleo Brent",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 90.6,
+   "valor": 90.76,
    "anterior": 94.61,
    "var_pct": null,
    "mm50": 102.17,
    "mm200": 95.05,
-   "prom_anio": 91.45,
+   "prom_anio": 91.46,
    "max52": 118.35,
    "min52": 58.92,
    "fecha": "2026-11-27",
@@ -542,7 +542,7 @@
     89.37,
     91.4,
     94.61,
-    90.6
+    90.76
    ],
    "nota": "Hoy cambió el contrato de futuros de referencia: la variación del día no es comparable."
   },
@@ -550,9 +550,9 @@
    "nombre": "Petróleo WTI",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 83.0,
+   "valor": 83.08,
    "anterior": 83.68,
-   "var_pct": -0.81,
+   "var_pct": -0.72,
    "mm50": 92.5,
    "mm200": 88.66,
    "prom_anio": 85.29,
@@ -679,7 +679,7 @@
     80.17,
     82.05,
     83.68,
-    83.0
+    83.08
    ]
   },
   "soja": {
@@ -1526,12 +1526,12 @@
    "nombre": "Merval",
    "unidad": "puntos (MSCI, base 100.000)",
    "fuente": "Rava (MSCI Merval) + historia S&P reescalada",
-   "valor": 83805.0,
+   "valor": 83765.0,
    "anterior": 84358.0,
-   "var_pct": -0.65,
+   "var_pct": -0.7,
    "mm50": null,
    "mm200": null,
-   "prom_anio": 89286.0,
+   "prom_anio": 89285.0,
    "max52": 102278.0,
    "min52": 81146.0,
    "fecha": "2026-11-27",
@@ -1563,19 +1563,19 @@
     81261.0,
     81643.0,
     84358.0,
-    83805.0
+    83765.0
    ]
   },
   "bovespa": {
    "nombre": "Ibovespa",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 177078.0,
+   "valor": 177276.0,
    "anterior": 176800.0,
-   "var_pct": 0.16,
-   "mm50": 184224.0,
-   "mm200": 180820.0,
-   "prom_anio": 179830.0,
+   "var_pct": 0.27,
+   "mm50": 184228.0,
+   "mm200": 180821.0,
+   "prom_anio": 179831.0,
    "max52": 209067.0,
    "min52": 154770.0,
    "fecha": "2026-11-27",
@@ -1699,7 +1699,7 @@
     164090.0,
     166685.0,
     176800.0,
-    177078.0
+    177276.0
    ]
   },
   "ipsa": {
@@ -1978,9 +1978,9 @@
    "nombre": "Índice dólar (DXY)",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 104.05,
+   "valor": 104.03,
    "anterior": 103.67,
-   "var_pct": 0.37,
+   "var_pct": 0.35,
    "mm50": 102.21,
    "mm200": 100.15,
    "prom_anio": 99.88,
@@ -2107,16 +2107,16 @@
     104.32,
     103.81,
     103.67,
-    104.05
+    104.03
    ]
   },
   "ust10": {
    "nombre": "Bono EE.UU. 10 años",
    "unidad": "% anual",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 4.93,
+   "valor": 4.94,
    "anterior": 4.85,
-   "var_pct": 1.77,
+   "var_pct": 1.82,
    "mm50": 5.07,
    "mm200": 4.62,
    "prom_anio": 4.57,
@@ -2243,7 +2243,7 @@
     4.92,
     4.9,
     4.85,
-    4.93
+    4.94
    ]
   },
   "usdbrl": {
@@ -3541,9 +3541,9 @@
    "nombre": "Riesgo país Argentina",
    "unidad": "puntos básicos",
    "fuente": "EMBI JP Morgan vía argentinadatos + Rava + dato en curso",
-   "valor": 959.0,
+   "valor": 960.0,
    "anterior": 1067.0,
-   "var_pct": -10.12,
+   "var_pct": -10.03,
    "mm50": 752.0,
    "mm200": 567.0,
    "prom_anio": 562.0,
@@ -3670,16 +3670,16 @@
     1094.0,
     1067.0,
     1067.0,
-    959.0
+    960.0
    ]
   },
   "merval_usd": {
    "nombre": "Merval en dólares",
    "unidad": "puntos US$ (CCL)",
    "fuente": "Cálculo propio: Merval / CCL",
-   "valor": 47.85,
+   "valor": 47.82,
    "anterior": 47.72,
-   "var_pct": 0.28,
+   "var_pct": 0.23,
    "mm50": null,
    "mm200": null,
    "prom_anio": 53.08,
@@ -3714,7 +3714,7 @@
     45.22,
     46.18,
     47.72,
-    47.85
+    47.82
    ]
   },
   "riesgo_br": {
@@ -3747,6 +3747,6 @@
  },
  "errores": [
   "IPSA: Yahoo no tiene el índice actualizado con ningún código conocido; se muestra el ETF ECH (en US$)",
-  "Peso chileno (mindicador): 500 Server Error: Internal Server Error for url: https://mindicador.cl/api/dolar/2025; se usa Yahoo"
+  "Peso chileno (mindicador): HTTPSConnectionPool(host='mindicador.cl', port=443): Read timed out. (read timeout=60); se usa Yahoo"
  ]
 }
