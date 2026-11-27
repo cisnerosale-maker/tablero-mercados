@@ -9,6 +9,10 @@
   {"fecha": "2026-10-02", "pe_fwd": 19.0, "eps_fwd": null, "precio": 7651.54, "fecha_precio": "2026-09-30", "fuente": "EarningsInsight_100226.pdf"},
   {"fecha": "2026-10-09", "pe_fwd": 19.1, "eps_fwd": null, "precio": 7765.36, "fecha_precio": null, "fuente": "EarningsInsight_100926.pdf"},
   {"fecha": "2026-10-23", "pe_fwd": 18.7, "eps_fwd": null, "precio": 7663.43, "fecha_precio": null, "fuente": "EarningsInsight_102326.pdf"},
-  {"fecha": "2026-11-06", "pe_fwd": 17.7, "eps_fwd": 415.82, "precio": 7353.73, "fecha_precio": "2026-11-05", "fuente": "EarningsInsight_110626A.pdf"}
+  {"fecha": "2026-11-06", "pe_fwd": 17.7, "eps_fwd": 415.82, "precio": 7353.73, "fecha_precio": "2026-11-05", "fuente": "EarningsInsight_110626A.pdf"},
+  {"fecha": "2026-10-16", "pe_fwd": 19.0, "eps_fwd": null, "precio": 7744.06, "fecha_precio": null, "fuente": "EarningsInsight_101626.pdf"},
+  {"fecha": "2026-10-30", "pe_fwd": 18.7, "eps_fwd": null, "precio": 7720.39, "fecha_precio": null, "fuente": "EarningsInsight_103026.pdf"},
+  {"fecha": "2026-11-13", "pe_fwd": 18.3, "eps_fwd": null, "precio": 7592.40, "fecha_precio": null, "fuente": "EarningsInsight_111326.pdf"},
+  {"fecha": "2026-11-20", "pe_fwd": 17.1, "eps_fwd": null, "precio": 7175.83, "fecha_precio": null, "fuente": "EarningsInsight_112026.pdf"}
  ]
 }
