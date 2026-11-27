@@ -2,10 +2,14 @@ name: Actualizar datos
 
 on:
   schedule:
-    # Cada 30 minutos de lunes a viernes, de 10 a 18:30 hora argentina (13 a 21:30 UTC)
-    - cron: "*/30 13-21 * * 1-5"
-    # Una vez por día, todos los días, a las 8 hora argentina
-    - cron: "0 11 * * *"
+    # GitHub no respeta los "cada 30 minutos" (se perdían casi todas las ejecuciones).
+    # Ahora cada ejecución queda activa y actualiza cada 15 minutos hasta las 18:40 hora argentina.
+    # Hay varios arranques en el día por si alguno se pierde (si uno ya está corriendo, el otro espera).
+    - cron: "11 11 * * *"        # 08:11 todos los días (fines de semana: una sola vuelta)
+    - cron: "43 12 * * 1-5"      # 09:43
+    - cron: "17 15 * * 1-5"      # 12:17
+    - cron: "52 17 * * 1-5"      # 14:52
+    - cron: "26 20 * * 1-5"      # 17:26
   workflow_dispatch: {}
 
 permissions:
@@ -18,7 +22,7 @@ concurrency:
 jobs:
   actualizar:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
 
@@ -30,18 +34,7 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
-      - name: Buscar datos
-        run: python scripts/update_data.py
-
-      - name: Guardar datos
+      - name: Buscar y guardar datos cada 15 minutos (horario de mercado)
         run: |
-          git config user.name "tablero-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
-          if git diff --cached --quiet; then
-            echo "Sin cambios"
-          else
-            git commit -m "Datos $(TZ=America/Argentina/Buenos_Aires date +'%d/%m %H:%M')"
-            git pull --rebase
-            git push
-          fi
+          if [ "${{ github.event_name }}" = "schedule" ]; then export UNA_VEZ=0; else export UNA_VEZ=1; fi
+          bash scripts/ciclo.sh "python scripts/update_data.py" "Datos" data/

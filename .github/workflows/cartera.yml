@@ -2,8 +2,11 @@ name: Cartera
 
 on:
   schedule:
-    # Cada 30 minutos de lunes a viernes, de 10:15 a 18:45 hora argentina
-    - cron: "15,45 13-21 * * 1-5"
+    # GitHub no respeta los "cada 30 minutos": cada arranque queda activo y actualiza cada 15 minutos
+    # hasta las 18:40 hora argentina. Varios arranques por si alguno se pierde (el siguiente espera).
+    - cron: "48 12 * * 1-5"      # 09:48
+    - cron: "22 15 * * 1-5"      # 12:22
+    - cron: "57 17 * * 1-5"      # 14:57
     # Después del cierre: 19:15 hora argentina (recalcula ratios, beta y bases del día)
     - cron: "15 22 * * 1-5"
   push:
@@ -31,7 +34,7 @@ concurrency:
 jobs:
   actualizar:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
 
@@ -45,23 +48,11 @@ jobs:
 
       - name: Buscar precios, ratios y bonos
         run: |
+          RUTAS="data/cartera/datos.json data/cartera/fundamentos.json data/cartera/historial.json"
           if [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.fund }}" = "true" ] || [ "${{ github.event.schedule }}" = "15 22 * * 1-5" ]; then
-            python scripts/update_cartera.py --fund
+            UNA_VEZ=1 bash scripts/ciclo.sh "python scripts/update_cartera.py --fund" "Cartera" $RUTAS
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            bash scripts/ciclo.sh "python scripts/update_cartera.py" "Cartera" $RUTAS
           else
-            python scripts/update_cartera.py
-          fi
-
-      - name: Guardar datos
-        run: |
-          git config user.name "tablero-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/cartera/datos.json data/cartera/fundamentos.json data/cartera/historial.json
-          if git diff --cached --quiet; then
-            echo "Sin cambios"
-          else
-            git commit -m "Cartera $(TZ=America/Argentina/Buenos_Aires date +'%d/%m %H:%M')"
-            for i in 1 2 3; do
-              git pull --rebase && git push && break
-              sleep 10
-            done
+            UNA_VEZ=1 bash scripts/ciclo.sh "python scripts/update_cartera.py" "Cartera" $RUTAS
           fi
