@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-27T16:57-03:00",
+ "actualizado": "2026-11-27T17:13-03:00",
  "items": {
   "cobre": {
    "nombre": "Cobre",
@@ -413,7 +413,7 @@
    "nombre": "Petróleo Brent",
    "unidad": "US$/barril",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 90.76,
+   "valor": 90.84,
    "anterior": 94.61,
    "var_pct": null,
    "mm50": 102.17,
@@ -542,7 +542,7 @@
     89.37,
     91.4,
     94.61,
-    90.76
+    90.84
    ],
    "nota": "Hoy cambió el contrato de futuros de referencia: la variación del día no es comparable."
   },
@@ -1526,12 +1526,12 @@
    "nombre": "Merval",
    "unidad": "puntos (MSCI, base 100.000)",
    "fuente": "Rava (MSCI Merval) + historia S&P reescalada",
-   "valor": 83765.0,
+   "valor": 83699.0,
    "anterior": 84358.0,
-   "var_pct": -0.7,
+   "var_pct": -0.78,
    "mm50": null,
    "mm200": null,
-   "prom_anio": 89285.0,
+   "prom_anio": 89282.0,
    "max52": 102278.0,
    "min52": 81146.0,
    "fecha": "2026-11-27",
@@ -1563,19 +1563,19 @@
     81261.0,
     81643.0,
     84358.0,
-    83765.0
+    83699.0
    ]
   },
   "bovespa": {
    "nombre": "Ibovespa",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 177276.0,
+   "valor": 177505.0,
    "anterior": 176800.0,
-   "var_pct": 0.27,
-   "mm50": 184228.0,
-   "mm200": 180821.0,
-   "prom_anio": 179831.0,
+   "var_pct": 0.4,
+   "mm50": 184232.0,
+   "mm200": 180822.0,
+   "prom_anio": 179832.0,
    "max52": 209067.0,
    "min52": 154770.0,
    "fecha": "2026-11-27",
@@ -1699,7 +1699,7 @@
     164090.0,
     166685.0,
     176800.0,
-    177276.0
+    177505.0
    ]
   },
   "ipsa": {
@@ -1978,7 +1978,7 @@
    "nombre": "Índice dólar (DXY)",
    "unidad": "puntos",
    "fuente": "Yahoo Finance (demora ~15 min)",
-   "valor": 104.03,
+   "valor": 104.04,
    "anterior": 103.67,
    "var_pct": 0.35,
    "mm50": 102.21,
@@ -2107,7 +2107,7 @@
     104.32,
     103.81,
     103.67,
-    104.03
+    104.04
    ]
   },
   "ust10": {
@@ -2793,18 +2793,18 @@
     1625.0
    ],
    "compra": 1575.0,
-   "actualizado": "2026-11-27T16:00:00.000Z"
+   "actualizado": "2026-11-27T17:00:00.000Z"
   },
   "mep": {
    "nombre": "Dólar MEP",
    "unidad": "$ por US$",
    "fuente": "dolarapi.com / argentinadatos.com",
-   "valor": 1658.5,
+   "valor": 1661.9,
    "anterior": 1666.4,
-   "var_pct": -0.47,
-   "mm50": 1580.32,
-   "mm200": 1501.45,
-   "prom_anio": 1495.01,
+   "var_pct": -0.27,
+   "mm50": 1580.39,
+   "mm200": 1501.46,
+   "prom_anio": 1495.02,
    "max52": 1743.1,
    "min52": 1396.5,
    "fecha": "2026-11-27",
@@ -2928,19 +2928,19 @@
     1695.1,
     1688.7,
     1666.4,
-    1658.5
+    1661.9
    ],
-   "compra": 1656.9,
-   "actualizado": "2026-11-27T18:59:00.000Z"
+   "compra": 1647.9,
+   "actualizado": "2026-11-27T19:59:00.000Z"
   },
   "ccl": {
    "nombre": "Dólar CCL",
    "unidad": "$ por US$",
    "fuente": "dolarapi.com / argentinadatos.com",
-   "valor": 1751.5,
+   "valor": 1751.3,
    "anterior": 1767.9,
-   "var_pct": -0.93,
-   "mm50": 1659.82,
+   "var_pct": -0.94,
+   "mm50": 1659.81,
    "mm200": 1558.76,
    "prom_anio": 1549.47,
    "max52": 1806.2,
@@ -3066,10 +3066,10 @@
     1797.1,
     1767.9,
     1767.9,
-    1751.5
+    1751.3
    ],
-   "compra": 1750.3,
-   "actualizado": "2026-11-27T18:59:00.000Z"
+   "compra": 1748.3,
+   "actualizado": "2026-11-27T19:59:00.000Z"
   },
   "mayorista": {
    "nombre": "Dólar mayorista",
@@ -3215,7 +3215,7 @@
    "fuente": "Cálculo propio",
    "valor": 7.8,
    "anterior": 8.8,
-   "var_pct": -11.48,
+   "var_pct": -11.62,
    "mm50": 6.4,
    "mm200": 4.8,
    "prom_anio": 4.5,
@@ -3677,9 +3677,9 @@
    "nombre": "Merval en dólares",
    "unidad": "puntos US$ (CCL)",
    "fuente": "Cálculo propio: Merval / CCL",
-   "valor": 47.82,
+   "valor": 47.79,
    "anterior": 47.72,
-   "var_pct": 0.23,
+   "var_pct": 0.16,
    "mm50": null,
    "mm200": null,
    "prom_anio": 53.08,
@@ -3714,7 +3714,7 @@
     45.22,
     46.18,
     47.72,
-    47.82
+    47.79
    ]
   },
   "riesgo_br": {
@@ -3747,6 +3747,6 @@
  },
  "errores": [
   "IPSA: Yahoo no tiene el índice actualizado con ningún código conocido; se muestra el ETF ECH (en US$)",
-  "Peso chileno (mindicador): HTTPSConnectionPool(host='mindicador.cl', port=443): Read timed out. (read timeout=60); se usa Yahoo"
+  "Peso chileno (mindicador): 500 Server Error: Internal Server Error for url: https://mindicador.cl/api/dolar/2025; se usa Yahoo"
  ]
 }
