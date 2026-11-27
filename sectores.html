@@ -20,7 +20,7 @@
   --f-data: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
   :root {
     --bg: #0D1724; --surface: #142131; --sunken: #111C2A; --ink: #E3ECF5; --muted: #93A6BA; --line: #26374B;
     --accent: #6FB2E6; --brand: #8DBDEB; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A; --grid: #1E2D3F;
@@ -50,7 +50,7 @@ header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-cont
 nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
 nav.tabs a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 5px; }
 nav.tabs a[aria-current="page"] { background: var(--brand); color: #fff; }
-@media (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
+@media screen and (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
 
 .controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
 .seg { display: inline-flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
@@ -182,6 +182,23 @@ details.sec-card > summary .res { font-family: var(--f-data); font-size: 13px; }
 details.sec-card .body { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 10px; }
 .spark-y { display: inline-block; vertical-align: middle; }
 .pill-src { font-size: 11px; color: var(--muted); }
+.exp-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn-exp { font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 12px; border-radius: 6px; cursor: pointer; }
+.btn-exp:disabled { opacity: .5; }
+.print-only { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 8mm; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; font-size: 11px; }
+  .wrap { max-width: none; gap: 10px; }
+  nav.tabs, .exp-row, details.avisos { display: none !important; }
+  .print-only { display: block; font-size: 11px; color: var(--muted); }
+  .scroll { overflow: visible !important; }
+  details.sec-card, .bar-row, tr { break-inside: avoid; }
+  .sec-head, h2 { break-after: avoid; }
+  table.t { font-size: 9.5px; }
+  details.sec-card > summary::-webkit-details-marker { display: none; }
+}
 </style>
 </head>
 <body>
@@ -201,7 +218,10 @@ details.sec-card .body { padding: 0 14px 14px; display: flex; flex-direction: co
     </nav>
   </header>
 
-  <p class="note" id="txtFecha">Cargando…</p>
+  <div class="exp-row"><p class="note" id="txtFecha" style="margin:0;flex:1">Cargando…</p>
+    <button type="button" class="btn-exp" id="btnXls">Exportar a Excel</button>
+    <button type="button" class="btn-exp" id="btnPdf" title="Abre la impresión: elegí «Guardar como PDF»">PDF</button></div>
+  <p class="print-only" id="emitido"></p>
   <div class="banner" id="banner" hidden></div>
   <main id="main" style="display:flex;flex-direction:column;gap:26px"></main>
 
@@ -218,6 +238,7 @@ details.sec-card .body { padding: 0 14px 14px; display: flex; flex-direction: co
   </section>
 </div>
 
+<script src="assets/exportar.js"></script>
 <script>
 (function () {
   "use strict";
@@ -329,6 +350,37 @@ details.sec-card .body { padding: 0 14px 14px; display: flex; flex-direction: co
     const ul = $("#avisosList"); ul.textContent = "";
     e.forEach(x => { const li = document.createElement("li"); li.textContent = x; ul.appendChild(li); });
   }
+
+  // ---------- Exportar ----------
+  const fechaEmision = () => new Date().toLocaleString("es-AR", { dateStyle: "long", timeStyle: "short" });
+  $("#btnXls").addEventListener("click", async () => {
+    const X = window.Exportar, btn = $("#btnXls"); if (!D) return; btn.disabled = true;
+    try {
+      const enc = [["Estudio Cisneros · Valuación por sector (S&P 500)"], ["Emitido el " + fechaEmision()], [$("#txtFecha").textContent], []];
+      const prima = enc.concat([["Sector", "Prima o descuento vs promedio 10 años", "Zona"]],
+        (D.sectores || []).filter(x => x.dif_prom != null).sort((a, b) => b.dif_prom - a.dif_prom)
+          .map(x => [x.sector, { v: x.dif_prom / 100, t: "n", z: "0.0%" }, x.zona || ""]));
+      const resumen = enc.concat(X.tabla(document.querySelector("#main section:nth-of-type(2) table"), "Resumen de los 11 sectores"));
+      let det = enc.slice();
+      document.querySelectorAll("details.sec-card").forEach(d => {
+        const nm = d.querySelector(".nm").innerText, etf = d.querySelector(".etf").innerText, res = d.querySelector(".res").innerText;
+        det = det.concat(X.tabla(d.querySelector("table"), `${nm} (${etf}) · ${res} contra su historia`), [[]]);
+      });
+      await X.excel(`Sectores_SP500_${X.hoy()}.xlsx`, [{ nombre: "Prima o descuento", filas: prima }, { nombre: "Resumen", filas: resumen }, { nombre: "Detalle por sector", filas: det }]);
+    } catch (e) { $("#banner").hidden = false; $("#banner").textContent = e.message; }
+    finally { btn.disabled = false; }
+  });
+  let abiertos = [];
+  window.addEventListener("beforeprint", () => {
+    abiertos = [...document.querySelectorAll("details.sec-card")].map(d => d.open);
+    document.querySelectorAll("details.sec-card").forEach(d => { d.open = true; });
+  });
+  window.addEventListener("afterprint", () => { document.querySelectorAll("details.sec-card").forEach((d, i) => { d.open = !!abiertos[i]; }); });
+  $("#btnPdf").addEventListener("click", () => {
+    $("#emitido").textContent = "Emitido el " + fechaEmision();
+    const d = new Date();
+    window.Exportar.pdf(`Sectores S&P 500 ${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`);
+  });
 
   fetch("data/sectores/actual.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null).then(d => {
     D = d;

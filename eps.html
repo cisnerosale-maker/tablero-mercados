@@ -19,7 +19,7 @@
   --f-data: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
   :root {
     --bg: #0D1724; --surface: #142131; --sunken: #111C2A; --ink: #E3ECF5; --muted: #93A6BA; --line: #26374B;
     --accent: #6FB2E6; --brand: #8DBDEB; --up: #5CC795; --down: #F27B6F; --warn: #F0A43A;
@@ -47,7 +47,7 @@ header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-cont
 nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
 nav.tabs a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 6px 12px; border-radius: 5px; }
 nav.tabs a[aria-current="page"] { background: var(--brand); color: #fff; }
-@media (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
+@media screen and (prefers-color-scheme: dark) { nav.tabs a[aria-current="page"] { color: #0D1724; } }
 
 .controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
 .seg { display: inline-flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
@@ -105,6 +105,26 @@ table.crec td small { display: block; font-size: 10.5px; color: var(--muted); fo
 table.crec td.tk { font-family: var(--f-body); font-weight: 600; position: sticky; left: 0; background: var(--surface); z-index: 1; }
 table.crec th:first-child { position: sticky; left: 0; background: var(--surface); z-index: 1; }
 table.crec td.tk small { font-weight: 400; max-width: 170px; overflow: hidden; text-overflow: ellipsis; }
+.btn-exp { font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 12px; border-radius: 6px; cursor: pointer; }
+.btn-exp:disabled { opacity: .5; }
+.print-only { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 8mm; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; padding: 0; font-size: 11px; }
+  .wrap { max-width: none; gap: 10px; }
+  nav.tabs, .controls, .crec-top, details.avisos, .tip, .no-print { display: none !important; }
+  .print-only { display: block; font-size: 11px; color: var(--muted); }
+  .card { box-shadow: none; }
+  .kpi, .chart, .leg, h3 { break-inside: avoid; }
+  h3 { break-after: avoid; }
+  .scroll, .crec-wrap { overflow: visible !important; max-height: none !important; }
+  table.crec { font-size: 7.4px; }
+  table.crec th, table.crec td { padding: 2px 3px; }
+  table.crec th, table.crec td.tk { position: static; }
+  table.crec tr { break-inside: avoid; }
+  .chart svg { max-width: 100%; }
+}
 .crec-wrap { overflow: auto; -webkit-overflow-scrolling: touch; max-height: 78vh; }
 .crec-top { overflow-x: auto; overflow-y: hidden; height: 18px; background: var(--sunken); border: 1px solid var(--line); border-radius: 6px; }
 .crec-top::-webkit-scrollbar, .crec-wrap::-webkit-scrollbar { height: 12px; }
@@ -155,6 +175,9 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
         <option value="p5">Promedio 5 años</option>
         <option value="rev">Revisión de estimaciones</option>
       </select></label>
+    <span style="flex:1"></span>
+    <button type="button" class="btn-exp" id="btnXls">Exportar a Excel</button>
+    <button type="button" class="btn-exp" id="btnPdf" title="Abre la impresión: elegí «Guardar como PDF»">PDF</button>
     <div class="seg" id="selModo" role="group" aria-label="Período">
       <button type="button" data-modo="anual" aria-pressed="true">Anual</button>
       <button type="button" data-modo="trim" aria-pressed="false">Trimestral <small>(LTM)</small></button>
@@ -162,6 +185,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   </div>
 
   <div class="banner" id="banner" hidden></div>
+  <p class="print-only" id="emitido"></p>
   <main id="main" style="display:flex;flex-direction:column;gap:18px"></main>
 
   <details class="avisos" id="avisos" hidden><summary>Avisos de la última actualización</summary><ul id="avisosList"></ul></details>
@@ -175,6 +199,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
   </p>
 </div>
 
+<script src="assets/exportar.js"></script>
 <script>
 (function () {
   "use strict";
@@ -548,9 +573,9 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       if (n < k + 1 || !last) return null;
       const a = histC[n - 1 - k];
       const v = cagr(a.eps, last.eps, k);
-      return { v, ns: v == null, desde: a.fin, k };
+      return { v, ns: v == null, desde: a.fin, k, ult: last.fin };
     };
-    const largo = n >= 2 ? { v: cagr(histC[0].eps, last.eps, n - 1), ns: !(histC[0].eps > 0 && last.eps > 0), desde: histC[0].fin, k: n - 1 } : null;
+    const largo = n >= 2 ? { v: cagr(histC[0].eps, last.eps, n - 1), ns: !(histC[0].eps > 0 && last.eps > 0), desde: histC[0].fin, k: n - 1, ult: last.fin } : null;
     let caidas = 0; for (let i = 1; i < hist.length; i++) if (hist[i].eps < hist[i - 1].eps) caidas++;
     const out = { t, e, ars, hist, histC, largo, p5: prom(5), p3: prom(3), caidas, nh: hist.length };
     if (!e) return out;
@@ -568,7 +593,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     const ult = out.est[Math.min(2, out.est.length - 1)];
     if (e.real && ult) {
       const yrs = Math.round((new Date(ult.fin) - new Date(e.real.fin)) / (365.25 * 864e5));
-      out.fut = { v: cagr(e.real.eps_ajustado, ult.eps, yrs), ns: !(e.real.eps_ajustado > 0 && ult.eps > 0), k: yrs, hasta: ult.fin };
+      out.fut = { v: cagr(e.real.eps_ajustado, ult.eps, yrs), ns: !(e.real.eps_ajustado > 0 && ult.eps > 0), k: yrs, hasta: ult.fin, desde: e.real.fin };
     }
     if (e.real && e.real.eps_gaap) out.gap = e.real.eps_ajustado / e.real.eps_gaap - 1;
     // P/E hoy sobre cada año estimado: P/E NTM de TIKR movido con el precio, llevado a cada año
@@ -610,14 +635,14 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     const pc = (o, conAnios) => {
       if (!o) return '<td class="muted">—</td>';
       if (o.ns) return `<td class="muted" title="Sin promedio: EPS negativo o cero al inicio o al final">n/s</td>`;
-      return `<td class="${cls(o.v)}">${pct(o.v)}${conAnios ? `<small>${o.k} años</small>` : ""}</td>`;
+      return `<td class="${cls(o.v)}" title="Crecimiento anual compuesto ${anioFY(o.desde)}→${anioFY(lastFin(o))}">${pct(o.v)}<small>${anioFY(o.desde)}→${anioFY(lastFin(o))}</small></td>`;
     };
-    const ultFut = r => r.c.fut;
+    const lastFin = o => o.hasta || o.ult;
     let h = `<thead><tr><th>Empresa</th>${yrs.map(y => {
       const esE = filas.some(r => (r.c.est || []).some(x => anioFY(x.fin) === y)) && !filas.some(r => r.c.hist.some(x => anioFY(x.fin) === y));
       return `<th class="${esE ? "e" : ""}">${y}${esE ? "e" : ""}</th>`;
-    }).join("")}<th class="sep">Prom. largo</th><th>Prom. 5 años</th><th>Prom. 3 años</th><th title="Años en que el EPS bajó respecto del anterior">Años con caída</th>
-      <th class="sep" title="EPS ajustado (base del consenso) del último ejercicio cerrado y su diferencia con el contable">EPS ajust. último</th><th title="Del EPS ajustado del último ejercicio a la última estimación">Prom. futuro</th>
+    }).join("")}<th class="sep" title="Crecimiento anual compuesto (CAGR) desde el primer año cargado">Prom. largo<br>anual</th><th title="CAGR de los últimos 5 ejercicios">Prom. 5 años<br>anual</th><th title="CAGR de los últimos 3 ejercicios">Prom. 3 años<br>anual</th><th title="Años en que el EPS bajó respecto del anterior">Años con caída</th>
+      <th class="sep" title="EPS ajustado (base del consenso) del último ejercicio cerrado y su diferencia con el contable">EPS ajust. último</th><th title="CAGR anual del EPS ajustado: del último ejercicio cerrado al tercer año estimado">Prom. futuro<br>anual</th>
       <th>P/E 2.º año e</th><th>P/E 3.er año e</th><th title="P/E NTM ÷ promedio futuro (en puntos)">PEG</th><th title="Cambio del consenso del año siguiente en ~90 días">Revisión</th></tr></thead><tbody>`;
     for (const { a, c } of filas) {
       const porAnio = {};
@@ -626,7 +651,7 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
       const celdas = yrs.map(y => { const p = porAnio[y]; if (!p) return "<td></td>";
         return `<td class="${p.e ? "e" : ""}" title="${esc(dmy(p.fin))}${p.e ? ` · consenso ${p.base}` + (p.base === "contable" ? ` (ajustado: ${fE(p.aj, c.ars)})` : "") + (p.n ? `, ${p.n} analistas` : "") : ""}">${fE(p.v, c.ars)}${p.e ? "e" : ""}${p.e && p.n != null && p.n < 3 ? '<small class="warn" title="Menos de 3 analistas">pocos anal.</small>' : ""}</td>`; }).join("");
       const e2 = c.est && c.est[1], e3 = c.est && c.est[2];
-      const futTxt = c.fut ? (c.fut.ns ? '<td class="muted">n/s</td>' : `<td class="${c.fut.v >= 0.15 ? "ok15" : cls(c.fut.v)}">${pct(c.fut.v)}<small>${c.fut.k} años${c.ars ? " US$" : ""}</small></td>`) : '<td class="muted">—</td>';
+      const futTxt = c.fut ? (c.fut.ns ? '<td class="muted">n/s</td>' : `<td class="${c.fut.v >= 0.15 ? "ok15" : cls(c.fut.v)}" title="Crecimiento anual compuesto del EPS ajustado, de ${anioFY(c.fut.desde)} (real) a ${anioFY(c.fut.hasta)} (estimado), ${c.fut.k} años">${pct(c.fut.v)}<small>${anioFY(c.fut.desde)}→${anioFY(c.fut.hasta)}e${c.ars ? " US$" : ""}</small></td>`) : '<td class="muted">—</td>';
       const gap = c.gap != null && isFinite(c.gap) ? `<small title="Diferencia con el EPS contable">${c.gap >= 0 ? "+" : ""}${fmt(c.gap * 100, 0)}% vs cont.</small>` : "";
       const peC = x => x && x.pe ? `<td>${fmt(x.pe, 1)}x<small>${anioFY(x.fin)}</small></td>` : '<td class="muted">—</td>';
       const tags = [c.ars ? '<span class="tag warn">ARS</span>' : "", a.revisar && !c.ars && !(c.e && c.e.historia_override) ? '<span class="tag warn" title="' + esc(a.revisar) + '">revisar</span>' : "",
@@ -641,8 +666,8 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     $("main").innerHTML = `<div class="crec-top" id="crecTop" aria-hidden="true" title="Desplazar la tabla"><div></div></div>
       <section class="card"><h3>Crecimiento del EPS: historia y estimaciones</h3>
       <div class="crec-wrap" id="crecWrap"><table class="t crec">${h}</table></div>
-      <p class="note"><b>Cómo leerla.</b> Años sin "e": EPS diluido contable (GAAP), el mismo de los gráficos. Años con "e": consenso de analistas sobre EPS contable, en las mismas unidades que la historia (pasando el mouse se ve también el ajustado). Los promedios son crecimiento anual compuesto (CAGR): el largo va desde el primer año cargado hasta el último cerrado; el de 5 y 3 años, desde 5 y 3 ejercicios antes. "n/s": no se puede calcular porque el EPS es negativo o cero en una punta.
-      El <b>promedio futuro</b> va del EPS ajustado del último ejercicio cerrado a la última estimación, los dos en la base del consenso; en verde, los que llegan al 15% anual. P/E 2.º y 3.er año: el precio de hoy sobre el EPS estimado de esos ejercicios. PEG: P/E de los próximos 12 meses dividido por el promedio futuro (menos de 1, crecimiento barato).
+      <p class="note"><b>Cómo leerla.</b> Años sin "e": EPS diluido contable (GAAP), el mismo de los gráficos. Años con "e": consenso de analistas sobre EPS contable, en las mismas unidades que la historia (pasando el mouse se ve también el ajustado). Todos los promedios son crecimiento <b>anual</b> compuesto (CAGR), no total; debajo de cada uno figuran los años que abarca. El largo va desde el primer año cargado hasta el último cerrado; el de 5 y 3 años, desde 5 y 3 ejercicios antes. "n/s": no se puede calcular porque el EPS es negativo o cero en una punta.
+      El <b>promedio futuro</b> es el crecimiento <b>anual</b> compuesto del EPS ajustado desde el último ejercicio cerrado hasta el tercer año estimado (por ejemplo, 2025→2028e son 3 años; debajo de cada valor figuran los años que abarca), los dos en la base del consenso; en verde, los que llegan al 15% anual. P/E 2.º y 3.er año: el precio de hoy sobre el EPS estimado de esos ejercicios. PEG: P/E de los próximos 12 meses dividido por el promedio futuro (menos de 1, crecimiento barato).
       Revisión: cuánto cambió el consenso del año siguiente en los últimos ~90 días (se arma con las fotos semanales; las primeras semanas no hay dato).
       <b>BMA y GGAL</b>: EPS en <b>pesos argentinos</b> por acción local; los promedios históricos se calculan en dólares (EPS ÷ dólar oficial de cada cierre) y el futuro con las estimaciones en dólares, así no se mezcla la inflación; los años estimados se muestran en pesos al dólar de 2025. <b>YPF</b>: en dólares por acción, porque lleva su contabilidad en dólares.
       Ejercicios que cierran en enero o febrero se cuentan en el año anterior. La barra de arriba de la tabla también la desplaza. Fuentes: TIKR (carga inicial y tercer año) y Yahoo Finance (actualización semanal).${faltan.length ? ` Sin estimaciones cargadas: ${esc(faltan.join(", "))}.` : ""}</p></section>`;
@@ -657,6 +682,45 @@ details.avisos ul { margin: 6px 0 0; padding-left: 18px; }
     top.onscroll = () => { if (lock) return; lock = true; wr.scrollLeft = top.scrollLeft; lock = false; };
     wr.onscroll = () => { if (lock) return; lock = true; top.scrollLeft = wr.scrollLeft; lock = false; };
   }
+
+  // ---------- Exportar ----------
+  const fechaEmision = () => new Date().toLocaleString("es-AR", { dateStyle: "long", timeStyle: "short" });
+  async function exportarExcel() {
+    const X = window.Exportar, btn = $("btnXls"); btn.disabled = true;
+    try {
+      const enc = [["Estudio Cisneros · Tablero de Mercados"], ["Emitido el " + fechaEmision()], []];
+      if (vista === "crec") {
+        const filas = enc.concat(X.tabla(document.querySelector("table.crec"), "Crecimiento del EPS: historia y estimaciones"));
+        const nota = document.querySelector("#main .note"); if (nota) filas.push([], [nota.innerText]);
+        await X.excel(`Crecimiento_EPS_${X.hoy()}.xlsx`, [{ nombre: "Crecimiento", filas }]);
+      } else {
+        const a = LISTA.find(x => x.ticker === tk) || {};
+        const res = enc.concat([[`${tk} · ${a.nombre || ""}`], [`Vista: ${modo === "anual" ? "anual" : "trimestral (LTM)"}`], []]);
+        document.querySelectorAll("#main .kpi").forEach(k => {
+          const v = X.textos(k.querySelector(".v") || k).t;
+          const nv = X.valor(v);
+          res.push([k.querySelector(".k") ? k.querySelector(".k").innerText : "", nv ? { v: nv.v, t: "n", z: nv.z } : v, k.querySelector(".s") ? k.querySelector(".s").innerText : ""]);
+        });
+        const hojas = [{ nombre: "Resumen", filas: res }];
+        document.querySelectorAll("#main section.card").forEach(sec => {
+          const tb = sec.querySelectorAll("table"); if (!tb.length) return;
+          const tit = (sec.querySelector("h3") || {}).innerText || "Tabla";
+          let filas = [];
+          tb.forEach(t => { filas = filas.concat(X.tabla(t), [[]]); });
+          hojas.push({ nombre: tit.replace(/[¿?]/g, "").slice(0, 28), filas: [[`${tk} · ${tit}`], []].concat(filas) });
+        });
+        await X.excel(`PrecioVsEPS_${tk}_${modo}_${X.hoy()}.xlsx`, hojas);
+      }
+    } catch (e) { alertaSuave(e.message); }
+    finally { btn.disabled = false; }
+  }
+  function alertaSuave(m) { const b = document.createElement("div"); b.className = "banner"; b.textContent = m; $("main").prepend(b); setTimeout(() => b.remove(), 6000); }
+  $("btnXls").addEventListener("click", exportarExcel);
+  $("btnPdf").addEventListener("click", () => {
+    $("emitido").textContent = "Emitido el " + fechaEmision() + (vista === "crec" ? " · Crecimiento del EPS (todas)" : ` · ${tk} · vista ${modo === "anual" ? "anual" : "trimestral"}`);
+    const d = new Date(), f = `${String(d.getDate()).padStart(2, "0")}-${String(d.getMonth() + 1).padStart(2, "0")}-${d.getFullYear()}`;
+    window.Exportar.pdf(vista === "crec" ? `Crecimiento EPS ${f}` : `Precio vs EPS ${tk} ${f}`);
+  });
 
   function renderSelector() {
     $("selEmpresa").innerHTML = [...LISTA].sort((a, b) => a.ticker < b.ticker ? -1 : 1)
