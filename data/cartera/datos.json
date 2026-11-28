@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-27T20:35-03:00",
+ "actualizado": "2026-11-27T21:44-03:00",
  "fund_actualizado": "2026-11-27T11:58-03:00",
  "dolar": {
   "mep": 1661.9,
@@ -135,14 +135,9 @@
   },
   "US:META": {
    "moneda": "USD",
-   "precio": 628.960022,
-   "fecha": "2026-11-27",
-   "ant": 609.890015,
-   "p30": 612.48999,
-   "f30": "2026-10-28",
-   "panio": 660.090027,
-   "fanio": "2025-12-31",
-   "fuente": "Yahoo Finance"
+   "panio": 609.890015,
+   "fanio": "2026-11-26",
+   "base_propia": true
   },
   "US:ONON": {
    "moneda": "USD",
@@ -1666,7 +1661,9 @@
   }
  },
  "manual": {},
- "avisos": [],
+ "avisos": [
+  "META: sin cotización"
+ ],
  "diagnostico": {
   "fci_iol_n": 23,
   "fci_cafci": "Expecting value: line 1 column 1 (char 0)"
