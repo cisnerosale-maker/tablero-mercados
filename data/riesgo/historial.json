@@ -328,6 +328,88 @@
      ]
     }
    }
+  },
+  "2026-11-28": {
+   "eeuu": {
+    "fecha_datos": "2026-11-27",
+    "val": 62.1,
+    "sen": 39.7,
+    "postura": "Normal",
+    "ind": {
+     "pe_fwd": [
+      17.39,
+      43.1
+     ],
+     "erp": [
+      2.96,
+      76.7
+     ],
+     "cape": [
+      38.53,
+      89.7
+     ],
+     "concentracion": [
+      -8.22,
+      41.0
+     ],
+     "amplitud": [
+      62.32,
+      27.9
+     ],
+     "tendencia": [
+      -6.67,
+      65.0
+     ],
+     "credito": [
+      -3.5,
+      56.1
+     ],
+     "volatilidad": [
+      23.81,
+      56.8
+     ],
+     "revisiones": [
+      2.399,
+      0.0
+     ]
+    }
+   },
+   "argentina": {
+    "fecha_datos": "2026-11-27",
+    "val": 69.3,
+    "sen": 79.9,
+    "postura": "Reducir exposición",
+    "ind": {
+     "merval_usd": [
+      2014.72,
+      83.8
+     ],
+     "rp_nivel": [
+      960.0,
+      42.5
+     ],
+     "rp_cambio": [
+      459.0,
+      96.9
+     ],
+     "merval_tend": [
+      -40.9,
+      100.0
+     ],
+     "reservas": [
+      -2113.0,
+      66.1
+     ],
+     "tcr": [
+      85.42,
+      89.6
+     ],
+     "brecha": [
+      8.79,
+      27.0
+     ]
+    }
+   }
   }
  }
 }
